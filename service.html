@@ -146,46 +146,6 @@
   </div>
 </section>
 
-<!-- 自分でたしかめる -->
-<section class="tryit" id="route-check">
-  <div class="in">
-    <div class="fig" data-rise="0">
-      <svg viewBox="0 0 400 282" role="img" aria-label="玄関の幅を変えると、冷蔵庫が通るかどうかが変わる図">
-        <rect width="400" height="282" fill="#fff"/>
-        <text class="dim-text" x="200" y="24" text-anchor="middle">冷蔵庫 68cm ／ 手と養生に 72cm 要ります</text>
-        <!-- 冷蔵庫（壁の下に描く） -->
-        <rect class="fridge-box" x="145.6" y="92" width="108.8" height="138" rx="3"/>
-        <line x1="145.6" y1="136" x2="254.4" y2="136" stroke="#0B4F6C" stroke-width="1.5" opacity=".45"/>
-        <!-- 壁。冷蔵庫の上に重なる -->
-        <rect id="door-l" x="70" y="60" width="14" height="170" fill="#E7E1D8"/>
-        <rect id="door-r" x="316" y="60" width="14" height="170" fill="#E7E1D8"/>
-        <rect x="0" y="60" width="70" height="170" fill="#F2EEE7"/>
-        <rect x="330" y="60" width="70" height="170" fill="#F2EEE7"/>
-        <path class="frame-line" d="M0 60 H400"/>
-        <line x1="0" y1="230" x2="400" y2="230" stroke="#DFD9D0" stroke-width="2"/>
-        <!-- 必要な幅。壁の上に描くので、はみ出したら見える -->
-        <rect id="need-box" x="142.4" y="88" width="115.2" height="146" rx="3" fill="none"
-              stroke="#67727E" stroke-width="1.5" stroke-dasharray="5 4"/>
-        <!-- 寸法 -->
-        <line id="dim-w" class="dim-line" x1="84" y1="252" x2="316" y2="252"/>
-        <text id="dim-t" class="dim-text" x="200" y="270" text-anchor="middle">80 cm</text>
-      </svg>
-    </div>
-    <div>
-      <p class="en" data-rise="0">やってみる</p>
-      <h2 data-rise="0">運ぶ前に、<br>通り道を見ます。</h2>
-      <p class="note" data-rise="0">冷蔵庫は年々大きく、重くなっています。玄関の幅を動かしてみてください。入るか入らないかは、現場に着く前に分かります。</p>
-      <div class="ctl" data-rise="0">
-        <label for="doorw">玄関の有効幅</label>
-        <p class="val">80 cm</p>
-        <input id="doorw" type="range" min="55" max="110" step="1" value="80" aria-describedby="verdict">
-        <p class="verdict ok" id="verdict" role="status" aria-live="polite"></p>
-      </div>
-    </div>
-    <p class="next" data-rise="0"><a href="contact.html?kind=haiso">この配送・設置について相談する</a></p>
-  </div>
-</section>
-
 <section class="sec" id="furniture">
   <div class="wrap">
     <p class="en" data-rise="0">02 ／ FURNITURE</p>
@@ -253,7 +213,6 @@
   <a href="business.html#flow"><p class="k">次を見る</p><p class="t">ご依頼の流れ</p></a>
   <a href="about.html#urayasu"><p class="k">倉庫・拠点</p><p class="t">対応エリア</p></a>
 </div></div>
-
 
 <section class="cta">
   <img src="img/S1_工事.webp" alt="" aria-hidden="true" loading="lazy" width="1600" height="1073">

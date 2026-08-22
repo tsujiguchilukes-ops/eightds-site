@@ -241,48 +241,6 @@
   if (reduce && head) head.classList.remove('tucked');
 })();
 
-/* ---- 10. 自分でたしかめる場所：搬入経路 ---- */
-(function () {
-  var box = document.querySelector('.tryit');
-  if (!box) return;
-  var range = box.querySelector('input[type=range]');
-  var val = box.querySelector('.val');
-  var verdict = box.querySelector('.verdict');
-  var doorL = box.querySelector('#door-l');
-  var doorR = box.querySelector('#door-r');
-  var outL = box.querySelectorAll('rect[fill="#F2EEE7"]')[0];
-  var outR = box.querySelectorAll('rect[fill="#F2EEE7"]')[1];
-  var need = box.querySelector('#need-box');
-  var dimW = box.querySelector('#dim-w');
-  var dimTxt = box.querySelector('#dim-t');
-  var NEED = 72;                                  // 冷蔵庫68cm＋養生と手の4cm
-  var CX = 200;                                   // 図の中心
-
-  function apply(w) {
-    var half = w * 1.6 / 2;                       // 1cm = 1.6px で描く
-    doorL.setAttribute('x', (CX - half - 14).toFixed(1));
-    doorR.setAttribute('x', (CX + half).toFixed(1));
-    outL.setAttribute('width', Math.max(0, CX - half - 14).toFixed(1));
-    outR.setAttribute('x', (CX + half + 14).toFixed(1));
-    outR.setAttribute('width', Math.max(0, 400 - (CX + half + 14)).toFixed(1));
-    dimW.setAttribute('x1', (CX - half).toFixed(1));
-    dimW.setAttribute('x2', (CX + half).toFixed(1));
-    dimTxt.setAttribute('x', CX);
-    dimTxt.textContent = w + ' cm';
-    val.textContent = w + ' cm';
-    var ok = w >= NEED;
-    box.classList.toggle('ng', !ok);
-    need.setAttribute('stroke', ok ? '#67727E' : '#C9531F');
-    need.setAttribute('stroke-width', ok ? '1.5' : '2.5');
-    verdict.className = 'verdict ' + (ok ? 'ok' : 'ng');
-    verdict.innerHTML = ok
-      ? '通ります。<span>冷蔵庫の幅は68cm。手と養生のぶんに、あと4cm要ります。</span>'
-      : '入りません。<span>この場合は、無理に入れずにその場でお伝えします。クレーン作業（有料）でのご提案になります。</span>';
-  }
-  range.addEventListener('input', function () { apply(+range.value); });
-  apply(+range.value);
-})();
-
 /* ---- 11. 一番上でさらに上へ引くと、トップの映像に戻る ----
    下層ページで「戻り方が分からない」を消す。引ききった時だけ動く。 */
 (function () {

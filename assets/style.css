@@ -544,30 +544,11 @@ html[data-soar] body{opacity:0}
 .head.tucked{transform:translateY(-104%)}
 
 /* 一つだけ置く「自分でやってみる」場所：搬入経路をたしかめる */
-.tryit{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.tryit .in{max-width:var(--max);margin:0 auto;padding:120px 40px;
-  display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
-.tryit .fig{position:relative;background:var(--white);border:1px solid var(--line);padding:40px}
-.tryit svg{width:100%;height:auto;display:block}
-.tryit .ctl{margin-top:32px}
-.tryit label{display:block;font-size:14px;letter-spacing:.14em;color:var(--sub)}
-.tryit .val{font-size:28px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;
-  letter-spacing:.02em;margin-top:4px}
-.tryit input[type=range]{width:100%;margin-top:16px;accent-color:var(--brand);height:28px}
-.tryit .verdict{margin-top:24px;font-size:18px;font-weight:700;line-height:1.8;min-height:3.6em;
-  transition:color .3s var(--ease)}
-.tryit .verdict.ok{color:var(--brand)}
-.tryit .verdict.ng{color:var(--accent)}
-.tryit .verdict span{display:block;font-size:16px;font-weight:400;color:var(--sub);margin-top:8px}
 .frame-line{stroke:var(--brand);stroke-width:2.5;fill:none;transition:stroke .3s var(--ease)}
 .fridge-box{fill:#D9E4EA;stroke:var(--brand);stroke-width:2;transition:fill .3s var(--ease),stroke .3s var(--ease)}
-.tryit.ng .frame-line{stroke:var(--accent)}
-.tryit.ng .fridge-box{fill:#F3DED4;stroke:var(--accent)}
 .dim-line{stroke:var(--sub);stroke-width:1;stroke-dasharray:3 3}
 .dim-text{font-size:13px;fill:var(--sub);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 @media(max-width:900px){
-  .tryit .in{grid-template-columns:1fr;gap:32px;padding:64px 24px}
-  .tryit .fig{padding:24px}
 }
 
 /* ---- 一番上でさらに上へ引くと、トップの映像に戻れる ---- */
