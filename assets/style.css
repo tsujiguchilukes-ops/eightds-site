@@ -492,9 +492,9 @@ body.form-page{padding-bottom:0}
   contain:strict}
 .veil.on{visibility:visible}
 /* 出発：ヒーローと同じ「光の開口部」に吸い込まれて、次の場所へ行く */
-.veil .door{position:absolute;inset:0;background:#F5F1EA url("veil-light.jpg") center/cover no-repeat;
+.veil .door{position:absolute;inset:0;background:#F5F1EA url("veil-light.webp") center/cover no-repeat;
   opacity:0;will-change:transform,opacity}
-.veil .rush{position:absolute;inset:0;background:#F5F1EA url("veil-rush.jpg") center/cover no-repeat;
+.veil .rush{position:absolute;inset:0;background:#F5F1EA url("veil-rush.webp") center/cover no-repeat;
   opacity:0;will-change:transform,opacity}
 /* 行き先の場面は、白い霞ごしに見せる（強くしない） */
 .veil .rush::after{content:"";position:absolute;inset:0;background:rgba(247,244,239,.62)}

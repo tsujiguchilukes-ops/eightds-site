@@ -107,13 +107,13 @@
   var ORIGIN = { left: '32% 50%', right: '68% 50%', up: '50% 32%', down: '50% 68%' };
   /* 行き先＝行程の次の場面。幕の向こうにその絵が見えてから、そのページになる */
   var SCENE = {
-    'index.html': 'img/L2_トラック列.jpg',
-    'about.html': 'img/L3_倉庫.jpg',
-    'service.html': 'img/V2_手元.jpg',
-    'business.html': 'img/L1_積込.jpg',
-    'recruit.html': 'img/V1_引き.jpg',
-    'contact.html': 'img/V4_積戻.jpg',
-    'privacy.html': 'assets/veil-rush.jpg'
+    'index.html': 'img/L2_トラック列.webp',
+    'about.html': 'img/L3_倉庫.webp',
+    'service.html': 'img/V2_手元.webp',
+    'business.html': 'img/L1_積込.webp',
+    'recruit.html': 'img/V1_引き.webp',
+    'contact.html': 'img/V4_積戻.webp',
+    'privacy.html': 'assets/veil-rush.webp'
   };
   var EASE_IN = 'cubic-bezier(.32,.12,.2,1)';
   var EASE_OUT = 'cubic-bezier(.16,1,.3,1)';
