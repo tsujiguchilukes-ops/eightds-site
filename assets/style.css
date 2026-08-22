@@ -564,3 +564,41 @@ html[data-soar] body{opacity:0}
 .pullback .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--accent);
   width:0}
 @media(prefers-reduced-motion:reduce){ .pullback{display:none} }
+
+/* ========== 対応エリアの地図（実地形。国土のGeoJSONから起こしたもの） ========== */
+.jmap{width:100%;height:auto;display:block;
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic Medium","游ゴシック Medium","Meiryo",sans-serif}
+.mSea{fill:#E6EDF1}
+.mNear{fill:#DCE3E5;stroke:#CFD9DD;stroke-width:1;stroke-linejoin:round}
+.mCover{fill:#FBF8F3;stroke:var(--brand);stroke-width:1.5;stroke-linejoin:round}
+.mCoverT{fill:var(--brand);font-size:33px;font-weight:700;letter-spacing:.16em;text-anchor:middle}
+.mBay{fill:#8FA7B3;font-size:23px;letter-spacing:.24em;text-anchor:middle}
+.mLead{stroke:var(--accent);stroke-width:1.1}
+.mHalo{fill:var(--accent);opacity:.13}
+.mRing{fill:none;stroke:var(--accent);stroke-width:1.4}
+.mDot{fill:var(--accent)}
+/* 文字は地の色で縁取ってから塗る。海にも陸にも乗せられる */
+.mPinT{fill:var(--ink);font-size:29px;font-weight:700;letter-spacing:.06em;
+  paint-order:stroke;stroke:#FBF8F3;stroke-width:6px;stroke-linejoin:round}
+.mPinS{fill:var(--sub);font-size:21px;letter-spacing:.04em;
+  paint-order:stroke;stroke:#FBF8F3;stroke-width:5px;stroke-linejoin:round}
+
+/* 画面に入ったら、4県が順に灯る → 拠点が置かれる */
+[data-rise] .mCover{opacity:0;transition:opacity .8s var(--ease)}
+[data-rise] .mCoverT{opacity:0;transition:opacity .7s var(--ease)}
+[data-rise] .mPin{opacity:0;transition:opacity .7s var(--ease)}
+[data-rise] .mBay{opacity:0;transition:opacity .7s var(--ease)}
+[data-rise].is-in .mCover{opacity:1;transition-delay:calc(var(--i,0)*.11s)}
+[data-rise].is-in .mCoverT{opacity:1;transition-delay:calc(.2s + var(--i,0)*.11s)}
+[data-rise].is-in .mBay{opacity:1;transition-delay:.6s}
+[data-rise].is-in .mPin{opacity:1;transition-delay:.72s}
+[data-rise].is-in .mPin:last-of-type{transition-delay:.86s}
+@media (prefers-reduced-motion:reduce){
+  [data-rise] .mCover,[data-rise] .mCoverT,[data-rise] .mPin,[data-rise] .mBay{opacity:1;transition:none}
+}
+@media(max-width:900px){
+  .mCoverT{font-size:40px}
+  .mPinT{font-size:36px}
+  .mPinS{font-size:26px}
+  .mBay{font-size:28px}
+}
