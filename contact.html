@@ -129,8 +129,8 @@
 <section class="sec">
   <div class="wrap">
     <p class="en" data-rise="0">CONTACT</p>
-    <h2 data-rise="0">お問い合わせ</h2>
-    <p class="note" data-rise="0">お見積りは無料です。搬入できるかどうかの相談だけでも構いません。お急ぎの場合はお電話が確実です。</p>
+    <h2 data-rise="0" id="c-title">配送委託のご相談</h2>
+    <p class="note" data-rise="0" id="c-lead">家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかの確認だけでも構いません。お急ぎの場合はお電話が確実です。</p>
 
     <div class="cgrid">
       <form class="form" id="f" novalidate data-rise="0">
@@ -176,15 +176,15 @@
         </div>
         <div class="field" id="w-body">
           <label for="body">ご用件の内容<span class="req">必須</span></label>
-          <textarea id="body" name="body" required placeholder="例）冷蔵庫1台を浦安市内のマンション5階（エレベーターなし）へ。搬入できるか相談したいです。"></textarea>
+          <textarea id="body" name="body" required placeholder="例）量販店より委託で、浦安・市川エリアへ月80件ほどの家電配送と設置をお願いしたい。エアコン取付も含みます。"></textarea>
           <p class="err">内容を入れてください。</p>
         </div>
         <label class="agree"><input type="checkbox" id="agree" required>
           <span><a href="privacy.html">プライバシーポリシー</a>に同意します。</span></label>
         <div class="sendrow">
           <button class="btn btn-main" type="submit" id="send">この内容で送信する</button>
-          <span class="hint">3営業日以内にご連絡します。</span>
         </div>
+        <p class="hint" style="margin-top:12px">入力は1分で終わります。3営業日以内にご連絡します。</p>
         <div class="sent" id="ok" role="status" aria-live="polite">
           <h3 id="ok-h">送信しました。</h3>
           <p id="ok-p">3営業日以内にご連絡します。お急ぎの場合はお電話ください。</p>
@@ -260,6 +260,22 @@
 <div class="veil" aria-hidden="true"><div class="door"></div><div class="rush"></div></div>
 <script src="assets/motion.js"></script>
 <script>
+(function(){
+  /* 採用ページから来た人は、用件を先に選んでおいて、見出しと記入例も採用用にする */
+  try{
+    if (new URLSearchParams(location.search).get('kind') === 'recruit') {
+      var r = document.querySelector('input[name="kind"][value="採用について"]');
+      if (r) r.checked = true;
+      var t = document.getElementById('c-title');
+      var l = document.getElementById('c-lead');
+      var b = document.getElementById('body');
+      if (t) t.textContent = '採用のご応募・お問い合わせ';
+      if (l) l.textContent = '未経験の方も歓迎します。配送する車は2tショートトラックです。会社見学だけでも構いません。お急ぎの場合はお電話が確実です。';
+      if (b) b.placeholder = '例）川口で配送スタッフに応募したいです。普通免許あり、未経験です。まず会社見学をさせてください。';
+      document.title = '採用のご応募・お問い合わせ｜有限会社エイト流通サービス';
+    }
+  }catch(e){}
+})();
 (function(){
   /* 送信先（Formspree等）。ここが空の間は、電話へ案内する。 */
   var ENDPOINT = "";

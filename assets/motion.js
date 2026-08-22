@@ -133,10 +133,10 @@
     document.body.style.opacity = '0';
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        door.style.transition = 'transform 1.05s ' + EASE_OUT + ', opacity .74s ease-out';
+        door.style.transition = 'transform .62s ' + EASE_OUT + ', opacity .44s ease-out';
         door.style.opacity = '0';
         door.style.transform = 'scale(1)';
-        rush.style.transition = 'opacity .7s ease-out .12s, transform 1.05s ' + EASE_OUT;
+        rush.style.transition = 'opacity .42s ease-out .06s, transform .62s ' + EASE_OUT;
         rush.style.opacity = '0';
         rush.style.transform = 'scale(1)';
         document.body.style.transition = 'opacity .42s ease-out .1s';
@@ -146,7 +146,7 @@
           door.style.transition = door.style.transform = '';
           rush.style.transition = rush.style.opacity = rush.style.transform = '';
           document.body.style.transition = document.body.style.opacity = '';
-        }, 1150);
+        }, 700);
       });
     });
   }
@@ -173,7 +173,7 @@
       try { sessionStorage.setItem('soar', dir); } catch (err) {}
       location.href = a.href;
     };
-    setTimeout(go, 700);
+    setTimeout(go, 400);
 
     try {
       if (SCENE[file]) rush.style.backgroundImage = 'url("' + SCENE[file] + '")';
@@ -184,10 +184,10 @@
       door.style.opacity = '0';
       door.style.transform = 'scale(1.0)';
       requestAnimationFrame(function () {
-        door.style.transition = 'transform .68s ' + EASE_IN + ', opacity .42s ease-in';
+        door.style.transition = 'transform .38s ' + EASE_IN + ', opacity .26s ease-in';
         door.style.opacity = '1';
         door.style.transform = 'scale(1.95)';
-        rush.style.transition = 'opacity .4s ease-in .12s, transform .68s ' + EASE_IN;
+        rush.style.transition = 'opacity .24s ease-in .08s, transform .38s ' + EASE_IN;
         rush.style.opacity = '.7';
         rush.style.transform = 'scale(1.5)';
       });
@@ -282,6 +282,7 @@
   var el = document.querySelector('.pullback');
   if (!el) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (matchMedia('(pointer: coarse)').matches) return;   // スマホはOSの再読み込みと衝突する
   var bar = el.querySelector('.bar');
   var pull = 0, NEED = 420, going = false, t = null, steps = 0;
 
@@ -301,10 +302,4 @@
     }
   }
   window.addEventListener('wheel', function (e) { if (e.deltaY < 0) add(-e.deltaY); }, { passive: true });
-  var ty = 0;
-  window.addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
-  window.addEventListener('touchmove', function (e) {
-    var d = e.touches[0].clientY - ty; ty = e.touches[0].clientY;
-    if (d > 0) add(d * 1.4);
-  }, { passive: true });
 })();
