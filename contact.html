@@ -261,18 +261,34 @@
 <script src="assets/motion.js"></script>
 <script>
 (function(){
-  /* 採用ページから来た人は、用件を先に選んでおいて、見出しと記入例も採用用にする */
+  /* どのページから来たかで、用件・見出し・記入例を変える（他社18社が全部やっている割り方） */
+  var KIND = {
+    haiso:   ['配送・設置の依頼／見積り', '配送・設置のご相談',
+              '家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかの確認だけでも構いません。',
+              '例）量販店より委託で、浦安・市川エリアへ月80件ほどの家電配送と設置をお願いしたい。'],
+    denki:   ['電気工事の依頼', '電気工事のご相談',
+              '登録電気工事業者です。エアコン・アンテナ・温水洗浄便座の取付を、配送と同じ日に同じ担当が行います。',
+              '例）エアコンの取付を月20件ほど、川口エリアでお願いしたい。配送は別業者です。'],
+    recycle: ['引き取り・リサイクル', '引き取り・リサイクルのご相談',
+              '東京都・千葉県・埼玉県・神奈川県で産業廃棄物収集運搬業の許可を取得しています。新しい商品の設置と同じ日に持ち帰ります。',
+              '例）入れ替えのたびに出る古い冷蔵庫・洗濯機の引き取りをお願いしたい。月40件ほどです。'],
+    partner: ['協力会社の応募', '協力会社のご応募',
+              '1都3県で家電・家具の配送、設置工事をお願いできる協力会社様を探しています。継続してお願いできる方を歓迎します。',
+              '例）川口拠点で2t車2台。家電配送の経験7年。継続で受けられます。'],
+    recruit: ['採用について', '採用のご応募・お問い合わせ',
+              '未経験の方も歓迎します。配送する車は2tショートトラックです。会社見学だけでも構いません。',
+              '例）川口で配送スタッフに応募したいです。普通免許あり、未経験です。まず会社見学をさせてください。']
+  };
   try{
-    if (new URLSearchParams(location.search).get('kind') === 'recruit') {
-      var r = document.querySelector('input[name="kind"][value="採用について"]');
+    var k = KIND[new URLSearchParams(location.search).get('kind')];
+    if (k) {
+      var r = document.querySelector('input[name="kind"][value="' + k[0] + '"]');
       if (r) r.checked = true;
-      var t = document.getElementById('c-title');
-      var l = document.getElementById('c-lead');
-      var b = document.getElementById('body');
-      if (t) t.textContent = '採用のご応募・お問い合わせ';
-      if (l) l.textContent = '未経験の方も歓迎します。配送する車は2tショートトラックです。会社見学だけでも構いません。お急ぎの場合はお電話が確実です。';
-      if (b) b.placeholder = '例）川口で配送スタッフに応募したいです。普通免許あり、未経験です。まず会社見学をさせてください。';
-      document.title = '採用のご応募・お問い合わせ｜有限会社エイト流通サービス';
+      var t = document.getElementById('c-title'), l = document.getElementById('c-lead'), b = document.getElementById('body');
+      if (t) t.textContent = k[1];
+      if (l) l.textContent = k[2] + 'お急ぎの場合はお電話が確実です。';
+      if (b) b.placeholder = k[3];
+      document.title = k[1] + '｜有限会社エイト流通サービス';
     }
   }catch(e){}
 })();

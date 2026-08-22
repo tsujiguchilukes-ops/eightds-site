@@ -88,15 +88,24 @@
 .stillhero .sub{margin-top:16px;font-size:16px;font-weight:700;color:#DCE9EF}
 .stillhero .go{margin-top:24px}
 
-@media(max-width:720px),
-       (orientation:portrait) and (max-width:1024px),
-       (orientation:portrait) and (pointer:coarse),
-       (orientation:landscape) and (pointer:coarse) and (max-height:560px),
+@media (orientation:landscape) and (pointer:coarse) and (max-height:560px),
        (prefers-reduced-motion:reduce){
   .scrollhero{display:none}
   .stillhero{display:block}
 }
 @media(max-height:560px){ .cue{display:none} }
+@media(max-width:720px){
+  .scrollhero{height:300vh}
+  .hband{left:20px;right:20px;width:auto;bottom:120px}
+  .hband h1,.hband p.line{font-size:28px;letter-spacing:.03em}
+  .hband[data-kind="rise"] p.line{font-size:22px}
+  .hband[data-kind="settle"]{width:auto}
+  .hband .sub{font-size:15px;margin-top:16px}
+  .hband .go{gap:12px;margin-top:20px}
+  .hband .k{font-size:12px;margin-bottom:10px}
+  .stage .ring{right:20px;bottom:20px;width:36px;height:36px}
+  .scrollhero .hband{padding-right:56px}
+}
 @media(max-width:1100px){
   .hband{left:24px;right:24px;width:auto;bottom:104px}
   .hband h1,.hband p.line{font-size:40px}
@@ -325,7 +334,7 @@
       </div>
     </div>
     <p class="next" data-rise="0"><a href="service.html">サービスの詳細を見る</a></p>
-    <p class="next" data-rise="0" style="margin-top:24px"><a href="contact.html">配送委託について相談する</a></p>
+    <p class="next" data-rise="0" style="margin-top:24px"><a href="contact.html?kind=haiso">配送委託について相談する</a></p>
   </div>
 </section>
 
@@ -377,7 +386,7 @@
       </div>
     </div>
 
-    <p class="next" data-rise="0"><a href="contact.html">対応エリアかどうかの確認だけでも構いません</a></p>
+    <p class="next" data-rise="0"><a href="contact.html?kind=haiso">対応エリアかどうかの確認だけでも構いません</a></p>
   </div>
 </section>
 
@@ -559,9 +568,11 @@
    ========================================================= */
 (function () {
   'use strict';
-  var N = 53;                                  // コマ数
+  var SP = matchMedia('(max-width: 720px), (orientation: portrait) and (max-width: 1024px)').matches;
+  var N = SP ? 27 : 53;                         // スマホは縦向きの軽いコマ
   var EDGE = '#12181C';                         // コマの端の色。ここで塗ってから描く
-  var PATH = function (i) { return 'assets/seq/f' + String(i + 1).padStart(3, '0') + '.webp'; };
+  var DIR = SP ? 'assets/seq-sp/' : 'assets/seq/';
+  var PATH = function (i) { return DIR + 'f' + String(i + 1).padStart(3, '0') + '.webp'; };
 
   var hero = document.querySelector('.scrollhero');
   if (!hero) return;
@@ -707,9 +718,6 @@
 
   /* ---- 静止画に切り替える5条件。CSSと一字一句そろえる ---- */
   var GATES = [
-    '(max-width: 720px)',
-    '(orientation: portrait) and (max-width: 1024px)',
-    '(orientation: portrait) and (pointer: coarse)',
     '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
     '(prefers-reduced-motion: reduce)'
   ];

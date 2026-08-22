@@ -56,11 +56,16 @@
   var mt = document.querySelector('.mtoggle');
   var r2 = document.querySelector('.head .r2');
   if (mt && r2) {
-    mt.addEventListener('click', function () {
-      var open = r2.classList.toggle('open');
+    var setOpen = function (open) {
+      r2.classList.toggle('open', open);
       mt.setAttribute('aria-expanded', open ? 'true' : 'false');
       mt.textContent = open ? '閉じる' : 'メニュー';
+    };
+    mt.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!r2.classList.contains('open')); });
+    document.addEventListener('click', function (e) {          // 外を触ったら閉じる
+      if (r2.classList.contains('open') && !r2.contains(e.target) && e.target !== mt) setOpen(false);
     });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
   }
 })();
 
@@ -70,7 +75,9 @@
   if (!b) return;
   var t = false;
   var check = function () {
-    b.classList.toggle('on', window.pageYOffset > 600);
+    var hero = document.querySelector('.scrollhero');
+    var past = hero ? window.pageYOffset > hero.offsetTop + hero.offsetHeight - window.innerHeight : window.pageYOffset > 600;
+    b.classList.toggle('on', past && window.pageYOffset > 600);
     t = false;
   };
   window.addEventListener('scroll', function () {
