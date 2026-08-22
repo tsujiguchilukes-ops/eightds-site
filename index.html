@@ -24,19 +24,17 @@
 :root{--tshadow:0 1px 2px rgba(4,18,26,.95),0 3px 12px rgba(4,18,26,.78),0 10px 44px rgba(4,18,26,.8)}
 .scrollhero{position:relative;height:450vh;background:var(--deep)}
 .scrollhero .stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--deep)}
-.stage .poster{position:absolute;inset:0;background:#0A2938 center/cover no-repeat;
-  transition:opacity .7s var(--ease)}
-.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;transition:opacity .6s var(--ease);will-change:transform;transform:translateZ(0)}
-.stage.video-ready video{opacity:1}
-.stage.video-ready .poster{opacity:0}
+.stage .film{position:absolute;inset:0;width:100%;height:100%;display:block;background:#12181C;
+  opacity:0;transition:opacity .7s var(--ease)}
+.stage.film-ready .film{opacity:1}
+.stage.film-failed .film{opacity:1}
 .stage .scrim{position:absolute;inset:0;pointer-events:none;
   background:
     linear-gradient(to top,rgba(4,16,24,.94) 0%,rgba(4,16,24,.76) 28%,rgba(4,16,24,.26) 54%,rgba(4,16,24,0) 74%),
     radial-gradient(ellipse 122% 92% at 50% 40%,rgba(5,22,32,0) 26%,rgba(5,22,32,.6) 100%)}
 .stage .ring{position:absolute;right:40px;bottom:40px;width:44px;height:44px;
   color:rgba(255,255,255,.7);transform:rotate(-90deg);transition:opacity .5s var(--ease)}
-.stage.video-ready .ring,.stage.video-failed .ring{opacity:0}
+.stage.film-ready .ring,.stage.film-failed .ring{opacity:0}
 
 /* 文字の帯。中央の通路は空けて、左に寄せる */
 .hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px;pointer-events:none}
@@ -231,8 +229,7 @@
 <!-- ① スクロールで進む映像 -->
 <section class="scrollhero" data-hero aria-label="仕事の風景">
   <div class="stage">
-    <div class="poster" aria-hidden="true"></div>
-    <video id="hero" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <canvas class="film" aria-hidden="true"></canvas>
     <div class="scrim" aria-hidden="true"></div>
     <svg class="ring" viewBox="0 0 48 48" aria-hidden="true">
       <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -547,25 +544,25 @@
 <div class="veil" aria-hidden="true"><div class="door"></div><div class="rush"></div></div>
 <script>
 /* =========================================================
-   スクロールで進む映像の駆動
-   ・動画はBlobで丸ごと取る（部分取得に対応しない置き場でも動くように）
-   ・表示時刻は補間する。追いついたら休む
-   ・シークは重ねない
-   ・DOMは変わった時だけ書く
-   ・動画が来なくてもページは完成している
+   スクロールで進む映像 — 連番のコマを canvas に描く方式
+   動画の currentTime を動かすやり方はシークのたびに復号し直すので必ずカクつく。
+   先に全コマを読み込んで、スクロール位置で「何枚目を描くか」を選ぶ。シークは1回も起きない。
+   ・動きは補間する。追いついたら休む
+   ・描くのは変わった時だけ
+   ・コマが1枚も来なくてもページは完成している
    ========================================================= */
 (function () {
   'use strict';
-  var VIDEO_URL = 'assets/hero-scrub.mp4';
-  var POSTER_URL = 'assets/hero-poster.jpg';
-  var VIDEO_BYTES = 4790000;
+  var N = 105;                                  // コマ数
+  var EDGE = '#12181C';                         // コマの端の色。ここで塗ってから描く
+  var PATH = function (i) { return 'assets/seq/f' + String(i + 1).padStart(3, '0') + '.jpg'; };
 
   var hero = document.querySelector('.scrollhero');
   if (!hero) return;
   var stage = hero.querySelector('.stage');
-  var video = document.getElementById('hero');
+  var cv = hero.querySelector('canvas');
+  var ctx = cv.getContext('2d', { alpha: false });
   var ring = hero.querySelector('.ring');
-  var posterLayer = hero.querySelector('.poster');
   var bands = [].slice.call(hero.querySelectorAll('.hband')).map(function (el) {
     return { el: el, a: parseFloat(el.dataset.a), b: parseFloat(el.dataset.b), op: -1, k: -1 };
   });
@@ -575,26 +572,68 @@
   bands.forEach(function (b, bi) {
     var target = b.el.querySelector('.split');
     if (!target) return;
-    var text = target.textContent;
-    var r = rng(1234 + bi * 77);
-    var sr = document.createElement('span');
-    sr.className = 'sr';
-    sr.textContent = text;
-    var vis = document.createElement('span');
-    vis.setAttribute('aria-hidden', 'true');
+    var text = target.textContent, r = rng(1234 + bi * 77);
+    var sr = document.createElement('span'); sr.className = 'sr'; sr.textContent = text;
+    var vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
     var chars = Array.from(text);
     chars.forEach(function (ch, i) {
       var s = document.createElement('span');
-      s.className = 'c';
-      s.textContent = ch;
-      var ordered = i / Math.max(1, chars.length - 1);
-      s.style.setProperty('--th', (ordered * 0.42 + r() * 0.08).toFixed(3));
+      s.className = 'c'; s.textContent = ch;
+      s.style.setProperty('--th', ((i / Math.max(1, chars.length - 1)) * 0.42 + r() * 0.08).toFixed(3));
       vis.appendChild(s);
     });
-    target.textContent = '';
-    target.appendChild(sr);
-    target.appendChild(vis);
+    target.textContent = ''; target.appendChild(sr); target.appendChild(vis);
   });
+
+  /* ---- コマを読み込む ---- */
+  var imgs = new Array(N), loaded = 0, ready = false, cur = -1, settledCount = 0;
+  function markReady() {
+    if (ready) return; ready = true;
+    stage.classList.add('film-ready');
+    sizeCanvas();
+    draw(Math.round(shown * (N - 1)));           // 今のスクロール位置のコマを描く
+  }
+  function onSettle() {
+    settledCount++;
+    if (ring) ring.style.setProperty('--ld', Math.round(126 * (1 - settledCount / N)));
+    if (loaded >= Math.ceil(N * 0.6) || settledCount >= N) markReady();
+  }
+  function loadOne(i) {
+    var im = new Image();
+    im.decoding = 'async';
+    im.onload = function () { loaded++; imgs[i] = im; if (i === 0) { sizeCanvas(); draw(0); } onSettle(); };
+    im.onerror = onSettle;
+    im.src = PATH(i);
+  }
+  function startLoading() {
+    loadOne(0);
+    for (var i = 1; i < N; i++) loadOne(i);
+    setTimeout(function () { if (!ready) { if (loaded > 0) markReady(); else stage.classList.add('film-failed'); } }, 9000);
+  }
+
+  /* ---- 描く ---- */
+  function sizeCanvas() {
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    var w = Math.round(cv.clientWidth * dpr), h = Math.round(cv.clientHeight * dpr);
+    if (w === cv.width && h === cv.height) return;
+    cv.width = w; cv.height = h; cur = -1;
+  }
+  function draw(i) {
+    if (i === cur) return;
+    var im = imgs[i];
+    if (!im) {                                    // まだ来ていないコマは、一番近い読み込み済みで代用
+      for (var d = 1; d < N; d++) {
+        if (imgs[i - d]) { im = imgs[i - d]; break; }
+        if (imgs[i + d]) { im = imgs[i + d]; break; }
+      }
+      if (!im) return;
+    } else { cur = i; }
+    var cw = cv.width, ch = cv.height;
+    var s = Math.max(cw / im.naturalWidth, ch / im.naturalHeight);
+    var w = im.naturalWidth * s, h = im.naturalHeight * s;
+    ctx.fillStyle = EDGE; ctx.fillRect(0, 0, cw, ch);
+    ctx.drawImage(im, (cw - w) / 2, (ch - h) * 0.58, w, h);
+  }
 
   /* ---- スクロール位置から進み具合 ---- */
   function heroProgress() {
@@ -605,13 +644,9 @@
   }
 
   /* ---- 帯の濃さと組み上がり ---- */
-  var smoothstep = function (p, e0, e1) {
-    var t = Math.min(1, Math.max(0, (p - e0) / (e1 - e0)));
-    return t * t * (3 - 2 * t);
-  };
+  var smoothstep = function (p, e0, e1) { var t = Math.min(1, Math.max(0, (p - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
   var clamp = function (v, lo, hi) { return Math.min(hi, Math.max(lo, v)); };
   var loadK = 0, loadStart = 0;
-
   function updateCaptions(p) {
     for (var i = 0; i < bands.length; i++) {
       var b = bands[i];
@@ -633,90 +668,33 @@
     }
   }
 
-  /* ---- シークは重ねない ---- */
-  var seekBusy = false, pendingTime = null;
-  function requestSeek(t) {
-    if (!video.duration) return;
-    if (seekBusy) { pendingTime = t; return; }
-    seekBusy = true;
-    try { video.currentTime = t; } catch (e) { seekBusy = false; }
-  }
-  video.addEventListener('seeked', function () {
-    seekBusy = false;
-    if (pendingTime !== null) { var t = pendingTime; pendingTime = null; requestSeek(t); }
-  });
-  video.addEventListener('error', function () { seekBusy = false; pendingTime = null; failVideo(); });
-
-  /* ---- 表示時刻を補間する。追いついたら休む ---- */
+  /* ---- 補間して滑らかに。追いついたら休む ---- */
   var target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true;
   function tick(now) {
     var dt = Math.min(100, now - (lastTick || now));
     lastTick = now;
-    var k = 0.16;
-    shown += (target - shown) * (1 - Math.pow(1 - k, dt / 16.667));
-    var settled = Math.abs(target - shown) < 0.0005;
-    if (settled) { shown = target; }
-    if (loadK < 1 && loadStart) {
-      loadK = clamp((now - loadStart) / 900, 0, 1);
-    }
-    if (video.duration) requestSeek(shown * video.duration);
+    shown += (target - shown) * (1 - Math.pow(1 - 0.18, dt / 16.667));
+    var settled = Math.abs(target - shown) < 0.0004;
+    if (settled) shown = target;
+    if (loadK < 1 && loadStart) loadK = clamp((now - loadStart) / 900, 0, 1);
+    if (ready) draw(Math.round(shown * (N - 1)));
     updateCaptions(shown);
     if (settled && loadK >= 1) { rafId = null; lastTick = 0; }
-    else { rafId = requestAnimationFrame(tick); }
+    else rafId = requestAnimationFrame(tick);
   }
-  function kick() { if (rafId === null && heroOnScreen) { rafId = requestAnimationFrame(tick); } }
+  function kick() { if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick); }
   function onScroll() { target = heroProgress(); kick(); }
+  function onResize() { sizeCanvas(); if (ready) draw(Math.round(shown * (N - 1))); onScroll(); }
 
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) {
-      heroOnScreen = es[0].isIntersecting;
-      if (heroOnScreen) kick();
-    }, { rootMargin: '10% 0px' }).observe(hero);
-  }
-
-  /* ---- 動画を丸ごと取る。届くまでは静止画で成立している ---- */
-  var started = false;
-  function startBlobFetch() { if (started) return; started = true; loadHeroBlob().catch(failVideo); }
-  function failVideo() { stage.classList.add('video-failed'); }
-
-  async function loadHeroBlob() {
-    var ctrl = new AbortController();
-    var watchdog = setTimeout(function () { ctrl.abort(); }, 20000);
-    var res = await fetch(VIDEO_URL, { signal: ctrl.signal });
-    if (!res.ok) throw new Error('status ' + res.status);
-    var total = Number(res.headers.get('Content-Length')) || VIDEO_BYTES;
-    var reader = res.body.getReader();
-    var chunks = [], got = 0, lastRing = 0;
-    for (;;) {
-      var r = await reader.read();
-      if (r.done) break;
-      clearTimeout(watchdog);
-      watchdog = setTimeout(function () { ctrl.abort(); }, 20000);
-      chunks.push(r.value); got += r.value.length;
-      var frac = Math.min(1, got / total), now = performance.now();
-      if (now - lastRing > 100 || frac === 1) {
-        lastRing = now;
-        ring.style.setProperty('--ld', Math.round(126 * (1 - frac)));
-      }
-    }
-    clearTimeout(watchdog);
-    ring.style.setProperty('--ld', 0);
-    video.src = URL.createObjectURL(new Blob(chunks));
-    video.load();
-    video.addEventListener('canplay', function () {
-      requestSeek(heroProgress() * video.duration);
-      stage.classList.add('video-ready');
-    }, { once: true });
+    new IntersectionObserver(function (es) { heroOnScreen = es[0].isIntersecting; if (heroOnScreen) kick(); },
+      { rootMargin: '10% 0px' }).observe(hero);
   }
 
   function initHeroOnce() {
     if (initHeroOnce.done) return; initHeroOnce.done = true;
-    posterLayer.style.backgroundImage = 'url("' + POSTER_URL + '")';
-    var img = new Image();
-    img.onload = startBlobFetch;
-    img.onerror = startBlobFetch;
-    img.src = POSTER_URL;
-    setTimeout(startBlobFetch, 4000);
+    ctx.fillStyle = EDGE; ctx.fillRect(0, 0, cv.width, cv.height);
+    startLoading();
     loadStart = performance.now();
   }
 
@@ -733,7 +711,7 @@
     if (scrubOn) return; scrubOn = true;
     initHeroOnce();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
     bands.forEach(function (b) { b.op = -1; b.k = -1; });
     updateCaptions(heroProgress());
     onScroll();
@@ -741,14 +719,11 @@
   function disableScrub() {
     if (!scrubOn) return; scrubOn = false;
     window.removeEventListener('scroll', onScroll);
-    window.removeEventListener('resize', onScroll);
+    window.removeEventListener('resize', onResize);
     if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
   }
   var MQLS = GATES.map(function (q) { return matchMedia(q); });
-  function applyHeroMode() {
-    if (MQLS.some(function (m) { return m.matches; })) disableScrub();
-    else enableScrub();
-  }
+  function applyHeroMode() { if (MQLS.some(function (m) { return m.matches; })) disableScrub(); else enableScrub(); }
   MQLS.forEach(function (m) { m.addEventListener('change', applyHeroMode); });
   applyHeroMode();
 })();
