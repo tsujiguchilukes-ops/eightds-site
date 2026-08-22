@@ -514,3 +514,56 @@ html[data-soar] body{opacity:0}
   .veil,html[data-soar] .veil{display:none}
   html[data-soar] body{opacity:1}
 }
+
+/* =========================================================
+   ページ全体を「一つの場所」にする
+   後ろに1枚だけ環境の層を敷き、セクションごとに色をずらす。
+   スクロールが「積み重なった箱を通り過ぎる」ではなく
+   「一つの場所の中を進んでいる」感じになる。
+   ========================================================= */
+.env{position:fixed;inset:0;z-index:-2;pointer-events:none;background:var(--canvas,#F7F4EF);
+  transition:background-color 1.2s var(--ease)}
+.env::before{content:"";position:absolute;inset:-20%;
+  background:radial-gradient(ellipse 60% 50% at 30% 30%,rgba(11,79,108,.07),rgba(11,79,108,0) 70%),
+             radial-gradient(ellipse 55% 45% at 78% 68%,rgba(201,83,31,.05),rgba(201,83,31,0) 70%);
+  animation:envdrift 90s ease-in-out infinite alternate;animation-delay:-24s}
+@keyframes envdrift{from{transform:translate3d(-2%,-1.5%,0) scale(1)}to{transform:translate3d(2%,1.5%,0) scale(1.06)}}
+/* ざらつき。紙の粒。ごく薄く */
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>")}
+@media(prefers-reduced-motion:reduce){ .env::before{animation:none} }
+
+/* 上端の細い進み具合の線 */
+.prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:99;pointer-events:none;
+  transform-origin:left center;transform:scaleX(0);background:var(--accent);opacity:.9}
+
+/* 下へ動かすとヘッダーが引っ込み、上へ動かすと戻る */
+.head{transform:translateY(0);transition:background-color .42s var(--ease),border-color .42s var(--ease),transform .42s var(--ease)}
+.head.tucked{transform:translateY(-104%)}
+
+/* 一つだけ置く「自分でやってみる」場所：搬入経路をたしかめる */
+.tryit{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tryit .in{max-width:var(--max);margin:0 auto;padding:120px 40px;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.tryit .fig{position:relative;background:var(--white);border:1px solid var(--line);padding:40px}
+.tryit svg{width:100%;height:auto;display:block}
+.tryit .ctl{margin-top:32px}
+.tryit label{display:block;font-size:14px;letter-spacing:.14em;color:var(--sub)}
+.tryit .val{font-size:28px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;margin-top:4px}
+.tryit input[type=range]{width:100%;margin-top:16px;accent-color:var(--brand);height:28px}
+.tryit .verdict{margin-top:24px;font-size:18px;font-weight:700;line-height:1.8;min-height:3.6em;
+  transition:color .3s var(--ease)}
+.tryit .verdict.ok{color:var(--brand)}
+.tryit .verdict.ng{color:var(--accent)}
+.tryit .verdict span{display:block;font-size:16px;font-weight:400;color:var(--sub);margin-top:8px}
+.frame-line{stroke:var(--brand);stroke-width:2.5;fill:none;transition:stroke .3s var(--ease)}
+.fridge-box{fill:#D9E4EA;stroke:var(--brand);stroke-width:2;transition:fill .3s var(--ease),stroke .3s var(--ease)}
+.tryit.ng .frame-line{stroke:var(--accent)}
+.tryit.ng .fridge-box{fill:#F3DED4;stroke:var(--accent)}
+.dim-line{stroke:var(--sub);stroke-width:1;stroke-dasharray:3 3}
+.dim-text{font-size:13px;fill:var(--sub);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media(max-width:900px){
+  .tryit .in{grid-template-columns:1fr;gap:32px;padding:64px 24px}
+  .tryit .fig{padding:24px}
+}

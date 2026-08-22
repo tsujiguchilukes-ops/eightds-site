@@ -191,3 +191,84 @@
     } catch (err) { go(); }
   });
 })();
+
+/* ---- 9. ページ全体を一つの場所にする：環境の層・進み具合の線・ヘッダーの出入り ---- */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var env = document.querySelector('.env');
+  var prog = document.querySelector('.prog');
+  var head = document.querySelector('.head');
+  if (!env && !prog && !head) return;
+
+  /* セクションごとに地の色をわずかにずらす（同じ場所の、時間帯が動く感じ） */
+  var TONES = ['#F7F4EF', '#F4F1EC', '#F6F2EA', '#F3F1EE', '#F7F3EC'];
+  var secs = [].slice.call(document.querySelectorAll('section, .band, .gates, .pband'));
+  if (env && secs.length && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        env.style.backgroundColor = TONES[i % TONES.length];
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    secs.forEach(function (s) { io.observe(s); });
+  }
+
+  var lastY = window.pageYOffset, t = false;
+  function frame() {
+    var y = window.pageYOffset;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (prog) prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, y / h) : 0).toFixed(4) + ')';
+    if (head) {
+      if (y > 160) head.classList.toggle('tucked', y > lastY + 4);
+      else head.classList.remove('tucked');
+    }
+    lastY = y; t = false;
+  }
+  window.addEventListener('scroll', function () { if (t) return; t = true; requestAnimationFrame(frame); }, { passive: true });
+  frame();
+  if (reduce && head) head.classList.remove('tucked');
+})();
+
+/* ---- 10. 自分でたしかめる場所：搬入経路 ---- */
+(function () {
+  var box = document.querySelector('.tryit');
+  if (!box) return;
+  var range = box.querySelector('input[type=range]');
+  var val = box.querySelector('.val');
+  var verdict = box.querySelector('.verdict');
+  var doorL = box.querySelector('#door-l');
+  var doorR = box.querySelector('#door-r');
+  var outL = box.querySelectorAll('rect[fill="#F2EEE7"]')[0];
+  var outR = box.querySelectorAll('rect[fill="#F2EEE7"]')[1];
+  var need = box.querySelector('#need-box');
+  var dimW = box.querySelector('#dim-w');
+  var dimTxt = box.querySelector('#dim-t');
+  var NEED = 72;                                  // 冷蔵庫68cm＋養生と手の4cm
+  var CX = 200;                                   // 図の中心
+
+  function apply(w) {
+    var half = w * 1.6 / 2;                       // 1cm = 1.6px で描く
+    doorL.setAttribute('x', (CX - half - 14).toFixed(1));
+    doorR.setAttribute('x', (CX + half).toFixed(1));
+    outL.setAttribute('width', Math.max(0, CX - half - 14).toFixed(1));
+    outR.setAttribute('x', (CX + half + 14).toFixed(1));
+    outR.setAttribute('width', Math.max(0, 400 - (CX + half + 14)).toFixed(1));
+    dimW.setAttribute('x1', (CX - half).toFixed(1));
+    dimW.setAttribute('x2', (CX + half).toFixed(1));
+    dimTxt.setAttribute('x', CX);
+    dimTxt.textContent = w + ' cm';
+    val.textContent = w + ' cm';
+    var ok = w >= NEED;
+    box.classList.toggle('ng', !ok);
+    need.setAttribute('stroke', ok ? '#67727E' : '#C9531F');
+    need.setAttribute('stroke-width', ok ? '1.5' : '2.5');
+    verdict.className = 'verdict ' + (ok ? 'ok' : 'ng');
+    verdict.innerHTML = ok
+      ? '通ります。<span>冷蔵庫の幅は68cm。手と養生のぶんに、あと4cm要ります。</span>'
+      : '入りません。<span>この場合は、無理に入れずにその場でお伝えします。クレーン作業（有料）でのご提案になります。</span>';
+  }
+  range.addEventListener('input', function () { apply(+range.value); });
+  apply(+range.value);
+})();
