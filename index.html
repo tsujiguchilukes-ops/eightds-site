@@ -41,9 +41,11 @@
 .hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px;pointer-events:none}
 .hband{position:absolute;left:40px;bottom:132px;width:min(78%,940px);color:#fff;opacity:0;
   text-shadow:var(--tshadow)}
-.hband::before{content:"";position:absolute;inset:-26% -30% -46% -14%;pointer-events:none;z-index:-1;
+.hband::before{content:"";position:absolute;inset:-70% -12% -50% -16%;pointer-events:none;z-index:-1;
   opacity:calc(.3 + .7*var(--k,1));
-  background:linear-gradient(100deg,rgba(3,14,20,.97) 0%,rgba(3,14,20,.95) 58%,rgba(3,14,20,.86) 76%,rgba(3,14,20,.34) 90%,rgba(3,14,20,0) 100%)}
+  background:
+    linear-gradient(to top,rgba(3,14,20,.9) 0%,rgba(3,14,20,.72) 46%,rgba(3,14,20,.24) 78%,rgba(3,14,20,0) 100%),
+    linear-gradient(100deg,rgba(3,14,20,.96) 0%,rgba(3,14,20,.95) 72%,rgba(3,14,20,.88) 86%,rgba(3,14,20,.4) 95%,rgba(3,14,20,0) 100%)}
 .hband[data-kind="settle"]::before{inset:-110% -6% -48% -16%;
   background:linear-gradient(to top,rgba(3,14,20,.985) 0%,rgba(3,14,20,.985) 76%,rgba(3,14,20,.94) 88%,rgba(3,14,20,.5) 96%,rgba(3,14,20,0) 100%)}
 .hband .k{font-size:14px;letter-spacing:.24em;color:#F0A585;font-weight:700;margin-bottom:16px}
@@ -295,7 +297,6 @@
 <!-- 朝 -->
 <div class="band">
   <img src="img/L4_台車.jpg" alt="倉庫で台車に載せて運ぶところ（イメージ）" width="1920" height="1071" loading="lazy">
-  <p class="stamp"><b>7:00</b>浦安の倉庫</p>
 </div>
 
 <!-- ③ 物流の先にあるもの -->
@@ -326,7 +327,6 @@
 <!-- 玄関の前 -->
 <div class="band">
   <img src="img/V4_積戻.jpg" alt="住宅街のお宅の前で荷を降ろすところ（イメージ）" width="1920" height="1071" loading="lazy">
-  <p class="stamp"><b>午前</b>お客様のお宅</p>
 </div>
 
 <!-- ④ 私たちの仕事（どこまで受け持つか） -->
@@ -368,7 +368,6 @@
 <!-- 部屋の中 -->
 <div class="band">
   <img src="img/V2_手元.jpg" alt="室内でエアコンを取り付ける手元（イメージ）" width="1920" height="1071" loading="lazy">
-  <p class="stamp"><b>午後</b>取り付け</p>
 </div>
 
 <!-- ⑥ 現場で決めていること -->
@@ -431,7 +430,6 @@
 <!-- 夕方 -->
 <div class="band">
   <img src="img/L2_トラック列.jpg" alt="1日を終えて戻ってきたトラック（イメージ）" width="1920" height="1071" loading="lazy">
-  <p class="stamp"><b>17:00</b>帰着</p>
 </div>
 
 <!-- ⑦ 事実 -->

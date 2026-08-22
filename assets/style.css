@@ -355,13 +355,8 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   transition:transform 1.4s var(--ease)}
 .band:hover img{transform:scale(1.03)}
-.band .stamp{position:absolute;left:0;right:0;bottom:0;
-  padding:64px 40px 24px;color:#fff;font-size:14px;letter-spacing:.2em;
-  background:linear-gradient(to top,rgba(6,40,56,.6),rgba(6,40,56,0))}
-.band .stamp b{font-weight:700;margin-right:16px}
 @media(max-width:900px){
   .band{height:220px}
-  .band .stamp{padding:40px 24px 16px;font-size:12px;letter-spacing:.14em}
 }
 
 /* ---- 量販店 → 私たち → お客様宅（どこまで受け持つか） ---- */
@@ -567,3 +562,17 @@ html[data-soar] body{opacity:0}
   .tryit .in{grid-template-columns:1fr;gap:32px;padding:64px 24px}
   .tryit .fig{padding:24px}
 }
+
+/* ---- 一番上でさらに上へ引くと、トップの映像に戻れる ---- */
+.pullback{position:fixed;top:0;left:0;right:0;z-index:96;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  height:0;overflow:hidden;background:var(--deep);color:#fff;
+  font-size:16px;font-weight:700;letter-spacing:.08em;
+  transition:height .28s var(--ease)}
+.pullback.on{height:72px}
+.pullback::before{content:"";width:26px;height:11px;background:currentColor;
+  -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain;
+  transform:rotate(-90deg)}
+.pullback .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--accent);
+  width:0}
+@media(prefers-reduced-motion:reduce){ .pullback{display:none} }
