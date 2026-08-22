@@ -22,13 +22,16 @@
    静止画のヒーローを出す（5条件。JS側と一字一句そろえる）。
    ========================================================= */
 :root{--tshadow:0 1px 2px rgba(4,18,26,.95),0 3px 12px rgba(4,18,26,.78),0 10px 44px rgba(4,18,26,.8)}
-.scrollhero{position:relative;height:360vh;background:var(--deep)}
+/* 1フリックで1シーンぶん進む。だから背は低くてよい（100vh ＋ 36vh × 2） */
+.scrollhero{position:relative;height:172vh;background:var(--deep)}
 .scrollhero .stage{position:sticky;top:0;height:100vh;overflow:hidden}
 .stage{background:#12181C url("img/V4_積戻.webp") center 58%/cover no-repeat}
 .stage .film{position:absolute;inset:0;width:100%;height:100%;display:block;background:#12181C;
-  opacity:0;transition:opacity .7s var(--ease)}
-.stage.film-ready .film{opacity:1}
-.stage.film-failed .film{opacity:1}
+  object-fit:cover;object-position:center 58%;
+  opacity:0;transition:opacity .3s linear}
+/* 見せるのは進む向きと戻る向きのどちらか片方。切り替える瞬間は同じコマなので見えない */
+.stage.film-ready .film.on{opacity:1}
+.stage.film-failed .film.fwd{opacity:1}
 .stage .scrim{position:absolute;inset:0;pointer-events:none;
   background:
     linear-gradient(to top,rgba(4,16,24,.94) 0%,rgba(4,16,24,.76) 28%,rgba(4,16,24,.26) 54%,rgba(4,16,24,0) 74%),
@@ -100,7 +103,7 @@
 }
 @media(max-height:560px){ .cue{display:none} }
 @media(max-width:720px){
-  .scrollhero{height:300vh}
+  .scrollhero{height:156vh}
   .hband{left:20px;right:20px;width:auto;bottom:120px}
   .hband h1,.hband p.line{font-size:28px;letter-spacing:.03em}
   .hband[data-kind="rise"] p.line{font-size:22px}
@@ -247,7 +250,8 @@
 <!-- ① スクロールで進む映像 -->
 <section class="scrollhero" data-hero aria-label="仕事の風景">
   <div class="stage">
-    <canvas class="film" aria-hidden="true"></canvas>
+    <video class="film fwd on" muted playsinline preload="auto" aria-hidden="true" poster="assets/hero-poster.webp"></video>
+    <video class="film rev" muted playsinline preload="auto" aria-hidden="true"></video>
     <div class="scrim" aria-hidden="true"></div>
     <svg class="ring" viewBox="0 0 48 48" aria-hidden="true">
       <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -559,27 +563,29 @@
 <div class="veil" aria-hidden="true"><div class="door"></div><div class="rush"></div></div>
 <script>
 /* =========================================================
-   スクロールで進む映像 — 連番のコマを canvas に描く方式
-   動画の currentTime を動かすやり方はシークのたびに復号し直すので必ずカクつく。
-   先に全コマを読み込んで、スクロール位置で「何枚目を描くか」を選ぶ。シークは1回も起きない。
-   ・動きは補間する。追いついたら休む
-   ・描くのは変わった時だけ
-   ・コマが1枚も来なくてもページは完成している
+   ヒーロー — 1フリックで1シーンぶん進む映像
+   スクロールの量で1コマずつ送るとホイールの粗い刻みが絵に乗ってカクつく。
+   だから「スクロールは行き先だけを決める」。映像は自分の時間で滑らかに走る。
+   進む向きと戻る向きの2本を持ち、切り替えは必ずシーンの区切り＝同じコマの上で行う。
    ========================================================= */
 (function () {
   'use strict';
-  var SP = matchMedia('(max-width: 720px), (orientation: portrait) and (max-width: 1024px)').matches;
-  var N = SP ? 27 : 53;                         // スマホは縦向きの軽いコマ
-  var EDGE = '#12181C';                         // コマの端の色。ここで塗ってから描く
-  var DIR = SP ? 'assets/seq-sp/' : 'assets/seq/';
-  var PATH = function (i) { return DIR + 'f' + String(i + 1).padStart(3, '0') + '.webp'; };
-
   var hero = document.querySelector('.scrollhero');
   if (!hero) return;
   var stage = hero.querySelector('.stage');
-  var cv = hero.querySelector('canvas');
-  var ctx = cv.getContext('2d', { alpha: false });
+  var vf = hero.querySelector('.film.fwd');
+  var vr = hero.querySelector('.film.rev');
   var ring = hero.querySelector('.ring');
+  if (!vf || !vr) return;
+
+  var SP = matchMedia('(max-width: 720px), (orientation: portrait) and (max-width: 1024px)').matches;
+  vf.src = SP ? 'assets/hero-sp.mp4' : 'assets/hero.mp4';
+  vr.src = SP ? 'assets/hero-sp-r.mp4' : 'assets/hero-r.mp4';
+  // 1シーンを1.4秒くらいで渡りきる。等倍だと3秒かかってスクロールに置いていかれる
+  var RATE = 2.2;
+  vf.playbackRate = RATE; vr.playbackRate = RATE;
+
+  var SCENES = 3;                                 // 文字の帯と同じ数
   var bands = [].slice.call(hero.querySelectorAll('.hband')).map(function (el) {
     return { el: el, a: parseFloat(el.dataset.a), b: parseFloat(el.dataset.b), op: -1, k: -1 };
   });
@@ -592,155 +598,147 @@
     var text = target.textContent, r = rng(1234 + bi * 77);
     var sr = document.createElement('span'); sr.className = 'sr'; sr.textContent = text;
     var vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
-    var chars = Array.from(text);
-    chars.forEach(function (ch, i) {
+    Array.from(text).forEach(function (ch, i, all) {
       var s = document.createElement('span');
       s.className = 'c'; s.textContent = ch;
-      s.style.setProperty('--th', ((i / Math.max(1, chars.length - 1)) * 0.42 + r() * 0.08).toFixed(3));
+      s.style.setProperty('--th', ((i / Math.max(1, all.length - 1)) * 0.42 + r() * 0.08).toFixed(3));
       vis.appendChild(s);
     });
     target.textContent = ''; target.appendChild(sr); target.appendChild(vis);
   });
 
-  /* ---- コマを読み込む ---- */
-  var imgs = new Array(N), loaded = 0, ready = false, cur = -1, settledCount = 0;
-  function markReady() {
-    if (ready) return; ready = true;
-    stage.classList.add('film-ready');
-    sizeCanvas();
-    draw(Math.round(shown * (N - 1)));           // 今のスクロール位置のコマを描く
-  }
-  function onSettle() {
-    settledCount++;
-    if (ring) ring.style.setProperty('--ld', Math.round(126 * (1 - settledCount / N)));
-    if (loaded > 0 && (loaded >= Math.ceil(N * 0.6) || settledCount >= N)) markReady();
-    else if (settledCount >= N) stage.classList.add('film-failed');
-  }
-  function loadOne(i) {
-    var im = new Image();
-    im.decoding = 'async';
-    im.onload = function () { loaded++; imgs[i] = im; if (i === 0) { sizeCanvas(); draw(0); } onSettle(); };
-    im.onerror = onSettle;
-    im.src = PATH(i);
-  }
-  function startLoading() {
-    loadOne(0);
-    for (var i = 1; i < N; i++) loadOne(i);
-    setTimeout(function () { if (!ready) { if (loaded > 0) markReady(); else stage.classList.add('film-failed'); } }, 9000);
-  }
-
-  /* ---- 描く ---- */
-  function sizeCanvas() {
-    var dpr = Math.min(2, window.devicePixelRatio || 1);
-    var w = Math.round(cv.clientWidth * dpr), h = Math.round(cv.clientHeight * dpr);
-    if (w === cv.width && h === cv.height) return;
-    cv.width = w; cv.height = h; cur = -1;
-  }
-  function draw(i) {
-    if (i === cur) return;
-    var im = imgs[i];
-    if (!im) {                                    // まだ来ていないコマは、一番近い読み込み済みで代用
-      for (var d = 1; d < N; d++) {
-        if (imgs[i - d]) { im = imgs[i - d]; break; }
-        if (imgs[i + d]) { im = imgs[i + d]; break; }
-      }
-      if (!im) return;
-    } else { cur = i; }
-    var cw = cv.width, ch = cv.height;
-    var s = Math.max(cw / im.naturalWidth, ch / im.naturalHeight);
-    var w = im.naturalWidth * s, h = im.naturalHeight * s;
-    ctx.fillStyle = EDGE; ctx.fillRect(0, 0, cw, ch);
-    ctx.drawImage(im, (cw - w) / 2, (ch - h) * 0.58, w, h);
-  }
-
-  /* ---- スクロール位置から進み具合 ---- */
-  function heroProgress() {
-    var r = hero.getBoundingClientRect();
-    var range = hero.offsetHeight - window.innerHeight;
-    if (range <= 0) return 0;
-    return Math.min(1, Math.max(0, -r.top / range));
-  }
-
   /* ---- 帯の濃さと組み上がり ---- */
   var smoothstep = function (p, e0, e1) { var t = Math.min(1, Math.max(0, (p - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
   var clamp = function (v, lo, hi) { return Math.min(hi, Math.max(lo, v)); };
-  var loadK = 0, loadStart = 0;
+  var loadK = 0;
   function updateCaptions(p) {
     for (var i = 0; i < bands.length; i++) {
       var b = bands[i];
-      var f = Math.min(0.02, (b.b - b.a) / 3);
+      var f = Math.min(0.05, (b.b - b.a) / 3);
       var inEase = (i === 0) ? 1 : smoothstep(p, b.a, b.a + f);
       var outEase = (i === bands.length - 1) ? 0 : smoothstep(p, b.b - f, b.b);
       var op = inEase * (1 - outEase);
-      var k = clamp((p - b.a) / Math.min(0.025, (b.b - b.a) * 0.35), 0, 1);
+      var k = clamp((p - b.a) / Math.max(0.06, (b.b - b.a) * 0.45), 0, 1);
       if (i === 0) k = Math.max(k, loadK);
       if (Math.abs(op - b.op) > 0.004) { b.op = op; b.el.style.opacity = op.toFixed(3); }
       if (Math.abs(k - b.k) > 0.008) {
         b.k = k;
         b.el.style.setProperty('--k', k.toFixed(3));
         if (b.el.dataset.kind === 'settle') {
-          b.el.style.setProperty('--ks', clamp((k - 0.5) * 2.4, 0, 1).toFixed(3));
-          b.el.style.setProperty('--kb', clamp((k - 0.68) * 3, 0, 1).toFixed(3));
+          b.el.style.setProperty('--ks', clamp((k - 0.35) * 2.2, 0, 1).toFixed(3));
+          b.el.style.setProperty('--kb', clamp((k - 0.5) * 2.4, 0, 1).toFixed(3));
         }
       }
     }
   }
 
-  /* ---- 補間して滑らかに。追いついたら休む ---- */
-  var target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true;
-  function tick(now) {
-    var dt = Math.min(100, now - (lastTick || now));
-    lastTick = now;
-    shown += (target - shown) * (1 - Math.pow(1 - 0.18, dt / 16.667));
-    var settled = Math.abs(target - shown) < 0.0004;
-    if (settled) shown = target;
-    if (loadK < 1 && loadStart) loadK = clamp((now - loadStart) / 900, 0, 1);
-    if (ready) draw(Math.round(shown * (N - 1)));
-    updateCaptions(shown);
-    if (settled && loadK >= 1) { rafId = null; lastTick = 0; }
-    else rafId = requestAnimationFrame(tick);
+  /* ---- どこまで来たか ---- */
+  function heroProgress() {
+    var r = hero.getBoundingClientRect();
+    var range = hero.offsetHeight - window.innerHeight;
+    if (range <= 0) return 0;
+    return clamp(-r.top / range, 0, 1);
   }
-  function kick() { if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick); }
-  function onScroll() { target = heroProgress(); kick(); }
-  function onResize() { sizeCanvas(); if (ready) draw(Math.round(shown * (N - 1))); onScroll(); }
+  function targetScene() {
+    return Math.round(heroProgress() * (SCENES - 1));
+  }
 
+  var DUR = 0, ready = false, active = vf, aim = 0, raf = null;
+  function anchor(i) { return DUR * i / (SCENES - 1); }
+  function nowTime() { return active === vf ? vf.currentTime : Math.max(0, DUR - vr.currentTime); }
+
+  function show(v) {
+    if (active === v) return;
+    active = v;
+    vf.classList.toggle('on', v === vf);
+    vr.classList.toggle('on', v === vr);
+  }
+
+  /* ---- 行き先が変わったら、その向きの1本を走らせる ---- */
+  function drive() {
+    if (!ready) return;
+    var t = anchor(targetScene());
+    if (Math.abs(t - aim) < 0.01) return;
+    aim = t;
+    run();
+  }
+
+  function run() {
+    var cur = nowTime();
+    if (Math.abs(aim - cur) < 0.03) { settle(); return; }
+    if (aim > cur) {
+      if (Math.abs(vf.currentTime - cur) > 0.08) vf.currentTime = cur;
+      show(vf); vr.pause();
+      var pf = vf.play(); if (pf && pf.catch) pf.catch(function () {});
+    } else {
+      var rc = Math.max(0, DUR - cur);
+      if (Math.abs(vr.currentTime - rc) > 0.08) vr.currentTime = rc;
+      show(vr); vf.pause();
+      var pr = vr.play(); if (pr && pr.catch) pr.catch(function () {});
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+
+  function tick(ts) {
+    var cur = nowTime();
+    updateCaptions(DUR ? cur / DUR : 0);
+    var done = (active === vf) ? (cur >= aim - 0.008) : (cur <= aim + 0.008);
+    if (done) { settle(); raf = null; return; }
+    raf = requestAnimationFrame(tick);
+  }
+
+  /* ---- 止まったら、2本とも同じコマに合わせておく（次にどちらへ行っても待たない） ---- */
+  function settle() {
+    vf.pause(); vr.pause();
+    if (Math.abs(vf.currentTime - aim) > 0.05) vf.currentTime = aim;
+    var ra = Math.max(0, DUR - aim);
+    if (Math.abs(vr.currentTime - ra) > 0.05) vr.currentTime = ra;
+    updateCaptions(DUR ? aim / DUR : 0);
+  }
+
+  /* ---- 支度ができたら見せる ---- */
+  var started = 0;
+  function begin() {
+    if (ready) return;
+    DUR = vf.duration;
+    if (!isFinite(DUR) || DUR <= 0) return;
+    ready = true;
+    stage.classList.add('film-ready');
+    vf.currentTime = 0; vr.currentTime = DUR;
+    started = performance.now();
+    aim = 0;
+    (function intro(now) {
+      loadK = clamp(((now || performance.now()) - started) / 900, 0, 1);
+      updateCaptions(DUR ? nowTime() / DUR : 0);
+      if (loadK < 1) requestAnimationFrame(intro);
+      else drive();
+    })();
+  }
+  vf.addEventListener('loadedmetadata', begin);
+  vf.addEventListener('canplay', function () { if (ring) ring.style.opacity = 0; begin(); });
+  if (vf.readyState >= 1) begin();
+  setTimeout(function () { if (!ready) stage.classList.add('film-failed'); }, 9000);
+
+  /* ---- スクロールは「行き先」を決めるだけ ---- */
+  var pending = false;
+  function onScroll() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(function () { pending = false; drive(); });
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+
+  /* ---- 画面から出たら止める ---- */
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) { heroOnScreen = es[0].isIntersecting; if (heroOnScreen) kick(); },
-      { rootMargin: '10% 0px' }).observe(hero);
+    new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) { vf.pause(); vr.pause(); }
+      else drive();
+    }, { threshold: 0 }).observe(hero);
   }
-
-  function initHeroOnce() {
-    if (initHeroOnce.done) return; initHeroOnce.done = true;
-    ctx.fillStyle = EDGE; ctx.fillRect(0, 0, cv.width, cv.height);
-    startLoading();
-    loadStart = performance.now();
-  }
-
-  /* ---- 静止画に切り替える5条件。CSSと一字一句そろえる ---- */
-  var GATES = [
-    '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
-    '(prefers-reduced-motion: reduce)'
-  ];
-  var scrubOn = false;
-  function enableScrub() {
-    if (scrubOn) return; scrubOn = true;
-    initHeroOnce();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize, { passive: true });
-    bands.forEach(function (b) { b.op = -1; b.k = -1; });
-    updateCaptions(heroProgress());
-    onScroll();
-  }
-  function disableScrub() {
-    if (!scrubOn) return; scrubOn = false;
-    window.removeEventListener('scroll', onScroll);
-    window.removeEventListener('resize', onResize);
-    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
-  }
-  var MQLS = GATES.map(function (q) { return matchMedia(q); });
-  function applyHeroMode() { if (MQLS.some(function (m) { return m.matches; })) disableScrub(); else enableScrub(); }
-  MQLS.forEach(function (m) { m.addEventListener('change', applyHeroMode); });
-  applyHeroMode();
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { vf.pause(); vr.pause(); } else drive();
+  });
 })();
 </script>
 
