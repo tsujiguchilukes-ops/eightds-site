@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>採用情報｜有限会社エイト流通サービス（浦安・川口）</title>
+<meta name="description" content="家電設置スタッフ・配送アシスタント募集。配送する車は2tショートトラック。未経験の方も歓迎します。電気工事士免許は優遇します。千葉県浦安市・埼玉県川口市。">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="有限会社エイト流通サービス">
+<meta property="og:title" content="採用情報｜有限会社エイト流通サービス">
+<meta property="og:description" content="2tショートトラックは普通免許で運転できます。未経験歓迎、電気工事士免許は優遇します。">
+<meta property="og:image" content="img/L1_積込.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+/* === 採用ページだけ、明るい顔にする ===
+   荷主向け（落ち着いた紺）に対して、求職者向けは空色＋黄緑。 */
+:root{
+  --brand:#1878B4;   /* 明るい青 */
+  --deep:#0E5B8C;
+  --accent:#7BB93F;  /* 黄緑 */
+  --paper:#F1F7FB;   /* 空色寄りの地 */
+  --line:#D6E3EC;
+}
+/* ヒーロー */
+.rhero{position:relative;height:100vh;min-height:620px;overflow:hidden;background:var(--deep)}
+.rhero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.rhero .tone{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,58,80,.88),rgba(8,58,80,.18))}
+.rhero .in{position:relative;height:100%;max-width:var(--max);margin:0 auto;padding:0 40px 88px;
+  display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
+.rhero .en{color:#F0A585}
+.rhero h1{font-size:56px;font-weight:700;line-height:1.5;letter-spacing:.05em;margin-top:8px}
+.rhero .sub{margin-top:24px;font-size:22px;font-weight:700;color:#D8E6EE}
+
+/* 給与の帯 */
+.pay{background:var(--accent);color:#fff}
+.pay .in{max-width:var(--max);margin:0 auto;padding:48px 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.pay>.in>div+div{border-left:1px solid rgba(255,255,255,.34);padding-left:40px}
+.pay dt{font-size:14px;letter-spacing:.14em;color:#EDF7E2}
+.pay dd{font-size:28px;font-weight:700;line-height:1.4;margin-top:8px;white-space:nowrap;letter-spacing:.02em}
+.pay dd small{font-size:16px;font-weight:400;margin-left:2px}
+
+/* 写真だけの帯（文字を置かない） */
+.band{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
+.band figure{position:relative;overflow:hidden;background:var(--deep)}
+.band img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;
+  transition:transform .8s var(--ease),filter .5s var(--ease);filter:brightness(.94)}
+.band figure:hover img{transform:scale(1.05);filter:brightness(1)}
+
+/* 年収の実例 */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.case{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--brand);padding:32px 40px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.case .y{font-size:28px;font-weight:700;color:var(--brand);line-height:1.4;white-space:nowrap;letter-spacing:.02em}
+.case .y small{font-size:16px;font-weight:400;margin-left:2px}
+.case .w{font-size:14px;color:var(--sub);white-space:nowrap}
+
+/* 向いている人：番号を立てた箇条書き */
+.fitlist{margin-top:48px;border-top:1px solid var(--line);counter-reset:fit}
+.fitlist li{list-style:none;display:flex;align-items:center;gap:32px;padding:28px 0;
+  border-bottom:1px solid var(--line)}
+.fitlist .n{flex:none;width:56px;height:56px;background:var(--brand);color:#fff;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;letter-spacing:.04em}
+.fitlist .t{font-size:28px;font-weight:700;letter-spacing:.04em;line-height:1.5}
+.welcome{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px}
+.welcome span{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--brand);
+  box-shadow:inset 0 0 0 1px var(--line);font-size:16px;padding:8px 20px;border-radius:2px}
+.welcome span::before{content:"";width:14px;height:11px;flex:none;background:var(--accent);
+  -webkit-mask:var(--check) no-repeat center/contain;mask:var(--check) no-repeat center/contain}
+
+/* 1日の終わり */
+.done{position:relative;overflow:hidden;background:var(--deep);color:#fff}
+.done>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;filter:brightness(.5)}
+.done .tone{position:absolute;inset:0;background:linear-gradient(to right,rgba(6,40,56,.92),rgba(6,40,56,.38))}
+.done .in{position:relative;max-width:var(--max);margin:0 auto;padding:120px 40px}
+.done .en{color:#F0A585}
+.done h2{font-size:40px}
+.tally{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:48px;max-width:900px}
+.tally div{padding:28px 32px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.tally svg{width:32px;height:32px;stroke:#F0A585;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.tally b{display:block;margin-top:12px;font-size:28px;font-weight:700;letter-spacing:.02em}
+.tally b small{font-size:16px;font-weight:400;margin-left:4px}
+.tally span{display:block;margin-top:4px;font-size:14px;color:#B6CCD8;line-height:1.7}
+.said{margin-top:48px;max-width:720px;border-left:3px solid var(--accent);padding-left:32px}
+.said p{font-size:22px;font-weight:700;line-height:1.9;letter-spacing:.02em}
+.said cite{display:block;margin-top:12px;font-size:14px;font-style:normal;color:#B6CCD8}
+
+/* 募集要項 */
+.tabs{display:flex;margin-top:64px;border-bottom:2px solid var(--line)}
+.tabs button{flex:1;padding:24px 16px;font-size:22px;font-weight:700;background:none;border:0;cursor:pointer;
+  color:var(--sub);border-bottom:4px solid transparent;margin-bottom:-2px;font-family:inherit;
+  transition:color .16s var(--ease),border-color .16s var(--ease)}
+.tabs button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--accent)}
+.panel{display:none}
+.panel.on{display:block}
+.tbl th{width:9em}
+.tbl .day{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;color:var(--sub)}
+.tbl .day b{color:var(--brand);font-variant-numeric:tabular-nums}
+
+/* 応募 */
+.entry{background:var(--deep);color:#fff}
+.entry .in{max-width:var(--max);margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr auto;
+  gap:64px;align-items:center}
+.entry .en{color:#F0A585}
+.entry h2{font-size:40px}
+.entry .fl{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:24px;font-size:16px;color:#CBDDE6}
+.entry .fl span::after{content:"→";margin-left:16px;color:#7FA6B8}
+.entry .fl span:last-child::after{content:""}
+.ctel{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.ctel a{display:block;text-decoration:none;border-top:1px solid rgba(255,255,255,.28);padding-top:12px}
+.ctel .n{font-size:14px;letter-spacing:.14em;color:#9FC0CE}
+.ctel .t{display:block;font-size:28px;font-weight:700;color:#fff;white-space:nowrap;transition:color .16s var(--ease)}
+.ctel a:hover .t{color:#F0A585}
+.entry .side{display:grid;gap:16px;min-width:320px}
+
+@media(max-width:900px){
+  .rhero{height:auto;aspect-ratio:3/4;min-height:0}
+  .rhero .in{padding:0 24px 40px}
+  .rhero h1{font-size:28px}
+  .rhero .sub{font-size:16px;margin-top:16px}
+  .pay .in{grid-template-columns:1fr;gap:24px;padding:32px 24px}
+  .pay>.in>div+div{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.34);padding-top:24px}
+  .cases{grid-template-columns:1fr;gap:8px;margin-top:40px}
+  .case{padding:20px 24px}
+  .fitlist{margin-top:32px}
+  .fitlist li{gap:20px;padding:20px 0}
+  .fitlist .n{width:44px;height:44px;font-size:18px}
+  .fitlist .t{font-size:18px}
+  .done .in{padding:64px 24px}
+  .done h2{font-size:28px}
+  .tally{grid-template-columns:1fr;gap:4px;margin-top:32px}
+  .tally div{padding:20px 24px}
+  .said{margin-top:32px;padding-left:20px}
+  .said p{font-size:18px}
+  .tabs{margin-top:40px}
+  .tabs button{font-size:16px;padding:16px 8px}
+  .entry .in{grid-template-columns:1fr;gap:32px;padding:56px 24px}
+  .entry h2{font-size:28px}
+  .ctel{grid-template-columns:1fr}
+  .entry .side{min-width:0}
+}
+</style>
+<link rel="preload" as="image" href="assets/veil-door.jpg">
+<style>html[data-soar]{background:#F5F1EA}html[data-soar] body{opacity:0}</style>
+<script>try{var d=sessionStorage.getItem("soar");if(d){document.documentElement.setAttribute("data-soar",d);sessionStorage.removeItem("soar");}}catch(e){}</script>
+</head>
+<body>
+
+<header class="head on-hero">
+  <div class="r1">
+    <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 浦安・川口</span></a>
+    <button class="mtoggle" aria-expanded="false">メニュー</button>
+    <div class="r2"><div class="in">
+    <ul class="gnav">
+      <li><a href="about.html">私たちのこと</a>
+        <ul class="drop">
+          <li><a href="about.html#rules">現場の決まりごと</a></li>
+          <li><a href="about.html#message">代表のあいさつ</a></li>
+          <li><a href="about.html#urayasu">倉庫・拠点</a></li>
+          <li><a href="about.html#area">対応エリア</a></li>
+          <li><a href="about.html#outline">会社概要・沿革・許認可</a></li>
+        </ul>
+      </li>
+      <li><a href="service.html">サービス</a>
+        <ul class="drop">
+          <li><a href="service.html#delivery">家電の配送・設置</a></li>
+          <li><a href="service.html#furniture">家具の配送・組立</a></li>
+          <li><a href="service.html#electrical">電気工事</a></li>
+          <li><a href="service.html#recycle">引き取り・リサイクル</a></li>
+        </ul>
+      </li>
+      <li><a href="business.html">法人のお客様へ</a>
+        <ul class="drop">
+          <li><a href="business.html#flow">ご依頼の流れ</a></li>
+          <li><a href="business.html#faq">よくあるご質問</a></li>
+          <li><a href="business.html#clients">お取引について</a></li>
+          <li><a href="business.html#partner">協力会社募集</a></li>
+        </ul>
+      </li>
+      <li aria-current="page"><a href="recruit.html">採用情報</a></li>
+    </ul>
+    <a class="hbtn" href="contact.html">お問い合わせ</a>
+  </div></div>
+  </div>
+</header>
+
+<nav class="quick" aria-label="クイックアクセス">
+  <a href="contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14"/><path d="M2 6l10 7 10-7"/></svg>お見積り</a>
+  <a href="about.html#urayasu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>倉庫・拠点</a>
+  <a href="recruit.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 21c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4"/></svg>採用情報</a>
+  <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
+</nav>
+
+<!-- ヒーロー -->
+<section class="rhero" data-hero>
+  <img src="img/V4_積戻.jpg" alt="住宅街でトラックに積み戻す作業（イメージ）" width="1920" height="1071">
+  <div class="tone"></div>
+  <div class="in">
+    <p class="en">RECRUIT</p>
+    <h1>仕事だけでなく、<br>1日じゅう隣に相棒がいる。</h1>
+    <p class="sub">未経験でも大丈夫です。仕事をしながら覚えてもらいます。</p>
+  </div>
+</section>
+
+<!-- 給与 -->
+<dl class="pay"><div class="in">
+  <div><dt>運転する車</dt><dd>2t<small>ショートトラック</small></dd></div>
+  <div><dt>必要な免許</dt><dd>普通免許<small>から相談できます</small></dd></div>
+  <div><dt>アルバイト／日給</dt><dd>12,000<small>円〜</small></dd></div>
+</div></dl>
+
+<!-- 写真だけの帯 -->
+<div class="band"><img src="img/L1_積込.jpg" alt="トラックへ家電を積み込むところ（イメージ）" width="1920" height="1071" loading="lazy"></div>
+
+<!-- 向いている人 -->
+<section class="sec sec-paper">
+  <div class="wrap">
+    <p class="en" data-rise="0">FIT</p>
+    <h2 data-rise="0">こんな方におすすめです。</h2>
+    <ol class="fitlist" data-rise="0">
+      <li><span class="n">01</span><span class="t">明るく挨拶ができる方</span></li>
+      <li><span class="n">02</span><span class="t">体を動かしていたい方</span></li>
+      <li><span class="n">03</span><span class="t">「ありがとう」を直接もらいたい方</span></li>
+    </ol>
+    <div class="welcome" data-rise="0">
+      <span>未経験歓迎</span><span>普通免許から相談できます</span><span>電気工事士免許は優遇</span>
+      <span>電気工事に興味のある方</span><span>免許が無い方も（助手）</span><span>運転なしの仕事もあり</span>
+      <span>単発・短期OK</span><span>日払い・週払い</span><span>直行直帰OK</span>
+    </div>
+  </div>
+</section>
+
+<!-- 始め方 -->
+<section class="done">
+  <img src="img/L2_トラック列.jpg" alt="出発前のトラック（イメージ）" loading="lazy" width="1920" height="1071">
+  <div class="tone"></div>
+  <div class="in">
+    <p class="en" data-rise="0">START</p>
+    <h2 data-rise="0">未経験から始める人が多い仕事です。</h2>
+    <div class="tally">
+      <div data-rise="0">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 8h18v13H2z"/><path d="M20 13h5l5 5v3h-10z"/><circle cx="8" cy="24" r="3"/><circle cx="24" cy="24" r="3"/></svg>
+        <b>2t<small>ショートトラック</small></b>
+        <span>普通免許で始められる車両があります</span>
+      </div>
+      <div data-rise="0">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="10" r="4"/><circle cx="22" cy="12" r="3.2"/><path d="M4 26c0-4 3.2-7 7-7s7 3 7 7"/><path d="M18.5 21c1-1.2 2.2-1.8 3.5-1.8 3 0 5.5 2.4 5.5 5.4"/></svg>
+        <b>未経験<small>から</small></b>
+        <span>仕事をしながら覚えてもらいます</span>
+      </div>
+      <div data-rise="0">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 4 9v8c0 6.5 5 11 12 12 7-1 12-5.5 12-12V9z"/><path d="M11 16l3.5 3.5L22 12"/></svg>
+        <b>電気工事士<small>優遇</small></b>
+        <span>免許をお持ちの方は優遇します</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 募集要項 -->
+<section class="sec sec-paper">
+  <div class="wrap">
+    <p class="en" data-rise="0">REQUIREMENTS</p>
+    <h2 data-rise="0">募集要項</h2>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="p-sha" id="t-sha">正社員</button>
+      <button role="tab" aria-selected="false" aria-controls="p-aru" id="t-aru">アルバイト</button>
+    </div>
+
+    <div class="panel on" id="p-sha" role="tabpanel" aria-labelledby="t-sha">
+      <table class="tbl">
+        <tr><th>職種</th><td>家電設置スタッフ（配送・設置・電気工事）</td></tr>
+        <tr><th>仕事内容</th><td>家電量販店で購入された商品を、お客様のご自宅へ配送・設置します。エアコン・アンテナの取付電気工事も行います。</td></tr>
+        <tr><th>車両</th><td>2tショートトラック。普通免許で始められる車両があります。※免許の取得時期・車両によっては準中型免許が必要になる場合があります。詳しくはお電話でご確認ください。</td></tr>
+        <tr><th>対象</th><td>要普通免許／電気工事士免許は優遇します／未経験の方も歓迎します<br>教育体制に力を入れています。仕事をしながら丁寧に教えます。</td></tr>
+        <tr><th>勤務地</th><td>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）<br>川口営業所（埼玉県川口市差間2-34-13 1F）</td></tr>
+        <tr><th>給与・勤務時間・休日・待遇</th><td><strong>お電話でご案内します。</strong><br>
+          社会保険完備・昇給あり・賞与あり・交通費支給（規定内）・制服貸与<br>
+          <a href="tel:0473810142">047-381-0142</a>（浦安本社）／<a href="tel:0482297552">048-229-7552</a>（川口営業所）　受付 8:00〜17:00</td></tr>
+      </table>
+    </div>
+
+    <div class="panel" id="p-aru" role="tabpanel" aria-labelledby="t-aru">
+      <table class="tbl">
+        <tr><th>職種</th><td>家電配送の助手スタッフ（配送アシスタント）</td></tr>
+        <tr><th>仕事内容</th><td>配送スタッフの助手です。<strong>運転はありません。</strong>助手席に座っての移動なので、移動時間のぶん実働は長くなりません。作業が早く終われば早く帰れます。</td></tr>
+        <tr><th>対象</th><td>未経験の方、普通免許が無い方も歓迎します。</td></tr>
+        <tr><th>勤務地</th><td>埼玉県川口市差間2-35-9　※面接地は 川口市差間2-34-13 1F</td></tr>
+        <tr><th>勤務時間</th><td>8:30〜17:30</td></tr>
+        <tr><th>給与</th><td><strong>日給12,000円〜13,000円</strong>　日給保障付き／日払い・週払いに対応しています</td></tr>
+        <tr><th>シフト</th><td>単発・短期も相談できます／直行直帰OK</td></tr>
+      </table>
+      <p class="note">※アルバイトの条件は、当社の採用ページ（2026年5月更新）の内容です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 応募 -->
+<section class="entry" id="entry">
+  <div class="in">
+    <div data-rise="0">
+      <p class="en">ENTRY</p>
+      <h2>まずはお電話ください。</h2>
+      <p class="fl"><span>ご応募</span><span>書類選考</span><span>面接</span><span>会社見学</span><span>選考</span><span>入社決定</span></p>
+      <div class="ctel">
+        <a href="tel:0473810142"><span class="n">浦安本社</span><span class="t">047-381-0142</span></a>
+        <a href="tel:0482297552"><span class="n">川口営業所</span><span class="t">048-229-7552</span></a>
+      </div>
+    </div>
+    <div class="side" data-rise="0">
+      <a class="btn btn-ghost" href="contact.html">フォームから応募する</a>
+      <a class="btn btn-ghost" href="about.html">会社のことを見る</a>
+    </div>
+  </div>
+</section>
+
+<div class="backrow"><div class="in"><a href="index.html">トップページへ戻る</a></div></div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h3>有限会社エイト流通サービス</h3>
+        <address>
+          <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
+          TEL&amp;FAX <a href="tel:0473810142">047-381-0142</a><br><br>
+          <strong>川口営業所</strong>　〒333-0816 埼玉県川口市差間2-34-13 1F<br>
+          TEL <a href="tel:0482297552">048-229-7552</a>　FAX 048-229-7728<br><br>
+          受付時間 8:00〜17:00
+        </address>
+      </div>
+      <ul class="fnav">
+        <li class="t">会社について</li>
+        <li><a href="about.html">私たちのこと</a></li>
+        <li><a href="about.html#outline">会社概要・沿革</a></li>
+        <li><a href="about.html#license">許認可</a></li>
+        <li><a href="about.html#urayasu">倉庫・拠点</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">サービス</li>
+        <li><a href="service.html#delivery">家電の配送・設置</a></li>
+        <li><a href="service.html#furniture">家具の配送・組立</a></li>
+        <li><a href="service.html#electrical">電気工事</a></li>
+        <li><a href="service.html#recycle">引き取り・リサイクル</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">お問い合わせ</li>
+        <li><a href="business.html">法人のお客様へ</a></li>
+        <li><a href="business.html#clients">お取引について</a></li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
+  </div>
+</footer>
+
+<div class="bar">
+  <a class="b0" href="index.html">ホーム</a>
+  <a class="b1" href="tel:0473810142">電話する</a>
+  <a class="b2" href="#entry">応募する</a>
+</div>
+
+<a class="ptop" href="#" aria-label="ページの先頭へ戻る"><span>ページの先頭へ戻る</span></a>
+<div class="veil" aria-hidden="true"><div class="door"></div><div class="rush"></div></div>
+<script src="assets/motion.js"></script>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.tabs button');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(o){
+        o.setAttribute('aria-selected','false');
+        document.getElementById(o.getAttribute('aria-controls')).classList.remove('on');
+      });
+      t.setAttribute('aria-selected','true');
+      document.getElementById(t.getAttribute('aria-controls')).classList.add('on');
+    });
+  });
+})();
+</script>
+</body>
+</html>

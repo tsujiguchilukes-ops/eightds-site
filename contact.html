@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>お問い合わせ｜有限会社エイト流通サービス</title>
+<meta name="description" content="家電・家具の配送、設置、電気工事、引き取りのご相談。お見積りは無料です。浦安本社 047-381-0142／川口営業所 048-229-7552（受付 8:00〜17:00）。">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="有限会社エイト流通サービス">
+<meta property="og:title" content="お問い合わせ｜有限会社エイト流通サービス">
+<meta property="og:description" content="配送委託のご相談・お見積り。お見積りは無料です。047-381-0142／048-229-7552。">
+<meta property="og:image" content="img/L1_積込.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+
+.cgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:start;margin-top:64px}
+.form{display:grid;gap:24px}
+.field label{display:block;font-size:16px;font-weight:700;color:var(--brand)}
+.field label .req{font-size:14px;font-weight:400;color:var(--accent);margin-left:8px}
+.field label .opt{font-size:14px;font-weight:400;color:var(--sub);margin-left:8px}
+.field input,.field select,.field textarea{width:100%;margin-top:8px;padding:14px 16px;font-size:16px;
+  font-family:inherit;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:2px;
+  transition:border-color .16s var(--ease),box-shadow .16s var(--ease)}
+.field textarea{min-height:180px;resize:vertical;line-height:1.8}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--brand);
+  box-shadow:inset 0 0 0 1px var(--brand)}
+.field .hint{font-size:14px;color:var(--sub);margin-top:4px}
+.field .err{font-size:14px;color:#B23B15;margin-top:4px;display:none}
+.field.bad input,.field.bad select,.field.bad textarea{border-color:#B23B15}
+.field.bad .err{display:block}
+.radios{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.radios label{position:relative;font-weight:400}
+.radios input{position:absolute;opacity:0;width:0;height:0}
+.radios span{display:block;padding:10px 20px;border:1px solid var(--line);border-radius:2px;font-size:16px;
+  cursor:pointer;transition:border-color .16s var(--ease),background-color .16s var(--ease),color .16s var(--ease)}
+.radios input:checked+span{border-color:var(--brand);background:var(--brand);color:#fff}
+.radios input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.form .agree{font-size:16px;display:flex;gap:12px;align-items:flex-start}
+.form .agree input{margin-top:6px;width:18px;height:18px;flex:none}
+.sendrow{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.sendrow .btn{cursor:pointer;border:0;font-family:inherit}
+.sendrow .btn[disabled]{opacity:.6;cursor:default}
+.sent{display:none;background:var(--paper);border-left:4px solid var(--brand);padding:32px 40px;margin-top:24px}
+.sent.on{display:block}
+.sent h3{font-size:22px;color:var(--brand)}
+.sent p{font-size:16px;margin-top:8px}
+.sent .tels{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.sent .tels a{font-size:28px;font-weight:700;color:var(--brand);text-decoration:none;display:block}
+.sent .tels small{display:block;font-size:14px;font-weight:400;color:var(--sub)}
+.cside{background:var(--paper);border:1px solid var(--line);padding:40px;position:sticky;top:calc(var(--head) + 24px)}
+.cside h3{font-size:22px;color:var(--brand)}
+.cside .t{display:block;margin-top:16px;font-size:28px;font-weight:700;color:var(--brand);text-decoration:none}
+.cside .t small{display:block;font-size:14px;font-weight:400;color:var(--sub)}
+.cside .t+.t{margin-top:24px}
+.cside .h{margin-top:24px;font-size:14px;color:var(--sub);border-top:1px solid var(--line);padding-top:16px}
+@media(max-width:900px){
+  .cgrid{grid-template-columns:1fr;gap:32px;margin-top:40px}
+  .cside{position:static;padding:24px}
+  .sent .tels{grid-template-columns:1fr}
+}
+
+</style>
+<link rel="preload" as="image" href="assets/veil-door.jpg">
+<style>html[data-soar]{background:#F5F1EA}html[data-soar] body{opacity:0}</style>
+<script>try{var d=sessionStorage.getItem("soar");if(d){document.documentElement.setAttribute("data-soar",d);sessionStorage.removeItem("soar");}}catch(e){}</script>
+</head>
+<body class="form-page">
+
+<header class="head">
+  <div class="r1">
+    <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 浦安・川口</span></a>
+    <button class="mtoggle" aria-expanded="false">メニュー</button>
+    <div class="r2"><div class="in">
+    <ul class="gnav">
+      <li><a href="about.html">私たちのこと</a>
+        <ul class="drop">
+          <li><a href="about.html#rules">現場の決まりごと</a></li>
+          <li><a href="about.html#message">代表のあいさつ</a></li>
+          <li><a href="about.html#urayasu">倉庫・拠点</a></li>
+          <li><a href="about.html#area">対応エリア</a></li>
+          <li><a href="about.html#outline">会社概要・沿革・許認可</a></li>
+        </ul>
+      </li>
+      <li><a href="service.html">サービス</a>
+        <ul class="drop">
+          <li><a href="service.html#delivery">家電の配送・設置</a></li>
+          <li><a href="service.html#furniture">家具の配送・組立</a></li>
+          <li><a href="service.html#electrical">電気工事</a></li>
+          <li><a href="service.html#recycle">引き取り・リサイクル</a></li>
+        </ul>
+      </li>
+      <li><a href="business.html">法人のお客様へ</a>
+        <ul class="drop">
+          <li><a href="business.html#flow">ご依頼の流れ</a></li>
+          <li><a href="business.html#faq">よくあるご質問</a></li>
+          <li><a href="business.html#clients">お取引について</a></li>
+          <li><a href="business.html#partner">協力会社募集</a></li>
+        </ul>
+      </li>
+      <li><a href="recruit.html">採用情報</a></li>
+    </ul>
+    <a class="hbtn" href="contact.html">お問い合わせ</a>
+  </div></div>
+  </div>
+</header>
+
+<nav class="quick" aria-label="クイックアクセス">
+  <a href="contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14"/><path d="M2 6l10 7 10-7"/></svg>お見積り</a>
+  <a href="about.html#urayasu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>倉庫・拠点</a>
+  <a href="recruit.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 21c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4"/></svg>採用情報</a>
+  <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
+</nav>
+
+<div class="phead">
+  <img src="img/V1_引き.jpg" alt="" aria-hidden="true" width="1920" height="1071">
+  <div class="in">
+    <p class="en">CONTACT</p>
+    <h1>お問い合わせ</h1>
+  </div>
+</div>
+
+<nav class="crumb" aria-label="現在の場所"><div class="in"><a href="index.html">トップ</a><span>＞</span>お問い合わせ</div></nav>
+
+
+<section class="sec">
+  <div class="wrap">
+    <p class="en" data-rise="0">CONTACT</p>
+    <h2 data-rise="0">お問い合わせ</h2>
+    <p class="note" data-rise="0">お見積りは無料です。搬入できるかどうかの相談だけでも構いません。お急ぎの場合はお電話が確実です。</p>
+
+    <div class="cgrid">
+      <form class="form" id="f" novalidate data-rise="0">
+        <div class="field">
+          <span class="sr">ご用件</span>
+          <label>ご用件<span class="req">必須</span></label>
+          <div class="radios">
+            <label><input type="radio" name="kind" value="配送・設置の依頼／見積り" checked><span>配送・設置の依頼／見積り</span></label>
+            <label><input type="radio" name="kind" value="電気工事の依頼"><span>電気工事の依頼</span></label>
+            <label><input type="radio" name="kind" value="引き取り・リサイクル"><span>引き取り・リサイクル</span></label>
+            <label><input type="radio" name="kind" value="協力会社の応募"><span>協力会社の応募</span></label>
+            <label><input type="radio" name="kind" value="採用について"><span>採用について</span></label>
+            <label><input type="radio" name="kind" value="その他"><span>その他</span></label>
+          </div>
+        </div>
+        <div class="field" id="w-name">
+          <label for="name">お名前<span class="req">必須</span></label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+          <p class="err">お名前を入れてください。</p>
+        </div>
+        <div class="field">
+          <label for="company">会社名<span class="opt">任意</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field" id="w-tel">
+          <label for="tel">お電話番号<span class="req">必須</span></label>
+          <input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" required>
+          <p class="hint">日中つながる番号をお願いします。</p>
+          <p class="err">お電話番号を入れてください。</p>
+        </div>
+        <div class="field" id="w-mail">
+          <label for="mail">メールアドレス<span class="opt">任意</span></label>
+          <input id="mail" name="mail" type="email" autocomplete="email">
+          <p class="err">メールアドレスの形が違うようです。</p>
+        </div>
+        <div class="field">
+          <label for="area">現場の場所<span class="opt">任意</span></label>
+          <select id="area" name="area">
+            <option value="">選んでください</option>
+            <option>東京都</option><option>千葉県</option><option>埼玉県</option><option>神奈川県</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="field" id="w-body">
+          <label for="body">ご用件の内容<span class="req">必須</span></label>
+          <textarea id="body" name="body" required placeholder="例）冷蔵庫1台を浦安市内のマンション5階（エレベーターなし）へ。搬入できるか相談したいです。"></textarea>
+          <p class="err">内容を入れてください。</p>
+        </div>
+        <label class="agree"><input type="checkbox" id="agree" required>
+          <span><a href="privacy.html">プライバシーポリシー</a>に同意します。</span></label>
+        <div class="sendrow">
+          <button class="btn btn-main" type="submit" id="send">この内容で送信する</button>
+          <span class="hint">3営業日以内にご連絡します。</span>
+        </div>
+        <div class="sent" id="ok" role="status" aria-live="polite">
+          <h3 id="ok-h">送信しました。</h3>
+          <p id="ok-p">3営業日以内にご連絡します。お急ぎの場合はお電話ください。</p>
+          <div class="tels">
+            <a href="tel:0473810142">047-381-0142<small>浦安本社　受付 8:00〜17:00</small></a>
+            <a href="tel:0482297552">048-229-7552<small>川口営業所　受付 8:00〜17:00</small></a>
+          </div>
+        </div>
+      </form>
+
+      <aside class="cside" data-rise="0">
+        <h3>お電話が確実です</h3>
+        <a class="t" href="tel:0473810142">047-381-0142<small>浦安本社</small></a>
+        <a class="t" href="tel:0482297552">048-229-7552<small>川口営業所</small></a>
+        <p class="h">受付時間　8:00〜17:00<br>土日祝は現場に出ていることがあります。つながらない場合は時間をおいてお掛け直しください。</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+
+
+<div class="backrow"><div class="in"><a href="index.html">トップページへ戻る</a></div></div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h3>有限会社エイト流通サービス</h3>
+        <address>
+          <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
+          TEL&amp;FAX <a href="tel:0473810142">047-381-0142</a><br><br>
+          <strong>川口営業所</strong>　〒333-0816 埼玉県川口市差間2-34-13 1F<br>
+          TEL <a href="tel:0482297552">048-229-7552</a>　FAX 048-229-7728<br><br>
+          受付時間 8:00〜17:00
+        </address>
+      </div>
+      <ul class="fnav">
+        <li class="t">会社について</li>
+        <li><a href="about.html">私たちのこと</a></li>
+        <li><a href="about.html#outline">会社概要・沿革</a></li>
+        <li><a href="about.html#license">許認可</a></li>
+        <li><a href="about.html#urayasu">倉庫・拠点</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">サービス</li>
+        <li><a href="service.html#delivery">家電の配送・設置</a></li>
+        <li><a href="service.html#furniture">家具の配送・組立</a></li>
+        <li><a href="service.html#electrical">電気工事</a></li>
+        <li><a href="service.html#recycle">引き取り・リサイクル</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">お問い合わせ</li>
+        <li><a href="business.html">法人のお客様へ</a></li>
+        <li><a href="business.html#clients">お取引について</a></li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="privacy.html">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
+  </div>
+</footer>
+
+<div class="bar">
+  <a class="b0" href="index.html">ホーム</a>
+  <a class="b1" href="tel:0473810142">電話する</a>
+  <a class="b2" href="contact.html">お問い合わせ</a>
+</div>
+
+<a class="ptop" href="#" aria-label="ページの先頭へ戻る"><span>ページの先頭へ戻る</span></a>
+<div class="veil" aria-hidden="true"><div class="door"></div><div class="rush"></div></div>
+<script src="assets/motion.js"></script>
+<script>
+(function(){
+  /* 送信先（Formspree等）。ここが空の間は、電話へ案内する。 */
+  var ENDPOINT = "";
+
+  var f=document.getElementById('f'), btn=document.getElementById('send'), ok=document.getElementById('ok');
+  var okH=document.getElementById('ok-h'), okP=document.getElementById('ok-p');
+
+  function bad(id,cond){ var w=document.getElementById(id); w.classList.toggle('bad',cond); return cond; }
+
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('name'), tel=document.getElementById('tel'),
+        mail=document.getElementById('mail'), body=document.getElementById('body'),
+        agree=document.getElementById('agree');
+    var ng=false;
+    ng = bad('w-name', !name.value.trim()) || ng;
+    ng = bad('w-tel', !tel.value.trim()) || ng;
+    ng = bad('w-mail', !!mail.value.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail.value.trim())) || ng;
+    ng = bad('w-body', !body.value.trim()) || ng;
+    if(!agree.checked){ ng=true; agree.focus(); }
+    if(ng){ f.querySelector('.bad input,.bad textarea') && f.querySelector('.bad input,.bad textarea').focus(); return; }
+
+    /* 押した瞬間に見た目を変える・二重送信を止める */
+    btn.disabled=true; btn.textContent='送信中…';
+
+    if(!ENDPOINT){
+      okH.textContent='フォームの受付は準備中です。';
+      okP.textContent='申し訳ありません。ただいまフォームからの受付を準備しています。お手数ですが、お電話でご連絡ください。';
+      ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
+      btn.disabled=false; btn.textContent='この内容で送信する';
+      return;
+    }
+
+    fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)})
+      .then(function(r){
+        if(!r.ok) throw new Error('status '+r.status);
+        okH.textContent='送信しました。';
+        okP.textContent='3営業日以内にご連絡します。お急ぎの場合はお電話ください。';
+        ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
+        btn.textContent='送信しました';
+      })
+      .catch(function(err){
+        okH.textContent='送信できませんでした。';
+        okP.textContent='通信の状態か、送信先の設定が原因です（'+err.message+'）。お手数ですが、お電話でご連絡ください。';
+        ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
+        btn.disabled=false; btn.textContent='もう一度送信する';
+      });
+  });
+})();
+</script>
+</body>
+</html>
