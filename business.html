@@ -47,15 +47,21 @@
   .partner .in{grid-template-columns:1fr;gap:32px;padding:56px 24px}
 }
 
-/* 取引先の一覧 */
-.clients{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+/* 取引先の一覧。4つなので2列2行。3列にすると1マス空いて「書くことがない」に見える */
+.clients{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
   border:1px solid var(--line);margin-top:64px}
-.clients li{list-style:none;background:var(--white);padding:32px;display:flex;flex-direction:column;justify-content:center;
-  min-height:140px;transition:background-color .16s var(--ease)}
+.clients li{list-style:none;position:relative;background:var(--white);padding:40px 40px 40px 100px;
+  display:flex;flex-direction:column;justify-content:center;min-height:168px;
+  transition:background-color .28s var(--ease)}
 .clients li:hover{background:var(--paper)}
+.clients li::before{content:attr(data-n);position:absolute;left:40px;top:40px;
+  font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.clients li::after{content:"";position:absolute;left:40px;top:66px;width:26px;height:1px;background:var(--line);
+  transition:width .38s var(--ease),background-color .38s var(--ease)}
+.clients li:hover::after{width:40px;background:var(--accent)}
 .clients .nm{font-size:22px;font-weight:700;color:var(--brand);line-height:1.5}
-.clients .sub{font-size:14px;color:var(--sub);margin-top:8px}
-.clients .cat{font-size:14px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px}
+.clients .sub{font-size:15px;color:var(--sub);margin-top:10px;line-height:1.8}
 
 /* 数字で見る */
 .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:64px}
@@ -228,10 +234,10 @@
     
 
     <ul class="clients" data-rise="0">
-      <li><span class="cat">CLIENTS</span><span class="nm">家電量販店</span><span class="sub">店頭で購入された商品の配送・設置</span></li>
-      <li><span class="cat">CLIENTS</span><span class="nm">ホームセンター</span><span class="sub">家具・家電の配送と組み立て</span></li>
-      <li><span class="cat">CLIENTS</span><span class="nm">メーカー系サービス会社</span><span class="sub">設置・取付工事</span></li>
-      <li><span class="cat">CLIENTS</span><span class="nm">物流企業</span><span class="sub">個人宅への配送の受託</span></li>
+      <li data-n="01"><span class="nm">家電量販店</span><span class="sub">店頭で購入された冷蔵庫・洗濯機・テレビを、お客様のお宅へ運び、設置します</span></li>
+      <li data-n="02"><span class="nm">ホームセンター</span><span class="sub">家具・家電の配送と、その場での組み立てまで</span></li>
+      <li data-n="03"><span class="nm">メーカー系サービス会社</span><span class="sub">エアコン・アンテナ・洗浄便座の取付工事</span></li>
+      <li data-n="04"><span class="nm">物流企業</span><span class="sub">個人宅への配送を、区域ごとに受託しています</span></li>
     </ul>
     <p class="note" data-rise="0">具体的な社名は、先方の許諾をいただいたうえで掲載します。お取引の実績はお問い合わせいただければ個別にご説明します。</p>
   </div>
@@ -262,8 +268,8 @@
       </article>
       <article data-rise="0">
         <p class="k">03</p>
-        <h3>クレームを出さない決まりがある</h3>
-        <p>お客様のお宅に上がる仕事です。身なり、車両の清潔さ、搬入経路の事前確認、使い方の説明まで、守っている決まりごとがあります。</p>
+        <h3>お客様満足度には自信があります</h3>
+        <p>配って終わりにしません。運び入れる前に通り道を確かめ、養生を敷いてから上がります。設置して電源を入れ、使い方をご説明してから帰ります。エンドユーザー様と直接向き合うのは、私たちです。</p>
         <p class="next" style="margin-top:24px"><a href="about.html#rules">現場の決まりごとを見る</a></p>
       </article>
     </div>
