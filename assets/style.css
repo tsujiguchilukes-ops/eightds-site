@@ -9,7 +9,7 @@
 :root{
   --ink:#1F2328; --sub:#67727E;
   --brand:#0B4F6C; --deep:#083A50; --accent:#C9531F;
-  /* カーソルが当たった所のオレンジ（ヒーローのボタンと同じ色） */
+  /* 映像の上に引く印の線の色。白地では2.1:1で読めないので、暗い地の線にだけ使う */
   --hot:#F0A585;
   --paper:#F7F4EF; --line:#DFD9D0; --white:#fff;
   --ease:cubic-bezier(.22,1,.36,1);
@@ -41,9 +41,10 @@ a{color:inherit}
 .head.on-hero::before{opacity:1}
 .head.on-hero .logo{color:#fff}
 .head.on-hero .logo span{color:rgba(255,255,255,.74)}
-.head.on-hero .gnav>li>a{color:#fff}
-/* 映像の上（濃い背景）では、送ってもらったオレンジそのままで読める */
-.head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li[aria-current]>a,.head.on-hero .gnav>li:focus-within>a{color:var(--hot)}
+.head.on-hero .gnav>li>a{color:rgba(255,255,255,.9)}
+/* 映像の上では文字は白のまま。印は下線だけ。線は暗い地で見えるサーモン */
+.head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li[aria-current]>a,.head.on-hero .gnav>li:focus-within>a{color:#fff}
+.head.on-hero .gnav>li>a::after{background:var(--hot)}
 .head.on-hero .mtoggle{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
 /* 1段だけの帯にする。電話番号は下（CTA・フッター・右の固定列）に置く。 */
 .head .r1{max-width:var(--max);margin:0 auto;height:var(--head);padding:0 40px;
@@ -56,80 +57,72 @@ a{color:inherit}
 .gnav{display:flex}
 .gnav>li{list-style:none;position:static}
 .gnav>li>a{position:relative;display:flex;align-items:center;height:100%;padding:0 20px;font-size:16px;font-weight:700;
-  text-decoration:none;border-bottom:0;
+  text-decoration:none;color:var(--ink);white-space:nowrap;
   transition:color .2s var(--ease)}
-/* 下線は引かない。カーソルを当てたら文字そのものが色づく。
-   白いヘッダーの上では #F0A585 だと薄くて読めないので、同じ系統の濃い方（--accent）を使う */
-.gnav>li:hover>a,.gnav>li[aria-current]>a,.gnav>li:focus-within>a{color:var(--accent)}
-/* 引き出しメニュー C案「細帯バー」。深い紺のまま、箱をやめて低い帯にする。
-   色は規約どおり紺＋錆＋白だけ（水色 #4FB3D9 / #93B4C4 はやめた。押したタブの錆色の下線と
-   ぶつかって、ここだけ別のサイトに見えていた）。矢印はCTAボタンと同じ線画にして言葉を揃える */
+/* 白いヘッダーでは墨→紺。オレンジの文字は使わない（#F0A585は白地で2.1:1しかない） */
+.gnav>li:hover>a,.gnav>li[aria-current]>a,.gnav>li:focus-within>a{color:var(--brand)}
+/* 状態の印はこの線1本だけ。左から引かれ、離れると右へ抜ける。
+   今いるページ（aria-current）にも同じ線が付く＝「今ここ」と「今指している」を同じ言葉で示す */
+.gnav>li>a::after{content:"";position:absolute;left:20px;right:20px;bottom:0;height:2px;background:var(--accent);
+  transform:scaleX(0);transform-origin:right center;transition:transform .2s var(--ease)}
+.gnav>li:hover>a::after,.gnav>li[aria-current]>a::after,.gnav>li:focus-within>a::after{
+  transform:scaleX(1);transform-origin:left center;transition:transform .24s var(--ease)}
+.gnav>li>a:focus-visible{outline:2px solid currentColor;outline-offset:-12px}
+
+/* 引き出し：濃紺の一枚板。縁を光らせるのはやめ、上辺の白い細線と下への影だけで浮かせる。
+   押した親項目の下線が帯の上辺に接するのが、唯一の「ここから開いた」の合図 */
 .gnav .drop{position:absolute;top:100%;left:auto;right:0;z-index:60;
-  width:min(830px,calc(100vw - 80px));padding:18px 22px;
-  background:rgba(12,42,56,.92);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  /* 一色だと板に見える。縁だけ錆色を薄く回して、上辺は押したタブの下線と繋げる */
-  border:1px solid rgba(240,165,133,.26);border-top:1px solid var(--hot);
-  box-shadow:0 24px 60px -30px rgba(6,22,30,.65),
-             0 -1px 14px -2px rgba(240,165,133,.5),
-             inset 0 0 0 1px rgba(255,255,255,.05);
-  opacity:0;visibility:hidden;transform:translateY(-8px);
-  transition:opacity .22s var(--ease),transform .3s var(--ease),visibility .22s;
+  width:min(860px,calc(100vw - 80px));padding:20px 24px;
+  background:rgba(8,50,68,.96);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(255,255,255,.16);
+  box-shadow:0 32px 56px -28px rgba(4,22,32,.6);
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-6px);
+  transition:opacity .16s var(--ease),transform .16s var(--ease),visibility 0s .16s;
   display:flex;align-items:stretch}
-.gnav>li:hover .drop,.gnav>li:focus-within .drop{opacity:1;visibility:visible;transform:none}
+/* 開くのは0.26秒、閉じるのは0.16秒。用が済んだ時ほど速く引く */
+.gnav>li:hover .drop,.gnav>li:focus-within .drop{opacity:1;visibility:visible;pointer-events:auto;transform:none;
+  transition:opacity .26s var(--ease),transform .3s var(--ease),visibility 0s}
 
-.gnav .drop li{list-style:none;flex:1 1 0;min-width:0;
-  opacity:0;transform:translateY(6px);
-  transition:opacity .3s var(--ease),transform .36s var(--ease)}
-.gnav .drop li+li{margin-left:14px;padding-left:15px;border-left:1px solid rgba(255,255,255,.14)}
-.gnav>li:hover .drop li,.gnav>li:focus-within .drop li{opacity:1;transform:none}
-.gnav>li:hover .drop li:nth-child(1),.gnav>li:focus-within .drop li:nth-child(1){transition-delay:.05s}
-.gnav>li:hover .drop li:nth-child(2),.gnav>li:focus-within .drop li:nth-child(2){transition-delay:.11s}
+.gnav .drop li{list-style:none;flex:1 1 0;min-width:0}
+.gnav .drop li+li{margin-left:20px;padding-left:21px;border-left:1px solid rgba(255,255,255,.12)}
 
-.gnav .drop a{position:relative;display:flex;align-items:center;gap:18px;padding:14px 14px 14px 12px;
-  text-decoration:none;color:#fff;border-bottom:0;
-  transition:color .3s var(--ease)}
-/* カーソルを当てた項目だけ、後ろがほんのり錆色に灯る */
-.gnav .drop a>*,.gnav .drop a::after{position:relative;z-index:1}
-.gnav .drop a::before{content:"";position:absolute;inset:-4px -8px;z-index:0;
-  background:radial-gradient(110% 150% at 10% 50%,rgba(240,165,133,.26),rgba(240,165,133,0) 72%);
-  opacity:0;transition:opacity .34s var(--ease)}
-.gnav .drop a:hover::before,.gnav .drop a:focus-visible::before{opacity:1}
-.gnav .drop a:focus-visible{outline:2px solid #fff;outline-offset:3px}
-.gnav .drop .im{flex:none;display:block;position:relative;overflow:hidden;
-  width:104px;aspect-ratio:4/3;background:#08202B;
-  box-shadow:0 0 0 1px rgba(255,255,255,.12);
-  transition:box-shadow .3s var(--ease)}
-/* 写真の縁が錆色に立ち上がる */
-.gnav .drop a:hover .im,.gnav .drop a:focus-visible .im{
-  box-shadow:0 0 0 1px var(--hot),0 0 20px -3px rgba(240,165,133,.7)}
-.gnav .drop .im img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
-.gnav .drop a:hover .im img{transform:scale(1.06)}
+/* 項目：カーソルへの答えは「面が持ち上がる・矢印が一歩進む・写真がわずかに寄る」。文字には色を付けない */
+.gnav .drop a{position:relative;display:flex;align-items:center;gap:16px;padding:12px 14px;
+  text-decoration:none;color:#fff;
+  transition:background-color .18s var(--ease)}
+.gnav .drop a:hover,.gnav .drop a:focus-visible{background:rgba(255,255,255,.07)}
+.gnav .drop a:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.gnav .drop .im{flex:none;display:block;overflow:hidden;width:104px;aspect-ratio:4/3;background:#08202B;
+  box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.gnav .drop .im img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.gnav .drop a:hover .im img,.gnav .drop a:focus-visible .im img{transform:scale(1.04)}
 .gnav .drop .tx{flex:1 1 auto;min-width:0}
-.gnav .drop b{display:block;font-size:15px;font-weight:700;letter-spacing:.04em;line-height:1.5;
-  transition:color .3s var(--ease)}
-.gnav .drop a:hover b,.gnav .drop a:focus-visible b{color:var(--hot);text-shadow:0 0 14px rgba(240,165,133,.4)}
+.gnav .drop b{display:block;font-size:15px;font-weight:700;letter-spacing:.04em;line-height:1.5}
 .gnav .drop .tx>span{display:block;margin-top:3px;font-size:12px;color:rgba(255,255,255,.62);
   letter-spacing:.02em;line-height:1.7}
-/* 矢印はCTAボタンと同じ線画。ホバーで右へ滑る */
-.gnav .drop a::after{content:"";flex:none;width:22px;height:9px;background:rgba(255,255,255,.55);
+/* 矢印はCTAと同じ線画。ふだんは白45%、当てると白100%で右へ6px */
+.gnav .drop a::after{content:"";flex:none;width:22px;height:9px;background:rgba(255,255,255,.45);
   -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain;
-  transition:transform .3s var(--ease),background-color .3s var(--ease)}
-.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{transform:translateX(5px);background:var(--hot)}
+  transition:transform .24s var(--ease),background-color .24s var(--ease)}
+.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{transform:translateX(6px);background:#fff}
 @media (prefers-reduced-motion:reduce){
-  .gnav .drop{transition:opacity .01s;transform:none}
-  .gnav .drop li{opacity:1;transform:none;transition:none}
+  .gnav .drop{transition:none;transform:none}
+  .gnav>li>a::after{transition:none}
 }
+
+/* お問い合わせ：ヘッダーで唯一の「塗り」ボタン。錆色が左から0.44秒で塗り替わる（本文の.btnと同じ速さ） */
 .hbtn{align-self:stretch;position:relative;display:flex;align-items:center;gap:16px;padding:0 28px 0 32px;
-  background:var(--brand);color:#fff;overflow:hidden;isolation:isolate;
+  background:var(--brand);color:#fff;overflow:hidden;isolation:isolate;white-space:nowrap;
   font-size:16px;font-weight:700;text-decoration:none;letter-spacing:.04em}
 .hbtn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--accent);
   transform:scaleX(0);transform-origin:left center;transition:transform .44s var(--ease)}
-.hbtn:hover::before{transform:scaleX(1)}
+.hbtn:hover::before,.hbtn:focus-visible::before{transform:scaleX(1)}
 .hbtn::after{content:"";flex:none;width:26px;height:11px;background:currentColor;
   -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain;
   transition:transform .34s var(--ease)}
-.hbtn:hover::after{transform:translateX(6px)}
+.hbtn:hover::after,.hbtn:focus-visible::after{transform:translateX(6px)}
+.hbtn:focus-visible{outline:2px solid #fff;outline-offset:-6px}
 /* ヒーローの上ではガラスにする（写真を透かしたまま押せると分かる） */
 .head.on-hero .hbtn{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
@@ -137,7 +130,19 @@ a{color:inherit}
 /* スマホ用のメニュー開閉 */
 /* 48px固定に「メニュー」4文字を入れていたので2行に折れていた。中身に合わせて広げる */
 .mtoggle{display:none;margin-left:auto;width:auto;min-width:48px;height:48px;padding:0 14px;white-space:nowrap;border:1px solid var(--line);background:var(--white);
-  color:var(--brand);font-size:14px;font-weight:700;cursor:pointer;border-radius:4px}
+  color:var(--brand);font-size:14px;font-weight:700;cursor:pointer;border-radius:4px;
+  transition:border-color .2s var(--ease)}
+.mtoggle:hover{border-color:var(--brand)}
+.mtoggle:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* 画面が狭いとメニューの文字が2行に折れる。折らずに、間を詰めて収める */
+@media(min-width:901px) and (max-width:1100px){
+  .head .r1{padding:0 24px;gap:24px}
+  .gnav>li>a{padding:0 12px;font-size:15px}
+  .gnav>li>a::after{left:12px;right:12px}
+  .hbtn{padding:0 20px 0 22px;gap:10px;font-size:15px}
+  .hbtn::after{width:22px;height:9px}
+}
 
 /* ========== 右端の固定クイックアクセス ========== */
 .quick{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column}
@@ -246,11 +251,11 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   .head .r2.open .gnav>li>a{min-height:60px;font-size:18px;display:flex;align-items:center}
   .head .r2.open .hbtn{min-height:64px;font-size:18px}
   .head.on-hero .r2.open .gnav>li>a{color:var(--ink)}
+  /* 開いたメニューの地は白。サーモンの線は白地で薄いので錆色に戻す */
+  .head.on-hero .r2.open .gnav>li>a::after{background:var(--accent)}
   .head.on-hero .r2.open .hbtn{background:var(--brand);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
   .head .r2.open .gnav{flex-direction:column;width:100%}
   .head .r2.open .gnav>li>a{height:auto;padding:16px 24px;border-bottom:1px solid var(--line)}
-  .head .r2.open .drop{position:static;opacity:1;visibility:visible;transform:none;border:0;background:var(--paper)}
-  .head .r2.open .drop a{padding:12px 40px}
   .head .r2.open .hbtn{padding:16px 24px;justify-content:center}
   .sec{padding:64px 0}
   h2{font-size:28px}
@@ -386,10 +391,6 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 
 /* ---- カーソルを当てた写真は、少しだけ浮き上がる ----
    影は最小限（黒ではなく紺を薄く）。transform と opacity だけを動かす。 */
-@media(hover:none){
-}
-@media(prefers-reduced-motion:reduce){
-}
 
 /* ---- 320px級の狭い端末（iPhone SEなど）で横にはみ出さない ---- */
 @media(max-width:360px){
@@ -673,7 +674,7 @@ footer address a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a){b
 
 
 /* パンくずと「トップページへ戻る」 */
-.crumb a,.backrow a,.pagetop{display:inline-block;padding:12px 4px;margin:-12px -4px}
+.crumb a,.backrow a{display:inline-block;padding:12px 4px;margin:-12px -4px}
 
 /* 本文中の「◯◯を見る」の細いリンク */
 .next a{display:inline-flex;align-items:center;min-height:44px}
