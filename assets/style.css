@@ -160,9 +160,6 @@ h3{font-size:28px;font-weight:700;line-height:1.5}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .btn-main{background:var(--brand);color:#fff}
 .btn-main::before{background:var(--accent)}
-.btn-sub{background:var(--white);color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
-.btn-sub::before{background:var(--brand)}
-.btn-sub:hover{color:#fff}
 .btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
 .btn-ghost::before{background:#fff}
 .btn-ghost:hover{color:var(--brand)}
@@ -199,7 +196,6 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 
 /* ========== 初回フェード（一斉・1回だけ） ========== */
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.fade{animation:rise .4s var(--ease) both}
 
 /* ========== スマホ ========== */
 @media(max-width:900px){ .quick{display:none} }
@@ -262,7 +258,6 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .hero>img{animation:slowzoom 20s ease-out both}
 @media(prefers-reduced-motion:reduce){
   .hero>img{animation:none}
-  .mq-track.is-running{animation:none}
   [data-rise]{opacity:1;transform:none}
 }
 
@@ -306,16 +301,6 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 
 /* ---- 運んだ先（写真＋その場面の一言。作業名を書かない） ---- */
 .after{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:64px}
-.acell{position:relative;overflow:hidden;aspect-ratio:4/5;background:var(--deep);color:#fff}
-.acell>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  transition:transform .7s var(--ease);filter:brightness(.78)}
-.acell:hover>img{transform:scale(1.05)}
-.acell .tone{position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(6,42,58,.92) 0%,rgba(6,42,58,.5) 46%,rgba(6,42,58,0) 100%)}
-.acell .in{position:absolute;left:0;right:0;bottom:0;padding:32px 28px}
-.acell .k{font-size:14px;letter-spacing:.2em;color:#F0A585;font-weight:700}
-.acell p{margin-top:8px;font-size:18px;font-weight:700;line-height:1.8;letter-spacing:.03em;
-  text-shadow:0 2px 18px rgba(0,18,26,.5)}
 
 /* ---- フッター前の共通CTA（どのページでも同じ位置・同じ形） ---- */
 .cta{background:var(--deep);color:#fff;position:relative;overflow:hidden}
@@ -357,8 +342,6 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   .vpart::before{height:28px}
   .vpart::after{top:28px}
   .after{grid-template-columns:1fr;gap:4px;margin-top:40px}
-  .acell{aspect-ratio:3/2}
-  .acell p{font-size:18px}
   .cta .in{grid-template-columns:1fr;gap:32px;padding:56px 24px}
   .cta h2{font-size:28px}
   .ctel{grid-template-columns:1fr;gap:16px}
@@ -370,15 +353,9 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 
 /* ---- カーソルを当てた写真は、少しだけ浮き上がる ----
    影は最小限（黒ではなく紺を薄く）。transform と opacity だけを動かす。 */
-.acell,.fitc,.gate,.ocard,.jcard{transition:transform .5s var(--ease)}
-.acell:hover,.fitc:hover,.gate:hover,.jcard:hover{transform:translateY(-6px)}
-.acell:hover>img,.fitc:hover>img{filter:brightness(.9)}
-.acell>img,.fitc>img{transition:transform .7s var(--ease),filter .5s var(--ease)}
 @media(hover:none){
-  .acell:hover,.fitc:hover,.gate:hover,.jcard:hover{transform:none}
 }
 @media(prefers-reduced-motion:reduce){
-  .acell:hover,.fitc:hover,.gate:hover,.mq figure:hover,.jcard:hover{transform:none}
 }
 
 /* ---- 写真だけの帯（文字を置かない。仕事の空気だけ渡す） ---- */
