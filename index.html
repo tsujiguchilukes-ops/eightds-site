@@ -26,7 +26,8 @@
 /* 1フリックで1シーンぶん進む。だから背は低くてよい（100vh ＋ 36vh × 2） */
 .scrollhero{position:relative;height:172vh;background:var(--deep)}
 .scrollhero .stage{position:sticky;top:0;height:100vh;overflow:hidden}
-.stage{background:#12181C url("img/V4_積戻.webp") center 58%/cover no-repeat}
+/* 読み込み中の下地は、映像の1コマ目そのもの。別の絵を置くと一瞬ちらついて見える */
+.stage{background:#12181C url("assets/hero-poster.webp") center 58%/cover no-repeat}
 .stage .film{position:absolute;inset:0;width:100%;height:100%;display:block;background:#12181C;
   object-fit:cover;object-position:center 58%;
   opacity:0;transition:opacity .3s linear}
@@ -97,9 +98,12 @@
 @media(max-width:720px){
   .scrollhero{height:156vh}
   /* 14文字が1行に収まる大きさ。はみ出すと「事。」だけ次の行に落ちる */
-  .hband{left:20px;right:20px;width:auto;bottom:132px}
-  .hband h1,.hband p.line{font-size:24px;letter-spacing:.01em}
-  .hband[data-kind="rise"] p.line{font-size:21px}
+  /* 縦長の画面に横長の映像を入れると床ばかりになる。寄せて開口部を大きく見せる */
+  .stage .film{transform:scale(1.22);transform-origin:50% 38%}
+  .stage{background-size:cover;background-position:center 44%}
+  .hband{left:20px;right:20px;width:auto;bottom:150px}
+  .hband h1,.hband p.line{font-size:23px;letter-spacing:0;line-height:1.45}
+  .hband[data-kind="rise"] p.line{font-size:20px}
   /* 下に固定のバーがあるので、スクロールの合図は出さない（文字と重なる） */
   .cue{display:none}
   .hband[data-kind="settle"]{width:auto}
