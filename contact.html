@@ -11,7 +11,7 @@
 <meta property="og:title" content="お問い合わせ｜有限会社エイト流通サービス">
 <meta property="og:description" content="配送委託のご相談・お見積り。お見積りは無料です。047-381-0142／048-229-7552。">
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/contact.html">
-<meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/L1_積込.webp">
+<meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
 <style>
@@ -41,6 +41,9 @@
   cursor:pointer;transition:border-color .16s var(--ease),background-color .16s var(--ease),color .16s var(--ease)}
 .radios input:checked+span{border-color:var(--brand);background:var(--brand);color:#fff}
 .radios input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.formprep{background:#FBF3E9;border-left:3px solid var(--accent);padding:20px 24px;margin-bottom:32px;font-size:16px;line-height:1.9}
+.formprep p+p{margin-top:8px}
+.formprep a{font-weight:700;color:var(--brand);white-space:nowrap}
 .form .agree{font-size:16px;display:flex;gap:12px;align-items:flex-start}
 .form .agree input{margin-top:6px;width:18px;height:18px;flex:none}
 .sendrow{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
@@ -140,7 +143,12 @@
     <p class="note" data-rise="0" id="c-lead">家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。お急ぎの場合はお電話が確実です。</p>
 
     <div class="cgrid">
-      <form class="form" id="f" novalidate data-rise="0">
+      <div class="formprep" role="status">
+          <p><b>ただいまフォームの受付を準備しています。</b></p>
+          <p>お急ぎの場合も、そうでない場合も、<b>お電話でご連絡ください。</b><br>
+          浦安本社 <a href="tel:0473810142">047-381-0142</a>　／　川口営業所 <a href="tel:0482297552">048-229-7552</a>　（受付 8:00〜17:00）</p>
+        </div>
+        <form class="form" id="f" novalidate data-rise="0">
         <div class="field">
           <span class="sr">ご用件</span>
           <label>ご用件<span class="req">必須</span></label>
@@ -194,7 +202,7 @@
         <div class="sendrow">
           <button class="btn btn-main" type="submit" id="send">この内容で相談する</button>
         </div>
-        <p class="hint" style="margin-top:12px">入力は1分で終わります。内容を確認し、担当者よりご連絡します。</p>
+        <p class="hint" style="margin-top:12px">入力は1分で終わります。フォームの受付が始まりましたら、担当者よりご連絡します。</p>
         <div class="sent" id="ok" role="status" aria-live="polite">
           <h3 id="ok-h">送信しました。</h3>
           <p id="ok-p">内容を確認し、担当者よりご連絡します。お急ぎの場合はお電話ください。</p>
