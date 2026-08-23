@@ -55,9 +55,13 @@
 }
 
 
-.ofc{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:64px}
+.ofc{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:64px}
 .ofc .pic{aspect-ratio:4/3;overflow:hidden;background:var(--paper)}
 .ofc .pic img{width:100%;height:100%;object-fit:cover}
+/* 実在の地図を埋め込む（住所がその場所にあることを、見た人が自分で確かめられる） */
+.gmap{margin-top:24px;aspect-ratio:16/10;border:1px solid var(--line);overflow:hidden;background:var(--paper)}
+.gmap iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.85)}
+@media(max-width:900px){ .gmap{aspect-ratio:4/3} }
 .ofc:nth-of-type(even) .pic{order:2}
 .ofc h3{font-size:28px;color:var(--brand)}
 .ofc .k{font-size:14px;letter-spacing:.2em;color:var(--accent);font-weight:700}
@@ -268,7 +272,12 @@
           <div><dt>受付時間</dt><dd>8:00〜17:00</dd></div>
           <div><dt>アクセス</dt><dd>新浦安駅から車で5分／バス停すぐそば</dd></div>
         </dl>
-        <p class="next"><a href="https://www.google.com/maps/search/?api=1&amp;query=千葉県浦安市富士見3-11-1" target="_blank" rel="noopener">地図を見る（Googleマップ・別のタブが開きます）</a></p>
+        <div class="gmap">
+          <iframe src="https://maps.google.com/maps?q=%E5%8D%83%E8%91%89%E7%9C%8C%E6%B5%A6%E5%AE%89%E5%B8%82%E5%AF%8C%E5%A3%AB%E8%A6%8B3-11-1&amp;output=embed&amp;hl=ja&amp;z=17"
+                  title="浦安本社 の地図（Googleマップ）" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <p class="next"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8D%83%E8%91%89%E7%9C%8C%E6%B5%A6%E5%AE%89%E5%B8%82%E5%AF%8C%E5%A3%AB%E8%A6%8B3-11-1" target="_blank" rel="noopener">Googleマップで開く（別のタブが開きます）</a></p>
       </div>
     </div>
   </div>
@@ -289,7 +298,12 @@
           <div><dt>受付時間</dt><dd>8:00〜17:00</dd></div>
           <div><dt>アクセス</dt><dd>東川口駅から車で5分／バス停すぐそば</dd></div>
         </dl>
-        <p class="next"><a href="https://www.google.com/maps/search/?api=1&amp;query=埼玉県川口市差間2-34-13" target="_blank" rel="noopener">地図を見る（Googleマップ・別のタブが開きます）</a></p>
+        <div class="gmap">
+          <iframe src="https://maps.google.com/maps?q=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E5%B7%AE%E9%96%932-34-13&amp;output=embed&amp;hl=ja&amp;z=17"
+                  title="川口営業所 の地図（Googleマップ）" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <p class="next"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%9F%BC%E7%8E%89%E7%9C%8C%E5%B7%9D%E5%8F%A3%E5%B8%82%E5%B7%AE%E9%96%932-34-13" target="_blank" rel="noopener">Googleマップで開く（別のタブが開きます）</a></p>
       </div>
     </div>
   </div>
