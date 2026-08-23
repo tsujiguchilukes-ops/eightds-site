@@ -659,10 +659,36 @@
     vr.classList.toggle('on', v === vr);
   }
 
+  /* 指定の時刻へ、両方の映像を一気に合わせる。
+     画面の外にいた間にスクロールされた時は、巻き戻して見せるのではなく、その場に飛ぶ */
+  function jumpTo(t, showVideo) {
+    t = clamp(t, 0, DUR);
+    vf.pause(); vr.pause();
+    vf.playbackRate = 1; vr.playbackRate = 1;
+    try { vf.currentTime = t; } catch (e) {}
+    try { vr.currentTime = Math.max(0, DUR - t); } catch (e) {}
+    if (showVideo) show(showVideo);
+    updateCaptions(DUR ? t / DUR : 0);
+  }
+
+  /* 向きを変える時は、切り替え先を同じコマに合わせてから見せる（合わせる前に見せるとガタつく） */
+  var flipping = false;
+  function flipTo(v, t) {
+    if (active === v || flipping) return;
+    flipping = true;
+    var want = (v === vf) ? t : Math.max(0, DUR - t);
+    var go = function () { flipping = false; show(v); };
+    if (Math.abs(v.currentTime - want) < 0.05) { go(); return; }
+    v.addEventListener('seeked', go, { once: true });
+    setTimeout(function () { if (flipping) go(); }, 220);
+    try { v.currentTime = want; } catch (e) { go(); }
+  }
+
   /* ---- スクロールした所へ、映像が追いかけていく ----
      行き先までの距離が大きいほど速く走る。追いついたら止まる。
      currentTime を動かさない（シークすると必ずカクつく）ので、速度だけで合わせる。 */
   var NEAR = 0.035;                               // これより近づいたら止まる
+  var LAG  = 0.7;                                 // 行き先からこれ以上は離れさせない（秒）
   function drive() {
     if (!ready) return;
     aim = clamp(heroProgress(), 0, 1) * DUR;
@@ -676,15 +702,26 @@
 
     if (Math.abs(d) <= NEAR) { settle(); raf = null; return; }
 
+    /* 遅れの上限。ページ内リンクや戻るボタンで一気に動かされても、
+       ここまで一瞬で詰めるので「巻き戻しが延々見える」ことがない。
+       ゆっくりスクロールしている間はこの上限に当たらないので、追う感じはそのまま残る。 */
+    if (Math.abs(d) > LAG) {
+      var snap = aim - (d > 0 ? LAG : -LAG);
+      if (active === vf) { try { vf.currentTime = snap; } catch (e) {} }
+      else { try { vr.currentTime = Math.max(0, DUR - snap); } catch (e) {} }
+      cur = snap;
+      d = aim - cur;
+    }
+
     // 距離に応じた速さ。遠いほど速い。近づくと自然に減速する
-    var rate = clamp(Math.abs(d) * 2.6, 0.35, 3.2);
+    var rate = clamp(Math.abs(d) * 3.0, 0.35, 4.0);
 
     if (d > 0) {                                  // 前へ
-      if (active !== vf) { vf.currentTime = cur; show(vf); vr.pause(); }
+      if (active !== vf) { vr.pause(); flipTo(vf, cur); }
       vf.playbackRate = rate;
       if (vf.paused) { var pf = vf.play(); if (pf && pf.catch) pf.catch(function () {}); }
     } else {                                      // 戻る
-      if (active !== vr) { vr.currentTime = Math.max(0, DUR - cur); show(vr); vf.pause(); }
+      if (active !== vr) { vf.pause(); flipTo(vr, cur); }
       vr.playbackRate = rate;
       if (vr.paused) { var pr = vr.play(); if (pr && pr.catch) pr.catch(function () {}); }
     }
@@ -709,8 +746,8 @@
     if (!isFinite(DUR) || DUR <= 0) return;
     ready = true;
     stage.classList.add('film-ready');
-    vf.currentTime = 0;
-    vr.addEventListener('loadedmetadata', function () { vr.currentTime = DUR; }, { once: true });
+    /* 再読み込みで途中から開いた時も、いきなり正しいコマから始める */
+    jumpTo(clamp(heroProgress(), 0, 1) * DUR, vf);
     started = performance.now();
     aim = 0;
     (function intro(now) {
@@ -726,6 +763,15 @@
   setTimeout(function () { if (!ready) stage.classList.add('film-failed'); }, 9000);
 
   /* ---- スクロールは「行き先」を決めるだけ ---- */
+  var away = false;
+  /* いまのスクロール位置のコマへ、一気に合わせ直す */
+  function resync() {
+    if (!ready) return;
+    var t = clamp(heroProgress(), 0, 1) * DUR;
+    aim = t;
+    jumpTo(t, active);
+  }
+
   var pending = false;
   function onScroll() {
     armRev();                                   // 最初に指が動いた時に、戻り側を読み始める
@@ -734,17 +780,27 @@
     requestAnimationFrame(function () { pending = false; drive(); });
   }
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
+  addEventListener('resize', function () { resync(); });
+  addEventListener('pageshow', function (e) { if (e.persisted) resync(); });
 
   /* ---- 画面から出たら止める ---- */
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (es) {
-      if (!es[0].isIntersecting) { vf.pause(); vr.pause(); }
-      else drive();
+      if (!es[0].isIntersecting) {
+        away = true;
+        vf.pause(); vr.pause();
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+      } else if (away) {
+        away = false;
+        resync();                                 // 巻き戻して見せず、その位置に飛ぶ
+        // ブラウザが途中の位置を報告することがあるので、落ち着いてからもう一度合わせる
+        setTimeout(resync, 90);
+        setTimeout(resync, 260);
+      }
     }, { threshold: 0 }).observe(hero);
   }
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { vf.pause(); vr.pause(); } else drive();
+    if (document.hidden) { vf.pause(); vr.pause(); } else resync();
   });
 })();
 </script>
