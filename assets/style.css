@@ -624,3 +624,32 @@ html[data-soar] body{opacity:0}
   .mPinS{font-size:26px}
   .mBay{font-size:28px}
 }
+
+/* ========== 押し所の大きさ（指で押せる 44px を下回らせない） ==========
+   実測で 14〜31px の押し所が各ページにあった。特にスマホの電話番号が16px で押しにくかった。
+   見た目は変えず、押せる範囲だけを広げる。 */
+
+/* 本文の中の電話番号。文字の大きさは変えず、上下に押せる余白を足す */
+a[href^="tel:"]{display:inline-block;padding:12px 2px;margin:-12px -2px;
+  text-decoration:none;border-bottom:1px solid currentColor}
+.tel[href^="tel:"],.bar a[href^="tel:"],.quick a[href^="tel:"]{padding:0;margin:0;border-bottom:0}
+
+/* 引き出しメニューの「すべて見る」 */
+.gnav .drop .all a{padding:12px 0 4px}
+
+/* パンくずと「トップページへ戻る」 */
+.crumb a,.backrow a,.pagetop{display:inline-block;padding:12px 4px;margin:-12px -4px}
+
+/* 本文中の「◯◯を見る」の細いリンク */
+.next a{display:inline-flex;align-items:center;min-height:44px}
+
+/* ヒーローの中のボタン（スマホで31pxだった） */
+@media(max-width:900px){
+  .hband .go .btn{min-height:44px;padding:10px 16px 10px 0}
+}
+
+/* 答えの中・同意欄の中の細いリンクも押せる大きさにする */
+.faq .a a,.agree a,.pcond a,.formprep a{display:inline-block;padding:11px 3px;margin:-11px -3px}
+
+/* 箇条書きの中の細いリンク */
+.pts a,.why a:not(.btn),.srv li a{display:inline-block;padding:11px 3px;margin:-11px -3px}
