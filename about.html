@@ -23,8 +23,21 @@
 .msg{display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:start;margin-top:64px}
 .msg .side .k{font-size:14px;letter-spacing:.2em;color:var(--sub)}
 .msg .side .nm{font-size:28px;font-weight:700;margin-top:8px;letter-spacing:.08em}
-.msg .side .ph{margin-top:24px;aspect-ratio:3/4;overflow:hidden;background:var(--paper)}
-.msg .side .ph img{width:100%;height:100%;object-fit:cover}
+.msg .side .rd{font-size:13px;letter-spacing:.16em;color:var(--sub);margin-top:6px}
+/* お写真の枠。3:4。あとから撮ったお写真をそのまま入れられる */
+.msg .side .ph{margin-top:24px;aspect-ratio:3/4;overflow:hidden;background:var(--paper);
+  box-shadow:0 1px 0 var(--line),0 18px 40px -26px rgba(11,36,48,.45)}
+.msg .side .ph img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.msg .side .cap{margin-top:12px;font-size:13px;color:var(--sub);line-height:1.7}
+/* 人柄＝本人の言葉。明朝で静かに置く */
+.msg .voice{margin-top:48px;padding-top:32px;border-top:1px solid var(--line)}
+.msg .voice .lb{font-size:14px;letter-spacing:.24em;color:var(--accent);font-weight:700;margin-bottom:8px}
+.msg .voice ul{list-style:none}
+.msg .voice li{font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝","YuMincho",serif;
+  font-size:22px;line-height:1.9;letter-spacing:.04em;color:#243039;text-wrap:pretty;
+  padding:18px 0 18px 36px;position:relative;border-bottom:1px solid #ECE6DC;margin:0}
+.msg .voice li:last-child{border-bottom:0}
+.msg .voice li::before{content:"";position:absolute;left:0;top:34px;width:20px;height:1px;background:var(--accent)}
 .msg .body{border-left:2px solid var(--line);padding-left:64px}
 .msg .body p{font-size:18px;margin-bottom:24px}
 .msg .body p.q{font-size:28px;font-weight:700;color:var(--brand);line-height:1.8;margin-bottom:32px}
@@ -34,7 +47,11 @@
   .msg{grid-template-columns:1fr;gap:32px;margin-top:40px}
   .msg .body{border-left:0;padding-left:0}
   .msg .body p.q{font-size:22px}
-  .msg .side .ph{aspect-ratio:4/3}
+  /* 縦のお写真なので、横長にせず幅だけ抑える */
+  .msg .side .ph{aspect-ratio:3/4;max-width:240px}
+  .msg .voice{margin-top:32px;padding-top:24px}
+  .msg .voice li{font-size:18px;padding:14px 0 14px 26px}
+  .msg .voice li::before{top:28px;width:16px}
 }
 
 
@@ -209,13 +226,26 @@
       <div class="side" data-rise="0">
         <p class="k">代表取締役</p>
         <p class="nm">渡邊 勝貴</p>
-
+        <p class="rd">WATANABE KATSUTAKA</p>
+        <!-- ▼お写真の枠。3:4。撮ったお写真を img/代表.webp に上書きするだけで入れ替わります
+             （縦横比が違っても枠に合わせて切り取られます。下の一行も消してください） -->
+        <div class="ph"><img src="img/代表.webp" alt="代表取締役 渡邊勝貴" width="900" height="1200" loading="lazy"></div>
+        <p class="cap">※お写真の準備ができるまで、イラストを置いています</p>
+        <!-- ▲ここまで -->
       </div>
       <div class="body" data-rise="0">
         <p class="q">家電製品一筋で、<br>ここまで来ました。</p>
         <p>初めは配送業務のみでした。電気工事業の看板を掲げてから、配送・取付・設置まで一貫して行えるようになりました。エアコンも、アンテナも、温水洗浄便座も、運んだ担当がそのまま付けて帰ります。</p>
         <p>玄関を出る前にスイッチを入れて、動くところまで確かめる。荷物を届けて終わりにせず、その日から使える状態にしてお渡しする。それを続けてきました。</p>
         <p>1986年の創業から、浦安と川口の2拠点で、東京・千葉・埼玉・神奈川のお宅に伺っています。これからも同じやり方を続けます。</p>
+
+        <div class="voice">
+          <p class="lb">渡邊の言葉</p>
+          <ul>
+            <li>今では、家電の取り付けで出来ない仕事はありません。</li>
+            <li>取り付けに行ったお客様からのクレームは、ほとんどありません。</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
