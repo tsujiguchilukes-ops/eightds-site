@@ -185,12 +185,12 @@
         <label class="agree"><input type="checkbox" id="agree" required>
           <span><a href="privacy.html">プライバシーポリシー</a>に同意します。</span></label>
         <div class="sendrow">
-          <button class="btn btn-main" type="submit" id="send">この内容で送信する</button>
+          <button class="btn btn-main" type="submit" id="send">この内容で相談する</button>
         </div>
-        <p class="hint" style="margin-top:12px">入力は1分で終わります。3営業日以内にご連絡します。</p>
+        <p class="hint" style="margin-top:12px">入力は1分で終わります。内容を確認し、担当者よりご連絡します。</p>
         <div class="sent" id="ok" role="status" aria-live="polite">
           <h3 id="ok-h">送信しました。</h3>
-          <p id="ok-p">3営業日以内にご連絡します。お急ぎの場合はお電話ください。</p>
+          <p id="ok-p">内容を確認し、担当者よりご連絡します。お急ぎの場合はお電話ください。</p>
           <div class="tels">
             <a href="tel:0473810142">047-381-0142<small>浦安本社　受付 8:00〜17:00</small></a>
             <a href="tel:0482297552">048-229-7552<small>川口営業所　受付 8:00〜17:00</small></a>
@@ -324,7 +324,7 @@
       okH.textContent='フォームの受付は準備中です。';
       okP.textContent='申し訳ありません。ただいまフォームからの受付を準備しています。お手数ですが、お電話でご連絡ください。';
       ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
-      btn.disabled=false; btn.textContent='この内容で送信する';
+      btn.disabled=false; btn.textContent='この内容で相談する';
       return;
     }
 
@@ -332,7 +332,7 @@
       .then(function(r){
         if(!r.ok) throw new Error('status '+r.status);
         okH.textContent='送信しました。';
-        okP.textContent='3営業日以内にご連絡します。お急ぎの場合はお電話ください。';
+        okP.textContent='内容を確認し、担当者よりご連絡します。お急ぎの場合はお電話ください。';
         ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
         btn.textContent='送信しました';
       })

@@ -256,7 +256,7 @@
 <section class="scrollhero" data-hero aria-label="仕事の風景">
   <div class="stage">
     <video class="film fwd on" muted playsinline preload="auto" aria-hidden="true" poster="assets/hero-poster.webp"></video>
-    <video class="film rev" muted playsinline preload="auto" aria-hidden="true"></video>
+    <video class="film rev" muted playsinline preload="none" aria-hidden="true"></video>
     <div class="scrim" aria-hidden="true"></div>
     <svg class="ring" viewBox="0 0 48 48" aria-hidden="true">
       <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -585,7 +585,15 @@
 
   var SP = matchMedia('(max-width: 720px), (orientation: portrait) and (max-width: 1024px)').matches;
   vf.src = SP ? 'assets/hero-sp.mp4' : 'assets/hero.mp4';
-  vr.src = SP ? 'assets/hero-sp-r.mp4' : 'assets/hero-r.mp4';
+  // 戻り側は最初のスクロールまで読まない（開いた瞬間に2本ぶん読むと重い）
+  var REVSRC = SP ? 'assets/hero-sp-r.mp4' : 'assets/hero-r.mp4';
+  var revArmed = false;
+  function armRev() {
+    if (revArmed) return;
+    revArmed = true;
+    vr.preload = 'auto';
+    vr.src = REVSRC;
+  }
   // 1シーンを1.4秒くらいで渡りきる。等倍だと3秒かかってスクロールに置いていかれる
   var RATE = 2.2;
   vf.playbackRate = RATE; vr.playbackRate = RATE;
@@ -709,7 +717,8 @@
     if (!isFinite(DUR) || DUR <= 0) return;
     ready = true;
     stage.classList.add('film-ready');
-    vf.currentTime = 0; vr.currentTime = DUR;
+    vf.currentTime = 0;
+    vr.addEventListener('loadedmetadata', function () { vr.currentTime = DUR; }, { once: true });
     started = performance.now();
     aim = 0;
     (function intro(now) {
@@ -727,6 +736,7 @@
   /* ---- スクロールは「行き先」を決めるだけ ---- */
   var pending = false;
   function onScroll() {
+    armRev();                                   // 最初に指が動いた時に、戻り側を読み始める
     if (pending) return;
     pending = true;
     requestAnimationFrame(function () { pending = false; drive(); });
