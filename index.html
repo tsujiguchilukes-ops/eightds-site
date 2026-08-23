@@ -98,9 +98,9 @@
 @media(max-width:720px){
   .scrollhero{height:156vh}
   /* 14文字が1行に収まる大きさ。はみ出すと「事。」だけ次の行に落ちる */
-  /* 縦長の画面に横長の映像を入れると床ばかりになる。寄せて開口部を大きく見せる */
-  .stage .film{transform:scale(1.22);transform-origin:50% 38%}
-  .stage{background-size:cover;background-position:center 44%}
+  /* 携帯には縦（9:16）に切り出した映像を渡している。拡大しないので画質が落ちない */
+  .stage .film{object-position:50% 50%}
+  .stage{background-size:cover;background-position:center 50%}
   .hband{left:20px;right:20px;width:auto;bottom:150px}
   .hband h1,.hband p.line{font-size:23px;letter-spacing:0;line-height:1.45}
   .hband[data-kind="rise"] p.line{font-size:20px}
@@ -594,7 +594,7 @@
   var RATE = 2.2;
   vf.playbackRate = RATE; vr.playbackRate = RATE;
 
-  var SCENES = 3;                                 // 文字の帯と同じ数
+  var SCENES = 3;                                 // 文字の帯の数（文字の出方だけに使う）
   var bands = [].slice.call(hero.querySelectorAll('.hband')).map(function (el) {
     return { el: el, a: parseFloat(el.dataset.a), b: parseFloat(el.dataset.b), op: -1, k: -1 };
   });
@@ -641,19 +641,15 @@
     }
   }
 
-  /* ---- どこまで来たか ---- */
+  /* ---- どこまで来たか。スクロール位置がそのまま映像の行き先になる ---- */
   function heroProgress() {
     var r = hero.getBoundingClientRect();
     var range = hero.offsetHeight - window.innerHeight;
     if (range <= 0) return 0;
     return clamp(-r.top / range, 0, 1);
   }
-  function targetScene() {
-    return Math.round(heroProgress() * (SCENES - 1));
-  }
 
   var DUR = 0, ready = false, active = vf, aim = 0, raf = null;
-  function anchor(i) { return DUR * i / (SCENES - 1); }
   function nowTime() { return active === vf ? vf.currentTime : Math.max(0, DUR - vr.currentTime); }
 
   function show(v) {
@@ -663,46 +659,46 @@
     vr.classList.toggle('on', v === vr);
   }
 
-  /* ---- 行き先が変わったら、その向きの1本を走らせる ---- */
+  /* ---- スクロールした所へ、映像が追いかけていく ----
+     行き先までの距離が大きいほど速く走る。追いついたら止まる。
+     currentTime を動かさない（シークすると必ずカクつく）ので、速度だけで合わせる。 */
+  var NEAR = 0.035;                               // これより近づいたら止まる
   function drive() {
     if (!ready) return;
-    var t = anchor(targetScene());
-    if (Math.abs(t - aim) < 0.01) return;
-    aim = t;
-    run();
-  }
-
-  function run() {
-    var cur = nowTime();
-    if (Math.abs(aim - cur) < 0.03) { settle(); return; }
-    if (aim > cur) {
-      if (Math.abs(vf.currentTime - cur) > 0.08) vf.currentTime = cur;
-      show(vf); vr.pause();
-      var pf = vf.play(); if (pf && pf.catch) pf.catch(function () {});
-    } else {
-      var rc = Math.max(0, DUR - cur);
-      if (Math.abs(vr.currentTime - rc) > 0.08) vr.currentTime = rc;
-      show(vr); vf.pause();
-      var pr = vr.play(); if (pr && pr.catch) pr.catch(function () {});
-    }
+    aim = clamp(heroProgress(), 0, 1) * DUR;
     if (!raf) raf = requestAnimationFrame(tick);
   }
 
-  function tick(ts) {
+  function tick() {
+    if (!ready) { raf = null; return; }
     var cur = nowTime();
+    var d = aim - cur;
+
+    if (Math.abs(d) <= NEAR) { settle(); raf = null; return; }
+
+    // 距離に応じた速さ。遠いほど速い。近づくと自然に減速する
+    var rate = clamp(Math.abs(d) * 2.6, 0.35, 3.2);
+
+    if (d > 0) {                                  // 前へ
+      if (active !== vf) { vf.currentTime = cur; show(vf); vr.pause(); }
+      vf.playbackRate = rate;
+      if (vf.paused) { var pf = vf.play(); if (pf && pf.catch) pf.catch(function () {}); }
+    } else {                                      // 戻る
+      if (active !== vr) { vr.currentTime = Math.max(0, DUR - cur); show(vr); vf.pause(); }
+      vr.playbackRate = rate;
+      if (vr.paused) { var pr = vr.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    }
+
     updateCaptions(DUR ? cur / DUR : 0);
-    var done = (active === vf) ? (cur >= aim - 0.008) : (cur <= aim + 0.008);
-    if (done) { settle(); raf = null; return; }
     raf = requestAnimationFrame(tick);
   }
 
   /* ---- 止まったら、2本とも同じコマに合わせておく（次にどちらへ行っても待たない） ---- */
   function settle() {
+    var cur = nowTime();
     vf.pause(); vr.pause();
-    if (Math.abs(vf.currentTime - aim) > 0.05) vf.currentTime = aim;
-    var ra = Math.max(0, DUR - aim);
-    if (Math.abs(vr.currentTime - ra) > 0.05) vr.currentTime = ra;
-    updateCaptions(DUR ? aim / DUR : 0);
+    vf.playbackRate = 1; vr.playbackRate = 1;
+    updateCaptions(DUR ? cur / DUR : 0);
   }
 
   /* ---- 支度ができたら見せる ---- */
