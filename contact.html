@@ -17,7 +17,8 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 
-.cgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:start;margin-top:64px}
+/* ▼送信先が決まってフォームを出す時は 1fr → 1.3fr 1fr に戻す（右に電話欄が並びます） */
+.cgrid{display:grid;grid-template-columns:1fr;gap:64px;align-items:start;margin-top:64px}
 .form{display:grid;gap:24px}
 .field label{display:block;font-size:16px;font-weight:700;color:var(--brand)}
 .field label .req{font-size:14px;font-weight:400;color:var(--accent);margin-left:8px}
@@ -47,7 +48,7 @@
 .formprep a{font-weight:700;color:var(--brand);white-space:nowrap}
 [hidden]{display:none !important}
 .formprep{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--accent);
-  padding:44px 48px;grid-column:1 / -1;max-width:900px}
+  padding:44px 48px;grid-column:1 / -1;max-width:none}
 .formprep .ph{font-size:22px;font-weight:700;color:var(--brand);line-height:1.7}
 .formprep .phones{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
 .formprep .phones a{display:block;background:var(--white);border:1px solid var(--line);
@@ -68,6 +69,12 @@
   .formprep .phones{grid-template-columns:1fr;gap:12px}
   .formprep .phones b{font-size:28px}
   .uses li{grid-template-columns:1fr;gap:4px}
+}
+/* 320px級の狭い端末。番号の大きさで箱が広がってしまうので、ここで一段落とす */
+@media(max-width:360px){
+  .formprep{padding:20px}
+  .formprep .phones a{padding:16px 14px}
+  .formprep .phones b{font-size:24px;letter-spacing:0}
 }
 /* 送信先が決まるまでは、右の電話欄は重複するので出さない */
 .cside{display:none}

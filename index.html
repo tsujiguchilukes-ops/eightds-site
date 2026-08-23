@@ -99,6 +99,12 @@
   .stillhero{display:block}
 }
 @media(max-height:560px){ .cue{display:none} }
+@media(max-width:1100px){
+  .hband{left:24px;right:24px;width:auto;bottom:104px}
+  .hband h1,.hband p.line{font-size:40px}
+  .hband .sub{font-size:18px}
+}
+/* 🚨 狭い方をあとに書く。先に書くと上の1100pxに全部上書きされる */
 @media(max-width:720px){
   .scrollhero{height:156vh}
   /* 14文字が1行に収まる大きさ。はみ出すと「事。」だけ次の行に落ちる */
@@ -116,10 +122,14 @@
   .hband .k{font-size:12px;margin-bottom:10px}
   .stage .ring{right:20px;bottom:20px;width:36px;height:36px}
 }
-@media(max-width:1100px){
-  .hband{left:24px;right:24px;width:auto;bottom:104px}
-  .hband h1,.hband p.line{font-size:40px}
-  .hband .sub{font-size:18px}
+/* 端末が狭いほど字を落として、見出しを必ず1行に収める（14文字×字幅＋左右40px） */
+@media(max-width:380px){
+  .hband h1,.hband p.line{font-size:21px}
+  .hband[data-kind="rise"] p.line{font-size:19px}
+}
+@media(max-width:340px){
+  .hband h1,.hband p.line{font-size:19px}
+  .hband[data-kind="rise"] p.line{font-size:17px}
 }
 
 
@@ -288,7 +298,7 @@
 
 <!-- ①' 静止画のヒーロー（スマホ・動きを抑える設定の人） -->
 <section class="stillhero" data-hero>
-  <img src="img/V4_積戻.webp" alt="住宅街のお宅の前で、トラックから商品を降ろすところ（イメージ）" width="1920" height="1071">
+  <img src="img/V5_搬出.webp" alt="住宅街のお宅の前で、トラックから商品を降ろすところ（イメージ）" width="1800" height="1200">
   <div class="tone"></div>
   <div class="in">
     <p class="ttl">家電・家具の配送と設置工事。</p>
@@ -364,8 +374,8 @@
 </section>
 
 <!-- 玄関の前 -->
-<div class="band">
-  <img src="img/V4_積戻.webp" alt="住宅街のお宅の前で荷を降ろすところ（イメージ）" width="1920" height="1071" loading="lazy">
+<div class="band up">
+  <img src="img/V5_搬出.webp" alt="住宅街のお宅の前で荷を降ろすところ（イメージ）" width="1800" height="1200" loading="lazy">
 </div>
 
 <!-- エリア -->
@@ -397,7 +407,7 @@
           <p class="k">HEAD OFFICE</p>
           <h3>浦安本社</h3>
           <a class="tel" href="tel:0473810142">047-381-0142</a>
-          <address>〒279-0043 千葉県浦安市富士見3-11-1-207<br>新浦安駅から車で5分／受付 8:00〜17:00</address>
+          <address>〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>新浦安駅から車で5分／受付 8:00〜17:00</address>
         </div>
         <div class="ocard" data-rise="0">
           <p class="k">KAWAGUCHI</p>
@@ -423,6 +433,10 @@
     <p class="en" data-rise="0">03 ／ 選ばれる理由</p>
     <h2 data-rise="0">安心してお任せいただくために。</h2>
     <p class="note" data-rise="0">お客様宅へ上がって作業する仕事です。床・壁・商品を傷つけないよう、作業の手順を決めています。</p>
+    <figure class="shot" data-rise="0">
+      <img src="img/V6_説明.webp" alt="据え付けた冷蔵庫の使い方を、お客様に説明しているところ（イメージ）" width="1800" height="1200" loading="lazy">
+      <figcaption>設置して電源を入れ、使い方をご説明してから失礼します。</figcaption>
+    </figure>
     <ol class="chain">
       <li data-rise="0"><h3>身だしなみ</h3>
         <p>身だしなみを整えてから伺います。制服は貸与し、髪も髭も清潔に保っています。車内も車体も、きれいにしてから次のお宅へ向かいます。</p></li>
@@ -437,7 +451,7 @@
 
 <!-- 夕方 -->
 <div class="band">
-  <img src="img/L2_トラック列.webp" alt="1日を終えて戻ってきたトラック（イメージ）" width="1920" height="1071" loading="lazy">
+  <img src="img/L2_トラック列.webp" alt="1日を終えて戻ってきたトラック（イメージ）" width="1800" height="1200" loading="lazy">
 </div>
 
 <!-- 事実 -->
@@ -484,7 +498,7 @@
 <!-- ⑧ 2つの入口 -->
 <div class="gates">
   <a class="gate" href="business.html">
-    <img src="img/L2_トラック列.webp" alt="出発前のトラック（イメージ）" loading="lazy" width="1920" height="1071">
+    <img src="img/L2_トラック列.webp" alt="車庫に並ぶ自社のトラック（イメージ）" loading="lazy" width="1800" height="1200">
     <div class="g">
       <p class="k">FOR BUSINESS</p>
       <h3>法人のお客様へ</h3>
@@ -513,7 +527,7 @@
 </div></div>
 
 <section class="cta">
-  <img src="img/L2_トラック列.webp" alt="" aria-hidden="true" loading="lazy" width="1920" height="1071">
+  <img src="img/L2_トラック列.webp" alt="" aria-hidden="true" loading="lazy" width="1800" height="1200">
   <div class="in">
     <div>
       <p class="en">CONTACT</p>

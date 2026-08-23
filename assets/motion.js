@@ -121,7 +121,7 @@
     'service.html': 'img/V2_手元.webp',
     'business.html': 'img/L1_積込.webp',
     'recruit.html': 'img/V1_引き.webp',
-    'contact.html': 'img/V4_積戻.webp',
+    'contact.html': 'img/V5_搬出.webp',
     'privacy.html': 'assets/veil-rush.webp'
   };
   var EASE_IN = 'cubic-bezier(.32,.12,.2,1)';
@@ -131,7 +131,7 @@
   var came = root.getAttribute('data-soar');
   if (came) {
     var here = location.pathname.split('/').pop() || 'index.html';
-    if (SCENE[here]) rush.style.backgroundImage = 'url("../' + SCENE[here] + '")'.replace('../', '');
+    if (SCENE[here]) rush.style.backgroundImage = 'url("' + SCENE[here] + '")';
     root.removeAttribute('data-soar');
     veil.classList.add('on');
     door.style.transformOrigin = ORIGIN[came] || '50% 50%';
