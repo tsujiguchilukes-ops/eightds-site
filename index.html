@@ -49,10 +49,11 @@
   text-shadow:var(--tshadow)}
 /* 文字ごとの影は付けない。映像の左下がもともと暗いので、下からのグラデーションだけで読める */
 /* 小ラベルは3場面とも同じ扱いにする（場面ごとに色と太さが違って、設計が無いように見えていた） */
-.hband .k{font-size:13px;letter-spacing:.3em;color:var(--neon);font-weight:700;margin-bottom:18px;text-shadow:0 0 16px rgba(255,122,46,.4),0 1px 3px rgba(4,18,26,.9)}
+/* ボタン（採用情報 →）と同じオレンジに合わせる */
+.hband .k{font-size:13px;letter-spacing:.3em;color:#F0A585;font-weight:700;margin-bottom:18px;text-shadow:0 1px 3px rgba(4,18,26,.9)}
 /* 老舗の看板の棒。線1本だけ。箱は作らない */
 .hband .k::before{content:"";display:inline-block;width:34px;height:1px;
-  background:var(--neon);opacity:.85;vertical-align:.32em;margin-right:14px}
+  background:#F0A585;opacity:.9;vertical-align:.32em;margin-right:14px}
 /* 見出しは明朝。創業1986年の40年を、コピーを変えずに書体で言う。
    字間は他社3社の実測どおり0に寄せる（.05emは広すぎて間延びしていた） */
 .hband h1,.hband p.line{

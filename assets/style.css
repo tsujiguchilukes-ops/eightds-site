@@ -9,8 +9,8 @@
 :root{
   --ink:#1F2328; --sub:#67727E;
   --brand:#0B4F6C; --deep:#083A50; --accent:#C9531F;
-  /* カーソルが当たった所だけ灯る、ネオン寄りのオレンジ */
-  --neon:#FF7A2E;
+  /* カーソルが当たった所のオレンジ（ヒーローのボタンと同じ色） */
+  --hot:#F0A585;
   --paper:#F7F4EF; --line:#DFD9D0; --white:#fff;
   --ease:cubic-bezier(.22,1,.36,1);
   --max:1240px; --head:76px;
@@ -42,7 +42,8 @@ a{color:inherit}
 .head.on-hero .logo{color:#fff}
 .head.on-hero .logo span{color:rgba(255,255,255,.74)}
 .head.on-hero .gnav>li>a{color:#fff}
-.head.on-hero .gnav>li>a:hover,.head.on-hero .gnav>li[aria-current]>a{color:#fff}
+/* 映像の上（濃い背景）では、送ってもらったオレンジそのままで読める */
+.head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li[aria-current]>a,.head.on-hero .gnav>li:focus-within>a{color:var(--hot)}
 .head.on-hero .mtoggle{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
 /* 1段だけの帯にする。電話番号は下（CTA・フッター・右の固定列）に置く。 */
 .head .r1{max-width:var(--max);margin:0 auto;height:var(--head);padding:0 40px;
@@ -56,26 +57,21 @@ a{color:inherit}
 .gnav>li{list-style:none;position:static}
 .gnav>li>a{position:relative;display:flex;align-items:center;height:100%;padding:0 20px;font-size:16px;font-weight:700;
   text-decoration:none;border-bottom:0;
-  transition:color .16s var(--ease)}
-/* 選んでいる印は、3pxの太い棒をやめて2pxの細いネオン。少しだけ灯らせる */
-.gnav>li>a::before{content:"";position:absolute;left:20px;right:20px;bottom:0;height:2px;
-  background:var(--neon);box-shadow:0 0 10px -1px rgba(255,122,46,.85);
-  transform:scaleX(0);transform-origin:center;opacity:0;
-  transition:transform .28s var(--ease),opacity .2s var(--ease)}
-/* 引き出しの中へカーソルが移っても、押しているタブの印は消さない */
-.gnav>li:hover>a::before,.gnav>li[aria-current]>a::before,.gnav>li:focus-within>a::before{transform:none;opacity:1}
-.gnav>li>a:hover,.gnav>li[aria-current]>a{color:var(--brand)}
+  transition:color .2s var(--ease)}
+/* 下線は引かない。カーソルを当てたら文字そのものが色づく。
+   白いヘッダーの上では #F0A585 だと薄くて読めないので、同じ系統の濃い方（--accent）を使う */
+.gnav>li:hover>a,.gnav>li[aria-current]>a,.gnav>li:focus-within>a{color:var(--accent)}
 /* 引き出しメニュー C案「細帯バー」。深い紺のまま、箱をやめて低い帯にする。
    色は規約どおり紺＋錆＋白だけ（水色 #4FB3D9 / #93B4C4 はやめた。押したタブの錆色の下線と
    ぶつかって、ここだけ別のサイトに見えていた）。矢印はCTAボタンと同じ線画にして言葉を揃える */
 .gnav .drop{position:absolute;top:100%;left:auto;right:0;z-index:60;
-  width:min(780px,calc(100vw - 80px));padding:18px 22px;
+  width:min(830px,calc(100vw - 80px));padding:18px 22px;
   background:rgba(12,42,56,.92);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   /* 一色だと板に見える。縁だけ錆色を薄く回して、上辺は押したタブの下線と繋げる */
-  border:1px solid rgba(255,122,46,.24);border-top:1px solid var(--neon);
+  border:1px solid rgba(240,165,133,.26);border-top:1px solid var(--hot);
   box-shadow:0 24px 60px -30px rgba(6,22,30,.65),
-             0 -1px 14px -2px rgba(255,122,46,.55),
+             0 -1px 14px -2px rgba(240,165,133,.5),
              inset 0 0 0 1px rgba(255,255,255,.05);
   opacity:0;visibility:hidden;transform:translateY(-8px);
   transition:opacity .22s var(--ease),transform .3s var(--ease),visibility .22s;
@@ -85,7 +81,7 @@ a{color:inherit}
 .gnav .drop li{list-style:none;flex:1 1 0;min-width:0;
   opacity:0;transform:translateY(6px);
   transition:opacity .3s var(--ease),transform .36s var(--ease)}
-.gnav .drop li+li{margin-left:16px;padding-left:17px;border-left:1px solid rgba(255,255,255,.14)}
+.gnav .drop li+li{margin-left:14px;padding-left:15px;border-left:1px solid rgba(255,255,255,.14)}
 .gnav>li:hover .drop li,.gnav>li:focus-within .drop li{opacity:1;transform:none}
 .gnav>li:hover .drop li:nth-child(1),.gnav>li:focus-within .drop li:nth-child(1){transition-delay:.05s}
 .gnav>li:hover .drop li:nth-child(2),.gnav>li:focus-within .drop li:nth-child(2){transition-delay:.11s}
@@ -96,7 +92,7 @@ a{color:inherit}
 /* カーソルを当てた項目だけ、後ろがほんのり錆色に灯る */
 .gnav .drop a>*,.gnav .drop a::after{position:relative;z-index:1}
 .gnav .drop a::before{content:"";position:absolute;inset:-4px -8px;z-index:0;
-  background:radial-gradient(110% 150% at 10% 50%,rgba(255,122,46,.3),rgba(255,122,46,0) 72%);
+  background:radial-gradient(110% 150% at 10% 50%,rgba(240,165,133,.26),rgba(240,165,133,0) 72%);
   opacity:0;transition:opacity .34s var(--ease)}
 .gnav .drop a:hover::before,.gnav .drop a:focus-visible::before{opacity:1}
 .gnav .drop a:focus-visible{outline:2px solid #fff;outline-offset:3px}
@@ -106,20 +102,20 @@ a{color:inherit}
   transition:box-shadow .3s var(--ease)}
 /* 写真の縁が錆色に立ち上がる */
 .gnav .drop a:hover .im,.gnav .drop a:focus-visible .im{
-  box-shadow:0 0 0 1px var(--neon),0 0 20px -3px rgba(255,122,46,.75)}
+  box-shadow:0 0 0 1px var(--hot),0 0 20px -3px rgba(240,165,133,.7)}
 .gnav .drop .im img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .gnav .drop a:hover .im img{transform:scale(1.06)}
 .gnav .drop .tx{flex:1 1 auto;min-width:0}
 .gnav .drop b{display:block;font-size:15px;font-weight:700;letter-spacing:.04em;line-height:1.5;
   transition:color .3s var(--ease)}
-.gnav .drop a:hover b,.gnav .drop a:focus-visible b{color:var(--neon);text-shadow:0 0 14px rgba(255,122,46,.45)}
+.gnav .drop a:hover b,.gnav .drop a:focus-visible b{color:var(--hot);text-shadow:0 0 14px rgba(240,165,133,.4)}
 .gnav .drop .tx>span{display:block;margin-top:3px;font-size:12px;color:rgba(255,255,255,.62);
   letter-spacing:.02em;line-height:1.7}
 /* 矢印はCTAボタンと同じ線画。ホバーで右へ滑る */
 .gnav .drop a::after{content:"";flex:none;width:22px;height:9px;background:rgba(255,255,255,.55);
   -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain;
   transition:transform .3s var(--ease),background-color .3s var(--ease)}
-.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{transform:translateX(5px);background:var(--neon)}
+.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{transform:translateX(5px);background:var(--hot)}
 @media (prefers-reduced-motion:reduce){
   .gnav .drop{transition:opacity .01s;transform:none}
   .gnav .drop li{opacity:1;transform:none;transition:none}
