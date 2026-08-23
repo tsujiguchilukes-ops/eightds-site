@@ -30,6 +30,9 @@
 .field .hint{font-size:14px;color:var(--sub);margin-top:4px}
 .field .err{font-size:14px;color:#B23B15;margin-top:4px;display:none}
 .field.bad input,.field.bad select,.field.bad textarea{border-color:#B23B15}
+.agreewrap{margin-top:0}
+.field.bad .agree input[type=checkbox]{outline:2px solid #B23B15;outline-offset:2px}
+.agreewrap .err{margin-top:8px}
 .field.bad .err{display:block}
 .radios{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .radios label{position:relative;font-weight:400}
@@ -180,11 +183,14 @@
         </div>
         <div class="field" id="w-body">
           <label for="body">ご用件の内容<span class="req">必須</span></label>
-          <textarea id="body" name="body" required placeholder="例）量販店より委託で、浦安・市川エリアへ月80件ほどの家電配送と設置をお願いしたい。エアコン取付も含みます。"></textarea>
+          <textarea id="body" name="body" required placeholder="例）量販店より委託で、浦安・市川エリアへ家電の配送と設置をお願いしたい。エアコン取付も含みます。"></textarea>
           <p class="err">内容を入れてください。</p>
         </div>
-        <label class="agree"><input type="checkbox" id="agree" required>
-          <span><a href="privacy.html">プライバシーポリシー</a>に同意します。</span></label>
+        <div class="field agreewrap" id="w-agree">
+          <label class="agree"><input type="checkbox" id="agree" required>
+            <span><a href="privacy.html">プライバシーポリシー</a>に同意します。</span></label>
+          <p class="err">プライバシーポリシーに同意してください。</p>
+        </div>
         <div class="sendrow">
           <button class="btn btn-main" type="submit" id="send">この内容で相談する</button>
         </div>
@@ -269,16 +275,16 @@
   var KIND = {
     haiso:   ['配送・設置の依頼／見積り', '配送・設置のご相談',
               '家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。',
-              '例）量販店より委託で、浦安・市川エリアへ月80件ほどの家電配送と設置をお願いしたい。'],
+              '例）量販店より委託で、浦安・市川エリアへ家電の配送と設置をお願いしたい。'],
     denki:   ['電気工事の依頼', '電気工事のご相談',
-              '登録電気工事業者です。エアコン・アンテナ・温水洗浄便座の取付を、配送と同じ日に同じ担当が行います。',
-              '例）エアコンの取付を月20件ほど、川口エリアでお願いしたい。配送は別業者です。'],
+              '登録電気工事業者です。エアコン・アンテナ・温水洗浄便座の取付を、運んだ担当がそのまま行います。',
+              '例）エアコンの取付を川口エリアでお願いしたい。配送は別業者です。'],
     recycle: ['引き取り・リサイクル', '引き取り・リサイクルのご相談',
-              '東京都・千葉県・埼玉県・神奈川県で産業廃棄物収集運搬業の許可を取得しています。新しい商品の設置と同じ日に持ち帰ります。',
-              '例）入れ替えのたびに出る古い冷蔵庫・洗濯機の引き取りをお願いしたい。月40件ほどです。'],
+              '東京都・千葉県・埼玉県・神奈川県で産業廃棄物収集運搬業の許可を取得しています。新しい商品の設置にあわせて、その場で持ち帰ります。',
+              '例）入れ替えのたびに出る古い冷蔵庫・洗濯機の引き取りをお願いしたい。'],
     partner: ['協力会社の応募', '協力会社のご応募',
               '1都3県で家電・家具の配送、設置工事をお願いできる協力会社様を探しています。継続してお願いできる方を歓迎します。',
-              '例）川口拠点で2t車2台。家電配送の経験7年。継続で受けられます。'],
+              '例）川口拠点で2t車をお持ちです。家電配送の経験があり、継続で受けられます。'],
     recruit: ['採用について', '採用のご応募・お問い合わせ',
               '未経験の方も歓迎します。配送する車は2tショートトラックです。会社見学だけでも、お気軽にどうぞ。',
               '例）川口で配送スタッフに応募したいです。普通免許あり、未経験です。まず会社見学をさせてください。']
@@ -315,8 +321,8 @@
     ng = bad('w-tel', !tel.value.trim()) || ng;
     ng = bad('w-mail', !!mail.value.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail.value.trim())) || ng;
     ng = bad('w-body', !body.value.trim()) || ng;
-    if(!agree.checked){ ng=true; agree.focus(); }
-    if(ng){ f.querySelector('.bad input,.bad textarea') && f.querySelector('.bad input,.bad textarea').focus(); return; }
+    ng = bad('w-agree', !agree.checked) || ng;
+    if(ng){ var first=f.querySelector('.bad input,.bad textarea'); if(first) first.focus(); return; }
 
     /* 押した瞬間に見た目を変える・二重送信を止める */
     btn.disabled=true; btn.textContent='送信中…';
