@@ -44,7 +44,7 @@
 
 /* 文字の帯。中央の通路は空けて、左に寄せる */
 .hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px;pointer-events:none}
-.hband{position:absolute;left:40px;bottom:132px;width:min(78%,940px);color:#fff;opacity:0;
+.hband{position:absolute;left:40px;bottom:116px;width:min(78%,940px);color:#fff;opacity:0;
   text-shadow:var(--tshadow)}
 /* 文字ごとの影は付けない。映像の左下がもともと暗いので、下からのグラデーションだけで読める */
 .hband .k{font-size:14px;letter-spacing:.24em;color:#F0A585;font-weight:700;margin-bottom:16px}
@@ -68,6 +68,9 @@
 .hband[data-kind="rise"] .c{transform:translateY(calc((1 - var(--kc))*26px))}
 .hband[data-kind="settle"] .c{transform:translateY(calc((1 - var(--kc))*20px))}
 .hband[data-kind="settle"]{width:min(74%,880px)}
+/* 3枚とも下端をそろえる。settle は要素が多いぶん上に伸びるだけにする */
+.hband[data-kind="rise"] .sub{font-size:18px;font-weight:400;color:#CFDCE3;letter-spacing:.02em}
+.hband[data-kind="rise"] .k,.hband[data-kind="settle"] .k{color:#CFDCE3;font-weight:400;letter-spacing:.2em}
 .hband .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* 下へ進める合図 */
@@ -264,9 +267,12 @@
         <h1 class="split">家電・家具の配送と設置工事。</h1>
       </div>
       <div class="hband" data-a="0.35" data-b="0.67" data-kind="rise">
+        <p class="k">登録電気工事業者　千葉県知事登録</p>
         <p class="line split">開梱・組立・接続・設置まで。</p>
+        <p class="sub">運んだ担当が、そのまま取り付けまで行います。</p>
       </div>
       <div class="hband" data-a="0.69" data-b="1" data-kind="settle">
+        <p class="k">産業廃棄物収集運搬業　東京都・千葉県・埼玉県・神奈川県</p>
         <p class="line split">リサイクル家電の回収まで。</p>
         <p class="sub">浦安・川口の2拠点から、東京・千葉・埼玉・神奈川へ。</p>
         <div class="go">
