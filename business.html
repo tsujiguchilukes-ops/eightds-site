@@ -41,6 +41,15 @@
 .partner h2{color:#fff}
 .partner .en{color:#F0A585}
 .partner p{margin-top:16px;font-size:16px;color:#CFE0E8;max-width:40em}
+.pcond{margin-top:32px;max-width:44em;border-top:1px solid rgba(255,255,255,.2)}
+.pcond>div{display:grid;grid-template-columns:9em 1fr;gap:20px;padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.2)}
+.pcond dt{font-size:14px;letter-spacing:.1em;color:#8FB8CB}
+.pcond dd{font-size:16px;color:#fff;line-height:1.8}
+.partner .pnote{margin-top:20px;font-size:14px;color:#9EC2D3}
+@media(max-width:900px){
+  .pcond>div{grid-template-columns:1fr;gap:4px;padding:12px 0}
+}
 @media(max-width:900px){
   .flow li{padding:24px 0 24px 64px}
   .flow li::before{font-size:22px;top:26px}
@@ -285,7 +294,14 @@
     <div data-rise="0">
       <p class="en">PARTNER</p>
       <h2>協力会社を募集しています</h2>
-      <p>1都3県で家電・家具の配送、設置工事をお願いできる協力会社様を探しています。継続的にお願いできる方を歓迎します。まずはお電話ください。</p>
+      <p>家電・家具の配送、設置、取付工事をお願いできる協力事業者様を探しています。継続的にお願いできる方を歓迎します。</p>
+      <dl class="pcond">
+        <div><dt>対象エリア</dt><dd>東京都・千葉県・埼玉県・神奈川県</dd></div>
+        <div><dt>お願いする業務</dt><dd>家電・家具の配送／開梱・組立・設置／取付工事／リサイクル家電の回収</dd></div>
+        <div><dt>車両</dt><dd>2tクラスの箱車をお持ちの方</dd></div>
+        <div><dt>許可</dt><dd>一般貨物自動車運送業許可（緑ナンバー）</dd></div>
+      </dl>
+      <p class="pnote">上記に当てはまらない場合も、まずはご相談ください。稼働日数・単価などの条件は個別にご相談のうえ決めさせていただきます。</p>
     </div>
     <div data-rise="0"><a class="btn btn-ghost" href="contact.html?kind=partner">協力会社として応募する</a></div>
   </div>
