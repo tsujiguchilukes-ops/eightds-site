@@ -72,8 +72,10 @@
 
 /* 1日の終わり */
 .done{position:relative;overflow:hidden;background:var(--deep);color:#fff}
-.done>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;filter:brightness(.5)}
-.done .tone{position:absolute;inset:0;background:linear-gradient(to right,rgba(6,40,56,.92),rgba(6,40,56,.38))}
+/* 人の表情を見せたい写真なので、暗く落としすぎない。文字が乗る左だけ濃くする */
+.done>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:brightness(.8)}
+.done .tone{position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(6,40,56,.9) 0%,rgba(6,40,56,.66) 40%,rgba(6,40,56,.22) 100%)}
 .done .in{position:relative;max-width:var(--max);margin:0 auto;padding:120px 40px}
 .done .en{color:#F0A585}
 .done h2{font-size:40px}
@@ -160,21 +162,21 @@
     <button class="mtoggle" aria-expanded="false">メニュー</button>
     <div class="r2"><div class="in">
     <ul class="gnav">
-      <li><a href="about.html">私たちのこと</a>
+      <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・川口</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・川口</span></span></a></li>
           <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅に上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
-      <li><a href="service.html">サービス</a>
+      <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
           <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・回収まで</span></span></a></li>
           <li><a href="about.html#area"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>対応エリア</b><span>東京・千葉・埼玉・神奈川</span></span></a></li>
         </ul>
       </li>
-      <li><a href="business.html">法人のお客様へ</a>
+      <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#flow"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>ご依頼の流れ</b><span>お見積りは無料。5段階で完了</span></span></a></li>
+          <li><a href="business.html#flow"><span class="im"><img src="img/V6_説明.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>ご依頼の流れ</b><span>お見積りは無料。5段階で完了</span></span></a></li>
           <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="倉庫の通路を、台車で商品を運ぶところ（イメージ）" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
@@ -249,7 +251,7 @@
 
 <!-- 始め方 -->
 <section class="done">
-  <img src="img/L2_トラック列.webp" alt="車庫に並ぶ自社のトラック（イメージ）" loading="lazy" width="1800" height="1200">
+  <img src="img/R1_仲間.webp" alt="配送を終えて車庫に戻り、先輩と新人が笑い合っているところ（イメージ）" loading="lazy" width="1800" height="1200">
   <div class="tone"></div>
   <div class="in">
     <p class="en" data-rise="0">START</p>
@@ -348,7 +350,7 @@
           <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
           TEL&amp;FAX <a href="tel:0473810142">047-381-0142</a><br><br>
           <strong>川口営業所</strong>　〒333-0816 埼玉県川口市差間2-34-13 1F<br>
-          TEL <a href="tel:0482297552">048-229-7552</a>　FAX 048-229-7728<br><br>
+          TEL <a href="tel:0482297552">048-229-7552</a>　<span class="nw">FAX 048-229-7728</span><br><br>
           受付時間 8:00〜17:00
         </address>
       </div>

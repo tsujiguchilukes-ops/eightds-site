@@ -45,19 +45,30 @@
 
 /* 文字の帯。中央の通路は空けて、左に寄せる */
 .hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px;pointer-events:none}
-.hband{position:absolute;left:40px;bottom:116px;width:min(78%,940px);color:#fff;opacity:0;
+.hband{position:absolute;left:40px;bottom:116px;width:min(88%,1020px);color:#fff;opacity:0;
   text-shadow:var(--tshadow)}
 /* 文字ごとの影は付けない。映像の左下がもともと暗いので、下からのグラデーションだけで読める */
-.hband .k{font-size:14px;letter-spacing:.24em;color:#F0A585;font-weight:700;margin-bottom:16px}
-.hband h1,.hband p.line{font-size:56px;font-weight:700;line-height:1.5;letter-spacing:.05em}
-.hband[data-kind="rise"] p.line{font-size:40px}
-.hband .sub{margin-top:24px;font-size:22px;font-weight:700;color:#DCE9EF;
+/* 小ラベルは3場面とも同じ扱いにする（場面ごとに色と太さが違って、設計が無いように見えていた） */
+.hband .k{font-size:13px;letter-spacing:.3em;color:rgba(250,246,238,.8);font-weight:500;margin-bottom:18px}
+/* 老舗の看板の棒。線1本だけ。箱は作らない */
+.hband .k::before{content:"";display:inline-block;width:34px;height:1px;
+  background:rgba(250,246,238,.55);vertical-align:.32em;margin-right:14px}
+/* 見出しは明朝。創業1986年の40年を、コピーを変えずに書体で言う。
+   字間は他社3社の実測どおり0に寄せる（.05emは広すぎて間延びしていた） */
+.hband h1,.hband p.line{
+  font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP","Source Han Serif JP","Songti SC",serif;
+  font-weight:600;font-size:clamp(40px,4.35vw,62px);letter-spacing:.04em;line-height:1.42;color:#FAF6EE;
+  /* 明朝は横画が細いので、影の1層目を締めて輪郭を立てる */
+  text-shadow:0 1px 2px rgba(4,18,26,1),0 3px 12px rgba(4,18,26,.92),0 12px 40px rgba(4,18,26,.8)}
+.hband[data-kind="rise"] p.line{font-size:clamp(38px,4.1vw,56px)}
+/* サブは細字。見出しと同じ太さだと階層が消える */
+.hband .sub{margin-top:20px;font-size:18px;font-weight:300;color:#E7E2D8;letter-spacing:.06em;line-height:1.9;
   opacity:var(--ks,1);transform:translateY(calc((1 - var(--ks,1))*14px))}
 .hband .go{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;pointer-events:auto;
   opacity:var(--kb,1);transform:translateY(calc((1 - var(--kb,1))*14px))}
 /* 矢印は下線の上を滑る。右に余白を取らないと overflow:hidden で切れる */
 .hband .go .btn{text-shadow:none;min-width:0;min-height:44px;padding:10px 16px 10px 0;background:none;box-shadow:none;
-  border-bottom:1px solid rgba(255,255,255,.55);border-radius:0;gap:14px;font-size:16px;color:#fff}
+  border-bottom:1px solid rgba(255,255,255,.4);border-radius:0;gap:14px;font-size:15px;letter-spacing:.1em;color:#fff}
 .hband .go .btn:hover::after{transform:translateX(12px)}
 .hband .go .btn::before{display:none}
 .hband .go .btn:hover{color:#F0A585;border-bottom-color:#F0A585}
@@ -89,7 +100,7 @@
   background:linear-gradient(to top,rgba(6,32,45,.92) 0%,rgba(6,32,45,.4) 52%,rgba(6,32,45,.22) 100%)}
 .stillhero .in{position:relative;height:100%;max-width:var(--max);margin:0 auto;padding:0 24px 48px;
   display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
-.stillhero .ttl{font-size:28px;font-weight:700;line-height:1.5;letter-spacing:.04em}
+.stillhero .ttl{font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP",serif;font-weight:600;letter-spacing:.02em;font-size:28px;font-weight:700;line-height:1.5;letter-spacing:.04em}
 .stillhero .sub{margin-top:16px;font-size:16px;font-weight:700;color:#DCE9EF}
 .stillhero .go{margin-top:24px}
 
@@ -101,8 +112,9 @@
 @media(max-height:560px){ .cue{display:none} }
 @media(max-width:1100px){
   .hband{left:24px;right:24px;width:auto;bottom:104px}
-  .hband h1,.hband p.line{font-size:40px}
-  .hband .sub{font-size:18px}
+  .hband h1,.hband p.line{font-size:clamp(34px,4.4vw,48px)}
+  .hband[data-kind="rise"] p.line{font-size:clamp(32px,4.1vw,44px)}
+  .hband .sub{font-size:17px}
 }
 /* 🚨 狭い方をあとに書く。先に書くと上の1100pxに全部上書きされる */
 @media(max-width:720px){
@@ -112,24 +124,23 @@
   .stage .film{object-position:50% 50%}
   .stage{background-size:cover;background-position:center 50%}
   .hband{left:20px;right:20px;width:auto;bottom:150px}
-  .hband h1,.hband p.line{font-size:23px;letter-spacing:0;line-height:1.45}
-  .hband[data-kind="rise"] p.line{font-size:20px}
+  .hband h1,.hband p.line{font-size:24px;letter-spacing:.01em;line-height:1.42}
+  .hband[data-kind="rise"] p.line{font-size:24px}
   /* 下に固定のバーがあるので、スクロールの合図は出さない（文字と重なる） */
   .cue{display:none}
   .hband[data-kind="settle"]{width:auto}
-  .hband .sub{font-size:15px;margin-top:16px}
+  .hband .sub{font-size:15px;margin-top:14px}
   .hband .go{gap:12px;margin-top:20px}
-  .hband .k{font-size:12px;margin-bottom:10px}
+  .hband .k{font-size:11px;letter-spacing:.26em;margin-bottom:12px}
+  .hband .k::before{width:20px;margin-right:10px}
   .stage .ring{right:20px;bottom:20px;width:36px;height:36px}
 }
 /* 端末が狭いほど字を落として、見出しを必ず1行に収める（14文字×字幅＋左右40px） */
 @media(max-width:380px){
-  .hband h1,.hband p.line{font-size:21px}
-  .hband[data-kind="rise"] p.line{font-size:19px}
+  .hband h1,.hband p.line,.hband[data-kind="rise"] p.line{font-size:22px}
 }
 @media(max-width:340px){
-  .hband h1,.hband p.line{font-size:19px}
-  .hband[data-kind="rise"] p.line{font-size:17px}
+  .hband h1,.hband p.line,.hband[data-kind="rise"] p.line{font-size:18px}
 }
 
 
@@ -230,21 +241,21 @@
     <button class="mtoggle" aria-expanded="false">メニュー</button>
     <div class="r2"><div class="in">
     <ul class="gnav">
-      <li><a href="about.html">私たちのこと</a>
+      <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・川口</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・川口</span></span></a></li>
           <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅に上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
-      <li><a href="service.html">サービス</a>
+      <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
           <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・回収まで</span></span></a></li>
           <li><a href="about.html#area"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>対応エリア</b><span>東京・千葉・埼玉・神奈川</span></span></a></li>
         </ul>
       </li>
-      <li><a href="business.html">法人のお客様へ</a>
+      <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#flow"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>ご依頼の流れ</b><span>お見積りは無料。5段階で完了</span></span></a></li>
+          <li><a href="business.html#flow"><span class="im"><img src="img/V6_説明.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>ご依頼の流れ</b><span>お見積りは無料。5段階で完了</span></span></a></li>
           <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="倉庫の通路を、台車で商品を運ぶところ（イメージ）" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
@@ -554,7 +565,7 @@
           <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
           TEL&amp;FAX <a href="tel:0473810142">047-381-0142</a><br><br>
           <strong>川口営業所</strong>　〒333-0816 埼玉県川口市差間2-34-13 1F<br>
-          TEL <a href="tel:0482297552">048-229-7552</a>　FAX 048-229-7728<br><br>
+          TEL <a href="tel:0482297552">048-229-7552</a>　<span class="nw">FAX 048-229-7728</span><br><br>
           受付時間 8:00〜17:00
         </address>
       </div>
