@@ -610,9 +610,14 @@ html[data-soar] body{opacity:0}
    見た目は変えず、押せる範囲だけを広げる。 */
 
 /* 本文の中の電話番号。文字の大きさは変えず、上下に押せる余白を足す */
-a[href^="tel:"]{display:inline-block;padding:12px 2px;margin:-12px -2px;
+/* 本文の中の電話番号だけ、押せる余白を足す。
+   ボタン・カード・帯の中の電話は、それぞれの見た目が既にあるので触らない */
+a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a){
+  display:inline-block;padding:12px 2px;margin:-12px -2px;
   text-decoration:none;border-bottom:1px solid currentColor}
-.tel[href^="tel:"],.bar a[href^="tel:"],.quick a[href^="tel:"]{padding:0;margin:0;border-bottom:0}
+.bar a[href^="tel:"],.quick a[href^="tel:"]{padding:inherit;margin:0;border-bottom:0}
+/* ボタンは .btn の見た目のまま。押し所も .btn の padding で44pxを満たす */
+.btn[href^="tel:"]{margin:0;border-bottom:0}
 
 /* 引き出しメニューの「すべて見る」 */
 .gnav .drop .all a{padding:12px 0 4px}
@@ -633,3 +638,12 @@ a[href^="tel:"]{display:inline-block;padding:12px 2px;margin:-12px -2px;
 
 /* 箇条書きの中の細いリンク */
 .pts a,.why a:not(.btn),.srv li a{display:inline-block;padding:11px 3px;margin:-11px -3px}
+
+h1,h2,h3{text-wrap:balance}
+
+/* CTAの電話。ひとかたまりずつ改行する。
+   採用ページだけページ内CSSで block にしてあり、他のページで
+   「浦安本社047-381-0142受付 8:00〜17:00」と3行に折り返して数字に食い込んでいた */
+.ctel .n,.ctel .t,.ctel .h{display:block}
+.ctel .t,.ctel .h{white-space:nowrap}
+.ctel a{display:block}
