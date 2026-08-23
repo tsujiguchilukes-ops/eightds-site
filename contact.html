@@ -44,6 +44,32 @@
 .formprep{background:#FBF3E9;border-left:3px solid var(--accent);padding:20px 24px;margin-bottom:32px;font-size:16px;line-height:1.9}
 .formprep p+p{margin-top:8px}
 .formprep a{font-weight:700;color:var(--brand);white-space:nowrap}
+[hidden]{display:none !important}
+.formprep{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--accent);
+  padding:44px 48px;grid-column:1 / -1;max-width:900px}
+.formprep .ph{font-size:22px;font-weight:700;color:var(--brand);line-height:1.7}
+.formprep .phones{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.formprep .phones a{display:block;background:var(--white);border:1px solid var(--line);
+  padding:20px 24px;text-decoration:none;transition:border-color .2s var(--ease),background-color .2s var(--ease)}
+.formprep .phones a:hover{border-color:var(--brand);background:#F4F8FA}
+.formprep .phones span{display:block;font-size:14px;color:var(--sub);letter-spacing:.1em}
+.formprep .phones b{display:block;margin-top:6px;font-size:32px;color:var(--brand);letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.formprep .phn{margin-top:20px;font-size:14px;color:var(--sub);line-height:1.9}
+.uses{list-style:none;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+.uses li{padding:14px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:17em 1fr;gap:24px;align-items:baseline}
+.uses li:last-child{border-bottom:0}
+.uses b{font-size:16px;color:var(--brand)}
+.uses span{font-size:15px;color:var(--sub);line-height:1.8}
+@media(max-width:900px){
+  .formprep{padding:24px}
+  .formprep .ph{font-size:18px}
+  .formprep .phones{grid-template-columns:1fr;gap:12px}
+  .formprep .phones b{font-size:28px}
+  .uses li{grid-template-columns:1fr;gap:4px}
+}
+/* 送信先が決まるまでは、右の電話欄は重複するので出さない */
+.cside{display:none}
 .form .agree{font-size:16px;display:flex;gap:12px;align-items:flex-start}
 .form .agree input{margin-top:6px;width:18px;height:18px;flex:none}
 .sendrow{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
@@ -133,12 +159,24 @@
     <p class="note" data-rise="0" id="c-lead">家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。お急ぎの場合はお電話が確実です。</p>
 
     <div class="cgrid">
-      <div class="formprep" role="status">
-          <p><b>ただいまフォームの受付を準備しています。</b></p>
-          <p>お急ぎの場合も、そうでない場合も、<b>お電話でご連絡ください。</b><br>
-          浦安本社 <a href="tel:0473810142">047-381-0142</a>　／　川口営業所 <a href="tel:0482297552">048-229-7552</a>　（受付 8:00〜17:00）</p>
+      <!-- ▼送信先（ENDPOINT）が決まったら hidden を消すだけでフォームが出ます。
+     いまは押しても電話案内しか出せないので、入力させてから断る導線を作りません。 -->
+        <div class="formprep" role="status">
+          <p class="ph">ただいまフォームの受付を準備しています。<br>お電話でご連絡ください。</p>
+          <div class="phones">
+            <a href="tel:0473810142"><span>浦安本社</span><b>047-381-0142</b></a>
+            <a href="tel:0482297552"><span>川口営業所</span><b>048-229-7552</b></a>
+          </div>
+          <p class="phn">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は時間をおいてお掛け直しください。</p>
+          <ul class="uses">
+            <li><b>配送・設置のご依頼／お見積り</b><span>量販店様・物流企業様から。お見積りは無料です</span></li>
+            <li><b>電気工事のご依頼</b><span>エアコン・アンテナ・温水洗浄便座の取付</span></li>
+            <li><b>引き取り・リサイクル</b><span>入れ替えで出る古い品物の回収</span></li>
+            <li><b>協力会社のご応募</b><span>2t車をお持ちの事業者様</span></li>
+            <li><b>採用のご応募・ご質問</b><span>未経験の方も歓迎します</span></li>
+          </ul>
         </div>
-        <form class="form" id="f" novalidate data-rise="0">
+        <form class="form" id="f" novalidate data-rise="0" hidden>
         <div class="field">
           <span class="sr">ご用件</span>
           <label>ご用件<span class="req">必須</span></label>
