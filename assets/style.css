@@ -57,7 +57,7 @@ a{color:inherit}
   transition:color .16s var(--ease),border-color .16s var(--ease)}
 .gnav>li>a:hover,.gnav>li[aria-current]>a{color:var(--brand);border-bottom-color:var(--accent)}
 /* 引き出しメニュー B案。深い紺の帯に、写真が右から順に流れ込む（横並び） */
-.gnav .drop{position:absolute;top:100%;left:auto;right:0;z-index:60;width:min(1000px,calc(100vw - 80px));padding:24px 24px 20px;
+.gnav .drop{position:absolute;top:100%;left:auto;right:0;z-index:60;width:min(520px,calc(100vw - 80px));padding:22px 22px 20px;
   background:#0C2A38;border-top:2px solid #4FB3D9;
   box-shadow:0 30px 70px -28px rgba(6,22,30,.6);
   opacity:0;visibility:hidden;transform:translateY(-6px);
@@ -82,8 +82,8 @@ a{color:inherit}
 .gnav .drop .im::after{content:"";position:absolute;inset:0;background:#4FB3D9;mix-blend-mode:screen;
   opacity:0;transition:opacity .3s var(--ease)}
 .gnav .drop a:hover .im::after{opacity:.14}
-.gnav .drop b{display:block;margin-top:10px;font-size:14px;font-weight:700;letter-spacing:.02em;line-height:1.5}
-.gnav .drop .tx>span{display:block;margin-top:3px;font-size:12px;color:#93B4C4;line-height:1.65}
+.gnav .drop b{display:block;margin-top:12px;font-size:15px;font-weight:700;letter-spacing:.02em;line-height:1.5}
+.gnav .drop .tx>span{display:block;margin-top:4px;font-size:13px;color:#93B4C4;line-height:1.7}
 /* 「すべて見る」は帯の右端に小さく置く */
 .gnav .drop .all{flex:0 0 100%;margin-top:6px;padding-top:14px;
   border-top:1px solid rgba(255,255,255,.14);transform:none;opacity:1}
