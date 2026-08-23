@@ -92,8 +92,13 @@
   color:var(--sub);border-bottom:4px solid transparent;margin-bottom:-2px;font-family:inherit;
   transition:color .16s var(--ease),border-color .16s var(--ease)}
 .tabs button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--accent)}
-.panel{display:none}
-.panel.on{display:block}
+/* JSが動かなくても両方読めるようにしておく。タブは js-tabs が付いた時だけ効く */
+.panel{display:block}
+.panel h4{font-size:18px;color:var(--brand);margin-bottom:16px}
+.js-tabs .panel{display:none}
+.js-tabs .panel.on{display:block}
+.tabs{display:none}
+.js-tabs .tabs{display:flex}
 .tbl th{width:9em}
 .tbl .day{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;color:var(--sub)}
 .tbl .day b{color:var(--brand);font-variant-numeric:tabular-nums}
@@ -281,6 +286,7 @@
     </div>
 
     <div class="panel on" id="p-sha" role="tabpanel" aria-labelledby="t-sha">
+      <h4>正社員</h4>
       <table class="tbl">
         <tr><th>職種</th><td>家電設置スタッフ（配送・設置・電気工事）</td></tr>
         <tr><th>仕事内容</th><td>家電量販店で購入された商品を、お客様のご自宅へ配送・設置します。エアコン・アンテナの取付電気工事も行います。</td></tr>
@@ -297,6 +303,7 @@
     </div>
 
     <div class="panel" id="p-aru" role="tabpanel" aria-labelledby="t-aru">
+      <h4>アルバイト</h4>
       <table class="tbl">
         <tr><th>職種</th><td>家電配送の助手スタッフ（配送アシスタント）</td></tr>
         <tr><th>仕事内容</th><td>配送スタッフの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。作業が早く終われば、早く帰れます。</td></tr>
@@ -324,7 +331,7 @@
       </div>
     </div>
     <div class="side" data-rise="0">
-      <a class="btn btn-ghost" href="contact.html?kind=recruit">電話で応募する</a>
+      <a class="btn btn-ghost" href="tel:0482297552">電話で応募する</a>
       <a class="btn btn-ghost" href="about.html">会社のことを見る</a>
     </div>
   </div>
@@ -379,17 +386,32 @@
 <script src="assets/motion.js"></script>
 <script>
 (function(){
-  var tabs=document.querySelectorAll('.tabs button');
+  var box=document.querySelector('.tabs');
+  if(!box) return;
+  var tabs=box.querySelectorAll('button');
+  /* JSが動いた時だけタブにする。動かなければ両方そのまま読める */
+  document.documentElement.classList.add('js-tabs');
+  function show(t){
+    tabs.forEach(function(o){
+      var p=document.getElementById(o.getAttribute('aria-controls'));
+      var on=(o===t);
+      o.setAttribute('aria-selected', on?'true':'false');
+      o.setAttribute('tabindex', on?'0':'-1');
+      p.classList.toggle('on', on);
+      p.hidden = !on;                       /* 読み上げにも「今は隠れている」と伝える */
+      p.querySelector('h4').hidden = true;  /* タブに見出しがあるので中の見出しは隠す */
+    });
+  }
   tabs.forEach(function(t){
-    t.addEventListener('click',function(){
-      tabs.forEach(function(o){
-        o.setAttribute('aria-selected','false');
-        document.getElementById(o.getAttribute('aria-controls')).classList.remove('on');
-      });
-      t.setAttribute('aria-selected','true');
-      document.getElementById(t.getAttribute('aria-controls')).classList.add('on');
+    t.addEventListener('click', function(){ show(t); });
+    /* 矢印キーでも切り替えられるようにする */
+    t.addEventListener('keydown', function(e){
+      var i=[].indexOf.call(tabs,t);
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){ e.preventDefault(); var n=tabs[(i+1)%tabs.length]; n.focus(); show(n); }
+      if(e.key==='ArrowLeft' ||e.key==='ArrowUp'  ){ e.preventDefault(); var q=tabs[(i-1+tabs.length)%tabs.length]; q.focus(); show(q); }
     });
   });
+  show(tabs[0]);
 })();
 </script>
 </body>

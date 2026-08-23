@@ -249,16 +249,19 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 /* =========================================================
    動き（transform と opacity だけ。他は動かさない）
    ========================================================= */
-[data-rise]{opacity:0;transform:translateY(16px);will-change:transform,opacity;
+/* 既定は「見える」。JSが動いた時だけ隠して、スクロールで出す。
+   こうしないと JS が止まった環境でページが真っ白になる */
+[data-rise]{opacity:1;transform:none}
+.js-rise [data-rise]{opacity:0;transform:translateY(16px);will-change:transform,opacity;
   transition:opacity .6s var(--ease),transform .6s var(--ease)}
-[data-rise].is-in{opacity:1;transform:none}
+.js-rise [data-rise].is-in{opacity:1;transform:none}
 
 /* ヒーローのゆっくりズーム */
 @keyframes slowzoom{from{transform:scale(1)}to{transform:scale(1.06)}}
 .hero>img{animation:slowzoom 20s ease-out both}
 @media(prefers-reduced-motion:reduce){
   .hero>img{animation:none}
-  [data-rise]{opacity:1;transform:none}
+  .js-rise [data-rise]{opacity:1;transform:none}
 }
 
 /* =========================================================

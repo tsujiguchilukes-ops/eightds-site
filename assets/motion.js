@@ -11,7 +11,9 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- 1. スクロールで下から出す ---- */
+  /* JSがここまで動いた時だけ隠す。動かなければ最初から見えている */
   var targets = document.querySelectorAll('[data-rise],[data-in]');
+  if (targets.length) document.documentElement.classList.add('js-rise');
   if (reduce || !('IntersectionObserver' in window)) {
     targets.forEach(function (el) { el.classList.add('is-in'); });
   } else {
