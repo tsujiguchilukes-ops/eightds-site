@@ -22,7 +22,7 @@
    スマホ・縦持ちタブレット・横持ちスマホ・動きを抑える設定の人には
    静止画のヒーローを出す（5条件。JS側と一字一句そろえる）。
    ========================================================= */
-:root{--tshadow:0 1px 2px rgba(4,18,26,.95),0 3px 12px rgba(4,18,26,.78),0 10px 44px rgba(4,18,26,.8)}
+:root{--tshadow:0 1px 3px rgba(4,18,26,.98),0 4px 16px rgba(4,18,26,.9),0 14px 52px rgba(4,18,26,.85)}
 /* 1フリックで1シーンぶん進む。だから背は低くてよい（100vh ＋ 36vh × 2） */
 .scrollhero{position:relative;height:172vh;background:var(--deep)}
 .scrollhero .stage{position:sticky;top:0;height:100vh;overflow:hidden}
@@ -35,8 +35,8 @@
 .stage.film-failed .film.fwd{opacity:1}
 .stage .scrim{position:absolute;inset:0;pointer-events:none;
   background:
-    linear-gradient(to top,rgba(4,16,24,.94) 0%,rgba(4,16,24,.76) 28%,rgba(4,16,24,.26) 54%,rgba(4,16,24,0) 74%),
-    radial-gradient(ellipse 122% 92% at 50% 40%,rgba(5,22,32,0) 26%,rgba(5,22,32,.6) 100%)}
+    linear-gradient(to top,rgba(4,16,24,.96) 0%,rgba(4,16,24,.88) 22%,rgba(4,16,24,.6) 42%,rgba(4,16,24,.24) 62%,rgba(4,16,24,0) 80%),
+    radial-gradient(ellipse 128% 96% at 50% 38%,rgba(5,22,32,0) 24%,rgba(5,22,32,.62) 100%)}
 .stage .ring{position:absolute;right:40px;bottom:40px;width:44px;height:44px;
   color:rgba(255,255,255,.7);transform:rotate(-90deg);transition:opacity .5s var(--ease)}
 .stage.film-ready .ring,.stage.film-failed .ring{opacity:0}
@@ -45,16 +45,7 @@
 .hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px;pointer-events:none}
 .hband{position:absolute;left:40px;bottom:132px;width:min(78%,940px);color:#fff;opacity:0;
   text-shadow:var(--tshadow)}
-/* 文字を読ませる影。四方すべて透明に抜くので、箱の角が出ない */
-.hband::before{content:"";position:absolute;inset:-120% -34% -90% -30%;pointer-events:none;z-index:-1;
-  opacity:calc(.3 + .7*var(--k,1));
-  background:
-    radial-gradient(76% 60% at 30% 70%,rgba(3,14,20,.97) 0%,rgba(3,14,20,.96) 38%,rgba(3,14,20,.86) 58%,rgba(3,14,20,.54) 76%,rgba(3,14,20,.2) 90%,rgba(3,14,20,0) 100%),
-    radial-gradient(130% 100% at 26% 82%,rgba(3,14,20,.62) 0%,rgba(3,14,20,.42) 44%,rgba(3,14,20,.14) 74%,rgba(3,14,20,0) 100%)}
-.hband[data-kind="settle"]::before{inset:-150% -30% -120% -30%;
-  background:
-    radial-gradient(70% 62% at 30% 64%,rgba(3,14,20,.98) 0%,rgba(3,14,20,.97) 40%,rgba(3,14,20,.88) 58%,rgba(3,14,20,.58) 76%,rgba(3,14,20,.22) 90%,rgba(3,14,20,0) 100%),
-    radial-gradient(140% 110% at 28% 76%,rgba(3,14,20,.66) 0%,rgba(3,14,20,.46) 44%,rgba(3,14,20,.16) 74%,rgba(3,14,20,0) 100%)}
+/* 文字ごとの影は付けない。映像の左下がもともと暗いので、下からのグラデーションだけで読める */
 .hband .k{font-size:14px;letter-spacing:.24em;color:#F0A585;font-weight:700;margin-bottom:16px}
 .hband h1,.hband p.line{font-size:56px;font-weight:700;line-height:1.5;letter-spacing:.05em}
 .hband[data-kind="rise"] p.line{font-size:40px}
