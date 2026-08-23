@@ -48,12 +48,12 @@
 .hband::before{content:"";position:absolute;inset:-120% -34% -90% -30%;pointer-events:none;z-index:-1;
   opacity:calc(.3 + .7*var(--k,1));
   background:
-    radial-gradient(78% 62% at 30% 72%,rgba(3,14,20,.94) 0%,rgba(3,14,20,.9) 30%,rgba(3,14,20,.72) 52%,rgba(3,14,20,.38) 72%,rgba(3,14,20,.12) 88%,rgba(3,14,20,0) 100%),
-    radial-gradient(120% 90% at 26% 84%,rgba(3,14,20,.5) 0%,rgba(3,14,20,.3) 46%,rgba(3,14,20,.08) 76%,rgba(3,14,20,0) 100%)}
+    radial-gradient(76% 60% at 30% 70%,rgba(3,14,20,.97) 0%,rgba(3,14,20,.96) 38%,rgba(3,14,20,.86) 58%,rgba(3,14,20,.54) 76%,rgba(3,14,20,.2) 90%,rgba(3,14,20,0) 100%),
+    radial-gradient(130% 100% at 26% 82%,rgba(3,14,20,.62) 0%,rgba(3,14,20,.42) 44%,rgba(3,14,20,.14) 74%,rgba(3,14,20,0) 100%)}
 .hband[data-kind="settle"]::before{inset:-150% -30% -120% -30%;
   background:
-    radial-gradient(72% 64% at 30% 66%,rgba(3,14,20,.96) 0%,rgba(3,14,20,.93) 32%,rgba(3,14,20,.78) 54%,rgba(3,14,20,.44) 74%,rgba(3,14,20,.14) 89%,rgba(3,14,20,0) 100%),
-    radial-gradient(130% 100% at 28% 78%,rgba(3,14,20,.56) 0%,rgba(3,14,20,.34) 46%,rgba(3,14,20,.1) 76%,rgba(3,14,20,0) 100%)}
+    radial-gradient(70% 62% at 30% 64%,rgba(3,14,20,.98) 0%,rgba(3,14,20,.97) 40%,rgba(3,14,20,.88) 58%,rgba(3,14,20,.58) 76%,rgba(3,14,20,.22) 90%,rgba(3,14,20,0) 100%),
+    radial-gradient(140% 110% at 28% 76%,rgba(3,14,20,.66) 0%,rgba(3,14,20,.46) 44%,rgba(3,14,20,.16) 74%,rgba(3,14,20,0) 100%)}
 .hband .k{font-size:14px;letter-spacing:.24em;color:#F0A585;font-weight:700;margin-bottom:16px}
 .hband h1,.hband p.line{font-size:56px;font-weight:700;line-height:1.5;letter-spacing:.05em}
 .hband[data-kind="rise"] p.line{font-size:40px}
@@ -104,15 +104,17 @@
 @media(max-height:560px){ .cue{display:none} }
 @media(max-width:720px){
   .scrollhero{height:156vh}
-  .hband{left:20px;right:20px;width:auto;bottom:120px}
-  .hband h1,.hband p.line{font-size:28px;letter-spacing:.03em}
-  .hband[data-kind="rise"] p.line{font-size:22px}
+  /* 14文字が1行に収まる大きさ。はみ出すと「事。」だけ次の行に落ちる */
+  .hband{left:20px;right:20px;width:auto;bottom:132px}
+  .hband h1,.hband p.line{font-size:24px;letter-spacing:.01em}
+  .hband[data-kind="rise"] p.line{font-size:21px}
+  /* 下に固定のバーがあるので、スクロールの合図は出さない（文字と重なる） */
+  .cue{display:none}
   .hband[data-kind="settle"]{width:auto}
   .hband .sub{font-size:15px;margin-top:16px}
   .hband .go{gap:12px;margin-top:20px}
   .hband .k{font-size:12px;margin-bottom:10px}
   .stage .ring{right:20px;bottom:20px;width:36px;height:36px}
-  .scrollhero .hband{padding-right:56px}
 }
 @media(max-width:1100px){
   .hband{left:24px;right:24px;width:auto;bottom:104px}
@@ -259,15 +261,15 @@
     </svg>
     <div class="hbands">
       <div class="hband" data-a="0" data-b="0.33" data-kind="depth">
-        <p class="k">有限会社エイト流通サービス　創業1986年</p>
-        <h1 class="split">家電・家具の配送から、設置・取付工事まで。</h1>
+        <p class="k">創業1986年　浦安・川口</p>
+        <h1 class="split">家電・家具の配送と設置工事。</h1>
       </div>
       <div class="hband" data-a="0.35" data-b="0.67" data-kind="rise">
-        <p class="line split">開梱・組立・接続・設置まで対応します。</p>
+        <p class="line split">開梱・組立・接続・設置まで。</p>
       </div>
       <div class="hband" data-a="0.69" data-b="1" data-kind="settle">
-        <p class="line split">リサイクル家電の回収も承ります。</p>
-        <p class="sub">1986年創業。浦安・川口の2拠点から、東京都・千葉県・埼玉県・神奈川県で承っています。</p>
+        <p class="line split">リサイクル家電の回収まで。</p>
+        <p class="sub">浦安・川口の2拠点から、東京・千葉・埼玉・神奈川へ。</p>
         <div class="go">
           <a class="btn btn-ghost" href="business.html">法人のお客様へ</a>
           <a class="btn btn-ghost" href="recruit.html">採用情報</a>
@@ -283,8 +285,8 @@
   <img src="img/V4_積戻.webp" alt="住宅街のお宅の前で、トラックから商品を降ろすところ（イメージ）" width="1920" height="1071">
   <div class="tone"></div>
   <div class="in">
-    <h1>家電・家具の配送から、設置・取付工事まで。</h1>
-    <p class="sub">開梱・組立・接続・設置、リサイクル家電の回収まで対応します。</p>
+    <h1>家電・家具の配送と設置工事。</h1>
+    <p class="sub">開梱・組立・接続・設置、リサイクル家電の回収まで。</p>
     <p class="go"><a class="btn btn-ghost" href="contact.html">配送委託について相談する</a></p>
   </div>
 </section>
