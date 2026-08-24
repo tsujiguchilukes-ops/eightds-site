@@ -44,16 +44,26 @@
 .stage.film-ready .ring,.stage.film-failed .ring{opacity:0}
 
 /* 文字の帯。中央の通路は空けて、左に寄せる */
-.hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px;pointer-events:none}
-.hband{position:absolute;left:40px;bottom:116px;width:min(88%,1020px);color:#fff;opacity:0;
+/* 🚨 3場面は「同じ1マスに重ねて置く」。マスの高さは一番中身の多い場面で決まり、
+   他の2場面も同じ高さに伸びる。だから上端＝ラベルと見出しは、文の長さ・文字の大きさ・
+   折り返しのどれが変わっても必ずそろう。高さを数字で決め打ちしない（決め打ちは必ず破れる）。
+   下端の位置は .hbands の padding-bottom で決める */
+.hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;padding:0 40px 138px;
+  display:grid;align-content:end;pointer-events:none}
+.hband{position:relative;grid-area:1/1;justify-self:start;width:min(88%,1020px);color:#fff;opacity:0;
   text-shadow:var(--tshadow)}
 /* 文字ごとの影は付けない。映像の左下がもともと暗いので、下からのグラデーションだけで読める */
 /* 小ラベルは3場面とも同じ扱いにする（場面ごとに色と太さが違って、設計が無いように見えていた） */
-/* 「FOR BUSINESS」などの見出しラベルと同じ錆色に合わせる */
-.hband .k{font-size:13px;letter-spacing:.3em;color:var(--accent);font-weight:700;margin-bottom:18px;text-shadow:0 1px 4px rgba(4,18,26,1),0 0 10px rgba(4,18,26,.9)}
+/* 🚨 色は地で決める。白い地＝錆色 --accent／平らな紺＝サーモン --hot／
+   写真・映像の上＝明るいサーモン --hot-hi。統一先を間違えない。
+   ここを錆色にしたら明暗比が 7.1:1 から 2.4:1 に落ちた。--hot でも 4.0:1 で基準に届かない。
+   ヒーローで一番小さい文字なので、ここが沈むと読めない（実測 5.6〜7.2:1） */
+/* 縁は「影」ではなく「地を暗くする輪」。ここが弱いと、映像の明るいコマで小さい文字が沈む */
+.hband .k{font-size:13px;letter-spacing:.3em;color:var(--hot-hi);font-weight:700;margin-bottom:18px;
+  text-shadow:0 1px 3px rgba(4,18,26,1),0 0 8px rgba(4,18,26,1),0 0 16px rgba(4,18,26,.98),0 0 28px rgba(4,18,26,.9)}
 /* 老舗の看板の棒。線1本だけ。箱は作らない */
 .hband .k::before{content:"";display:inline-block;width:34px;height:1px;
-  background:var(--accent);opacity:1;vertical-align:.32em;margin-right:14px}
+  background:var(--hot-hi);opacity:1;vertical-align:.32em;margin-right:14px}
 /* 見出しは明朝。創業1986年の40年を、コピーを変えずに書体で言う。
    字間は他社3社の実測どおり0に寄せる（.05emは広すぎて間延びしていた） */
 .hband h1,.hband p.line{
@@ -61,7 +71,8 @@
   font-weight:600;font-size:clamp(40px,4.35vw,62px);letter-spacing:.04em;line-height:1.42;color:#FAF6EE;
   /* 明朝は横画が細いので、影の1層目を締めて輪郭を立てる */
   text-shadow:0 1px 2px rgba(4,18,26,1),0 3px 12px rgba(4,18,26,.92),0 12px 40px rgba(4,18,26,.8)}
-.hband[data-kind="rise"] p.line{font-size:clamp(38px,4.1vw,56px)}
+/* 3場面とも同じ大きさ。2場面目だけ小さいと、渡っていく時に文字が縮んで見えていた */
+/* 下の段（サブ文とボタン）。高さは指定しない。そろえるのは上のグリッドの仕事 */
 /* サブは細字。見出しと同じ太さだと階層が消える */
 .hband .sub{margin-top:20px;font-size:18px;font-weight:300;color:#E7E2D8;letter-spacing:.06em;line-height:1.9;
   opacity:var(--ks,1);transform:translateY(calc((1 - var(--ks,1))*14px))}
@@ -80,8 +91,7 @@
 .hband[data-kind="depth"] .c{transform:scale(calc(.82 + .18*var(--kc)))}
 .hband[data-kind="rise"] .c{transform:translateY(calc((1 - var(--kc))*26px))}
 .hband[data-kind="settle"] .c{transform:translateY(calc((1 - var(--kc))*20px))}
-.hband[data-kind="settle"]{width:min(74%,880px)}
-/* 3枚とも下端をそろえる。settle は要素が多いぶん上に伸びるだけにする */
+/* 横幅も3場面で同じにする。1枚だけ狭いと、折り返す位置が変わって段組みが違って見える */
 .hband .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* 下へ進める合図 */
@@ -99,7 +109,8 @@
   background:linear-gradient(to top,rgba(6,32,45,.92) 0%,rgba(6,32,45,.4) 52%,rgba(6,32,45,.22) 100%)}
 .stillhero .in{position:relative;height:100%;max-width:var(--max);margin:0 auto;padding:0 24px 48px;
   display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
-.stillhero .ttl{font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP",serif;font-weight:600;letter-spacing:.02em;font-size:28px;font-weight:700;line-height:1.5;letter-spacing:.04em}
+.stillhero .ttl{font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP",serif;
+  font-weight:600;font-size:28px;line-height:1.5;letter-spacing:.02em}
 .stillhero .sub{margin-top:16px;font-size:16px;font-weight:700;color:#DCE9EF}
 .stillhero .go{margin-top:24px}
 
@@ -110,36 +121,40 @@
 }
 @media(max-height:560px){ .cue{display:none} }
 @media(max-width:1100px){
-  .hband{left:24px;right:24px;width:auto;bottom:104px}
+  .hbands{padding:0 24px 128px}
+  .hband{width:auto;justify-self:stretch}
   .hband h1,.hband p.line{font-size:clamp(34px,4.4vw,48px)}
-  .hband[data-kind="rise"] p.line{font-size:clamp(32px,4.1vw,44px)}
   .hband .sub{font-size:17px}
 }
 /* 🚨 狭い方をあとに書く。先に書くと上の1100pxに全部上書きされる */
+/* 900px以下は画面の下に固定のバーが出る。文字の帯を上げてボタンがバーに潜らないようにし、
+   スクロールの合図（SCROLL）は消す（ボタンの上に重なるため） */
+@media(max-width:900px){
+  .hbands{padding-bottom:110px}
+  .cue{display:none}
+}
 @media(max-width:720px){
   .scrollhero{height:156vh}
   /* 14文字が1行に収まる大きさ。はみ出すと「事。」だけ次の行に落ちる */
   /* 携帯には縦（9:16）に切り出した映像を渡している。拡大しないので画質が落ちない */
   .stage .film{object-position:50% 50%}
   .stage{background-size:cover;background-position:center 50%}
-  .hband{left:20px;right:20px;width:auto;bottom:150px}
+  .hbands{padding:0 20px 110px}
   .hband h1,.hband p.line{font-size:24px;letter-spacing:.01em;line-height:1.42}
-  .hband[data-kind="rise"] p.line{font-size:24px}
-  /* 下に固定のバーがあるので、スクロールの合図は出さない（文字と重なる） */
-  .cue{display:none}
-  .hband[data-kind="settle"]{width:auto}
   .hband .sub{font-size:15px;margin-top:14px}
   .hband .go{gap:12px;margin-top:20px}
   .hband .k{font-size:11px;letter-spacing:.26em;margin-bottom:12px}
+  /* ラベルは3場面とも1行に収める。1つだけ2行になると、そこだけ21px上にずれる */
+  .hband .k .wide{display:none}
   .hband .k::before{width:20px;margin-right:10px}
   .stage .ring{right:20px;bottom:20px;width:36px;height:36px}
 }
 /* 端末が狭いほど字を落として、見出しを必ず1行に収める（14文字×字幅＋左右40px） */
 @media(max-width:380px){
-  .hband h1,.hband p.line,.hband[data-kind="rise"] p.line{font-size:22px}
+  .hband h1,.hband p.line{font-size:22px}
 }
 @media(max-width:340px){
-  .hband h1,.hband p.line,.hband[data-kind="rise"] p.line{font-size:18px}
+  .hband h1,.hband p.line{font-size:18px}
 }
 
 
@@ -283,22 +298,34 @@
               stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/>
     </svg>
     <div class="hbands">
+      <!-- 🚨 3場面とも「小ラベル → 見出し → foot」の同じ並びにする。
+           foot は高さが決まっているので、中身が1行でもボタン付きでも、
+           小ラベルと見出しは必ず同じ高さに出る -->
       <div class="hband" data-a="0" data-b="0.33" data-kind="depth">
         <p class="k">創業1986年　浦安・川口</p>
         <h1 class="split">家電・家具の配送と設置工事。</h1>
+        <div class="foot">
+          <p class="sub">家電量販店の店頭から、お客様のお宅までお届けします。</p>
+        </div>
       </div>
       <div class="hband" data-a="0.35" data-b="0.67" data-kind="rise">
         <p class="k">登録電気工事業者　千葉県知事登録</p>
         <p class="line split">開梱・組立・接続・設置まで。</p>
-        <p class="sub">運んだ担当が、そのまま取り付けまで行います。</p>
+        <div class="foot">
+          <p class="sub">運んだ担当が、そのまま取り付けまで行います。</p>
+        </div>
       </div>
       <div class="hband" data-a="0.69" data-b="1" data-kind="settle">
-        <p class="k">産業廃棄物収集運搬業　東京都・千葉県・埼玉県・神奈川県</p>
+        <!-- 携帯では県名を出さない。ここだけ2行に折り返してラベルの位置がずれる。
+             同じ県名はすぐ下のサブに出ているので、消しても情報は減らない -->
+        <p class="k">産業廃棄物収集運搬業<span class="wide">　東京都・千葉県・埼玉県・神奈川県</span></p>
         <p class="line split">リサイクル家電の回収まで。</p>
-        <p class="sub">浦安・川口の2拠点から、東京・千葉・埼玉・神奈川へ。</p>
-        <div class="go">
-          <a class="btn btn-ghost" href="business.html">法人のお客様へ</a>
-          <a class="btn btn-ghost" href="recruit.html">採用情報</a>
+        <div class="foot">
+          <p class="sub">浦安・川口の2拠点から、東京・千葉・埼玉・神奈川へ。</p>
+          <div class="go">
+            <a class="btn btn-ghost" href="business.html">法人のお客様へ</a>
+            <a class="btn btn-ghost" href="recruit.html">採用情報</a>
+          </div>
         </div>
       </div>
     </div>
@@ -669,10 +696,9 @@
       if (Math.abs(k - b.k) > 0.008) {
         b.k = k;
         b.el.style.setProperty('--k', k.toFixed(3));
-        if (b.el.dataset.kind === 'settle') {
-          b.el.style.setProperty('--ks', clamp((k - 0.35) * 2.2, 0, 1).toFixed(3));
-          b.el.style.setProperty('--kb', clamp((k - 0.5) * 2.4, 0, 1).toFixed(3));
-        }
+        // サブの出方も3場面で同じにする。3場面目だけ遅れて出ていて、揃って見えなかった
+        b.el.style.setProperty('--ks', clamp((k - 0.35) * 2.2, 0, 1).toFixed(3));
+        b.el.style.setProperty('--kb', clamp((k - 0.5) * 2.4, 0, 1).toFixed(3));
       }
     }
   }
