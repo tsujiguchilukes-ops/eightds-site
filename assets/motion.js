@@ -94,83 +94,35 @@
 })();
 
 /* ---- 8. ページの切り替え ----
-   濃紺の幕が「下から上へ」通り抜けるカーテンワイプ。
-   ヒーローの見出しのロールと同じ文法（向き＝上へ抜ける／イージング＝expo-out系）。
-   出発：残照の板が先に走り、半歩遅れて濃紺の主幕が重なって画面を覆う。
-   到着：主幕が先に上へ抜けて残照が一拍見え、続けて残照も抜けて次のページになる。
-   expo-out は出だしが一番速いので、押した瞬間に幕が動き出す（反応の空白を作らない）。
-   🚨 何があっても遷移は止めない。アニメが失敗しても必ず飛ぶ。 */
+   ドット・ディザのコマワイプ。12pxの粒が市松の4分の1ずつ、4コマで画面を埋めて抜ける。
+   1案目で実際に踏んだ罠を全部避ける：
+   - 押した瞬間に反応（同期でclassを付ける。1コマ目の遅延0）
+   - 遷移はsetTimeoutで必ず起こす（アニメが失敗しても飛ぶ）
+   - 到着側の幕はJSが動いた時だけ張る（JSが落ちても固まらない）
+   - 戻る（bfcache復元）は pageshow persisted で幕を外す
+   - 短時間に別のリンクを押されたら、最新の行き先が勝つ
+   - prefers-reduced-motion は動きなしで普通に遷移
+   - @view-transition は使わない（実測で到着ページの描画が4秒止まった） */
 (function () {
-  var veil = document.querySelector('.veil');
-  if (!veil) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var door = veil.querySelector('.door');
-  var rush = veil.querySelector('.rush');
-  var root = document.documentElement;
-  var navigating = false;   /* 遷移中かどうか。押した先の行き違いと bfcache の戻りで使う */
-  var EASE_OUT = 'cubic-bezier(.16,1,.3,1)';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ov = document.createElement('div');
+  ov.className = 'pxwipe';
+  ov.setAttribute('aria-hidden', 'true');
+  ov.innerHTML = '<i class="q1"></i><i class="q2"></i><i class="q3"></i><i class="q4"></i><span class="dots"><b></b><b></b><b></b></span>';
+  document.body.appendChild(ov);
 
-  /* ---- 到着：幕が上へ抜けて、次のページが現れる ---- */
-  var came = root.getAttribute('data-soar');
-  if (came) {
-    veil.classList.add('on');
-    door.style.transform = 'none';
-    rush.style.transform = 'none';
-    document.body.style.opacity = '0';
-    /* 🚨 data-soar を外すと html の暗い地も消え、body の白がキャンバスに伝わる。
-       幕が抜けてから body が濃くなるまでの間が「白い瞬断」になっていた（実測228ms）。
-       地の暗さだけは別の印で、body が出そろうまで残す */
-    root.classList.add('soar-in');
-    root.removeAttribute('data-soar');
-    var lifted = false;
-    var lift = function () {
-      if (lifted) return; lifted = true;
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          /* 🚨 到着は expo-out にしない。出だしが速すぎて、幕が覆った状態が
-             1コマも見えないまま抜けてしまう（実測：130msで8割抜けた）。
-             「一拍おいて、ゆっくり動き出して、すっと抜ける」曲線にする */
-          var LIFT = 'cubic-bezier(.6,.05,.15,1)';
-          door.style.transition = 'transform .6s ' + LIFT + ' .1s';
-          door.style.transform = 'translateY(-103%)';
-          rush.style.transition = 'transform .6s ' + LIFT + ' .19s';
-          rush.style.transform = 'translateY(-103%)';
-          /* 遅らせない。幕が抜けるのと同時に body を濃くしないと、その間が白くなる */
-          document.body.style.transition = 'opacity .3s ease-out';
-          document.body.style.opacity = '1';
-          setTimeout(function () {
-            veil.classList.remove('on');
-            root.classList.remove('soar-in');
-            door.style.transition = door.style.transform = '';
-            rush.style.transition = rush.style.transform = '';
-            document.body.style.transition = document.body.style.opacity = '';
-          }, 900);
-        });
-      });
-    };
-    /* 🚨 @view-transition は使わない（style.css の注記を見よ。描画が止まった）。
-       そのまま開ける。覆った状態は transition の delay（.1s）が一拍見せる */
-    lift();
+  /* 到着側：直前にワイプで出発していた時だけ、入りの幕を張って抜く */
+  var wiped = false;
+  try { wiped = sessionStorage.getItem('pxwipe') === '1'; sessionStorage.removeItem('pxwipe'); } catch (e) {}
+  if (!reduce && wiped) {
+    ov.classList.add('enter');
+    setTimeout(function () { ov.classList.remove('enter'); }, 600);
   }
-
-  /* 🚨 戻るボタンで詰むのを塞ぐ。ブラウザは離脱時のDOMをそのまま凍らせて復元する（bfcache）ので、
-     幕を出したまま離れると、戻った時に幕が張られたまま固まる。スクロールしても直らない。
-     motion.js も head のインライン script も再実行されないので、ここで戻す。
-     （2026-08-25 検品で発見。PC・スマホ・両方向の4通りで再現していた） */
   addEventListener('pageshow', function (e) {
-    if (!e.persisted) return;
-    navigating = false;
-    veil.classList.remove('on');
-    root.classList.remove('soar-in');
-    root.removeAttribute('data-soar');
-    door.style.transition = door.style.transform = '';
-    rush.style.transition = rush.style.transform = '';
-    document.body.style.transition = document.body.style.opacity = '';
+    if (e.persisted) { ov.classList.remove('leave'); ov.classList.remove('enter'); }
   });
 
-  if (reduce) return;
-
-  /* ---- 出発：幕が下から駆け上がって画面を覆う ---- */
+  var timer = null;
   document.addEventListener('click', function (e) {
     if (e.defaultPrevented || e.button !== 0) return;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -179,36 +131,18 @@
     var href = a.getAttribute('href') || '';
     if (!/\.html($|[?#])/.test(href)) return;
     if (a.pathname === location.pathname) return;
-
-    /* 🚨 押した先の行き違いを塞ぐ。押すたびに作り直す目印だと、幕が出ている間に
-       別のリンクを押された時、最初に押した先へ飛んでしまう（実測：120ms後に押すと3回とも）。
-       目印は遷移そのものに1つだけ持たせる */
-    if (navigating) { e.preventDefault(); return; }
-
     e.preventDefault();
-    navigating = true;
-
-    var gone = false;
-    var go = function () {
-      if (gone) return; gone = true;
-      try { sessionStorage.setItem('soar', 'up'); } catch (err) {}
-      location.href = a.href;
-    };
-    setTimeout(go, 430);
-
+    if (reduce) { location.href = a.href; return; }
     try {
-      veil.classList.add('on');
-      door.style.transition = 'none';
-      rush.style.transition = 'none';
-      door.style.transform = 'translateY(103%)';
-      rush.style.transform = 'translateY(103%)';
-      requestAnimationFrame(function () {
-        rush.style.transition = 'transform .42s ' + EASE_OUT;
-        rush.style.transform = 'translateY(0)';
-        door.style.transition = 'transform .42s ' + EASE_OUT + ' .07s';
-        door.style.transform = 'translateY(0)';
-      });
-    } catch (err) { go(); }
+      sessionStorage.setItem('pxwipe', '1');
+      ov.classList.remove('enter');
+      ov.classList.add('leave');           /* 同期＝押した瞬間に1コマ目 */
+      if (timer) clearTimeout(timer);      /* 後から押したリンクが勝つ */
+      var to = a.href;
+      timer = setTimeout(function () { location.href = to; }, 400);
+    } catch (err) {
+      location.href = a.href;              /* 何が起きても遷移だけは起こす */
+    }
   });
 })();
 
@@ -222,7 +156,7 @@
   if (!env && !prog && !head) return;
 
   /* セクションごとに地の色をわずかにずらす（同じ場所の、時間帯が動く感じ） */
-  var TONES = ['#F7F4EF', '#F4F1EC', '#F6F2EA', '#F3F1EE', '#F7F3EC'];
+  var TONES = ['#FAF5E7', '#F5EEDC', '#F8F1E1', '#F3EBDB', '#FAF4E3'];
   var secs = [].slice.call(document.querySelectorAll('section, .band, .gates, .pband'));
   if (env && secs.length && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
@@ -272,7 +206,7 @@
     clearTimeout(t); t = setTimeout(reset, 700);
     if (pull >= NEED && steps >= 5) {
       going = true;
-      try { sessionStorage.setItem('soar', 'down'); } catch (e) {}
+      try { sessionStorage.setItem('pxwipe', '1'); } catch (e) {}
       location.href = 'index.html';
     }
   }

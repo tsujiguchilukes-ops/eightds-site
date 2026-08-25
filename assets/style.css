@@ -575,44 +575,6 @@ body.form-page{padding-bottom:0}
 }
 
 /* =========================================================
-   ページの切り替え — 濃紺の幕が下から上へ通り抜ける（カーテンワイプ）。
-   ヒーローの見出しと同じ文法：向きは「上へ抜ける」、
-   イージングは同じ expo-out 系、色は濃紺＋残照の錆色、先端に琥珀の細線。
-   残照の板が先に走り、半歩遅れて濃紺の板が重なる（2枚で厚みを出す）。
-   前の作り（紙色の画像＋白い霞）は、地の白と混ざって「白い瞬断」に見えていた。
-   ⚠️ 動かすのは transform と opacity だけ。失敗しても遷移は必ず起きる。
-   ========================================================= */
-/* 🚨 @view-transition（クロス文書）は使わない。2026-08-25 実測：
-   到着ページの描画が4秒以上止まり（pagereveal 不着・rAF 停止）、
-   「Transition was skipped」の後も回復しなかった。
-   文書間の白は Chrome の paint holding（同一オリジンでは前のページの絵を
-   次のページの初回描画まで保持する）に任せる。幕は自前で動かす */
-.veil{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden;
-  contain:strict}
-.veil.on{visibility:visible}
-/* 主幕（上の層）。Pinterest B の地に合わせて、紺よりさらに暗い「ほぼ黒の青」 */
-.veil .door{position:absolute;inset:-1px 0;background:#052434;z-index:2;
-  transform:translateY(103%);will-change:transform}
-/* 幕の先端の琥珀の細線。ヒーローの小ラベルの「看板の棒」と同じ言葉 */
-.veil .door::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--hot)}
-/* 残照の板（下の層）。ヒーロー3場面目のアンバーのグレードと同じ色相 */
-.veil .rush{position:absolute;inset:-1px 0;z-index:1;
-  background:linear-gradient(to top,#120602 0%,#4A2210 62%,#6E3418 100%);
-  transform:translateY(103%);will-change:transform}
-/* 着地：読み込んだ瞬間から幕が画面を覆っている（ちらつかせない） */
-html[data-soar] .veil{visibility:visible}
-html[data-soar] .veil .door{transform:none}
-html[data-soar] .veil .rush{transform:none}
-html[data-soar] body{opacity:0}
-/* 幕が抜けてから body が濃くなるまでの間、地の暗さだけ残す（白い瞬断を作らない） */
-html.soar-in{background:#052434}
-
-@media(prefers-reduced-motion:reduce){
-  .veil,html[data-soar] .veil{display:none}
-  html[data-soar] body{opacity:1}
-}
-
-/* =========================================================
    ページ全体を「一つの場所」にする
    後ろに1枚だけ環境の層を敷き、セクションごとに色をずらす。
    スクロールが「積み重なった箱を通り過ぎる」ではなく
@@ -744,3 +706,222 @@ h1,h2,h3{text-wrap:balance}
 .ctel .n,.ctel .t,.ctel .h{display:block}
 .ctel .t,.ctel .h{white-space:nowrap}
 .ctel a{display:block}
+
+/* =========================================================
+   PXスキン — 案2ヒーロー（ドット絵・昼の光）に全ページの雰囲気を合わせる
+   - 色：紙とインクとテラコッタ（ヒーローのパレットと同じ土色）
+   - 格子：余白・線・影は4pxまたは8pxの倍数
+   - 角丸を使わない。影は「右下へ1段ずらしたベタ」
+   - 動きはコマ刻み（steps）。なめらかな曲線は使わない
+   ========================================================= */
+:root{
+  --ink:#2A2430; --ink-deep:#1A141E; --sub:#6A5D4D;
+  --brand:#35505C; --deep:#221D28;
+  --accent:#C0603A; --hot:#F2C594; --hot-hi:#F2C594;
+  --paper:#EFE6D2; --line:#D9CDB4; --white:#FAF5E7;
+  --ease:steps(3,end);
+  --shadow:rgba(26,20,30,.35); --shadow-soft:rgba(26,20,30,.16);
+  --serif:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP",serif;
+  /* 矢印もチェックもドットの階段で */
+  --arrow:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 12'><path d='M0 5h22v2H0zM20 3h2v2h-2zM22 4h2v2h-2zM24 5h2v2h-2zM22 6h2v2h-2zM20 7h2v2h-2z' fill='black'/></svg>");
+  --check:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'><path d='M1 5h2v2H1zM3 7h2v2H3zM5 5h2v2H5zM7 3h2v2H7zM9 1h2v2H9z' fill='black'/></svg>");
+}
+body{background:var(--white)}
+h1,h2,h3,.logo,.phead h1,.entries b,.gate h3{font-family:var(--serif);font-weight:600}
+h2{letter-spacing:.05em}
+
+/* 小ラベル：テラコッタの粒3つ＋字間広め（ヒーローのラベルと同じ言葉） */
+.en,.phead .en{display:flex;align-items:center;gap:12px}
+.en::before,.phead .en::before{content:"";width:24px;height:6px;flex:none;background:
+  linear-gradient(var(--accent),var(--accent)) 0 50%/6px 6px no-repeat,
+  linear-gradient(var(--accent),var(--accent)) 9px 50%/6px 6px no-repeat,
+  linear-gradient(var(--accent),var(--accent)) 18px 50%/6px 6px no-repeat}
+.phead .en{color:var(--hot)}
+.phead .en::before{background:
+  linear-gradient(var(--hot),var(--hot)) 0 50%/6px 6px no-repeat,
+  linear-gradient(var(--hot),var(--hot)) 9px 50%/6px 6px no-repeat,
+  linear-gradient(var(--hot),var(--hot)) 18px 50%/6px 6px no-repeat}
+
+/* ヘッダー：紙の帯＋インクの線（常に読める。ヒーローの上でも透かさない） */
+.head,.head.on-hero{background:var(--white);border-bottom:2px solid var(--ink)}
+.head::before,.head.on-hero::before{display:none}
+.head.on-hero .logo,.logo{color:var(--ink)}
+.head.on-hero .logo span,.logo span{color:var(--sub)}
+.head.on-hero .gnav>li>a{color:var(--ink)}
+.head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li[aria-current]>a,.head.on-hero .gnav>li:focus-within>a{color:var(--brand)}
+.head.on-hero .gnav>li>a::after{background:var(--accent)}
+.gnav>li>a::after{height:3px;transition:transform .18s steps(3,end)}
+.head.on-hero .mtoggle,.mtoggle{background:var(--white);border:2px solid var(--ink);color:var(--ink);border-radius:0}
+.hbtn,.head.on-hero .hbtn{background:var(--accent);color:#FFF7EA;border-left:2px solid var(--ink);
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.hbtn::before{background:var(--brand);transition:transform .3s steps(4,end)}
+.hbtn::after{transition:transform .2s steps(2,end)}
+
+/* 引き出し（ドロップダウン）：紙の板＋インクの縁＋ずらし影。項目はコマ刻みで着地 */
+.gnav .drop{background:var(--white);border:2px solid var(--ink);border-top-width:2px;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:8px 8px 0 var(--shadow-soft);
+  transform:translateY(-8px);
+  transition:opacity .12s steps(2,end),transform .12s steps(2,end),visibility 0s .12s}
+.gnav>li:hover .drop,.gnav>li:focus-within .drop{
+  transition:opacity .18s steps(3,end),transform .18s steps(3,end),visibility 0s}
+.gnav .drop li{transform:translateY(12px);transition:opacity .08s steps(2,end),transform .08s steps(2,end)}
+.gnav>li:hover .drop li,.gnav>li:focus-within .drop li{
+  transition:opacity .22s steps(3,end),transform .22s steps(3,end)}
+.gnav .drop li+li{border-left:2px solid var(--line)}
+.gnav .drop a{color:var(--ink)}
+.gnav .drop a:hover,.gnav .drop a:focus-visible{background:var(--paper)}
+.gnav .drop a:focus-visible{outline:2px solid var(--accent)}
+.gnav .drop .tx>span{color:var(--sub)}
+.gnav .drop .im{border:2px solid var(--ink);box-shadow:none;background:var(--paper)}
+.gnav .drop .im img{transition:transform .3s steps(4,end)}
+.gnav .drop a::after{background:var(--sub);transition:transform .18s steps(2,end),background-color .18s steps(2,end)}
+.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{background:var(--ink)}
+
+/* クイックアクセス（右端）：インクの箱＋紙文字 */
+.quick a{background:var(--deep);border-left:2px solid var(--ink-deep);border-bottom:1px solid rgba(251,246,233,.2)}
+.quick a:hover{background:var(--accent)}
+
+/* ボタン：紙の板＋インクの縁＋右下ずらし影。押した瞬間に沈む */
+.btn{border-radius:0;border:2px solid var(--ink-deep);box-shadow:4px 4px 0 var(--shadow);
+  transition:transform .1s steps(2,end),color .18s steps(2,end)}
+.btn::before{transition:transform .3s steps(4,end)}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow)}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn-main{background:var(--accent);color:#FFF7EA}
+.btn-main::before{background:var(--brand)}
+.btn-ghost{background:transparent;color:#fff;box-shadow:4px 4px 0 rgba(26,20,30,.5);
+  border-color:var(--ink-deep);background:rgba(42,36,48,.35)}
+.btn-ghost::before{background:var(--paper-hi,#FBF6E9)}
+.btn-ghost:hover{color:var(--ink)}
+.next a{border-bottom-width:3px;transition:color .14s steps(2,end),border-color .14s steps(2,end)}
+.next a::after{content:"";width:26px;height:11px;background:currentColor;
+  -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain}
+
+/* 表・カード・枠：インクの縁＋ずらし影。角丸なし */
+.tbl{border-top:2px solid var(--ink)}
+.tbl th{background:var(--paper)}
+.route .cell{border:2px solid var(--ink);box-shadow:6px 6px 0 var(--shadow-soft)}
+.route .mid{border-color:var(--ink)}
+.facts{border:2px solid var(--ink);background:var(--line)}
+.subnav{border-bottom:2px solid var(--line)}
+.subnav a[aria-current]{border-bottom-color:var(--accent)}
+.vision{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.vcopy{color:var(--brand)}
+.vcopy b{background:linear-gradient(transparent 48%,rgba(214,126,82,.36) 48%,rgba(214,126,82,.36) 84%,transparent 84%)}
+.vpart::before{background:var(--ink);width:2px}
+.vpart::after{border-radius:0;width:8px;height:8px;margin-left:-4px}
+
+/* 写真の外側＝インクの縁と右下のずらし影。写真そのものには手を加えない */
+.band{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.shot img{border:2px solid var(--ink);box-shadow:8px 8px 0 var(--shadow-soft)}
+.shot{padding-right:8px}
+.phead{border-bottom:2px solid var(--ink)}
+.gate{border:2px solid var(--ink)}
+
+/* 入口カード */
+.entries{background:var(--ink);gap:2px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.entries a::before{background:var(--brand);transition:transform .3s steps(4,end)}
+.entries a::after{transition:transform .2s steps(2,end)}
+.entries .k{color:var(--accent)}
+.entries a:hover .k{color:var(--hot)}
+.entries a:hover .s{color:#E5DCC8}
+
+/* CTA・フッター：インクの闇に紙の文字（ヒーローの暗幕と同じ色） */
+.cta .lead{color:#D5CCB8}
+.ctel .n,.ctel .h{color:#C9C0AE}
+.ctel a{border-top:2px solid rgba(251,246,233,.3)}
+.ctel a:hover .t{color:var(--hot)}
+footer{border-top:2px solid var(--ink-deep)}
+.fgrid address{color:#D5CCB8}
+.fnav .t{color:#B9AE96}
+.fnav a{color:#EFE8D8}
+.fnav a:hover{border-bottom-color:var(--hot);color:var(--hot)}
+.fgrid address a:hover{color:var(--hot)}
+.copy{border-top:1px solid rgba(251,246,233,.25);color:#B9AE96}
+.copy a{color:#B9AE96}
+
+/* 下部バー（スマホ）：紙＋インクの縁 */
+.bar{background:var(--white);border-top:2px solid var(--ink)}
+.bar a{border-radius:0;border:2px solid var(--ink-deep)}
+.bar .b1{background:var(--accent)}
+.bar .b2{background:var(--brand)}
+.bar .b0{box-shadow:inset 0 0 0 2px var(--line)}
+
+/* ページ上部へ：インクの箱＋ドット矢印 */
+.ptop{border-radius:0;border:2px solid var(--ink-deep);box-shadow:4px 4px 0 var(--shadow-soft)}
+
+/* パンくず・戻りの道 */
+.crumb{border-bottom:2px solid var(--line)}
+.backrow{border-top:2px solid var(--line);border-bottom:2px solid var(--line)}
+
+/* 現れ方＝コマ刻み（transitionは--ease=stepsが効く）。写真も文字も4コマで着地する */
+.js-rise [data-rise]{transition:opacity .5s var(--ease),transform .5s var(--ease)}
+[data-in]{transition:opacity .6s var(--ease),transform .6s var(--ease)}
+[data-in="flip"],[data-in="flipx"]{transition-duration:.9s}
+
+/* 地図の色（土色の紙に合わせる） */
+.mSea{fill:#E4E9E2}
+.mNear{fill:#DDD8CA;stroke:#CFC8B6}
+.mCover{fill:#FBF6E9}
+
+/* 帯写真のゆっくりズームは使わない（写真に手を加えている感が出る） */
+.band:hover img{transform:none}
+.gate img{transition:filter .2s steps(2,end)}
+.gate:hover img{transform:none;filter:brightness(.74)}
+
+/* スマホのメニュー開閉：コマ刻みで落ちて着地 */
+@media(max-width:900px){
+  .head .r2.open{border-top:2px solid var(--ink);box-shadow:0 12px 0 -4px var(--shadow-soft);
+    animation:menuDrop .24s steps(3,end)}
+  .head .r2.open .gnav>li{animation:menuItem .3s steps(3,end) backwards}
+  .head .r2.open .gnav>li:nth-child(2){animation-delay:.05s}
+  .head .r2.open .gnav>li:nth-child(3){animation-delay:.1s}
+  .head .r2.open .gnav>li:nth-child(4){animation-delay:.15s}
+  .head .r2.open .hbtn{animation:menuItem .3s steps(3,end) .2s backwards}
+  .head .r2.open .gnav>li>a{border-bottom:1px solid var(--line)}
+  .head.on-hero .r2.open .gnav>li>a{color:var(--ink)}
+  .head.on-hero .r2.open .hbtn{background:var(--accent);box-shadow:none}
+}
+
+/* =========================================================
+   ページの切り替え — ドット・ディザのコマワイプ（12pxの粒が市松に4コマで埋める）
+   幕はJSが作る（JSが落ちても固まらない）。reduced-motionでは出さない
+   ========================================================= */
+.pxwipe{position:fixed;inset:0;z-index:200;pointer-events:none;display:none}
+.pxwipe i{position:absolute;inset:0;opacity:0}
+.pxwipe .q1{background-image:conic-gradient(#221D28 0 90deg,rgba(0,0,0,0) 0);background-size:24px 24px}
+.pxwipe .q2{background-image:conic-gradient(rgba(0,0,0,0) 0 180deg,#221D28 0 270deg,rgba(0,0,0,0) 0);background-size:24px 24px}
+.pxwipe .q3{background-image:conic-gradient(rgba(0,0,0,0) 0 90deg,#221D28 0 180deg,rgba(0,0,0,0) 0);background-size:24px 24px}
+.pxwipe .q4{background:#221D28}
+.pxwipe .dots{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:10px;opacity:0}
+.pxwipe .dots b{width:8px;height:8px;background:var(--accent)}
+@keyframes pxoff{to{opacity:0}}
+/* 🚨 出発側は「duration .01s ＋ 遅延」で点けない。遅延を待つだけのアニメは
+   ブラウザがコマ更新を間引き、2枚目が飛んで3コマに見えた（2026-08-25 検品→実測で再現）。
+   1本のアニメの中の「止め」で刻む＝0秒から動き続けるので飛ばない。
+   点く時刻は設計のまま 0 / .09 / .18 / .27 /（粒 .29）秒 */
+.pxwipe.leave{display:block;pointer-events:auto}
+.pxwipe.leave i{animation-duration:.36s;animation-timing-function:linear;animation-fill-mode:forwards}
+.pxwipe.leave .q1{animation-name:pxl1}
+.pxwipe.leave .q2{animation-name:pxl2}
+.pxwipe.leave .q3{animation-name:pxl3}
+.pxwipe.leave .q4{animation-name:pxl4}
+.pxwipe.leave .dots{animation:pxld .36s linear forwards}
+@keyframes pxl1{0%,100%{opacity:1}}
+@keyframes pxl2{0%,24.9%{opacity:0}25%,100%{opacity:1}}
+@keyframes pxl3{0%,49.9%{opacity:0}50%,100%{opacity:1}}
+@keyframes pxl4{0%,74.9%{opacity:0}75%,100%{opacity:1}}
+@keyframes pxld{0%,80.4%{opacity:0}80.6%,100%{opacity:1}}
+.pxwipe.enter{display:block}
+.pxwipe.enter i{opacity:1;animation:pxoff .01s steps(1,end) forwards}
+.pxwipe.enter .q4{animation-delay:.12s}
+.pxwipe.enter .q3{animation-delay:.21s}
+.pxwipe.enter .q2{animation-delay:.30s}
+.pxwipe.enter .q1{animation-delay:.39s}
+.pxwipe.enter .dots{opacity:1;animation:pxoff .01s steps(1,end) .1s forwards}
+@media (prefers-reduced-motion:reduce){
+  .pxwipe{display:none!important}
+  [data-in],[data-in].is-in{opacity:1!important;transform:none!important;transition:none!important}
+}
