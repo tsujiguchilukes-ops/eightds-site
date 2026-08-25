@@ -663,14 +663,14 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
           <p class="sub">家電量販店・運送会社・工事会社から荷物をお預かりして、お客様のお宅へ。40年になりました。</p>
         </div>
       </div>
-      <div class="hband" data-a="0.46" data-b="0.77">
+      <div class="hband" data-a="0.50" data-b="0.77">
         <p class="k">配送・設置工事・収集運搬</p>
         <p class="line">運んで、取り付けて、<br>引き取るまで。</p>
         <div class="foot">
           <p class="sub">開梱・組立・接続・設置、リサイクル家電の回収まで。登録電気工事業者／産業廃棄物収集運搬業。</p>
         </div>
       </div>
-      <div class="hband" data-a="0.73" data-b="1">
+      <div class="hband" data-a="0.77" data-b="1">
         <p class="k">お客様・協力会社からの言葉</p>
         <div class="notes">
           <div class="note">
@@ -1010,8 +1010,11 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
       ticking = false;
       var p = progress();
       var cur = 0;
+      /* 区間は隙間なし・半開（最後だけ閉じる）＝どの進行度でも点くのは常に1枚。
+         止まった時に2枚重なったまま残らない。切り替えの見た目はCSSの
+         クロスフェード（消える側.38s・出る側は即時）が受け持つので「無」の瞬間も出ない */
       ranges.forEach(function (r, i) {
-        var on = p >= r.a && p <= r.b;
+        var on = p >= r.a && (i === ranges.length - 1 ? p <= r.b : p < r.b);
         r.el.classList.toggle('is-in', on);
         if (on) cur = i;
       });
