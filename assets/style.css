@@ -267,7 +267,9 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   .wrap{padding:0 24px}
   .head .r1{height:64px;padding:0 16px 0 24px;gap:16px}
   .mtoggle{display:block}
-  .head .r2{display:none}
+  /* 🚨 隠すのはJSが動いた時だけ。素の状態で隠すと、JSが落ちた人はメニューを開けない
+     （2026-08-26 Codex指摘・実測で再現） */
+  html.js-menu .head .r2{display:none}
   .head .r2.open{display:block;position:absolute;top:64px;left:0;right:0;
     background:var(--white);border-top:1px solid var(--line);
     box-shadow:0 18px 40px -24px rgba(8,58,80,.5);

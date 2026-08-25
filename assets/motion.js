@@ -56,6 +56,8 @@
 
   /* ---- 6. スマホのメニュー ---- */
   var mt = document.querySelector('.mtoggle');
+  /* JSがここまで動いた時だけ、スマホのナビを畳む。動かなければ最初から開いたまま見える */
+  if (mt) document.documentElement.classList.add('js-menu');
   var r2 = document.querySelector('.head .r2');
   if (mt && r2) {
     var setOpen = function (open) {

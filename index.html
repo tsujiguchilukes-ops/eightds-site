@@ -63,6 +63,14 @@ html.go .pxs.is-on{transition-delay:0s}
   transition:opacity .38s steps(5,end),transform .38s steps(5,end),visibility 0s .38s}
 .hband:first-of-type{opacity:1;visibility:visible;transform:none}   /* JSが落ちても場面1の文字は見える */
 html.go .hband{opacity:0;visibility:hidden;transform:translateY(12px)}
+/* 🚨 動きを抑える設定の人向け。動きを止めたぶん、3場面の言葉を縦に並べて全部読めるようにする。
+   「動きを減らす」であって「情報を減らす」ではない */
+html.reduce-hero .scrollhero{height:auto}
+html.reduce-hero .pxs{display:none}
+html.reduce-hero #sc1{display:block;position:relative;opacity:1;visibility:visible;height:52vh}
+html.reduce-hero .hbands{position:static;display:block;padding:32px 40px 56px}
+html.reduce-hero .hband{opacity:1;visibility:visible;transform:none;margin:0 0 40px}
+html.reduce-hero .cue2,html.reduce-hero .chap2{display:none}
 html.go .hband.is-in{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 .hband .k{font-size:13px;font-weight:700;letter-spacing:.28em;color:var(--hot);
   margin-bottom:16px;display:flex;align-items:center;gap:12px;
@@ -982,7 +990,11 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
    失敗したら場面1＋最初の文字のまま（opacity:0を既定にしない） */
 (function () {
   try {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    /* 🚨 動きは止めるが、情報は減らさない。前は1場面目しか読めず、
+       搬入と「設置して感謝」の内容に届かなかった（2026-08-26 Codex指摘・実測で再現） */
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('reduce-hero'); return;
+    }
     var hero = document.querySelector('.scrollhero');
     var bands = [].slice.call(hero.querySelectorAll('.hband'));
     var chaps = [].slice.call(hero.querySelectorAll('.chap2 i'));
