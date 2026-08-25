@@ -94,8 +94,11 @@
 })();
 
 /* ---- 8. ページの切り替え ----
-   出発：トラックの扉が、行き先ごとに決めた向きから走ってきて閉まる。
-   到着：扉が反対側へ開くと、奥へ続く通路が一瞬見えて、そこから次の景色になる。
+   濃紺の幕が「下から上へ」通り抜けるカーテンワイプ。
+   ヒーローの見出しのロールと同じ文法（向き＝上へ抜ける／イージング＝expo-out系）。
+   出発：残照の板が先に走り、半歩遅れて濃紺の主幕が重なって画面を覆う。
+   到着：主幕が先に上へ抜けて残照が一拍見え、続けて残照も抜けて次のページになる。
+   expo-out は出だしが一番速いので、押した瞬間に幕が動き出す（反応の空白を作らない）。
    🚨 何があっても遷移は止めない。アニメが失敗しても必ず飛ぶ。 */
 (function () {
   var veil = document.querySelector('.veil');
@@ -104,65 +107,70 @@
   var door = veil.querySelector('.door');
   var rush = veil.querySelector('.rush');
   var root = document.documentElement;
-
-  var DIR = {
-    'index.html': 'down', 'about.html': 'left', 'company.html': 'left',
-    'office.html': 'up', 'service.html': 'right', 'business.html': 'right',
-    'customers.html': 'right', 'recruit.html': 'up', 'contact.html': 'down',
-    'news.html': 'down', 'privacy.html': 'down'
-  };
-  var OPP = { left: 'right', right: 'left', up: 'down', down: 'up' };
-  /* 光の扉が、どちら側から迫ってくるか */
-  var ORIGIN = { left: '32% 50%', right: '68% 50%', up: '50% 32%', down: '50% 68%' };
-  /* 行き先＝行程の次の場面。幕の向こうにその絵が見えてから、そのページになる */
-  var SCENE = {
-    'index.html': 'img/L2_トラック列.webp',
-    'about.html': 'img/L3_倉庫.webp',
-    'service.html': 'img/V2_手元.webp',
-    'business.html': 'img/L1_積込.webp',
-    'recruit.html': 'img/V1_引き.webp',
-    'contact.html': 'img/V5_搬出.webp',
-    'privacy.html': 'assets/veil-rush.webp'
-  };
-  var EASE_IN = 'cubic-bezier(.32,.12,.2,1)';
+  var navigating = false;   /* 遷移中かどうか。押した先の行き違いと bfcache の戻りで使う */
   var EASE_OUT = 'cubic-bezier(.16,1,.3,1)';
 
-  /* ---- 到着：扉が開くと、奥の通路が見えてから景色になる ---- */
+  /* ---- 到着：幕が上へ抜けて、次のページが現れる ---- */
   var came = root.getAttribute('data-soar');
   if (came) {
-    var here = location.pathname.split('/').pop() || 'index.html';
-    if (SCENE[here]) rush.style.backgroundImage = 'url("' + SCENE[here] + '")';
-    root.removeAttribute('data-soar');
     veil.classList.add('on');
-    door.style.transformOrigin = ORIGIN[came] || '50% 50%';
-    door.style.opacity = '1';
-    door.style.transform = 'scale(1.95)';
-    rush.style.opacity = '.7';
-    rush.style.transform = 'scale(1.5)';
+    door.style.transform = 'none';
+    rush.style.transform = 'none';
     document.body.style.opacity = '0';
-    requestAnimationFrame(function () {
+    /* 🚨 data-soar を外すと html の暗い地も消え、body の白がキャンバスに伝わる。
+       幕が抜けてから body が濃くなるまでの間が「白い瞬断」になっていた（実測228ms）。
+       地の暗さだけは別の印で、body が出そろうまで残す */
+    root.classList.add('soar-in');
+    root.removeAttribute('data-soar');
+    var lifted = false;
+    var lift = function () {
+      if (lifted) return; lifted = true;
       requestAnimationFrame(function () {
-        door.style.transition = 'transform .62s ' + EASE_OUT + ', opacity .44s ease-out';
-        door.style.opacity = '0';
-        door.style.transform = 'scale(1)';
-        rush.style.transition = 'opacity .42s ease-out .06s, transform .62s ' + EASE_OUT;
-        rush.style.opacity = '0';
-        rush.style.transform = 'scale(1)';
-        document.body.style.transition = 'opacity .42s ease-out .1s';
-        document.body.style.opacity = '1';
-        setTimeout(function () {
-          veil.classList.remove('on');
-          door.style.transition = door.style.transform = '';
-          rush.style.transition = rush.style.opacity = rush.style.transform = '';
-          document.body.style.transition = document.body.style.opacity = '';
-        }, 700);
+        requestAnimationFrame(function () {
+          /* 🚨 到着は expo-out にしない。出だしが速すぎて、幕が覆った状態が
+             1コマも見えないまま抜けてしまう（実測：130msで8割抜けた）。
+             「一拍おいて、ゆっくり動き出して、すっと抜ける」曲線にする */
+          var LIFT = 'cubic-bezier(.6,.05,.15,1)';
+          door.style.transition = 'transform .6s ' + LIFT + ' .1s';
+          door.style.transform = 'translateY(-103%)';
+          rush.style.transition = 'transform .6s ' + LIFT + ' .19s';
+          rush.style.transform = 'translateY(-103%)';
+          /* 遅らせない。幕が抜けるのと同時に body を濃くしないと、その間が白くなる */
+          document.body.style.transition = 'opacity .3s ease-out';
+          document.body.style.opacity = '1';
+          setTimeout(function () {
+            veil.classList.remove('on');
+            root.classList.remove('soar-in');
+            door.style.transition = door.style.transform = '';
+            rush.style.transition = rush.style.transform = '';
+            document.body.style.transition = document.body.style.opacity = '';
+          }, 900);
+        });
       });
-    });
+    };
+    /* 🚨 @view-transition は使わない（style.css の注記を見よ。描画が止まった）。
+       そのまま開ける。覆った状態は transition の delay（.1s）が一拍見せる */
+    lift();
   }
+
+  /* 🚨 戻るボタンで詰むのを塞ぐ。ブラウザは離脱時のDOMをそのまま凍らせて復元する（bfcache）ので、
+     幕を出したまま離れると、戻った時に幕が張られたまま固まる。スクロールしても直らない。
+     motion.js も head のインライン script も再実行されないので、ここで戻す。
+     （2026-08-25 検品で発見。PC・スマホ・両方向の4通りで再現していた） */
+  addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    navigating = false;
+    veil.classList.remove('on');
+    root.classList.remove('soar-in');
+    root.removeAttribute('data-soar');
+    door.style.transition = door.style.transform = '';
+    rush.style.transition = rush.style.transform = '';
+    document.body.style.transition = document.body.style.opacity = '';
+  });
 
   if (reduce) return;
 
-  /* ---- 出発：扉が走ってきて閉まる ---- */
+  /* ---- 出発：幕が下から駆け上がって画面を覆う ---- */
   document.addEventListener('click', function (e) {
     if (e.defaultPrevented || e.button !== 0) return;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -170,35 +178,35 @@
     if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
     var href = a.getAttribute('href') || '';
     if (!/\.html($|[?#])/.test(href)) return;
-    var file = href.split('#')[0].split('/').pop();
     if (a.pathname === location.pathname) return;
 
-    var dir = DIR[file] || 'right';
+    /* 🚨 押した先の行き違いを塞ぐ。押すたびに作り直す目印だと、幕が出ている間に
+       別のリンクを押された時、最初に押した先へ飛んでしまう（実測：120ms後に押すと3回とも）。
+       目印は遷移そのものに1つだけ持たせる */
+    if (navigating) { e.preventDefault(); return; }
+
     e.preventDefault();
+    navigating = true;
 
     var gone = false;
     var go = function () {
       if (gone) return; gone = true;
-      try { sessionStorage.setItem('soar', dir); } catch (err) {}
+      try { sessionStorage.setItem('soar', 'up'); } catch (err) {}
       location.href = a.href;
     };
-    setTimeout(go, 400);
+    setTimeout(go, 430);
 
     try {
-      if (SCENE[file]) rush.style.backgroundImage = 'url("' + SCENE[file] + '")';
       veil.classList.add('on');
-      rush.style.opacity = '0';
       door.style.transition = 'none';
-      door.style.transformOrigin = ORIGIN[dir] || '50% 50%';
-      door.style.opacity = '0';
-      door.style.transform = 'scale(1.0)';
+      rush.style.transition = 'none';
+      door.style.transform = 'translateY(103%)';
+      rush.style.transform = 'translateY(103%)';
       requestAnimationFrame(function () {
-        door.style.transition = 'transform .38s ' + EASE_IN + ', opacity .26s ease-in';
-        door.style.opacity = '1';
-        door.style.transform = 'scale(1.95)';
-        rush.style.transition = 'opacity .24s ease-in .08s, transform .38s ' + EASE_IN;
-        rush.style.opacity = '.7';
-        rush.style.transform = 'scale(1.5)';
+        rush.style.transition = 'transform .42s ' + EASE_OUT;
+        rush.style.transform = 'translateY(0)';
+        door.style.transition = 'transform .42s ' + EASE_OUT + ' .07s';
+        door.style.transform = 'translateY(0)';
       });
     } catch (err) { go(); }
   });

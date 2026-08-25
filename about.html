@@ -103,8 +103,8 @@
 @media(max-width:900px){ .creed{font-size:22px;margin-top:16px} }
 
 </style>
-<style>html[data-soar]{background:#F5F1EA}html[data-soar] body{opacity:0}</style>
-<script>try{var d=sessionStorage.getItem("soar");if(d){document.documentElement.setAttribute("data-soar",d);sessionStorage.removeItem("soar");}}catch(e){}</script>
+<style>html[data-soar]{background:#052434}html[data-soar] body{opacity:0}</style>
+<script>try{var d=sessionStorage.getItem("soar");if(d){var R=document.documentElement;R.setAttribute("data-soar",d);sessionStorage.removeItem("soar");/* 幕を上げるのは motion.js。落ちても白いままにしないための安全網。1.8秒で自分で戻す */setTimeout(function(){R.removeAttribute("data-soar")},1800);}}catch(e){}</script>
 </head>
 <body>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
@@ -116,7 +116,7 @@
     <button class="mtoggle" aria-expanded="false">メニュー</button>
     <div class="r2"><div class="in">
     <ul class="gnav">
-      <li aria-current="page"><a href="about.html">私たちのこと</a>
+      <li aria-current="page"><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
           <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・川口</span></span></a></li>
           <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅に上がる前に決めていること</span></span></a></li>

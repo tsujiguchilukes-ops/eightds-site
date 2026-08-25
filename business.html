@@ -122,8 +122,8 @@
   .cta-band .btns{flex-direction:column}
 }
 </style>
-<style>html[data-soar]{background:#F5F1EA}html[data-soar] body{opacity:0}</style>
-<script>try{var d=sessionStorage.getItem("soar");if(d){document.documentElement.setAttribute("data-soar",d);sessionStorage.removeItem("soar");}}catch(e){}</script>
+<style>html[data-soar]{background:#052434}html[data-soar] body{opacity:0}</style>
+<script>try{var d=sessionStorage.getItem("soar");if(d){var R=document.documentElement;R.setAttribute("data-soar",d);sessionStorage.removeItem("soar");/* 幕を上げるのは motion.js。落ちても白いままにしないための安全網。1.8秒で自分で戻す */setTimeout(function(){R.removeAttribute("data-soar")},1800);}}catch(e){}</script>
 </head>
 <body>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
@@ -147,7 +147,7 @@
           <li><a href="about.html#area"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>対応エリア</b><span>東京・千葉・埼玉・神奈川</span></span></a></li>
         </ul>
       </li>
-      <li aria-current="page"><a href="business.html">法人のお客様へ</a>
+      <li aria-current="page"><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
           <li><a href="business.html#flow"><span class="im"><img src="img/V6_説明.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>ご依頼の流れ</b><span>お見積りは無料。5段階で完了</span></span></a></li>
           <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="倉庫の通路を、台車で商品を運ぶところ（イメージ）" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>

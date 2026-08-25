@@ -149,8 +149,8 @@
   .entry .side{min-width:0}
 }
 </style>
-<style>html[data-soar]{background:#F5F1EA}html[data-soar] body{opacity:0}</style>
-<script>try{var d=sessionStorage.getItem("soar");if(d){document.documentElement.setAttribute("data-soar",d);sessionStorage.removeItem("soar");}}catch(e){}</script>
+<style>html[data-soar]{background:#052434}html[data-soar] body{opacity:0}</style>
+<script>try{var d=sessionStorage.getItem("soar");if(d){var R=document.documentElement;R.setAttribute("data-soar",d);sessionStorage.removeItem("soar");/* 幕を上げるのは motion.js。落ちても白いままにしないための安全網。1.8秒で自分で戻す */setTimeout(function(){R.removeAttribute("data-soar")},1800);}}catch(e){}</script>
 </head>
 <body>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>

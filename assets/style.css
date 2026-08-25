@@ -13,7 +13,7 @@
   --hot:#F0A585;
   /* 同じサーモンの明るい方。平らな紺より地が明るく揺れる「写真・映像の上」の小さい文字に使う。
      --hot だと実測4.0:1で基準（4.5:1）に届かない。こちらは5.6〜7.2:1 */
-  --hot-hi:#F7C6AE;
+  --hot-hi:#FBDACA;
   --paper:#F7F4EF; --line:#DFD9D0; --white:#fff;
   --ease:cubic-bezier(.22,1,.36,1);
   --max:1240px; --head:76px;
@@ -52,8 +52,13 @@ a{color:inherit}
 /* 1段だけの帯にする。電話番号は下（CTA・フッター・右の固定列）に置く。 */
 .head .r1{max-width:var(--max);margin:0 auto;height:var(--head);padding:0 40px;
   display:flex;align-items:center;gap:40px}
-.logo{font-size:22px;font-weight:700;color:var(--brand);text-decoration:none;white-space:nowrap;line-height:1.2}
-.logo span{display:block;font-size:14px;font-weight:400;color:var(--sub);letter-spacing:.1em}
+/* 🚨 min-width:0 が無いとフレックスの子は中身より縮めない。
+   文字を大きくされた時（最小フォント24px等）にロゴごと画面外へはみ出す。
+   ふだんは全幅収まる。狭くて入らない時だけ…で切れる */
+.logo{font-size:22px;font-weight:700;color:var(--brand);text-decoration:none;white-space:nowrap;line-height:1.2;
+  min-width:0;overflow:hidden;text-overflow:ellipsis}
+.logo span{display:block;font-size:14px;font-weight:400;color:var(--sub);letter-spacing:.1em;
+  overflow:hidden;text-overflow:ellipsis}
 
 .head .r2{margin-left:auto;align-self:stretch}
 .head .r2 .in{display:flex;align-items:stretch;height:100%;position:relative}
@@ -85,9 +90,16 @@ a{color:inherit}
   display:flex;align-items:stretch}
 /* 開くのは0.26秒、閉じるのは0.16秒。用が済んだ時ほど速く引く */
 .gnav>li:hover .drop,.gnav>li:focus-within .drop{opacity:1;visibility:visible;pointer-events:auto;transform:none;
-  transition:opacity .26s var(--ease),transform .3s var(--ease),visibility 0s}
+  transition:opacity .26s var(--ease),transform .3s cubic-bezier(.16,1,.3,1),visibility 0s}
 
-.gnav .drop li{list-style:none;flex:1 1 0;min-width:0}
+/* 中身はヒーローの見出しと同じ「下から上がって着地」。項目ごとに半歩ずつ遅らせる。
+   隣の項目へ移った時はこの段差がもう一度走るので、「切り替わった」手応えが出る */
+.gnav .drop li{list-style:none;flex:1 1 0;min-width:0;
+  opacity:0;transform:translateY(14px);transition:opacity .1s ease-in,transform .1s ease-in}
+.gnav>li:hover .drop li,.gnav>li:focus-within .drop li{opacity:1;transform:none;
+  transition:opacity .3s ease-out,transform .42s cubic-bezier(.16,1,.3,1)}
+.gnav>li:hover .drop li:nth-child(2),.gnav>li:focus-within .drop li:nth-child(2){
+  transition-delay:.06s}
 .gnav .drop li+li{margin-left:20px;padding-left:21px;border-left:1px solid rgba(255,255,255,.12)}
 
 /* 項目：カーソルへの答えは「面が持ち上がる・矢印が一歩進む・写真がわずかに寄る」。文字には色を付けない */
@@ -111,6 +123,7 @@ a{color:inherit}
 .gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{transform:translateX(6px);background:#fff}
 @media (prefers-reduced-motion:reduce){
   .gnav .drop{transition:none;transform:none}
+  .gnav .drop li,.gnav>li:hover .drop li,.gnav>li:focus-within .drop li{transition:none;transform:none;opacity:1}
   .gnav>li>a::after{transition:none}
 }
 
@@ -131,8 +144,11 @@ a{color:inherit}
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 
 /* スマホ用のメニュー開閉 */
-/* 48px固定に「メニュー」4文字を入れていたので2行に折れていた。中身に合わせて広げる */
-.mtoggle{display:none;margin-left:auto;width:auto;min-width:48px;height:48px;padding:0 14px;white-space:nowrap;border:1px solid var(--line);background:var(--white);
+/* 48px固定に「メニュー」4文字を入れていたので2行に折れていた。中身に合わせて広げる。
+   🚨 ただし広げっぱなしだと、文字を大きくされた時（最小フォント24px等）に画面外へはみ出す。
+   flex:0 1 auto ＋ min-width:48px で「狭い時だけ 48px まで縮む」。あふれた文字は…で切る */
+.mtoggle{display:none;margin-left:auto;flex:0 1 auto;width:auto;min-width:48px;height:48px;padding:0 14px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid var(--line);background:var(--white);
   color:var(--brand);font-size:14px;font-weight:700;cursor:pointer;border-radius:4px;
   transition:border-color .2s var(--ease)}
 .mtoggle:hover{border-color:var(--brand)}
@@ -235,6 +251,11 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 /* ========== 初回フェード（一斉・1回だけ） ========== */
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
+/* スマホのメニューが開く動き（transform と opacity だけ）。
+   動きを抑える設定の人向けの打ち消しは、ファイル末尾（900pxのブロックより後）にある */
+@keyframes menuDrop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes menuItem{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
 /* ========== スマホ ========== */
 @media(max-width:900px){ .quick{display:none} }
 @media(max-width:900px){
@@ -247,8 +268,16 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   .head .r2.open{display:block;position:absolute;top:64px;left:0;right:0;
     background:var(--white);border-top:1px solid var(--line);
     box-shadow:0 18px 40px -24px rgba(8,58,80,.5);
-    max-height:calc(100dvh - 64px - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+    max-height:calc(100dvh - 64px - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+    /* 開く手応え。ヒーローと同じ expo-out 系で上から着地（display切替なので animation で） */
+    animation:menuDrop .3s cubic-bezier(.16,1,.3,1)}
   .head .r2.open .in{flex-direction:column;height:auto;padding:0}
+  /* 項目はヒーローの見出しと同じ「下から上がって着地」を半歩ずつ */
+  .head .r2.open .gnav>li{animation:menuItem .38s cubic-bezier(.16,1,.3,1) backwards}
+  .head .r2.open .gnav>li:nth-child(2){animation-delay:.04s}
+  .head .r2.open .gnav>li:nth-child(3){animation-delay:.08s}
+  .head .r2.open .gnav>li:nth-child(4){animation-delay:.12s}
+  .head .r2.open .hbtn{animation:menuItem .38s cubic-bezier(.16,1,.3,1) .16s backwards}
   /* スマホでは大きい項目だけ出す。中の枝は各ページの上の帯から行ける */
   .head .r2.open .drop{display:none}
   .head .r2.open .gnav>li>a{min-height:60px;font-size:18px;display:flex;align-items:center}
@@ -546,27 +575,37 @@ body.form-page{padding-bottom:0}
 }
 
 /* =========================================================
-   ページの切り替え — トラックの扉が走って閉じ、
-   閉じた瞬間に倉庫の奥へ吸い込まれて、次の景色で扉が抜けていく。
-   行き先ごとに扉の来る向き（左・右・上・下）を変える。
+   ページの切り替え — 濃紺の幕が下から上へ通り抜ける（カーテンワイプ）。
+   ヒーローの見出しと同じ文法：向きは「上へ抜ける」、
+   イージングは同じ expo-out 系、色は濃紺＋残照の錆色、先端に琥珀の細線。
+   残照の板が先に走り、半歩遅れて濃紺の板が重なる（2枚で厚みを出す）。
+   前の作り（紙色の画像＋白い霞）は、地の白と混ざって「白い瞬断」に見えていた。
    ⚠️ 動かすのは transform と opacity だけ。失敗しても遷移は必ず起きる。
    ========================================================= */
+/* 🚨 @view-transition（クロス文書）は使わない。2026-08-25 実測：
+   到着ページの描画が4秒以上止まり（pagereveal 不着・rAF 停止）、
+   「Transition was skipped」の後も回復しなかった。
+   文書間の白は Chrome の paint holding（同一オリジンでは前のページの絵を
+   次のページの初回描画まで保持する）に任せる。幕は自前で動かす */
 .veil{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden;
   contain:strict}
 .veil.on{visibility:visible}
-/* 出発：ヒーローと同じ「光の開口部」に吸い込まれて、次の場所へ行く */
-.veil .door{position:absolute;inset:0;background:#F5F1EA url("veil-light.webp") center/cover no-repeat;
-  opacity:0;will-change:transform,opacity}
-.veil .rush{position:absolute;inset:0;background:#F5F1EA url("veil-rush.webp") center/cover no-repeat;
-  opacity:0;will-change:transform,opacity}
-/* 行き先の場面は、白い霞ごしに見せる（強くしない） */
-.veil .rush::after{content:"";position:absolute;inset:0;background:rgba(247,244,239,.62)}
-/* 扉の待機位置（来る向き） */
-/* 着地：読み込んだ瞬間から扉が閉じている（ちらつかせない） */
+/* 主幕（上の層）。Pinterest B の地に合わせて、紺よりさらに暗い「ほぼ黒の青」 */
+.veil .door{position:absolute;inset:-1px 0;background:#052434;z-index:2;
+  transform:translateY(103%);will-change:transform}
+/* 幕の先端の琥珀の細線。ヒーローの小ラベルの「看板の棒」と同じ言葉 */
+.veil .door::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--hot)}
+/* 残照の板（下の層）。ヒーロー3場面目のアンバーのグレードと同じ色相 */
+.veil .rush{position:absolute;inset:-1px 0;z-index:1;
+  background:linear-gradient(to top,#120602 0%,#4A2210 62%,#6E3418 100%);
+  transform:translateY(103%);will-change:transform}
+/* 着地：読み込んだ瞬間から幕が画面を覆っている（ちらつかせない） */
 html[data-soar] .veil{visibility:visible}
-html[data-soar] .veil .door{opacity:1;transform:scale(1.5)}
-html[data-soar] .veil .rush{opacity:.8;transform:scale(1.12)}
+html[data-soar] .veil .door{transform:none}
+html[data-soar] .veil .rush{transform:none}
 html[data-soar] body{opacity:0}
+/* 幕が抜けてから body が濃くなるまでの間、地の暗さだけ残す（白い瞬断を作らない） */
+html.soar-in{background:#052434}
 
 @media(prefers-reduced-motion:reduce){
   .veil,html[data-soar] .veil{display:none}
@@ -636,17 +675,21 @@ html[data-soar] body{opacity:0}
   paint-order:stroke;stroke:#FBF8F3;stroke-width:5px;stroke-linejoin:round}
 
 /* 画面に入ったら、4県が順に灯る → 拠点が置かれる */
-[data-rise] .mCover{opacity:0;transition:opacity .8s var(--ease)}
-[data-rise] .mCoverT{opacity:0;transition:opacity .7s var(--ease)}
-[data-rise] .mPin{opacity:0;transition:opacity .7s var(--ease)}
-[data-rise] .mBay{opacity:0;transition:opacity .7s var(--ease)}
-[data-rise].is-in .mCover{opacity:1;transition-delay:calc(var(--i,0)*.11s)}
-[data-rise].is-in .mCoverT{opacity:1;transition-delay:calc(.2s + var(--i,0)*.11s)}
-[data-rise].is-in .mBay{opacity:1;transition-delay:.6s}
-[data-rise].is-in .mPin{opacity:1;transition-delay:.72s}
-[data-rise].is-in .mPin:last-of-type{transition-delay:.86s}
+/* 🚨 隠すのは js-rise が付いた時だけ。付けずに隠すと、JSが落ちた時に
+   1都3県の塗りも県名も拠点も東京湾も消えて、灰色の塊だけが残る（2026-08-25 検品で発見） */
+html.js-rise [data-rise] .mCover{opacity:0;transition:opacity .8s var(--ease)}
+html.js-rise [data-rise] .mCoverT{opacity:0;transition:opacity .7s var(--ease)}
+html.js-rise [data-rise] .mPin{opacity:0;transition:opacity .7s var(--ease)}
+html.js-rise [data-rise] .mBay{opacity:0;transition:opacity .7s var(--ease)}
+/* 🚨 隠す側と見せる側は必ず同じ形で書く。片方だけ html.js-rise を足すと
+   詳細度で隠す側が勝ち、JSが動いている全員に見えなくなる（2026-08-25 私がやらかした） */
+html.js-rise [data-rise].is-in .mCover{opacity:1;transition-delay:calc(var(--i,0)*.11s)}
+html.js-rise [data-rise].is-in .mCoverT{opacity:1;transition-delay:calc(.2s + var(--i,0)*.11s)}
+html.js-rise [data-rise].is-in .mBay{opacity:1;transition-delay:.6s}
+html.js-rise [data-rise].is-in .mPin{opacity:1;transition-delay:.72s}
+html.js-rise [data-rise].is-in .mPin:last-of-type{transition-delay:.86s}
 @media (prefers-reduced-motion:reduce){
-  [data-rise] .mCover,[data-rise] .mCoverT,[data-rise] .mPin,[data-rise] .mBay{opacity:1;transition:none}
+  html.js-rise [data-rise] .mCover,html.js-rise [data-rise] .mCoverT,html.js-rise [data-rise] .mPin,html.js-rise [data-rise] .mBay{opacity:1;transition:none}
 }
 @media(max-width:900px){
   .mCoverT{font-size:40px}
