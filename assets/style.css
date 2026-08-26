@@ -769,7 +769,10 @@ h1,h2,h3{text-wrap:balance}
      ヒーローの装飾（ドットの粒・ボタン地 #C0603A/#93401D）はそのまま＝雰囲気は変えない */
   --accent:#9C4A28; --hot:#F2C594; --hot-hi:#F2C594;
   --paper:#EFE6D2; --line:#D9CDB4; --white:#FAF5E7;
-  --ease:steps(3,end);
+  /* 🚨 2026-08-26 おでん指示「カクカクしすぎて重いのかなって思う／表示の仕方とかはいいけど滑らかにして」。
+     見た目（紙色・2px墨線・角なし・ずらし影）はそのまま、動きだけ滑らかに戻す。
+     実測では 120fps・コマ落ち0 で重くはなく、steps() のコマ刻みがそう見えていた */
+  --ease:cubic-bezier(.22,1,.36,1);
   --shadow:rgba(26,20,30,.35); --shadow-soft:rgba(26,20,30,.16);
   --serif:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP",serif;
   /* 矢印もチェックもドットの階段で */
@@ -802,7 +805,7 @@ h2{letter-spacing:.05em}
    下の盆の縁につながる。どこから開いたかは、この墨のつながりで示す。
    「今ここ」（aria-current）は3pxテラコッタ下線＝別の言葉に分ける */
 .head.on-hero .gnav>li>a,.gnav>li>a{color:var(--ink);
-  transition:color .08s steps(2,end),background-color .08s steps(2,end)}
+  transition:color .08s var(--ease),background-color .08s var(--ease)}
 .head.on-hero .gnav>li[aria-current]>a,.gnav>li[aria-current]>a{color:var(--brand)}
 .head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li:focus-within>a,
 .gnav>li:hover>a,.gnav>li:focus-within>a{background:var(--ink);color:var(--white)}
@@ -823,21 +826,21 @@ h2{letter-spacing:.05em}
   -webkit-backdrop-filter:none;backdrop-filter:none;
   box-shadow:8px 8px 0 var(--shadow-soft);
   transform:translateY(-8px);
-  transition:opacity .12s steps(2,end),transform .12s steps(2,end),visibility 0s .12s}
+  transition:opacity .12s var(--ease),transform .12s var(--ease),visibility 0s .12s}
 .gnav>li:hover .drop,.gnav>li:focus-within .drop{
-  transition:opacity .18s steps(3,end),transform .18s steps(3,end),visibility 0s}
+  transition:opacity .18s var(--ease),transform .18s var(--ease),visibility 0s}
 /* 中身：盆（--paper）の上の白い紙のカード。境界は最初から2pxの墨で見えている */
 .gnav .drop li{display:flex;transform:translateY(12px);
-  transition:opacity .08s steps(2,end),transform .08s steps(2,end)}
+  transition:opacity .08s var(--ease),transform .08s var(--ease)}
 .gnav>li:hover .drop li,.gnav>li:focus-within .drop li{
-  transition:opacity .18s steps(3,end),transform .18s steps(3,end)}
+  transition:opacity .18s var(--ease),transform .18s var(--ease)}
 .gnav .drop li+li{margin-left:12px;padding-left:0;border-left:0}
 /* 盆はナビ幅（1440pxで707px）しかないので、旧862px幅のままの余白だと
    説明文が「浦安・川／口」と中途半端に折り返す。余白と字間を詰めて1行に収める */
 .gnav .drop a{flex:1 1 auto;padding:10px;gap:12px;color:var(--ink);
   background:var(--white);border:2px solid var(--ink);
-  transition:transform .1s steps(2,end),background-color .1s steps(2,end),
-    box-shadow .1s steps(2,end)}
+  transition:transform .1s var(--ease),background-color .1s var(--ease),
+    box-shadow .1s var(--ease)}
 /* 当てた答え＝カードが左上へ2px浮く・右下に4pxのベタ影・地が--hotに点く（.btnと同じ文法） */
 .gnav .drop a:hover,.gnav .drop a:focus-visible{background:var(--hot);
   transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--shadow-soft)}
@@ -863,22 +866,22 @@ h2{letter-spacing:.05em}
 .gnav .drop .im img{transition:none}
 .gnav .drop a:hover .im img,.gnav .drop a:focus-visible .im img{transform:none}
 .gnav .drop a::after{background:var(--sub);
-  transition:transform .16s steps(2,end),background-color .16s steps(2,end)}
+  transition:transform .16s var(--ease),background-color .16s var(--ease)}
 .gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{
   background:var(--ink);transform:translateX(8px)}
 
 /* お問い合わせ：ヘッダー唯一の塗り。藍が左から4コマで塗り替わり、矢印が2コマで一歩進む */
 .hbtn,.head.on-hero .hbtn{background:var(--accent);color:#FFF7EA;border-left:2px solid var(--ink);
   -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
-.hbtn::before{background:var(--brand);transition:transform .3s steps(4,end)}
-.hbtn::after{transition:transform .2s steps(2,end)}
+.hbtn::before{background:var(--brand);transition:transform .3s var(--ease)}
+.hbtn::after{transition:transform .2s var(--ease)}
 .hbtn:hover::after,.hbtn:focus-visible::after{transform:translateX(8px)}
 .hbtn:focus-visible{outline:2px solid var(--hot);outline-offset:-8px}
 
 /* スマホのメニュー釦：紙のカードと同じ「浮く・沈む」。開いている間は親項目と同じ墨の反転 */
 .head.on-hero .mtoggle,.mtoggle{background:var(--white);border:2px solid var(--ink);
   color:var(--ink);border-radius:0;
-  transition:transform .1s steps(2,end),box-shadow .1s steps(2,end)}
+  transition:transform .1s var(--ease),box-shadow .1s var(--ease)}
 .mtoggle:hover{border-color:var(--ink);transform:translate(-2px,-2px);
   box-shadow:4px 4px 0 var(--shadow-soft)}
 .mtoggle:active{transform:translate(2px,2px);box-shadow:none}
@@ -887,9 +890,9 @@ h2{letter-spacing:.05em}
 
 /* 動きを抑える設定の人：コマ送りも移動も止め、出る・消えるだけにする */
 @media (prefers-reduced-motion:reduce){
-  .gnav .drop{transform:none;transition:opacity .01s steps(1,end),visibility 0s .01s}
+  .gnav .drop{transform:none;transition:opacity .01s var(--ease),visibility 0s .01s}
   .gnav>li:hover .drop,.gnav>li:focus-within .drop{
-    transition:opacity .01s steps(1,end),visibility 0s}
+    transition:opacity .01s var(--ease),visibility 0s}
   .gnav .drop li,.gnav>li:hover .drop li,.gnav>li:focus-within .drop li{
     opacity:1;transform:none;transition:none}
   .gnav>li>a,.gnav .drop a,.gnav .drop a::after,.hbtn::before,.hbtn::after,.mtoggle{transition:none}
@@ -905,8 +908,8 @@ h2{letter-spacing:.05em}
 
 /* ボタン：紙の板＋インクの縁＋右下ずらし影。押した瞬間に沈む */
 .btn{border-radius:0;border:2px solid var(--ink-deep);box-shadow:4px 4px 0 var(--shadow);
-  transition:transform .1s steps(2,end),color .18s steps(2,end)}
-.btn::before{transition:transform .3s steps(4,end)}
+  transition:transform .1s var(--ease),color .18s var(--ease)}
+.btn::before{transition:transform .3s var(--ease)}
 .btn:hover{transform:translate(-2px,-2px)}
 .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow)}
 .btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
@@ -916,7 +919,7 @@ h2{letter-spacing:.05em}
   border-color:var(--ink-deep);background:rgba(42,36,48,.35)}
 .btn-ghost::before{background:var(--paper-hi,#FBF6E9)}
 .btn-ghost:hover{color:var(--ink)}
-.next a{border-bottom-width:3px;transition:color .14s steps(2,end),border-color .14s steps(2,end)}
+.next a{border-bottom-width:3px;transition:color .14s var(--ease),border-color .14s var(--ease)}
 .next a::after{content:"";width:26px;height:11px;background:currentColor;
   -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain}
 
@@ -943,8 +946,8 @@ h2{letter-spacing:.05em}
 
 /* 入口カード */
 .entries{background:var(--ink);gap:2px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
-.entries a::before{background:var(--brand);transition:transform .3s steps(4,end)}
-.entries a::after{transition:transform .2s steps(2,end)}
+.entries a::before{background:var(--brand);transition:transform .3s var(--ease)}
+.entries a::after{transition:transform .2s var(--ease)}
 .entries .k{color:var(--accent)}
 .entries a:hover .k{color:var(--hot)}
 .entries a:hover .s{color:#E5DCC8}
@@ -990,18 +993,18 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
 
 /* 帯写真のゆっくりズームは使わない（写真に手を加えている感が出る） */
 .band:hover img{transform:none}
-.gate img{transition:filter .2s steps(2,end)}
+.gate img{transition:filter .2s var(--ease)}
 .gate:hover img{transform:none;filter:brightness(.74)}
 
 /* スマホのメニュー開閉：コマ刻みで落ちて着地 */
 @media(max-width:900px){
   .head .r2.open{border-top:2px solid var(--ink);box-shadow:0 12px 0 -4px var(--shadow-soft);
-    animation:menuDrop .24s steps(3,end)}
-  .head .r2.open .gnav>li{animation:menuItem .3s steps(3,end) backwards}
+    animation:menuDrop .24s var(--ease)}
+  .head .r2.open .gnav>li{animation:menuItem .3s var(--ease) backwards}
   .head .r2.open .gnav>li:nth-child(2){animation-delay:.05s}
   .head .r2.open .gnav>li:nth-child(3){animation-delay:.1s}
   .head .r2.open .gnav>li:nth-child(4){animation-delay:.15s}
-  .head .r2.open .hbtn{animation:menuItem .3s steps(3,end) .2s backwards}
+  .head .r2.open .hbtn{animation:menuItem .3s var(--ease) .2s backwards}
   .head .r2.open .gnav>li>a{border-bottom:1px solid var(--line)}
   .head.on-hero .r2.open .gnav>li>a{color:var(--ink)}
   .head.on-hero .r2.open .hbtn{background:var(--accent);box-shadow:none}
@@ -1037,12 +1040,12 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
 @keyframes pxl4{0%,74.9%{opacity:0}75%,100%{opacity:1}}
 @keyframes pxld{0%,80.4%{opacity:0}80.6%,100%{opacity:1}}
 .pxwipe.enter{display:block}
-.pxwipe.enter i{opacity:1;animation:pxoff .01s steps(1,end) forwards}
+.pxwipe.enter i{opacity:1;animation:pxoff .01s var(--ease) forwards}
 .pxwipe.enter .q4{animation-delay:.12s}
 .pxwipe.enter .q3{animation-delay:.21s}
 .pxwipe.enter .q2{animation-delay:.30s}
 .pxwipe.enter .q1{animation-delay:.39s}
-.pxwipe.enter .dots{opacity:1;animation:pxoff .01s steps(1,end) .1s forwards}
+.pxwipe.enter .dots{opacity:1;animation:pxoff .01s var(--ease) .1s forwards}
 @media (prefers-reduced-motion:reduce){
   .pxwipe{display:none!important}
   [data-in],[data-in].is-in{opacity:1!important;transform:none!important;transition:none!important}
