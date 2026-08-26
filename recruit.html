@@ -107,7 +107,11 @@
 .entry .fl{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:24px;font-size:16px;color:#D5CCB8}
 .entry .fl span::after{content:"→";margin-left:16px;color:#9A8F7B}
 .entry .fl span:last-child::after{content:""}
-.entry .side{display:grid;gap:16px;min-width:320px}
+/* 🚨 min-width:320px（と中の .btn の300px）を素で持つと、901〜908pxの帯だけ
+   入りきらず横に振れる（2026-08-26 実測 +5px）。解除を @media(max-width:900px) に
+   置いていたので、その隙間が空いていた。素で0にして、広い時は width で確保する */
+.entry .side{display:grid;gap:16px;min-width:0;width:min(320px,100%)}
+.entry .side .btn{min-width:0}
 
 @media(max-width:900px){
   .rhero{height:auto;aspect-ratio:3/4;min-height:0}

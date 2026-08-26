@@ -77,7 +77,11 @@ html.reduce-hero .pxs{display:none}
 html.reduce-hero #sc1{display:block;position:relative;opacity:1;visibility:visible;height:52vh}
 /* position:relative を保つ＝z-index:3 が生きる。地は暗幕と同じ墨色を敷いて、
    象牙色の文字のコントラストを確保する（#5E7F96 の上だと本文が3.9:1で基準未満） */
-html.reduce-hero .hbands{position:relative;z-index:3;display:block;padding:32px 40px 56px;
+/* 地は画面いっぱいに敷く（max-width:1240pxのままだと1440pxで左右100pxずつ、
+   1712pxで236pxずつ空色の帯が残って、板が中央に浮いて見える）。
+   文字の行長は .hband{width:min(92%,860px)} が受け持つので広がらない */
+html.reduce-hero .hbands{position:relative;z-index:3;display:block;max-width:none;
+  padding:32px max(40px,calc((100% - 1240px)/2 + 40px)) 56px;
   background:rgba(24,16,11,.95)}
 html.reduce-hero .hband{opacity:1;visibility:visible;transform:none;margin:0 0 40px}
 html.reduce-hero .hband:last-of-type{margin-bottom:0}
@@ -193,6 +197,17 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
   .fnote{font-size:11px;margin-top:10px}
   .btn2{min-height:44px;padding:10px 16px;font-size:14px}
   .pcname{display:none}   /* 車体の大きい社名はスマホでは切れるので出さない（後ろの小さい社名が残る） */
+}
+/* 🚨 絵は「高さに合わせて敷き詰める」ので、画面が縦に長いほど左右が大きく切られる。
+   見えるのは viewBox 200幅のうち 100±60×(画面幅÷画面高) だけ。
+   320×844 では場面3の吹き出しの「ね」が画面の外に出ていた（実測 +28px 2026-08-26）。
+   細長い画面では吹き出しを画面の中心（x=100）へ寄せる。幅ではなく縦横比で切り替える */
+@media (max-aspect-ratio:45/100){
+  #sc3 .bub{transform:translate(-6px,0)}
+}
+/* さらに細長い端末では、寄せるだけでは入らないので少しだけ縮める */
+@media (max-aspect-ratio:2/5){
+  #sc3 .bub{transform:translate(-6px,0) scale(.92);transform-origin:106px 35px}
 }
 @media(max-width:380px){.hband h1,.hband .line{font-size:20px}}
 /* 320px級では文字帯が絵の73%を覆い、「設置して感謝」の場面が右端しか見えなかった

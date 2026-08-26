@@ -58,8 +58,10 @@ a{color:inherit}
 /* 🚨 min-width:0 が無いとフレックスの子は中身より縮めない。
    文字を大きくされた時（最小フォント24px等）にロゴごと画面外へはみ出す。
    ふだんは全幅収まる。狭くて入らない時だけ…で切れる */
+/* padding-block はここ（メディアクエリの外）に置く。スマホ側だけに入れると
+   PC幅で押し所が43.2pxのまま残る（2026-08-26 実測・全7ページ） */
 .logo{font-size:22px;font-weight:700;color:var(--brand);text-decoration:none;white-space:nowrap;line-height:1.2;
-  min-width:0;overflow:hidden;text-overflow:ellipsis}
+  min-width:0;overflow:hidden;text-overflow:ellipsis;padding-block:4px}
 .logo span{display:block;font-size:14px;font-weight:400;color:var(--sub);letter-spacing:.1em;
   overflow:hidden;text-overflow:ellipsis}
 
@@ -266,9 +268,6 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   body{font-size:16px;padding-bottom:96px}
   .wrap{padding:0 24px}
   .head .r1{height:64px;padding:0 16px 0 24px;gap:16px}
-  /* ロゴは下層ページからトップへ戻る主要動線。実測43pxで44pxに届いていなかった。
-     上下に等しく足すので、文字の位置は変わらない */
-  .logo{padding-block:4px}
   .mtoggle{display:block}
   /* 🚨 隠すのはJSが動いた時だけ。素の状態で隠すと、JSが落ちた人はメニューを開けない
      （2026-08-26 Codex指摘・実測で再現） */
@@ -402,7 +401,13 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   transition:color .16s var(--ease)}
 .ctel a:hover .t{color:#F0A585}
 .ctel .h{font-size:14px;color:#9FC0CE}
-.cta .side{display:grid;gap:16px;min-width:320px}
+/* 🚨 min-width:320px（と中の .btn の300px）を素で持つと、901〜908pxの帯だけ
+   入りきらず横に振れる（2026-08-26 実測 recruit で901px時 +5px）。
+   解除を @media(max-width:900px) に置いていたので、その隙間が空いていた。
+   min() は「100%＝格子の桁幅」なので効かない。桁が狭い時だけ自分から縮むよう、
+   min-width を素で0にし、広い時の見た目は width で確保する */
+.cta .side{display:grid;gap:16px;min-width:0;width:min(320px,100%)}
+.cta .side .btn{min-width:0}
 
 /* ---- 前後のページへ ---- */
 .pagenav{border-top:1px solid var(--line);background:var(--white)}
@@ -839,7 +844,9 @@ h2{letter-spacing:.05em}
 /* keep-all＝句点や中黒で折る（「浦安・川／口」のような中途半端な切れ方を止める）。
    anywhere＝それでも入らない時だけ、はみ出させずにどこでも折る */
 .gnav .drop .tx>span{color:var(--sub);font-size:13px;letter-spacing:0;line-height:1.6;
-  word-break:keep-all;overflow-wrap:anywhere}
+  word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
+/* 最後の1文字だけ次の行に落ちるのを防ぐ（対応していないブラウザでは今までどおり） */
+.gnav .drop b{text-wrap:pretty;word-break:keep-all;overflow-wrap:anywhere}
 /* --hot の上の --sub は実測3.98:1で基準未満。当てている間は墨まで上げる（9.5:1） */
 .gnav .drop a:hover .tx>span,.gnav .drop a:focus-visible .tx>span{color:var(--ink)}
 .gnav .drop .im{border:2px solid var(--ink);box-shadow:none;background:var(--paper)}

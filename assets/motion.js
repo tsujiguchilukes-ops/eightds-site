@@ -64,6 +64,10 @@
       r2.classList.toggle('open', open);
       mt.setAttribute('aria-expanded', open ? 'true' : 'false');
       mt.textContent = open ? '閉じる' : 'メニュー';
+      /* 開いている間は後ろを動かさない。動くと「どこを見ていたか」が分からなくなる。
+         🚨 body だけに掛けても止まらない（巻いているのは documentElement）。両方に掛ける */
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+      document.body.style.overflow = open ? 'hidden' : '';
     };
     mt.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!r2.classList.contains('open')); });
     document.addEventListener('click', function (e) {          // 外を触ったら閉じる
@@ -78,10 +82,19 @@
   var b = document.querySelector('.ptop');
   if (!b) return;
   var t = false;
+  /* 🚨 スマホでは本文の上に重なる（実測：aboutの「…お任せ」の「も」が隠れた 2026-08-26）。
+     読んでいる間＝下へ送っている間は引っ込め、上へ戻し始めた時だけ出す。
+     PC（本文の外に余白がある）では今までどおり出しっぱなし */
+  var narrow = window.matchMedia('(max-width:900px)');
+  var last = window.pageYOffset;
   var check = function () {
+    var y = window.pageYOffset;
     var hero = document.querySelector('.scrollhero');
-    var past = hero ? window.pageYOffset > hero.offsetTop + hero.offsetHeight - window.innerHeight : window.pageYOffset > 600;
-    b.classList.toggle('on', past && window.pageYOffset > 600);
+    var past = hero ? y > hero.offsetTop + hero.offsetHeight - window.innerHeight : y > 600;
+    var want = past && y > 600;
+    if (want && narrow.matches && y > last + 4) want = false;   // 下へ送っている間は出さない
+    if (Math.abs(y - last) > 2) last = y;
+    b.classList.toggle('on', want);
     t = false;
   };
   window.addEventListener('scroll', function () {
