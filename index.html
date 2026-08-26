@@ -66,10 +66,21 @@ html.go .hband{opacity:0;visibility:hidden;transform:translateY(12px)}
 /* 🚨 動きを抑える設定の人向け。動きを止めたぶん、3場面の言葉を縦に並べて全部読めるようにする。
    「動きを減らす」であって「情報を減らす」ではない */
 html.reduce-hero .scrollhero{height:auto}
+/* 🚨 .stage を解かないと、中の文字が 100vh + overflow:hidden で切り落とされる。
+   実測（2026-08-26 UIチェック君・390px）：文字帯は y=471〜1385 まで伸びているのに
+   844で切れ、場面2の文が途中で切れ、場面3（お客様の声＋ボタン2つ）が丸ごと消えていた */
+html.reduce-hero .stage{position:static;height:auto;overflow:visible}
+/* 暗幕は「絵の上に文字を置く」ための足場。縦に並べる時は絵と文字が重ならないので不要。
+   残すと .hbands の z-index が効かず（static のため）文字の上に乗って読めなくなる */
+html.reduce-hero .scrim{display:none}
 html.reduce-hero .pxs{display:none}
 html.reduce-hero #sc1{display:block;position:relative;opacity:1;visibility:visible;height:52vh}
-html.reduce-hero .hbands{position:static;display:block;padding:32px 40px 56px}
+/* position:relative を保つ＝z-index:3 が生きる。地は暗幕と同じ墨色を敷いて、
+   象牙色の文字のコントラストを確保する（#5E7F96 の上だと本文が3.9:1で基準未満） */
+html.reduce-hero .hbands{position:relative;z-index:3;display:block;padding:32px 40px 56px;
+  background:rgba(24,16,11,.95)}
 html.reduce-hero .hband{opacity:1;visibility:visible;transform:none;margin:0 0 40px}
+html.reduce-hero .hband:last-of-type{margin-bottom:0}
 html.reduce-hero .cue2,html.reduce-hero .chap2{display:none}
 html.go .hband.is-in{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 .hband .k{font-size:13px;font-weight:700;letter-spacing:.28em;color:var(--hot);
@@ -184,7 +195,16 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
   .pcname{display:none}   /* 車体の大きい社名はスマホでは切れるので出さない（後ろの小さい社名が残る） */
 }
 @media(max-width:380px){.hband h1,.hband .line{font-size:20px}}
-@media(max-width:340px){.hband h1,.hband .line{font-size:18px}.scrollhero .note .q{font-size:12px}}
+/* 320px級では文字帯が絵の73%を覆い、「設置して感謝」の場面が右端しか見えなかった
+   （2026-08-26 実測）。声のメモは形式確認のサンプルなので、狭い端末では1枚だけにして絵を出す */
+@media(max-width:340px){
+  .hband h1,.hband .line{font-size:18px}
+  .hband .sub{font-size:13px;margin-top:8px}
+  .scrollhero .note{padding:10px 12px 8px}
+  .scrollhero .note .q{font-size:12px}
+  .notes{gap:8px}
+  .notes .note:nth-child(2){display:none}
+}
 
 /* 現場で決めていること */
 .chain{margin-top:64px;list-style:none;counter-reset:c;max-width:900px}
@@ -657,7 +677,7 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
 <rect x="0.2" y="18.6" width="2.8" height="0.9" fill="#4A3324"/><rect x="3.4" y="18.6" width="2.8" height="0.9" fill="#4A3324"/>
 </g>
 <!-- 一番いい一言はここ -->
-<g class="bub"><rect x="83.3" y="30.3" width="45.4" height="9.4" fill="#33291F"/><rect x="84" y="31" width="44" height="8" fill="#FBF6E9"/><rect x="118.5" y="39" width="2.2" height="2.2" fill="#33291F"/><rect x="119" y="41.2" width="1.7" height="2.2" fill="#33291F"/><rect x="119.4" y="43.4" width="1.2" height="2.2" fill="#33291F"/><rect x="119.8" y="45.6" width="0.9" height="2.2" fill="#33291F"/><text x="106" y="36.6" text-anchor="middle" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="3.3" fill="#33291F">ありがとう。またお願いね</text></g>
+<g class="bub" transform="translate(-2,0)"><rect x="83.3" y="30.3" width="45.4" height="9.4" fill="#33291F"/><rect x="84" y="31" width="44" height="8" fill="#FBF6E9"/><rect x="118.5" y="39" width="2.2" height="2.2" fill="#33291F"/><rect x="119" y="41.2" width="1.7" height="2.2" fill="#33291F"/><rect x="119.4" y="43.4" width="1.2" height="2.2" fill="#33291F"/><rect x="119.8" y="45.6" width="0.9" height="2.2" fill="#33291F"/><text x="106" y="36.6" text-anchor="middle" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="3.3" fill="#33291F">ありがとう。またお願いね</text></g>
 </svg>
 
     <div class="scrim" aria-hidden="true"></div>

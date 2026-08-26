@@ -266,11 +266,17 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   body{font-size:16px;padding-bottom:96px}
   .wrap{padding:0 24px}
   .head .r1{height:64px;padding:0 16px 0 24px;gap:16px}
+  /* ロゴは下層ページからトップへ戻る主要動線。実測43pxで44pxに届いていなかった。
+     上下に等しく足すので、文字の位置は変わらない */
+  .logo{padding-block:4px}
   .mtoggle{display:block}
   /* 🚨 隠すのはJSが動いた時だけ。素の状態で隠すと、JSが落ちた人はメニューを開けない
      （2026-08-26 Codex指摘・実測で再現） */
   html.js-menu .head .r2{display:none}
-  .head .r2.open{display:block;position:absolute;top:64px;left:0;right:0;
+  /* 🚨 ここは必ず html.js-menu を付ける。上の行（詳細度 0,3,1）に
+     `.head .r2.open`（0,3,0）では負けて display:none のまま＝押しても開かない。
+     2026-08-26 UIチェック君が全7ページ・全スマホ幅で再現 */
+  html.js-menu .head .r2.open{display:block;position:absolute;top:64px;left:0;right:0;
     background:var(--white);border-top:1px solid var(--line);
     box-shadow:0 18px 40px -24px rgba(8,58,80,.5);
     max-height:calc(100dvh - 64px - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -412,8 +418,13 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
 @media(max-width:900px){
-  .subnav .in{padding:0 24px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .subnav a{padding:16px 20px;white-space:nowrap;font-size:14px}
+  /* 🚨 横スクロールにすると、合図が無いので隠れた項目に気づけない。
+     about は8項目中3項目しか見えず、沿革・許認可・対応エリア・倉庫拠点に到達できなかった
+     （2026-08-26 実測・中身878pxに対し見える幅390px）。折り返して全部見せる。
+     文字の左端は本文と同じ24px（.in の16px ＋ a の8px）に揃える */
+  .subnav .in{padding:8px 16px;flex-wrap:wrap;overflow-x:visible}
+  .subnav a{padding:10px 8px;white-space:nowrap;font-size:14px}
+  .subnav a:first-child{padding-left:8px}
   .vision .in{padding:72px 24px}
   .vcopy{font-size:28px;line-height:2;margin-top:24px}
   .vparts{grid-template-columns:1fr;gap:32px;margin-top:40px}
@@ -436,6 +447,17 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 /* ---- 320px級の狭い端末（iPhone SEなど）で横にはみ出さない ---- */
 @media(max-width:360px){
   .btn{min-width:0;width:100%;gap:16px;padding:18px 20px 18px 22px;font-size:17px}
+  /* 🚨 320pxでは社名が「エイト流通サー…」、釦が「メニ...」で切れていた（2026-08-26 実測）。
+     会社名を読めることを最優先に、創業年の行を落として字を詰める（創業年はヒーローに出ている） */
+  .head .r1{padding:0 12px 0 16px;gap:8px}
+  .logo{font-size:19px;padding-block:11px}   /* 創業年の行を落とすと23pxになるので、押し所を45pxまで戻す */
+  .logo span{display:none}
+  .mtoggle{padding:0 8px;font-size:13px}
+  /* 下部バーが2〜3行に折れて高さ114px（画面の16%）を占め、3つの釦の背丈も揃っていなかった。
+     行の高さで中央に置くのをやめ、flexで縦中央にすると、折れても高さが揃う */
+  .bar{padding:6px 6px calc(6px + env(safe-area-inset-bottom));gap:6px}
+  .bar a{font-size:13px;line-height:1.2;letter-spacing:0;padding:0 2px;
+    display:flex;align-items:center;justify-content:center}
 }
 
 /* ---- 写真だけの帯（文字を置かない。仕事の空気だけ渡す） ---- */
@@ -679,10 +701,16 @@ html.js-rise [data-rise].is-in .mPin:last-of-type{transition-delay:.86s}
 /* 本文の中の電話番号。文字の大きさは変えず、上下に押せる余白を足す */
 /* 本文の中の電話番号だけ、押せる余白を足す。
    ボタン・カード・帯の中の電話は、それぞれの見た目が既にあるので触らない */
-a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a){
+/* 🚨 下の打ち消し（.bar / .quick）は、この :not() の鎖より詳細度が低くて負ける。
+   （こちら 0,5,3 ／ `.bar a[href^="tel:"]` は 0,2,1）。打ち消す側を強くするのではなく、
+   最初から下部バーと右端ナビを除く。除かないと電話だけ24px背が高くなり、
+   下部バーの3つの釦がガタガタになる（2026-08-26 実測 74px vs 50px） */
+a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):not(.bar a):not(.quick a){
   display:inline-block;padding:12px 2px;margin:-12px -2px;
   text-decoration:none;border-bottom:1px solid currentColor}
-.bar a[href^="tel:"],.quick a[href^="tel:"]{padding:inherit;margin:0;border-bottom:0}
+/* 余白は上の :not() で既に付かないので、ここで padding を書かない。
+   書くと .bar a / .quick a 自身の余白まで消して、電話だけ背が低くなる（実測 47px vs 80px） */
+.bar a[href^="tel:"],.quick a[href^="tel:"]{margin:0;border-bottom:0}
 /* ボタンは .btn の見た目のまま。押し所も .btn の padding で44pxを満たす */
 .btn[href^="tel:"]{margin:0;border-bottom:0}
 /* フッターの番号は白い太字で既に押せると分かる。下線は負のマージンで次の行に重なり、
@@ -762,39 +790,101 @@ h2{letter-spacing:.05em}
 .head::before,.head.on-hero::before{display:none}
 .head.on-hero .logo,.logo{color:var(--ink)}
 .head.on-hero .logo span,.logo span{color:var(--sub)}
-.head.on-hero .gnav>li>a{color:var(--ink)}
-.head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li[aria-current]>a,.head.on-hero .gnav>li:focus-within>a{color:var(--brand)}
-.head.on-hero .gnav>li>a::after{background:var(--accent)}
-.gnav>li>a::after{height:3px;transition:transform .18s steps(3,end)}
-.head.on-hero .mtoggle,.mtoggle{background:var(--white);border:2px solid var(--ink);color:var(--ink);border-radius:0}
-.hbtn,.head.on-hero .hbtn{background:var(--accent);color:#FFF7EA;border-left:2px solid var(--ink);
-  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
-.hbtn::before{background:var(--brand);transition:transform .3s steps(4,end)}
-.hbtn::after{transition:transform .2s steps(2,end)}
 
-/* 引き出し（ドロップダウン）：紙の板＋インクの縁＋ずらし影。項目はコマ刻みで着地 */
-.gnav .drop{background:var(--white);border:2px solid var(--ink);border-top-width:2px;
+/* 親項目：当てる・開く＝「押されたキー」。墨に反転し、ヘッダーの墨線を通って
+   下の盆の縁につながる。どこから開いたかは、この墨のつながりで示す。
+   「今ここ」（aria-current）は3pxテラコッタ下線＝別の言葉に分ける */
+.head.on-hero .gnav>li>a,.gnav>li>a{color:var(--ink);
+  transition:color .08s steps(2,end),background-color .08s steps(2,end)}
+.head.on-hero .gnav>li[aria-current]>a,.gnav>li[aria-current]>a{color:var(--brand)}
+.head.on-hero .gnav>li:hover>a,.head.on-hero .gnav>li:focus-within>a,
+.gnav>li:hover>a,.gnav>li:focus-within>a{background:var(--ink);color:var(--white)}
+/* 下線はホバーの印から外す（反転が印）。現在地の線だけ、ブロックと同じ全幅で常時 */
+.head.on-hero .gnav>li>a::after,.gnav>li>a::after{background:var(--accent);height:3px;
+  left:0;right:0;transition:none}
+.gnav>li:hover>a::after,.gnav>li:focus-within>a::after{transform:scaleX(0)}
+.gnav>li[aria-current]>a::after,.gnav>li[aria-current]:hover>a::after,
+.gnav>li[aria-current]:focus-within>a::after{transform:scaleX(1)}
+.gnav>li>a:focus-visible{outline:2px solid var(--hot);outline-offset:-8px}
+
+/* 引き出し：ナビ全幅（「私たちのこと」左端〜「お問い合わせ」右端）の紙の盆。
+   幅860px固定・right:0 をやめる＝帯が親より左へ余計に伸びない。
+   親ごとに盆を動かすと右端の親（法人のお客様へ）が1440pxで画面からはみ出すので、
+   盆は動かさず「押した親の墨の反転」で出どころを示す */
+.gnav .drop{left:0;right:0;width:auto;padding:16px;
+  background:var(--paper);border:2px solid var(--ink);
   -webkit-backdrop-filter:none;backdrop-filter:none;
   box-shadow:8px 8px 0 var(--shadow-soft);
   transform:translateY(-8px);
   transition:opacity .12s steps(2,end),transform .12s steps(2,end),visibility 0s .12s}
 .gnav>li:hover .drop,.gnav>li:focus-within .drop{
   transition:opacity .18s steps(3,end),transform .18s steps(3,end),visibility 0s}
-.gnav .drop li{transform:translateY(12px);transition:opacity .08s steps(2,end),transform .08s steps(2,end)}
+/* 中身：盆（--paper）の上の白い紙のカード。境界は最初から2pxの墨で見えている */
+.gnav .drop li{display:flex;transform:translateY(12px);
+  transition:opacity .08s steps(2,end),transform .08s steps(2,end)}
 .gnav>li:hover .drop li,.gnav>li:focus-within .drop li{
-  transition:opacity .22s steps(3,end),transform .22s steps(3,end)}
-.gnav .drop li+li{border-left:2px solid var(--line)}
-.gnav .drop a{color:var(--ink)}
-.gnav .drop a:hover,.gnav .drop a:focus-visible{background:var(--paper)}
-.gnav .drop a:focus-visible{outline:2px solid var(--accent)}
-.gnav .drop .tx>span{color:var(--sub)}
+  transition:opacity .18s steps(3,end),transform .18s steps(3,end)}
+.gnav .drop li+li{margin-left:12px;padding-left:0;border-left:0}
+/* 盆はナビ幅（1440pxで707px）しかないので、旧862px幅のままの余白だと
+   説明文が「浦安・川／口」と中途半端に折り返す。余白と字間を詰めて1行に収める */
+.gnav .drop a{flex:1 1 auto;padding:10px;gap:12px;color:var(--ink);
+  background:var(--white);border:2px solid var(--ink);
+  transition:transform .1s steps(2,end),background-color .1s steps(2,end),
+    box-shadow .1s steps(2,end)}
+/* 当てた答え＝カードが左上へ2px浮く・右下に4pxのベタ影・地が--hotに点く（.btnと同じ文法） */
+.gnav .drop a:hover,.gnav .drop a:focus-visible{background:var(--hot);
+  transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--shadow-soft)}
+.gnav .drop a:active{transform:translate(2px,2px);box-shadow:none}
+.gnav .drop a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+/* keep-all＝句点や中黒で折る（「浦安・川／口」のような中途半端な切れ方を止める）。
+   anywhere＝それでも入らない時だけ、はみ出させずにどこでも折る */
+.gnav .drop .tx>span{color:var(--sub);font-size:13px;letter-spacing:0;line-height:1.6;
+  word-break:keep-all;overflow-wrap:anywhere}
+/* --hot の上の --sub は実測3.98:1で基準未満。当てている間は墨まで上げる（9.5:1） */
+.gnav .drop a:hover .tx>span,.gnav .drop a:focus-visible .tx>span{color:var(--ink)}
 .gnav .drop .im{border:2px solid var(--ink);box-shadow:none;background:var(--paper)}
-.gnav .drop .im img{transition:transform .3s steps(4,end)}
-.gnav .drop a::after{background:var(--sub);transition:transform .18s steps(2,end),background-color .18s steps(2,end)}
-.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{background:var(--ink)}
+/* 写真には手を加えない（band のズーム廃止と同じ作法）。動くのはカードと矢印 */
+.gnav .drop .im img{transition:none}
+.gnav .drop a:hover .im img,.gnav .drop a:focus-visible .im img{transform:none}
+.gnav .drop a::after{background:var(--sub);
+  transition:transform .16s steps(2,end),background-color .16s steps(2,end)}
+.gnav .drop a:hover::after,.gnav .drop a:focus-visible::after{
+  background:var(--ink);transform:translateX(8px)}
 
-/* クイックアクセス（右端）：インクの箱＋紙文字 */
-.quick a{background:var(--deep);border-left:2px solid var(--ink-deep);border-bottom:1px solid rgba(251,246,233,.2)}
+/* お問い合わせ：ヘッダー唯一の塗り。藍が左から4コマで塗り替わり、矢印が2コマで一歩進む */
+.hbtn,.head.on-hero .hbtn{background:var(--accent);color:#FFF7EA;border-left:2px solid var(--ink);
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.hbtn::before{background:var(--brand);transition:transform .3s steps(4,end)}
+.hbtn::after{transition:transform .2s steps(2,end)}
+.hbtn:hover::after,.hbtn:focus-visible::after{transform:translateX(8px)}
+.hbtn:focus-visible{outline:2px solid var(--hot);outline-offset:-8px}
+
+/* スマホのメニュー釦：紙のカードと同じ「浮く・沈む」。開いている間は親項目と同じ墨の反転 */
+.head.on-hero .mtoggle,.mtoggle{background:var(--white);border:2px solid var(--ink);
+  color:var(--ink);border-radius:0;
+  transition:transform .1s steps(2,end),box-shadow .1s steps(2,end)}
+.mtoggle:hover{border-color:var(--ink);transform:translate(-2px,-2px);
+  box-shadow:4px 4px 0 var(--shadow-soft)}
+.mtoggle:active{transform:translate(2px,2px);box-shadow:none}
+.mtoggle[aria-expanded="true"]{background:var(--ink);color:var(--white)}
+.mtoggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* 動きを抑える設定の人：コマ送りも移動も止め、出る・消えるだけにする */
+@media (prefers-reduced-motion:reduce){
+  .gnav .drop{transform:none;transition:opacity .01s steps(1,end),visibility 0s .01s}
+  .gnav>li:hover .drop,.gnav>li:focus-within .drop{
+    transition:opacity .01s steps(1,end),visibility 0s}
+  .gnav .drop li,.gnav>li:hover .drop li,.gnav>li:focus-within .drop li{
+    opacity:1;transform:none;transition:none}
+  .gnav>li>a,.gnav .drop a,.gnav .drop a::after,.hbtn::before,.hbtn::after,.mtoggle{transition:none}
+  .gnav .drop a:hover,.gnav .drop a:focus-visible,.mtoggle:hover{transform:none}
+}
+
+/* クイックアクセス（右端）：インクの箱＋紙文字。
+   88pxだと内側72pxに「倉庫・拠点」（14px×5字＋字間≒71.5px）が入らず2行に割れていた。
+   96px（8の倍数）で内側80px。indexの章目盛り .chap2（right:112px）との間は24→16pxに縮むが重ならない */
+.quick a{width:96px;background:var(--deep);border-left:2px solid var(--ink-deep);
+  border-bottom:1px solid rgba(251,246,233,.2)}
 .quick a:hover{background:var(--accent)}
 
 /* ボタン：紙の板＋インクの縁＋右下ずらし影。押した瞬間に沈む */
