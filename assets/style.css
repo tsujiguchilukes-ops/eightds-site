@@ -319,7 +319,9 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 
 /* ========== 印刷 ========== */
 @media print{
-  .head,.bar,.quick,.next,.btn,.phead img{display:none!important}
+  /* .ptop は「出ている状態」で印刷すると紙に丸いボタンが載る（2026-08-26 実測）。
+     .pullback / .env / .grain / .prog も画面用の装飾なので紙には出さない */
+  .head,.bar,.quick,.next,.btn,.phead img,.ptop,.pullback,.env,.grain,.prog{display:none!important}
   body{font-size:13px;color:#000;background:#fff}
   .sec{padding:16px 0;animation:none}
   .phead,footer{background:#fff!important;color:#000!important;print-color-adjust:exact}
@@ -847,6 +849,13 @@ h2{letter-spacing:.05em}
   word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
 /* 最後の1文字だけ次の行に落ちるのを防ぐ（対応していないブラウザでは今までどおり） */
 .gnav .drop b{text-wrap:pretty;word-break:keep-all;overflow-wrap:anywhere}
+/* 🚨 text-wrap:pretty だけでは「へ」「と」が1文字で残った（2026-08-26 実測）。
+   日本語は文節で折るのが正解。対応しているブラウザだけ切り替える
+   （@supports で囲まないと、未対応ブラウザで keep-all が外れて
+   「浦安・川／口」のような中途半端な切れ方に戻る） */
+@supports (word-break:auto-phrase){
+  .gnav .drop b,.gnav .drop .tx>span{word-break:auto-phrase;overflow-wrap:normal}
+}
 /* --hot の上の --sub は実測3.98:1で基準未満。当てている間は墨まで上げる（9.5:1） */
 .gnav .drop a:hover .tx>span,.gnav .drop a:focus-visible .tx>span{color:var(--ink)}
 .gnav .drop .im{border:2px solid var(--ink);box-shadow:none;background:var(--paper)}
