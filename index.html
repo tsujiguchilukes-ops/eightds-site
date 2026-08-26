@@ -226,6 +226,37 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
   .notes .note:nth-child(2){display:none}
 }
 
+/* 🚨 絵は「下端そろえ・高さに合わせて敷き詰める」ので、画面が短いほど小さくなる。
+   一方で文字の帯は高さが決まっているため、画面が短いほど帯が吹き出しに迫り、最後は重なる。
+   実測（2026-08-26・おでんのiPhoneでアドレスバーが出た状態で再現）：
+   440×860で -27px／390×844で -36px／390×750で -93px／360×700で -145px 重なっていた。
+   ⚠️ 今までの検査は「横にはみ出していないか」しか見ておらず、縦の重なりを見ていなかった。
+   短い画面では声のメモを1枚にして帯を低くする（メモは形式を確かめるためのサンプル）。
+   🚨 幅のメディアクエリより後ろに置くこと。前に置くと padding が上書きされて効かない */
+@media (max-height:900px){
+  .notes .note:nth-child(2){display:none}
+}
+@media (max-height:780px){
+  .hbands{padding-bottom:96px}
+  .hband .sub{font-size:13px;margin-top:8px}
+  .scrollhero .note{padding:11px 12px 9px}
+  .scrollhero .note .q{font-size:12px;line-height:1.7}
+  .fnote{font-size:11px;margin-top:8px}
+  .hband .go{margin-top:12px}
+}
+@media (max-height:680px){
+  .hbands{padding-bottom:88px}
+  .hband h1,.hband .line{font-size:20px}
+  .hband .sub{display:none}
+  .fnote{display:none}
+}
+/* 320×568級（アドレスバーが出ると実際は460前後）では、声のメモまで出すと
+   どうしても吹き出しに届く。見出しと進み先（2つのボタン）だけ残す */
+@media (max-height:620px){
+  .notes{display:none}
+  .hband .go{margin-top:16px}
+}
+
 /* 現場で決めていること */
 .chain{margin-top:64px;list-style:none;counter-reset:c;max-width:900px}
 .chain li{position:relative;padding:0 0 40px 80px}
