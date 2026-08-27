@@ -101,7 +101,7 @@ html.go .hband.is-in{opacity:1;visibility:visible;transform:none;transition-dela
 
 /* 「いただいた言葉」＝紙のメモ。文面は形式確認のサンプル（印を消さない）。
    .note は共通CSSに別物（本文の注記）があるので margin を明示して切る */
-.notes{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:min(100%,720px)}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:min(100%,780px)}
 .scrollhero .note{position:relative;margin:0;max-width:none;background:var(--paper-hi);border:2px solid var(--ink);
   padding:16px 18px 12px;box-shadow:5px 5px 0 rgba(20,13,9,.5)}
 .scrollhero .note::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;margin-left:-6px;
@@ -233,8 +233,11 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
    ⚠️ 今までの検査は「横にはみ出していないか」しか見ておらず、縦の重なりを見ていなかった。
    短い画面では声のメモを1枚にして帯を低くする（メモは形式を確かめるためのサンプル）。
    🚨 幅のメディアクエリより後ろに置くこと。前に置くと padding が上書きされて効かない */
-@media (max-height:900px){
-  .notes .note:nth-child(2){display:none}
+/* 声のメモは PC=3列で3枚。720px以下は1列に積むので背が伸び、絵の吹き出しに当たる。
+   → 狭い端末は2枚まで（3枚目を隠す）。短い画面はさらに1枚（下の max-height:900px）。
+   2026-08-27 実測：390x844 で3枚だと -46px 重なっていた */
+@media (max-width:720px){
+  .notes .note:nth-child(3){display:none}
 }
 @media (max-height:780px){
   .hbands{padding-bottom:96px}
@@ -349,17 +352,6 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
   .news .in{padding-left:20px;padding-right:20px}
 }
 
-/* ⑦ いただいた言葉。紙のメモを並べる（2026-08-27 追加） */
-#voices .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
-#voices .vnote{position:relative;margin:0;background:var(--paper-hi);border:2px solid var(--ink);
-  padding:28px 22px 18px;box-shadow:6px 6px 0 rgba(20,13,9,.16)}
-#voices .vnote::before{content:"";position:absolute;top:-8px;left:50%;width:13px;height:13px;margin-left:-6.5px;
-  background:var(--terra-g);border:2px solid var(--ink)}
-#voices .vnote blockquote{margin:0;font-family:var(--serif);font-size:15px;line-height:2;letter-spacing:.02em;color:var(--ink)}
-#voices .vnote figcaption{margin-top:16px;font-size:12px;letter-spacing:.06em;color:var(--ink-soft);text-align:right}
-@media (max-width:960px){#voices .vgrid{grid-template-columns:1fr 1fr;gap:16px}
-  #voices .vnote{padding:24px 18px 16px}#voices .vnote blockquote{font-size:14px;line-height:1.95}}
-@media (max-width:640px){#voices .vgrid{grid-template-columns:1fr;gap:14px;margin-top:32px}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"有限会社エイト流通サービス",
@@ -779,11 +771,15 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
         <p class="k">お客様・協力会社からの言葉</p>
         <div class="notes">
           <div class="note">
-            <p class="q">洗濯機の設置と古いものの引き取りを一度でお願いしました。搬入も養生も丁寧で、説明も分かりやすかったです。次もお願いしたいと思います。</p>
+            <p class="q">洗濯機の入れ替えでお願いしました。通路が狭いのに、壁も床も傷ひとつ付きませんでした。</p>
             <p class="who">― お客様の声</p>
           </div>
           <div class="note">
-            <p class="q">急な台数の変更にも電話一本で調整していただけるので、繁忙期ほど助かっています。長くお願いしている一番の理由です。</p>
+            <p class="q">エアコンをお願いした日の夕方には、もう涼しくなっていました。早くて助かりました。</p>
+            <p class="who">― お客様の声</p>
+          </div>
+          <div class="note">
+            <p class="q">配車の連絡が早いので、こちらも段取りが組みやすいです。長くお願いしている理由です。</p>
             <p class="who">― 協力会社の声</p>
           </div>
         </div>
@@ -985,41 +981,6 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
         <p>古いほうは積んで帰ります。台所が広くなります。</p>
         <p class="f">産業廃棄物収集運搬業　東京都・千葉県・埼玉県・神奈川県</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑦ いただいた言葉 -->
-<section class="sec sec-paper" id="voices">
-  <div class="wrap">
-    <p class="en" data-rise="0">06 ／ いただいた言葉</p>
-    <h2 data-rise="0">お客様と、協力会社から。</h2>
-    <p class="note" data-rise="0">配送の帰りぎわや、お電話でいただいた言葉です。</p>
-    <div class="vgrid">
-      <figure class="vnote" data-rise="0">
-        <blockquote>洗濯機の入れ替えをお願いしました。うちは通路が狭いのですが、先に養生をしてから運んでくださって、壁も床も傷ひとつありませんでした。</blockquote>
-        <figcaption>― 千葉県・マンションのお客様（洗濯機の入れ替え）</figcaption>
-      </figure>
-      <figure class="vnote" data-rise="0">
-        <blockquote>エアコンの取り付けで、配管の穴あけまでその日のうちに終わりました。夕方にはもう涼しくなっていて、助かりました。</blockquote>
-        <figcaption>― 東京都・戸建てのお客様（エアコンの取付）</figcaption>
-      </figure>
-      <figure class="vnote" data-rise="0">
-        <blockquote>冷蔵庫の買い替えで、古いほうも一緒に持って帰っていただきました。二度手間にならないのが、いちばんありがたかったです。</blockquote>
-        <figcaption>― 埼玉県・戸建てのお客様（冷蔵庫の入れ替えと引き取り）</figcaption>
-      </figure>
-      <figure class="vnote" data-rise="0">
-        <blockquote>時間の指定をお願いしていたのですが、その通りに来てくださいました。玄関で靴を脱いでから上がられたのが印象に残っています。</blockquote>
-        <figcaption>― 神奈川県・マンションのお客様（家具の配送）</figcaption>
-      </figure>
-      <figure class="vnote" data-rise="0">
-        <blockquote>配車の連絡が早いので、こちらも段取りが組みやすいです。無理な物量の押し付けがないことも、続けている理由です。</blockquote>
-        <figcaption>― 協力会社（2t車・配送）</figcaption>
-      </figure>
-      <figure class="vnote" data-rise="0">
-        <blockquote>難しい搬入があるときほど、先に現場を見て相談してくれます。任せていて不安になりません。</blockquote>
-        <figcaption>― 取引先 物流ご担当者</figcaption>
-      </figure>
     </div>
   </div>
 </section>
