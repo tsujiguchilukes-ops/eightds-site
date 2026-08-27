@@ -1050,3 +1050,6 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
   .pxwipe{display:none!important}
   [data-in],[data-in].is-in{opacity:1!important;transform:none!important;transition:none!important}
 }
+
+/* 実写の集合写真の帯。顔が上寄りなので、切り口を上へ（2026-08-27） */
+.band.face img{object-position:center 15%}
