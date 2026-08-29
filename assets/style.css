@@ -741,9 +741,14 @@ html.js-rise [data-rise].is-in .mPin:last-of-type{transition-delay:.86s}
    （こちら 0,5,3 ／ `.bar a[href^="tel:"]` は 0,2,1）。打ち消す側を強くするのではなく、
    最初から下部バーと右端ナビを除く。除かないと電話だけ24px背が高くなり、
    下部バーの3つの釦がガタガタになる（2026-08-26 実測 74px vs 50px） */
+/* 🚨 2026-08-29 実測：下線を border-bottom で引くと、押し所の余白12pxぶん下にずれる。
+   文が折り返す所（表のセル・注記）では、その線が次の行の文字を打ち消し線のように貫く。
+   フッターだけ「border-bottom:0」で打ち消していたが、打ち消しでは他の場所が直らない。
+   元の指定側を text-decoration に変えて、線が必ず文字の直下に来るようにする。
+   → [[css-hide-rule-beats-show-rule]]（打ち消しで直さない） */
 a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):not(.bar a):not(.quick a){
-  display:inline-block;padding:12px 2px;margin:-12px -2px;
-  text-decoration:none;border-bottom:1px solid currentColor}
+  display:inline-block;padding:12px 2px;margin:-12px -2px;border-bottom:0;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 /* 余白は上の :not() で既に付かないので、ここで padding を書かない。
    書くと .bar a / .quick a 自身の余白まで消して、電話だけ背が低くなる（実測 47px vs 80px） */
 .bar a[href^="tel:"],.quick a[href^="tel:"]{margin:0;border-bottom:0}
@@ -754,7 +759,7 @@ a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):not(.bar a):not(
    🚨 2026-08-29 実測：:not が4つでは (0,5,5) で、上の (0,7,5) に負けていて効いていなかった。
    幅390pxで「FAX 048-423-2365」が打ち消し線で貫かれていた。上と同じ6つ並べて (0,7,7) にする。
    → [[css-hide-rule-beats-show-rule]] */
-footer address a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):not(.bar a):not(.quick a){border-bottom:0}
+footer address a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):not(.bar a):not(.quick a){border-bottom:0;text-decoration:none}
 /* 番号の途中で折らない（048-229- / 7728 と割れて廃止番号に見える） */
 .nw{white-space:nowrap}
 

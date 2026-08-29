@@ -201,8 +201,21 @@
      画面の高さ（900px）を超えて、見出しと応募釦が下部の固定バーの下に沈んでいた
      （2026-08-29 実測：860x900で h1 が94px隠れ、釦2つは画面外）。画面の高さで上限を切る。
      下の余白は固定バー（約60px）ぶんを必ず足す。40pxだけだと釦が沈む */
-  .rhero{height:auto;aspect-ratio:3/4;min-height:0;max-height:calc(100vh - 8px);max-height:calc(100svh - 8px)}
-  .rhero .in{padding:0 24px calc(32px + 56px + env(safe-area-inset-bottom))}
+  /* 3:4を「下限」にして、中身が増えたら伸びるようにする。
+     🚨 aspect-ratio で高さを決め打ちにすると、見出しが3行→4行に増えたとき
+     390pxで上の35pxがヘッダーの下に潜り込んだ（2026-08-29 実測）。
+     min-height:133vw が 3:4 と同じ高さ。画面の高さで上限を切るのは前と同じ */
+  .rhero{height:auto;aspect-ratio:auto;
+    min-height:min(133vw,calc(100vh - 8px));min-height:min(133vw,calc(100svh - 8px));
+    max-height:calc(100vh - 8px);max-height:calc(100svh - 8px);
+    /* 🚨 高さを min-height に変えると `.in{height:100%}` が auto に落ちて、
+       文字が上に張りついてヘッダーに潜る。下寄せはヒーロー側のflexで作り直す */
+    display:flex;flex-direction:column;justify-content:flex-end}
+  /* flex-shrink の既定は1。中身が入り切らないと縮んで上へはみ出すので、縮ませない */
+  .rhero .in{height:auto;width:100%;flex:none}
+  /* 上の余白は「ヘッダーの高さ(66px)ぶん」。これが無いと、ヒーローが短い端末で
+     中身が下寄せのまま上へ伸びて、RECRUIT の行がヘッダーの裏に入る（390pxで37px）*/
+  .rhero .in{padding:80px 24px calc(32px + 56px + env(safe-area-inset-bottom))}
   /* 「未経験から手に職を。」を途中で折らない（.nw）ぶん、幅320pxでは28pxだと22pxはみ出す。
      画面幅に合わせて縮める。360px以上では28pxのまま（2026-08-29 実測） */
   .rhero h1{font-size:min(28px,7.6vw)}
@@ -288,7 +301,7 @@
   <div class="tone"></div>
   <div class="in">
     <p class="en">RECRUIT</p>
-    <h1>配送も、<span class="nw">エアコン工事</span>も。<br><span class="nw">未経験から手に職を。</span></h1>
+    <h1>配送も、<span class="nw">エアコン工事</span>も。<br><span class="nw">未経験から手に職を。</span><br><span class="nw">一生の仕事に。</span></h1>
     <p class="sub">正社員・アルバイトを募集中。AC工事（エアコン工事）は当社で指導します。</p>
     <div class="heroacts">
       <a class="hact hact-main" href="#entry">電話で応募・相談する</a>
@@ -311,7 +324,7 @@
   <div class="wrap">
     <p class="en" data-rise="0">NOW HIRING</p>
     <h2 data-rise="0">いま募集している働き方は、4つです。</h2>
-    <p class="note" data-rise="0">正社員もアルバイトも募集しています。応募の前に、条件を聞くだけのお電話でも構いません。</p>
+    <p class="note" data-rise="0">正社員は<strong>月給 260,000円〜380,000円</strong>、アルバイトは<strong>日給 11,980円</strong>（別途 交通費1,000円）です。応募の前に、条件を聞くだけのお電話でも構いません。</p>
     <div class="jobcards" data-rise="0">
       <article>
         <p class="k">正社員</p>
@@ -432,10 +445,11 @@
         <tr><th>対象</th><td>要普通免許／電気工事士免許は優遇します／未経験の方も歓迎します<br>2人1組で伺うので、先輩と一緒に覚えていけます。<br>体を動かす仕事です。配送業務でマッチョになりたい方も歓迎します。</td></tr>
         <tr><th>勤務地</th><td>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）<br>埼玉営業所（埼玉県新座市野火止2-11-25）</td></tr>
 <!-- ▼ここから：先方から現在の条件が届いたら、この4行に値を入れるだけ -->
-        <tr><th>給与</th><td>お電話でご案内します。<a href="tel:0473810142">047-381-0142</a>（浦安本社）／<a href="tel:0484232335">048-423-2335</a>（埼玉営業所）</td></tr>
+        <tr><th>給与</th><td><strong>月給 260,000円 〜 380,000円</strong>（未経験の方は260,000円から）<br>月収例　300,000円／入社1年目<br><span class="cau">※上記は近隣の同業他社の水準をもとにした<strong>調整中の案</strong>です。確定した条件はお電話でご案内します。</span></td></tr>
+        <tr><th>賞与・昇給</th><td>賞与 年2回（業績による）／昇給 年1回<br><span class="cau">※調整中の案です。</span></td></tr>
         <tr><th>勤務時間</th><td>お電話でご案内します。</td></tr>
-        <tr><th>休日・休暇</th><td>シフト制</td></tr>
-        <tr><th>待遇</th><td>社会保険完備／昇給あり／賞与あり／交通費支給（規定内）／制服貸与</td></tr>
+        <tr><th>休日・休暇</th><td>シフト制／年間休日105日<br><span class="cau">※調整中の案です。</span></td></tr>
+        <tr><th>待遇</th><td>社会保険完備／交通費支給（規定内）／制服貸与／AC工事の指導あり</td></tr>
 <!-- ▲ここまで -->
       </table>
     </div>
