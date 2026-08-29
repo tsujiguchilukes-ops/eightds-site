@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>お問い合わせ｜有限会社エイト流通サービス</title>
-<meta name="description" content="家電・家具の配送、設置、電気工事、引き取りのご相談。お見積りは無料です。浦安本社 047-381-0142／埼玉営業所 048-423-2335（受付 8:00〜17:00）。">
+<meta name="description" content="家電の配送、設置、電気工事、引き取りのご相談。お見積りは無料です。浦安本社 047-381-0142／埼玉営業所 048-423-2335（受付 8:00〜17:00）。">
 <link rel="canonical" href="https://tsujiguchilukes-ops.github.io/eightds-site/contact.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -104,7 +104,10 @@
 
 </style>
 </head>
-<body class="form-page">
+<!-- 🚨 フォームの ENDPOINT が入って入力欄が出たら、下の class を form-page に戻すこと
+     （body.form-page .bar{display:none} で下部バーが隠れ、送信ボタンと重ならなくなる）。
+     いまはフォームが非表示で電話案内だけなので、バーを出して採用情報へ1タップで行けるようにしている -->
+<body>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
 <div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="bar"></span></div>
 
@@ -123,7 +126,7 @@
       <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
           <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・回収まで</span></span></a></li>
-          <li><a href="about.html#area"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>対応エリア</b><span>東京・千葉・埼玉・神奈川</span></span></a></li>
+          <li><a href="about.html#area"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>対応エリア</b><span>東京・千葉・埼玉</span></span></a></li>
         </ul>
       </li>
       <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
@@ -140,9 +143,9 @@
 </header>
 
 <nav class="quick" aria-label="クイックアクセス">
+  <a href="recruit.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 21c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4"/></svg>採用情報</a>
   <a href="contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14"/><path d="M2 6l10 7 10-7"/></svg>お見積り</a>
   <a href="about.html#urayasu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>倉庫・拠点</a>
-  <a href="recruit.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 21c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4"/></svg>採用情報</a>
   <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
 </nav>
 
@@ -218,7 +221,7 @@
           <label for="area">現場の場所<span class="opt">任意</span></label>
           <select id="area" name="area">
             <option value="">選んでください</option>
-            <option>東京都</option><option>千葉県</option><option>埼玉県</option><option>神奈川県</option>
+            <option>東京都</option><option>千葉県</option><option>埼玉県</option>
             <option>その他</option>
           </select>
         </div>
@@ -268,7 +271,7 @@
         <h3>有限会社エイト流通サービス</h3>
         <address>
           <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
-          TEL&amp;FAX <a href="tel:0473810142">047-381-0142</a><br><br>
+          TEL <a href="tel:0473810142">047-381-0142</a>　<span class="nw">FAX 047-710-8186</span><br><br>
           <strong>埼玉営業所</strong>　〒352-0011 埼玉県新座市野火止2-11-25<br>
           TEL <a href="tel:0484232335">048-423-2335</a>　<span class="nw">FAX 048-423-2365</span><br><br>
           受付時間 8:00〜17:00
@@ -300,7 +303,7 @@
 <div class="bar">
   <a class="b0" href="index.html">ホーム</a>
   <a class="b1" href="tel:0473810142">電話する</a>
-  <a class="b2" href="contact.html">お問い合わせ</a>
+  <a class="b2" href="recruit.html">採用情報</a>
 </div>
 
 <a class="ptop" href="#" aria-label="ページの先頭へ戻る"><span>ページの先頭へ戻る</span></a>
@@ -316,10 +319,10 @@
               '登録電気工事業者です。エアコン・アンテナ・温水洗浄便座の取付を、運んだ担当がそのまま行います。',
               '例）エアコンの取付を新座エリアでお願いしたい。配送は別業者です。'],
     recycle: ['引き取り・リサイクル', '引き取り・リサイクルのご相談',
-              '東京都・千葉県・埼玉県・神奈川県で産業廃棄物収集運搬業の許可を取得しています。新しい商品の設置にあわせて、その場で持ち帰ります。',
+              '東京都・千葉県・埼玉県で承っています（産業廃棄物収集運搬業の許可は神奈川県を含む4都県で取得しています）。新しい商品の設置にあわせて、その場で持ち帰ります。',
               '例）入れ替えのたびに出る古い冷蔵庫・洗濯機の引き取りをお願いしたい。'],
     partner: ['協力会社の応募', '協力会社のご応募',
-              '1都3県で家電・家具の配送、設置工事をお願いできる協力会社様を探しています。継続してお願いできる方を歓迎します。',
+              '東京・千葉・埼玉で家電の配送、設置工事をお願いできる協力会社様と、AC工事（エアコン工事）の請負業者様・請負会社様を随時募集しています。継続してお願いできる方を歓迎します。',
               '例）新座拠点で2t車をお持ちです。家電配送の経験があり、継続で受けられます。'],
     recruit: ['採用について', '採用のご応募・お問い合わせ',
               '未経験の方も歓迎します。配送する車は2tショートトラックです。会社見学だけでも、お気軽にどうぞ。',
@@ -381,7 +384,7 @@
       })
       .catch(function(err){
         okH.textContent='送信できませんでした。';
-        okP.textContent='通信の状態か、送信先の設定が原因です（'+err.message+'）。お手数ですが、お電話でご連絡ください。';
+        okP.textContent='通信の状態か、送信先の設定によるものかもしれません（'+err.message+'）。お手数ですが、お電話でご連絡ください。';
         ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
         btn.disabled=false; btn.textContent='もう一度送信する';
       });
