@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAF5E7">
 <title>お問い合わせ｜有限会社エイト流通サービス</title>
 <meta name="description" content="家電の配送、設置、電気工事、引き取りのご相談。お見積りは無料です。浦安本社 047-381-0142／埼玉営業所 048-423-2335（受付 8:00〜17:00）。">
 <link rel="canonical" href="https://tsujiguchilukes-ops.github.io/eightds-site/contact.html">
@@ -58,6 +59,12 @@
 .formprep .phones b{display:block;margin-top:6px;font-size:32px;color:var(--brand);letter-spacing:.02em;
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .formprep .phn{margin-top:20px;font-size:14px;color:var(--sub);line-height:1.9}
+/* FAXは「注意書き」ではなく「連絡先」。電話の札と同じ family で、一段小さい札にする */
+.faxrow{margin-top:20px;display:grid;grid-template-columns:4em 1fr;gap:16px;align-items:baseline;
+  border-top:1px solid var(--line);padding-top:20px}
+.faxrow dt{font-size:14px;color:var(--sub);letter-spacing:.1em}
+.faxrow dd{font-size:18px;color:var(--brand);font-weight:700;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.faxrow{grid-template-columns:1fr;gap:4px}.faxrow dd{font-size:17px}}
 .uses{list-style:none;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
 .uses li{padding:14px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:17em 1fr;gap:24px;align-items:baseline}
 .uses li:last-child{border-bottom:0}
@@ -120,7 +127,7 @@
       <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
           <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・新座</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅に上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
@@ -164,23 +171,28 @@
   <div class="wrap">
     <p class="en" data-rise="0">CONTACT</p>
     <h2 data-rise="0" id="c-title">配送委託のご相談</h2>
-    <p class="note" data-rise="0" id="c-lead">家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。お急ぎの場合はお電話が確実です。</p>
+    <p class="note" data-rise="0" id="c-lead">家電量販店様・物流企業様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。お急ぎの場合は、お電話ください。</p>
 
     <div class="cgrid">
       <!-- ▼送信先（ENDPOINT）が決まったら hidden を消すだけでフォームが出ます。
      いまは押しても電話案内しか出せないので、入力させてから断る導線を作りません。 -->
         <div class="formprep" role="status">
-          <p class="ph">ただいまフォームの受付を準備しています。<br>お電話でご連絡ください。</p>
+          <p class="ph">お見積り・ご相談は、<br>お電話で承ります。</p>
           <div class="phones">
             <a href="tel:0473810142"><span>浦安本社</span><b>047-381-0142</b></a>
             <a href="tel:0484232335"><span>埼玉営業所</span><b>048-423-2335</b></a>
           </div>
-          <p class="phn">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は時間をおいてお掛け直しください。</p>
+          <p class="phn">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は、時間をおいて、もう一度お電話ください。</p>
+          <dl class="faxrow">
+            <dt>FAX</dt>
+            <dd>浦安本社 <span class="nw">047-710-8186</span>　／　埼玉営業所 <span class="nw">048-423-2365</span></dd>
+          </dl>
+          <p class="phn">メールフォームは、準備ができ次第ご案内します。</p>
           <ul class="uses">
             <li><b>配送・設置のご依頼／お見積り</b><span>量販店様・物流企業様から。お見積りは無料です</span></li>
             <li><b>電気工事のご依頼</b><span>エアコン・アンテナ・温水洗浄便座の取付</span></li>
             <li><b>引き取り・リサイクル</b><span>入れ替えで出る古い品物の回収</span></li>
-            <li><b>協力会社のご応募</b><span>2t車をお持ちの事業者様</span></li>
+            <li><b>協力会社のご応募</b><span>2t車をお持ちの事業者様／エアコン（AC）工事の請負業者様・請負会社様</span></li>
             <li><b>採用のご応募・ご質問</b><span>未経験の方も歓迎します</span></li>
           </ul>
         </div>
@@ -238,7 +250,7 @@
         <div class="sendrow">
           <button class="btn btn-main" type="submit" id="send">この内容で相談する</button>
         </div>
-        <p class="hint" style="margin-top:12px">入力は1分で終わります。フォームの受付が始まりましたら、担当者よりご連絡します。</p>
+        <p class="hint" style="margin-top:12px">フォームの受付が始まりましたら、担当者よりご連絡します。お急ぎの場合はお電話ください。</p>
         <div class="sent" id="ok" role="status" aria-live="polite">
           <h3 id="ok-h">送信しました。</h3>
           <p id="ok-p">内容を確認し、担当者よりご連絡します。お急ぎの場合はお電話ください。</p>
@@ -250,10 +262,10 @@
       </form>
 
       <aside class="cside" data-rise="0">
-        <h3>お電話が確実です</h3>
+        <h3>受付は、お電話で</h3>
         <a class="t" href="tel:0473810142">047-381-0142<small>浦安本社</small></a>
         <a class="t" href="tel:0484232335">048-423-2335<small>埼玉営業所</small></a>
-        <p class="h">受付時間　8:00〜17:00<br>土日祝は現場に出ていることがあります。つながらない場合は時間をおいてお掛け直しください。</p>
+        <p class="h">受付時間　8:00〜17:00<br>土日祝は現場に出ていることがあります。つながらない場合は、時間をおいて、もう一度お電話ください。</p>
       </aside>
     </div>
   </div>
@@ -289,11 +301,10 @@
         <li><a href="service.html#electrical">電気工事</a></li>
       </ul>
       <ul class="fnav">
-        <li class="t">お問い合わせ</li>
-        <li><a href="business.html">法人のお客様へ</a></li>
+        <li class="t">採用・ご依頼</li>
         <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="business.html">法人のお客様へ</a></li>
         <li><a href="contact.html">お問い合わせ</a></li>
-        <li><a href="privacy.html">プライバシーポリシー</a></li>
       </ul>
     </div>
     <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
@@ -335,7 +346,7 @@
       if (r) r.checked = true;
       var t = document.getElementById('c-title'), l = document.getElementById('c-lead'), b = document.getElementById('body');
       if (t) t.textContent = k[1];
-      if (l) l.textContent = k[2] + 'お急ぎの場合はお電話が確実です。';
+      if (l) l.textContent = k[2] + 'お急ぎの場合は、お電話ください。';
       if (b) b.placeholder = k[3];
       document.title = k[1] + '｜有限会社エイト流通サービス';
     }
@@ -367,8 +378,8 @@
     btn.disabled=true; btn.textContent='送信中…';
 
     if(!ENDPOINT){
-      okH.textContent='フォームの受付は準備中です。';
-      okP.textContent='申し訳ありません。ただいまフォームからの受付を準備しています。お手数ですが、お電話でご連絡ください。';
+      okH.textContent='お見積り・ご相談は、お電話で承ります。';
+      okP.textContent='メールフォームは、準備ができ次第ご案内します。お手数ですが、お電話でご連絡ください。';
       ok.classList.add('on'); ok.scrollIntoView({behavior:'smooth',block:'center'});
       btn.disabled=false; btn.textContent='この内容で相談する';
       return;

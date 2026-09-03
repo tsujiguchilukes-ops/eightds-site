@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAF5E7">
 <title>採用情報｜正社員・アルバイト募集中｜有限会社エイト流通サービス（浦安・新座）</title>
 <meta name="description" content="正社員（配送業務社員・AC工事社員・二刀流）とアルバイトを募集中。アルバイトは日給11,980円＋交通費1,000円、単発・短期も相談できます。AC工事は当社で指導。未経験歓迎。千葉県浦安市・埼玉県新座市。">
 <link rel="canonical" href="https://tsujiguchilukes-ops.github.io/eightds-site/recruit.html">
@@ -10,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="有限会社エイト流通サービス">
 <meta property="og:title" content="採用情報｜有限会社エイト流通サービス">
-<meta property="og:description" content="正社員・アルバイト募集中。AC工事は当社で指導します。アルバイトは日給11,980円＋交通費1,000円。未経験歓迎。">
+<meta property="og:description" content="正社員・アルバイト募集中。エアコン（AC）工事の指導は当社で行います。アルバイトは日給11,980円＋交通費1,000円。未経験歓迎。">
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/recruit.html">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -87,6 +88,8 @@
 .pay dt{font-size:14px;letter-spacing:.14em;color:#fff}
 .pay dd{font-size:28px;font-weight:700;line-height:1.4;margin-top:8px;white-space:nowrap;letter-spacing:.02em}
 .pay dd small{font-size:16px;font-weight:400;margin-left:2px}
+/* 🚨 dt に条件まで詰めるとPCで2行に折れ、肝心の金額が下がる（2026-09-03 実測）。条件は dd の下へ */
+.pay dd .pd{display:block;font-size:14px;font-weight:400;letter-spacing:0;white-space:normal;margin-top:6px;color:#FFEFE2}
 
 /* 写真だけの帯は共通の .band（インクの縁の横長1枚）をそのまま使う */
 
@@ -98,6 +101,11 @@
   border:2px solid var(--ink-deep);box-shadow:2px 2px 0 var(--shadow-soft);
   display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;letter-spacing:.04em}
 .fitlist .t{font-size:28px;font-weight:700;letter-spacing:.04em;line-height:1.5}
+/* 正社員だけの条件とアルバイトだけの条件が混ざると、期待させてから断る形になる。札を2群に分ける */
+/* 🚨 群を分ける余白は、群の中の余白（.fitlist の48px）より大きくないと群に見えない。
+   字間と色はこのサイトの小ラベル .en に揃える（.14em/brand だと札の文字と同色で沈む） */
+.wlab{margin-top:64px;font-size:14px;font-weight:700;letter-spacing:.24em;color:var(--accent)}
+.wlab+.welcome{margin-top:12px}
 .welcome{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px}
 .welcome span{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--brand);
   box-shadow:inset 0 0 0 2px var(--line);font-size:16px;padding:8px 20px;border-radius:0}
@@ -131,7 +139,7 @@
 .tabs button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--accent)}
 /* JSが動かなくても両方読めるようにしておく。タブは js-tabs が付いた時だけ効く */
 .panel{display:block}
-.panel h4{font-size:18px;color:var(--brand);margin-bottom:16px}
+.panel h3{font-size:18px;color:var(--brand);margin-bottom:16px}
 .js-tabs .panel{display:none}
 .js-tabs .panel.on{display:block}
 .tabs{display:none}
@@ -155,6 +163,8 @@
 .entry .side{display:grid;gap:16px;min-width:0;width:min(320px,100%)}
 .entry .side .btn{min-width:0}
 .entry .elead{margin-top:20px;max-width:44em;font-size:16px;line-height:1.9;color:#D5CCB8}
+/* 求職者の電話は在職中の夜や土日に集中する。出られない時の次の一手をここに置く */
+.entry .ctelnote{margin-top:16px;max-width:44em;font-size:14px;line-height:1.8;color:#B6AB96}
 
 /* ヒーローの中の行き先。共通の .btn は影と矢印で背が高くなり、
    幅320pxの縦3:4のヒーローに入り切らないので、この頁だけの小さい釦にする */
@@ -170,7 +180,7 @@
 .hact:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(26,20,30,.5)}
 .hact:focus-visible{outline:3px solid var(--hot);outline-offset:3px}
 
-/* いま募集している働き方。下限を素のpxにすると368px未満で必ず溢れる */
+/* 募集中の職種。下限を素のpxにすると368px未満で必ず溢れる */
 .jobcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
   gap:2px;margin-top:48px;background:var(--ink);border:2px solid var(--ink)}
 .jobcards article{background:var(--white);padding:32px;min-width:0}
@@ -266,7 +276,7 @@
       <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
           <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・新座</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅に上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
@@ -301,11 +311,11 @@
   <div class="tone"></div>
   <div class="in">
     <p class="en">RECRUIT</p>
-    <h1>配送も、<span class="nw">エアコン工事</span>も。<br><span class="nw">未経験から手に職を。</span><br><span class="nw">一生の仕事に。</span></h1>
-    <p class="sub">正社員・アルバイトを募集中。AC工事（エアコン工事）は当社で指導します。</p>
+    <h1>配送も、<span class="nw">エアコン工事</span>も。<br><span class="nw">未経験から手に職。</span></h1>
+    <p class="sub">正社員・アルバイトを募集中。工事の指導は当社で行います。</p>
     <div class="heroacts">
       <a class="hact hact-main" href="#entry">電話で応募・相談する</a>
-      <a class="hact" href="#jobs">募集している働き方を見る</a>
+      <a class="hact" href="#jobs">募集中の職種を見る</a>
     </div>
   </div>
 </section>
@@ -316,15 +326,15 @@
 <dl class="pay"><div class="in">
   <div><dt>運転する車</dt><dd>2t<small>ショートトラック</small></dd></div>
   <div><dt>必要な免許</dt><dd>普通免許<small>から相談できます</small></dd></div>
-  <div><dt>アルバイト／日給（交通費1,000円は別途支給）</dt><dd>11,980<small>円</small></dd></div>
+  <div><dt>アルバイトの日給</dt><dd>11,980<small>円</small><span class="pd">交通費1,000円は別途</span></dd></div>
 </div></dl>
 
-<!-- いま募集している働き方 -->
+<!-- 募集中の職種 -->
 <section class="sec sec-paper" id="jobs">
   <div class="wrap">
     <p class="en" data-rise="0">NOW HIRING</p>
-    <h2 data-rise="0">いま募集している働き方は、4つです。</h2>
-    <p class="note" data-rise="0">正社員は<strong>月給 260,000円〜380,000円</strong>、アルバイトは<strong>日給 11,980円</strong>（別途 交通費1,000円）です。応募の前に、条件を聞くだけのお電話でも構いません。</p>
+    <h2 data-rise="0">募集中の4職種</h2>
+    <p class="note" data-rise="0">アルバイトは<strong>日給11,980円</strong>。別途、交通費1,000円を支給します。正社員の給与・勤務時間は、お電話でご案内します。応募の前に、条件を聞くだけのお電話でも構いません。</p>
     <div class="jobcards" data-rise="0">
       <article>
         <p class="k">正社員</p>
@@ -340,15 +350,15 @@
       </article>
       <article>
         <p class="k">正社員</p>
-        <h3>二刀流に挑戦</h3>
-        <p>配送業務を続けながらAC工事を覚えて、配送と工事の両方ができる人を目指せます。これからのAI時代には、必ず手に職が有利になります。</p>
+        <h3>配送・AC工事社員</h3>
+        <p>配送業務を続けながらエアコン（AC）工事を覚える、二刀流の働き方です。指導は当社で行います。</p>
         <p class="jgo"><a href="#requirements">正社員の募集要項を見る</a></p>
       </article>
       <article class="hot">
         <p class="k">アルバイト</p>
         <h3>配送アシスタント</h3>
         <p>日給11,980円。別途、交通費1,000円を支給します。勤務地は埼玉県新座市。現地集合・現地解散も可。日払い・週払い、単発・短期も相談できます。</p>
-        <p class="jgo"><a href="#entry">電話で応募・相談する</a></p>
+        <p class="jgo"><a href="#p-aru">アルバイトの募集要項を見る</a></p>
       </article>
     </div>
   </div>
@@ -357,9 +367,9 @@
 <!-- どんな会社か -->
 <section class="sec">
   <div class="wrap">
-    <p class="en" data-rise="0">01 ／ 会社について</p>
-    <h2 data-rise="0">家電量販店様からお預かりした商品を、<br>お客様宅へお届けし、設置いたします。</h2>
-    <p class="note" data-rise="0">冷蔵庫・洗濯機・テレビ・エアコンの配送、設置、取付工事、リサイクル家電の回収を行っています。配送した担当がそのまま取り付けまで行います。</p>
+    <p class="en" data-rise="0">01 ／ 会社概要</p>
+    <h2 data-rise="0">1日に何軒も、お宅へ上がる仕事。</h2>
+    <p class="note" data-rise="0">冷蔵庫・洗濯機・テレビ・エアコンの配送、設置、取付工事、リサイクル家電の回収まで承っています。配送した担当がそのまま取り付けまで行います。</p>
     <dl class="facts" data-rise="0">
       <div><dt>この道</dt><dd>40<small>年</small><span class="d">1986年創業。家電の配送・設置ひとすじ</span></dd></div>
       <div><dt>勤務地</dt><dd>2<small>ヶ所</small><span class="d">浦安本社／埼玉営業所</span></dd></div>
@@ -377,18 +387,23 @@
 <section class="sec sec-paper">
   <div class="wrap">
     <p class="en" data-rise="0">FIT</p>
-    <h2 data-rise="0">こんな方におすすめです。</h2>
+    <h2 data-rise="0">向いている人</h2>
     <ol class="fitlist" data-rise="0">
       <li><span class="n">01</span><span class="t">明るく挨拶ができる方</span></li>
-      <li><span class="n">02</span><span class="t">体を動かしていたい方</span></li>
+      <li><span class="n">02</span><span class="t">体を動かす仕事を探している方</span></li>
       <li><span class="n">03</span><span class="t">「ありがとう」を直接もらいたい方</span></li>
       <li><span class="n">04</span><span class="t">手に職をつけたい方</span></li>
     </ol>
+    <p class="wlab" data-rise="0">正社員</p>
     <div class="welcome" data-rise="0">
-      <span>正社員募集中</span><span>未経験歓迎</span><span>普通免許から相談できます</span>
-      <span>AC工事の指導あり</span><span>電気工事士免許は優遇</span><span>電気工事に興味のある方</span>
-      <span>マッチョになりたい方歓迎</span><span>免許が無い方も（助手）</span><span>運転なしの仕事もあり</span>
-      <span>現地集合・現地解散も可</span><span>単発・短期OK</span><span>日払い・週払い</span><span>制服貸与</span>
+      <span>未経験歓迎</span><span>普通免許から相談できます</span>
+      <span>エアコン（AC）工事の指導あり</span><span>電気工事士免許は優遇</span><span>電気工事に興味のある方</span>
+      <span>マッチョになりたい方歓迎</span><span>制服貸与</span>
+    </div>
+    <p class="wlab" data-rise="0">アルバイト（配送アシスタント）</p>
+    <div class="welcome" data-rise="0">
+      <span>免許が無い方も（助手）</span><span>運転なしの仕事もあり</span>
+      <span>現地集合・現地解散も可</span><span>単発・短期OK</span><span>日払い・週払い</span>
     </div>
   </div>
 </section>
@@ -399,7 +414,7 @@
   <div class="tone"></div>
   <div class="in">
     <p class="en" data-rise="0">START</p>
-    <h2 data-rise="0">未経験から始める人が多い仕事です。</h2>
+    <h2 data-rise="0">先輩と2人1組で、覚えていく。</h2>
     <div class="tally">
       <div data-rise="0">
         <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 8h18v13H2z"/><path d="M20 13h5l5 5v3h-10z"/><circle cx="8" cy="24" r="3"/><circle cx="24" cy="24" r="3"/></svg>
@@ -419,7 +434,7 @@
     </div>
     <div class="said" data-rise="0">
       <p>配送業務でマッチョになりたい方、歓迎します。<br>これからのAI時代には、必ず手に職が有利になります。</p>
-      <cite>代表より</cite>
+      <cite>代表 渡邉より</cite>
     </div>
   </div>
 </section>
@@ -437,25 +452,24 @@
     </div>
 
     <div class="panel on" id="p-sha" role="tabpanel" aria-labelledby="t-sha">
-      <h4>正社員</h4>
+      <h3>正社員</h3>
       <table class="tbl">
         <tr><th>職種</th><td><strong>正社員募集中</strong><br>①配送業務社員（配送・設置）<br>②AC工事社員（エアコンの取付・取外し・入替）<br>③配送業務とAC工事の二刀流</td></tr>
         <tr><th>仕事内容</th><td>家電量販店で購入された商品を、お客様のご自宅へ配送・設置します。エアコン・アンテナの取付工事（電気工事）も行います。<br>AC工事の指導は当社で行います。配送業務を続けながらAC工事を習得し、二刀流を目指すこともできます。</td></tr>
         <tr><th>車両</th><td>2tショートトラック。普通免許で始められる車両があります。※免許の取得時期・車両によっては準中型免許が必要になる場合があります。詳しくはお電話でご確認ください。</td></tr>
         <tr><th>対象</th><td>要普通免許／電気工事士免許は優遇します／未経験の方も歓迎します<br>2人1組で伺うので、先輩と一緒に覚えていけます。<br>体を動かす仕事です。配送業務でマッチョになりたい方も歓迎します。</td></tr>
         <tr><th>勤務地</th><td>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）<br>埼玉営業所（埼玉県新座市野火止2-11-25）</td></tr>
-<!-- ▼ここから：先方から現在の条件が届いたら、この4行に値を入れるだけ -->
-        <tr><th>給与</th><td><strong>月給 260,000円 〜 380,000円</strong>（未経験の方は260,000円から）<br>月収例　300,000円／入社1年目<br><span class="cau">※上記は近隣の同業他社の水準をもとにした<strong>調整中の案</strong>です。確定した条件はお電話でご案内します。</span></td></tr>
-        <tr><th>賞与・昇給</th><td>賞与 年2回（業績による）／昇給 年1回<br><span class="cau">※調整中の案です。</span></td></tr>
-        <tr><th>勤務時間</th><td>お電話でご案内します。</td></tr>
-        <tr><th>休日・休暇</th><td>シフト制／年間休日105日<br><span class="cau">※調整中の案です。</span></td></tr>
-        <tr><th>待遇</th><td>社会保険完備／交通費支給（規定内）／制服貸与／AC工事の指導あり</td></tr>
+<!-- ▼ここから：先方から正社員の条件（月給・賞与・勤務時間・休日）が届いたら、この1行を
+     「給与」「賞与・昇給」「勤務時間」「休日・休暇」の4行に割って値を入れる。
+     🚨 先方からもらっていない数字を推定で書かない（2026-09-03 に、こちらで作った月給の案を撤去した） -->
+        <tr><th><span class="nw">給与</span>・<span class="nw">勤務時間</span>・<span class="nw">休日</span></th><td>お電話でご案内します。応募を決める前に、条件を聞くだけのお電話でも構いません。<br><span class="cau">※アルバイト（配送アシスタント）の給与・勤務時間は、上のタブ「アルバイト」に載せています。</span></td></tr>
+        <tr><th>待遇</th><td>社会保険完備／交通費支給（規定内）／制服貸与／エアコン（AC）工事の指導あり</td></tr>
 <!-- ▲ここまで -->
       </table>
     </div>
 
     <div class="panel" id="p-aru" role="tabpanel" aria-labelledby="t-aru">
-      <h4>アルバイト</h4>
+      <h3>アルバイト</h3>
       <table class="tbl">
         <tr><th>職種</th><td>家電配送の助手スタッフ（配送アシスタント）</td></tr>
         <tr><th>仕事内容</th><td>配送スタッフの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。作業が早く終われば、早く帰れます。</td></tr>
@@ -476,13 +490,14 @@
   <div class="in">
     <div data-rise="0">
       <p class="en">ENTRY</p>
-      <h2><span class="nw">応募を決める前の</span>相談だけでも、<br>お電話ください。</h2>
+      <h2>まず、条件を聞く電話から。</h2>
       <p class="elead">「正社員の条件を聞きたい」「アルバイトに単発で入りたい」「AC工事に興味がある」――どれでも構いません。ご応募はお電話で受け付けています。</p>
       <p class="fl"><span>お電話</span><span>面接</span><span>会社見学</span><span>入社・勤務開始</span></p>
       <div class="ctel">
         <a href="tel:0473810142"><span class="n">浦安本社</span><span class="t">047-381-0142</span></a>
         <a href="tel:0484232335"><span class="n">埼玉営業所</span><span class="t">048-423-2335</span></a>
       </div>
+      <p class="ctelnote">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は、時間をおいて、もう一度お電話ください。</p>
     </div>
     <div class="side" data-rise="0">
       <a class="btn btn-ghost" href="tel:0473810142">浦安本社へ電話する</a>
@@ -519,11 +534,10 @@
         <li><a href="service.html#electrical">電気工事</a></li>
       </ul>
       <ul class="fnav">
-        <li class="t">お問い合わせ</li>
-        <li><a href="business.html">法人のお客様へ</a></li>
+        <li class="t">採用・ご依頼</li>
         <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="business.html">法人のお客様へ</a></li>
         <li><a href="contact.html">お問い合わせ</a></li>
-        <li><a href="privacy.html">プライバシーポリシー</a></li>
       </ul>
     </div>
     <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
@@ -553,7 +567,7 @@
       o.setAttribute('tabindex', on?'0':'-1');
       p.classList.toggle('on', on);
       p.hidden = !on;                       /* 読み上げにも「今は隠れている」と伝える */
-      p.querySelector('h4').hidden = true;  /* タブに見出しがあるので中の見出しは隠す */
+      p.querySelector('h3').hidden = true;  /* タブに見出しがあるので中の見出しは隠す */
     });
   }
   tabs.forEach(function(t){
@@ -566,6 +580,19 @@
     });
   });
   show(tabs[0]);
+  /* 「アルバイトの募集要項を見る」から来た人に、アルバイトの表を開いて見せる。
+     🚨 パネルは hidden なので、ブラウザ任せでは画面が動かない。開いてから自分で送る */
+  function openByHash(smooth){
+    var h = location.hash;
+    if(h !== '#p-aru' && h !== '#p-sha') return;
+    show(h === '#p-aru' ? tabs[1] : tabs[0]);
+    var sec = document.getElementById('requirements');
+    if(!sec) return;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    sec.scrollIntoView((smooth && !still) ? {behavior:'smooth', block:'start'} : {block:'start'});
+  }
+  openByHash(false);
+  window.addEventListener('hashchange', function(){ openByHash(true); });
 })();
 </script>
 </body>

@@ -21,7 +21,14 @@
   --arrow:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 12'><path d='M0 6h26.5M21.5 1.5 27 6l-5.5 4.5' fill='none' stroke='black' stroke-width='1.4'/></svg>");
   --check:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'><path d='M1 5.6 5 9.6 13 1.4' fill='none' stroke='black' stroke-width='2'/></svg>");
 }
+/* このサイトは紙の明るい配色1本で作っている。宣言しておかないと、端末の設定で
+   ブラウザが勝手に暗く反転させることがある（フォーム部品と選択色が特に崩れる） */
+:root{color-scheme:light}
 *{margin:0;padding:0;box-sizing:border-box}
+/* スマホの二度押し待ち（約300ms）を消し、押した時の灰色の四角も出さない。
+   :active の見た目は自前で持っているので、端末側のハイライトは邪魔になる */
+a,button,summary,label,input,select,textarea{touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(0,0,0,0)}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;
   /* ページ内リンクの着地が固定ヘッダー（--head 76px/64px＋線2px）の下に入らないための余白。
      実測：1440pxでヘッダー実高78px→着地10件が66〜78pxかぶっていた（2026-08-25） */
@@ -1089,3 +1096,14 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
 
 /* 実写の集合写真の帯。顔が上寄りなので、切り口を上へ（2026-08-27） */
 .band.face img{object-position:center 15%}
+
+/* === 見出しを文節で折り返す（2026-09-03）=========================
+   日本語はブラウザが単語の区切りを知らないので、「協力会社を募／集しています」
+   「お届けしたあとま／でが」のように語の真ん中で割れる。CSSだけでは直せない。
+   見出しの中に Google の BudouX が出した文節の切れ目 <wbr> を入れてあるので、
+   ふだんはそこでしか折らない（keep-all）。文節1つが入りきらない幅でだけ、
+   どこでも折って溢れを防ぐ（anywhere）。
+   🚨 見出しの文言を書き換えたら `node ~/.claude/tools/nihongo/budoux-wbr.cjs <file>` を
+      もう一度かけること。手で <span class="nw"> を置いた見出しは対象外（機械は触らない）。
+   🚨 検査は `node ~/.claude/tools/nihongo/budoux-break.cjs <URL>`（語の途中で割れた所を数える） */
+h1,h2,h3,h4,dt,th,.nm,.fitlist .t,.welcome span,.btn,.jgo a,.go,.uses b{word-break:auto-phrase}
