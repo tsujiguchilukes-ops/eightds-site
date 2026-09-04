@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAF5E7">
+<!-- 案B（第2案・提案版）。検索に出さない。本採用が決まるまで noindex は外さない -->
+<meta name="robots" content="noindex,nofollow">
+<title>採用ページ 案B｜有限会社エイト流通サービス（浦安・新座）</title>
+<meta name="description" content="家電の配送・設置・エアコン工事のスタッフ募集。未経験から手に職。2人1組で先輩と覚えられます。（提案版・案B）">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/saiyo.css">
+
+<!-- ============================================================
+  ★差し替え表（このページの「仮」は下の一覧が全部。先方の回答が来たら
+    該当箇所の値を入れて data-tmp="1" と <small class="tmp">※仮</small> を外す）
+    1. 正社員の月給（34万円〜）……………… #pay の数字カード
+    2. 賞与 年3回 …………………………………… #pay の数字カード
+    3. 17時ごろ退社が中心 ………………………… #pay の数字カード
+    4. 社員紹介3人の言葉・入社年・タグ ……… #people .bstaff
+    5. 配送スタッフの1日の各時刻 ……………… #work .bday
+    6. 給与モデル（24歳 年収511万円）………… #work .bmodel
+    7. 社員インタビューの全文 …………………… #voice .bint
+    8. FAQ の「確認中」の答え …………………… #apply .bfaq（TODOコメント付き）
+    9. LINEのURL ………………………………… 末尾 <script> の LINE_URL（入れると
+       ページ内の全CTAボタンが電話→LINEに自動で切り替わる）
+   ============================================================ -->
+</head>
+<body class="saiyo">
+<div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
+
+<header class="head">
+  <div class="r1">
+    <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 浦安・新座</span></a>
+    <button class="mtoggle" aria-expanded="false">メニュー</button>
+    <div class="r2"><div class="in">
+    <ul class="gnav">
+      <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
+        <ul class="drop">
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" decoding="async" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・新座</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" decoding="async" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>お宅へ上がる前に決めていること</span></span></a></li>
+        </ul>
+      </li>
+      <li><a href="service.html" aria-haspopup="true">サービス</a>
+        <ul class="drop">
+          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" decoding="async" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・回収まで</span></span></a></li>
+          <li><a href="about.html#area"><span class="im"><img src="img/L2_トラック列.webp" alt="" loading="lazy" decoding="async" width="160" height="160"></span><span class="tx"><b>対応エリア</b><span>東京・千葉・埼玉</span></span></a></li>
+        </ul>
+      </li>
+      <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
+        <ul class="drop">
+          <li><a href="business.html#flow"><span class="im"><img src="img/V6_説明.webp" alt="" loading="lazy" decoding="async" width="160" height="160"></span><span class="tx"><b>ご依頼の流れ</b><span>お見積りは無料。5段階で完了</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を二人でトラックから降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+        </ul>
+      </li>
+      <li aria-current="page"><a href="saiyo.html">採用情報</a></li>
+    </ul>
+    <a class="hbtn" href="contact.html">お問い合わせ</a>
+  </div></div>
+  </div>
+</header>
+
+<!-- ファーストビュー：明るい地＋濃い文字。暗幕なし。人が主役（トラックを主役にしない） -->
+<section class="bfv">
+  <div class="in">
+    <!-- 🚨 横写真(b_hero_pc)をこの縦長カラムに入れると左の社員の顔が切れる（2026-09-05 実測）。
+         縦写真は顔2つが中央に寄っていて、どの幅でも切れない -->
+    <div class="bfv-photo">
+      <img src="img/b_hero_sp.webp" alt="配送の合間に笑い合う二人のスタッフ" width="1050" height="1400" fetchpriority="high">
+    </div>
+    <div class="bfv-copy">
+      <p class="en">採用 ／ 配送スタッフ・ドライバー</p>
+      <h1>未経験から、<span class="nw">手に職。</span></h1>
+      <p class="bsub">家電を届けて、取り付ける仕事。2人1組で伺うから、先輩と一緒に覚えられます。東京・千葉・埼玉が現場です。</p>
+      <div class="bchips">
+        <span>未経験OK</span><span>普通免許から</span><span>2人1組</span>
+        <span>エアコン工事の指導は自社</span><span>制服貸与</span><span>社会保険完備</span>
+      </div>
+      <dl class="bfv-fact">
+        <dt>アルバイトの日給</dt>
+        <dd><b>11,980</b><small>円</small><span class="d">別途、交通費1,000円を支給。勤務時間8:30〜17:30。日払い・週払い対応</span></dd>
+      </dl>
+      <div class="bfv-acts">
+        <a class="bcta-btn tel" data-cta href="tel:0473810142" data-ga="tel_click">電話で話を聞いてみる</a>
+        <p class="next"><a href="#youkou" data-ga="req_click">募集要項を見る</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1. 給料・待遇 -->
+<section class="sec bsec" id="pay">
+  <div class="wrap">
+    <p class="en" data-rise="0">01 ／ 待遇</p>
+    <h2 data-rise="0">給料と待遇</h2>
+    <p class="note" data-rise="0">アルバイトの日給と勤務時間は確定しています。正社員の給与・休日は現在確認中のため、「※仮」の付いた数字は変わることがあります。正確な条件はお電話でご案内します。</p>
+    <dl class="bnums" data-rise="0">
+      <!-- 🚨 確定している唯一の給与の数字。40px/56pxで「11,980」は156px/218pxあり、
+           2列(390px=131px)にも3列(768px=188px)にも入らず切れていた（2026-09-05 実測）。
+           横いっぱいに置く＝一番強い数字を一番大きく見せる、で両立させる -->
+      <div class="wide">
+        <dt>アルバイト日給</dt>
+        <dd><b>11,980</b><small>円</small>
+        <span class="d">別途、交通費1,000円／日給保障付き／日払い・週払い対応</span></dd>
+      </div>
+      <div>
+        <dt><span class="nw">アルバイト</span><span class="nw">勤務時間</span></dt>
+        <dd class="sm"><b>8:30</b><small>〜</small><b>17:30</b>
+        <span class="d">現地集合・現地解散も可。作業が早く終われば早く帰れます</span></dd>
+      </div>
+      <div data-tmp="1">
+        <dt>正社員 月給<small class="tmp">※仮</small></dt>
+        <dd><b>34</b><small>万円〜</small>
+        <span class="d">確認中の参考値です。確定はお電話でご案内します</span></dd>
+      </div>
+      <div data-tmp="1">
+        <dt>賞与<small class="tmp">※仮</small></dt>
+        <dd>年<b>3</b><small>回</small>
+        <span class="d">確認中の参考値です</span></dd>
+      </div>
+      <div data-tmp="1">
+        <dt>正社員の退勤<small class="tmp">※仮</small></dt>
+        <dd><b>17</b><small>時ごろが中心</small>
+        <span class="d">確認中の参考値です。日により前後します</span></dd>
+      </div>
+      <div>
+        <dt>体制</dt>
+        <dd><b>2</b><small>人1組</small>
+        <span class="d">先輩と一緒に伺うので、未経験の方も現場で覚えられます</span></dd>
+      </div>
+    </dl>
+    <div class="bwel" data-rise="0">
+      <span>社会保険完備</span><span>交通費支給（規定内）</span><span>制服貸与</span>
+      <span>エアコン（AC）工事の指導あり</span><span>電気工事士免許は優遇</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 社員紹介 ＋ 3. SNS動画 -->
+<section class="sec sec-paper bsec" id="people">
+  <div class="wrap">
+    <p class="en" data-rise="0">02 ／ 働く人</p>
+    <h2 data-rise="0">働く人を知る</h2>
+    <p class="note" data-rise="0">現場に立っている社員です。<strong>紹介文はいま本人に確認中のため、すべて仮の内容です。</strong>確定しだい本人の言葉に差し替えます。</p>
+    <div class="bstaff" data-rise="0">
+      <article data-tmp="1">
+        <div class="ph"><img src="img/staff_1.webp" alt="配送スタッフの男性社員" loading="lazy" decoding="async" width="900" height="1200"></div>
+        <div class="tx">
+          <h3>「ありがとう」を毎日、直接もらえる仕事です。<small class="tmp">※仮</small></h3>
+          <p class="yr">配送業務担当<small class="tmp">※仮</small></p>
+          <div class="btags"><span>未経験入社</span><span>配送</span></div>
+        </div>
+      </article>
+      <article data-tmp="1">
+        <div class="ph"><img src="img/staff_2.webp" alt="配送とエアコン工事を担当する男性社員" loading="lazy" decoding="async" width="900" height="1200"></div>
+        <div class="tx">
+          <h3>普通免許だけで入って、いまはエアコン工事も覚えています。<small class="tmp">※仮</small></h3>
+          <p class="yr">配送・AC工事担当<small class="tmp">※仮</small></p>
+          <div class="btags"><span>未経験入社</span><span>二刀流</span><span>手に職</span></div>
+        </div>
+      </article>
+      <article data-tmp="1">
+        <div class="ph"><img src="img/staff_3.webp" alt="配送スタッフの男性社員" loading="lazy" decoding="async" width="900" height="1200"></div>
+        <div class="tx">
+          <h3>2人1組だから、未経験でも怖くなかったです。<small class="tmp">※仮</small></h3>
+          <p class="yr">配送業務担当<small class="tmp">※仮</small></p>
+          <div class="btags"><span>未経験入社</span><span>配送</span></div>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="bh" data-rise="0">現場のようすはSNSで</h3>
+    <p class="note" data-rise="0">現場の1日が伝わるショート動画の枠を用意しました。公開までもうしばらくお待ちください。</p>
+    <!-- 動画が入ったら、この枠を <a data-ga="video_click"> の埋め込みに差し替える -->
+    <div class="bsns" data-rise="0" aria-label="SNS動画（準備中）">
+      <div><b>TikTok</b>動画を<br>準備中です</div>
+      <div><b>Reels</b>動画を<br>準備中です</div>
+      <div><b>近日公開</b>現場の1日</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 仕事内容 ＋ 5. 社員の1日 ＋ 6. 給与モデル ＋ 7. 良い/大変 ＋ 8. 向き/不向き -->
+<section class="sec bsec" id="work">
+  <div class="wrap">
+    <p class="en" data-rise="0">03 ／ 仕事</p>
+    <h2 data-rise="0">仕事を知る</h2>
+    <p class="note" data-rise="0">家電量販店様からお預かりした冷蔵庫・洗濯機・テレビ・エアコンを、お客様のご自宅へ届けて、設置まで行います。現場はお客様の部屋の中。運転する車は2tショートトラックで、普通免許で始められる車両があります。</p>
+
+    <!-- 見出しの段（h2→h4）が飛んでいたので、職種の束にh3を1本立てる -->
+    <h3 class="bh" data-rise="0">募集している職種</h3>
+    <div class="bjobs" data-rise="0">
+      <article>
+        <div class="ph"><img src="img/V5_搬出.webp" alt="住宅街のお宅の前で、二人で洗濯機を降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></div>
+        <div class="tx">
+          <p class="k">正社員①</p>
+          <h4>配送業務社員</h4>
+          <p>商品をお客様宅へお届けし、設置まで行います。2人1組で伺うので、未経験の方も先輩と一緒に覚えていけます。</p>
+        </div>
+      </article>
+      <article>
+        <!-- 🚨 ここはAI画像(S1_工事)だった。実写のエアコン工事が1枚も無いので、絵を置かずに撮影予定と書く。
+             （実写が無い題材に絵を置かない。撮ってもらう内容は _案2_採用/03_先方に聞くこと.md に入れてある） -->
+        <div class="ph ph-todo">エアコン工事の写真は<br>これから撮影します</div>
+        <div class="tx">
+          <p class="k">正社員②</p>
+          <h4>AC工事社員</h4>
+          <p>エアコンの取付・取外し・入替を行います。工事の指導は当社で行いますので、未経験から習得できます。</p>
+        </div>
+      </article>
+      <article>
+        <div class="ph"><img src="img/V2_手元.webp" alt="設置作業の手元" loading="lazy" decoding="async" width="1800" height="1200"></div>
+        <div class="tx">
+          <p class="k">正社員③</p>
+          <h4>配送＋AC工事の二刀流</h4>
+          <p>配送業務を続けながらエアコン工事を覚える働き方です。配送も工事もできる人へ、段階を踏んで育てます。</p>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="bh" data-rise="0">配送スタッフの1日</h3>
+    <p class="note" data-rise="0">アルバイトの勤務時間は<strong>8:30〜17:30で確定</strong>しています。下の時刻は正社員の1日の目安で、<strong>現在確認中の仮のもの</strong>です。</p>
+    <div class="bday" data-rise="0">
+      <div><span class="t" data-tmp="1">8:00ごろ<small class="tmp">※仮</small></span><b>出社・積み込み</b><p>その日のルートを確認して、2人1組でトラックに商品を積み込みます。</p></div>
+      <div><span class="t" data-tmp="1">9:00ごろ<small class="tmp">※仮</small></span><b>午前の配送・設置</b><p>お客様のご自宅へ。冷蔵庫や洗濯機を運び入れて、設置まで行います。</p></div>
+      <div><span class="t" data-tmp="1">12:00ごろ<small class="tmp">※仮</small></span><b>昼休憩</b><p>移動の合間に休憩を取ります。</p></div>
+      <div><span class="t" data-tmp="1">13:00ごろ<small class="tmp">※仮</small></span><b>午後の配送・設置</b><p>午後の配送へ。エアコン工事を覚えると、工事の現場にも入ります。</p></div>
+      <div><span class="t" data-tmp="1">17:00ごろ<small class="tmp">※仮</small></span><b>帰社・報告</b><p>トラックを戻して報告したら、その日の仕事は終わりです。</p></div>
+    </div>
+
+    <h3 class="bh" data-rise="0">給与モデル<small class="tmp">※仮</small></h3>
+    <p class="note" data-rise="0">下のモデルは<strong>現在確認中の仮のもの</strong>です。確定した数字はお電話でご案内します。</p>
+    <div class="bmodel" data-rise="0">
+      <div data-tmp="1">
+        <p class="k">20代・配送業務<small class="tmp">※仮</small></p>
+        <p class="v">年収<b>511</b><small>万円</small></p>
+        <span class="d">24歳のモデルケース。確認中の参考値です</span>
+      </div>
+      <!-- TODO: 先方確認：20代後半・二刀流のモデル年収 -->
+      <div class="todo">20代後半・二刀流のモデルは<br>現在確認中です</div>
+      <!-- TODO: 先方確認：AC工事担当のモデル年収 -->
+      <div class="todo">AC工事担当のモデルは<br>現在確認中です</div>
+    </div>
+
+    <h3 class="bh" data-rise="0">良いところ・大変なところ</h3>
+    <div class="breal" data-rise="0">
+      <div>
+        <h4>正直、大変なところ</h4>
+        <ul>
+          <li>冷蔵庫や洗濯機は重い。体を使う仕事です</li>
+          <li>階段やせまい通路を通す現場もあります</li>
+          <li>お客様の部屋に上がる仕事なので、あいさつと気配りが要ります</li>
+        </ul>
+      </div>
+      <div class="yes">
+        <h4>だから、エイト流通では</h4>
+        <ul>
+          <li>2人1組で運ぶ。ひとりで抱えさせません</li>
+          <li>先輩と同行しながら、仕事の中で覚えていけます</li>
+          <li>エアコン工事の指導は自社。未経験から技術が身につきます</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bsaid" data-rise="0">
+      <p>配送業務でマッチョになりたい方、歓迎します。これからのAI時代には、必ず手に職が有利になります。</p>
+      <cite>代表 渡邉より</cite>
+    </div>
+
+    <h3 class="bh" data-rise="0">向いている人・向いていないかも</h3>
+    <div class="bfit" data-rise="0">
+      <div>
+        <h4>向いている人</h4>
+        <ul>
+          <li><span class="n">01</span>明るく挨拶ができる方</li>
+          <li><span class="n">02</span>体を動かす仕事を探している方</li>
+          <li><span class="n">03</span>「ありがとう」を直接もらいたい方</li>
+          <li><span class="n">04</span>手に職をつけたい方</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h4>向いていないかも</h4>
+        <ul>
+          <li><span class="n">－</span>ずっと一人で黙々と作業したい方（2人1組で動きます）</li>
+          <li><span class="n">－</span>体を動かしたくない方（家電を運ぶ体力仕事です）</li>
+          <li><span class="n">－</span>毎日同じ場所で働きたい方（現場は日ごとに変わります）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. 社員インタビュー（仮） -->
+<section class="sec sec-paper bsec" id="voice">
+  <div class="wrap">
+    <p class="en" data-rise="0">04 ／ 先輩の声</p>
+    <h2 data-rise="0">先輩に聞きました<small class="tmp">※仮</small></h2>
+    <p class="note" data-rise="0"><strong>このインタビューは仮の内容です。</strong>本人への取材が済みしだい、実際の言葉に差し替えます。</p>
+    <div class="bint" data-rise="0" data-tmp="1">
+      <div class="ph"><img src="img/staff_4.webp" alt="配送スタッフの男性社員" loading="lazy" decoding="async" width="900" height="1200"></div>
+      <dl>
+        <dt>入社のきっかけは？<small class="tmp">※仮</small></dt>
+        <dd>体を動かす仕事を探していて、未経験でも先輩と2人1組で覚えられると聞いたのが決め手でした。</dd>
+        <dt>仕事のどこが好きですか？<small class="tmp">※仮</small></dt>
+        <dd>設置が終わった時に、お客様から直接「ありがとう」と言ってもらえるところです。毎日ちゃんと手応えがあります。</dd>
+        <dt>これからの目標は？<small class="tmp">※仮</small></dt>
+        <dd>エアコン工事を覚えて、配送と工事の二刀流になることです。指導は会社でしてもらえるので、少しずつ現場で練習しています。</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 10. 募集要項 ＋ 11. FAQ ＋ 12. CTA -->
+<section class="sec bsec" id="apply">
+  <div class="wrap">
+    <p class="en" data-rise="0">05 ／ 応募</p>
+    <h2 data-rise="0">応募について</h2>
+
+    <h3 class="bh" id="youkou" data-rise="0">募集要項（正社員）</h3>
+    <table class="tbl" data-rise="0">
+      <tr><th>職種</th><td>①配送業務社員（配送・設置）<br>②AC工事社員（エアコンの取付・取外し・入替）<br>③配送業務とAC工事の二刀流</td></tr>
+      <tr><th>仕事内容</th><td>家電量販店で購入された商品を、お客様のご自宅へ配送・設置します。エアコン・アンテナの取付工事（電気工事）も行います。<br>AC工事の指導は当社で行います。配送業務を続けながらAC工事を習得し、二刀流を目指すこともできます。</td></tr>
+      <tr><th>車両</th><td>2tショートトラック。普通免許で始められる車両があります。※免許の取得時期・車両によっては準中型免許が必要になる場合があります。詳しくはお電話でご確認ください。</td></tr>
+      <tr><th>対象</th><td>要普通免許／電気工事士免許は優遇します／未経験の方も歓迎します<br>2人1組で伺うので、先輩と一緒に覚えていけます。</td></tr>
+      <tr><th>勤務地</th><td>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）<br>埼玉営業所（埼玉県新座市野火止2-11-25）</td></tr>
+      <tr><th><span class="nw">給与</span>・<span class="nw">勤務時間</span>・<span class="nw">休日</span></th><td>お電話でご案内します。応募を決める前に、条件を聞くだけのお電話でも構いません。</td></tr>
+      <tr><th>待遇</th><td>社会保険完備／交通費支給（規定内）／制服貸与／エアコン（AC）工事の指導あり</td></tr>
+    </table>
+
+    <h3 class="bh" data-rise="0">募集要項（アルバイト）</h3>
+    <table class="tbl" data-rise="0">
+      <tr><th>職種</th><td>家電配送の助手スタッフ（配送アシスタント）</td></tr>
+      <tr><th>仕事内容</th><td>配送スタッフの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。作業が早く終われば、早く帰れます。</td></tr>
+      <tr><th>対象</th><td>未経験の方、普通免許が無い方も歓迎します。</td></tr>
+      <tr><th>勤務地</th><td>埼玉県新座市野火止2-11-25</td></tr>
+      <tr><th>勤務時間</th><td>8:30〜17:30</td></tr>
+      <tr><th>給与</th><td><strong>日給11,980円</strong>　別途、交通費1,000円を支給します<br>日給保障付き／日払い・週払いに対応しています</td></tr>
+      <tr><th>集合・解散</th><td>現地集合・現地解散も可能です</td></tr>
+      <tr><th>シフト</th><td>単発・短期も相談できます</td></tr>
+    </table>
+    <p class="note" data-rise="0">※勤務時間・シフト・支払いの条件は、時期によって変わることがあります。最新の条件はお電話でご確認ください。</p>
+
+    <h3 class="bh" data-rise="0">よくある質問</h3>
+    <div class="bfaq" data-rise="0">
+      <details>
+        <summary>未経験でも本当に大丈夫ですか？</summary>
+        <div class="a"><p>大丈夫です。2人1組で伺うので、最初は先輩と一緒に現場で覚えていきます。エアコン工事の指導も当社で行います。</p></div>
+      </details>
+      <details>
+        <summary>運転が不安です。免許は何が必要ですか？</summary>
+        <div class="a"><p>正社員は普通免許からご相談いただけます（2tショートトラックに普通免許で始められる車両があります。※免許の取得時期・車両により準中型が必要な場合があります）。アルバイトの助手は運転しないので、免許が無い方も歓迎です。</p></div>
+      </details>
+      <details>
+        <summary>体力に自信がないのですが。</summary>
+        <div class="a"><p>冷蔵庫や洗濯機は2人1組で運びます。ひとりで抱える仕事ではありません。体は仕事の中で慣れていきます。</p></div>
+      </details>
+      <details>
+        <summary>給料はいくらですか？</summary>
+        <div class="a"><p>アルバイトは日給11,980円＋交通費1,000円です。正社員の給与はお電話でご案内します。応募を決める前の、条件を聞くだけのお電話でも構いません。</p></div>
+      </details>
+      <details>
+        <summary>休みはどのくらいありますか？</summary>
+        <!-- TODO: 先方確認（休日・休暇）。回答が来たらここに入れる -->
+        <div class="a"><p>現在確認中です。お電話でご案内します。</p></div>
+      </details>
+      <details>
+        <summary>何時ごろに仕事が終わりますか？</summary>
+        <!-- TODO: 先方確認（正社員の退勤時間）。回答が来たらここに入れる -->
+        <div class="a"><p>アルバイトは8:30〜17:30です。作業が早く終われば早く帰れます。正社員の勤務時間は現在確認中のため、お電話でご案内します。</p></div>
+      </details>
+      <details>
+        <summary>面接では何を聞かれますか？</summary>
+        <!-- TODO: 先方確認（面接で聞くこと・持ち物）。回答が来たらここに入れる -->
+        <div class="a"><p>現在確認中です。お電話でご案内します。</p></div>
+      </details>
+      <details>
+        <summary>応募の前に、話を聞くだけでもいいですか？</summary>
+        <div class="a"><p>構いません。「条件を聞きたいだけ」のお電話も受け付けています。</p></div>
+      </details>
+      <details>
+        <summary>資格や技術は身につきますか？</summary>
+        <!-- TODO: 先方確認（資格取得の費用負担の有無）。回答が来たらここに足す -->
+        <div class="a"><p>エアコン（AC）工事の指導は当社で行うので、未経験から工事の技術を習得できます。電気工事士免許をお持ちの方は優遇します。資格取得の費用面については現在確認中です。</p></div>
+      </details>
+      <details>
+        <summary>勤務地はどこですか？</summary>
+        <div class="a"><p>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）と埼玉営業所（埼玉県新座市野火止2-11-25）です。配送で伺う範囲は東京・千葉・埼玉です。</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 写真の帯：横写真は素の縦横比のまま全幅で使う（トリミング0＝顔が切れない） -->
+<div class="bband"><img src="img/b_hero_pc.webp" alt="倉庫の前で談笑する二人のスタッフ" loading="lazy" decoding="async" width="2000" height="1125"></div>
+
+<!-- 13. 締めのCTA -->
+<section class="bclose" id="entry">
+  <div class="in">
+    <div data-rise="0">
+      <h3>まず、条件を聞くだけでも。</h3>
+      <p>「正社員の条件を聞きたい」「アルバイトに単発で入りたい」「エアコン工事に興味がある」――どれでも構いません。応募を決める前のご連絡も受け付けています。</p>
+      <a class="bcta-btn tel" data-cta href="tel:0473810142" data-ga="tel_click">電話で話を聞いてみる</a>
+      <div class="btel">
+        <span>浦安本社 <a href="tel:0473810142" data-ga="tel_click">047-381-0142</a></span>
+        <span>埼玉営業所 <a href="tel:0484232335" data-ga="tel_click">048-423-2335</a></span>
+      </div>
+      <p class="note2">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は、時間をおいて、もう一度お電話ください。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h3><span class="nw">有限会社</span><span class="nw">エイト流通サービス</span></h3>
+        <address>
+          <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
+          TEL <a href="tel:0473810142">047-381-0142</a>　<span class="nw">FAX 047-710-8186</span><br><br>
+          <strong>埼玉営業所</strong>　〒352-0011 埼玉県新座市野火止2-11-25<br>
+          TEL <a href="tel:0484232335">048-423-2335</a>　<span class="nw">FAX 048-423-2365</span><br><br>
+          受付時間 8:00〜17:00
+        </address>
+      </div>
+      <ul class="fnav">
+        <li class="t">会社について</li>
+        <li><a href="about.html">私たちのこと</a></li>
+        <li><a href="about.html#outline">会社概要・沿革</a></li>
+        <li><a href="about.html#license">許認可</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">サービス</li>
+        <li><a href="service.html#delivery">家電の配送・設置</a></li>
+        <li><a href="service.html#electrical">電気工事</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">採用・ご依頼</li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="business.html">法人のお客様へ</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
+  </div>
+</footer>
+
+<!-- スマホ下部の固定CTA：主＋副の2本まで（3本並ぶと押し間違える＝首都圏物流の実測）。
+     主は LINE_URL が入ると自動でLINEに差し替わる -->
+<div class="bbar">
+  <a class="bcta-btn tel" data-cta href="tel:0473810142" data-ga="tel_click" data-ga-place="fixed_bar">電話で話を聞いてみる</a>
+  <a class="bbar-sub" href="#youkou" data-ga="req_click" data-ga-place="fixed_bar">募集要項</a>
+</div>
+
+<script src="assets/motion.js"></script>
+<script>
+/* =====================================================
+   LINEのURLはこの1定数だけ。
+   空（""）の間：ボタンは電話のまま（LINEボタンは出さない）
+   URLが入ったら：data-cta の全ボタンがLINEに切り替わる
+   ===================================================== */
+(function () {
+  var LINE_URL = "";
+  if (!LINE_URL) return;
+  document.querySelectorAll('a[data-cta]').forEach(function (a) {
+    a.href = LINE_URL;
+    a.textContent = 'LINEで話を聞いてみる';
+    a.setAttribute('data-ga', 'line_click');
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+  });
+})();
+</script>
+</body>
+</html>
