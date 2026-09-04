@@ -26,6 +26,12 @@
 /* 🚨 .btn-ghost は暗い地の上用（白文字）。紙色のこのページで使うと文字が消える。
    ここでは紙のカードとして書く（本文のボタンと同じ「浮く・沈む」はそのまま効く） */
 .nf .btn{background:var(--white);color:var(--ink);min-width:0}
+/* 🚨 「電話する 047-381-0142」は既定の余白(gap32+左右60)だと箱に入らず番号が切れる（実測 381>338）。
+   このページのボタンだけ詰める。2026-09-04 */
+.nf .ways .btn{gap:12px;padding:20px 16px 20px 20px}
+.nf .ways .btn .nw{font-size:16px}
+@media(max-width:360px){.nf .ways .btn{gap:8px;padding:16px 12px}
+  .nf .ways .btn .nw{font-size:14px}.nf .ways .btn::after{width:20px}}
 .nf .btn::before{background:var(--hot)}
 .nf .btn-main{background:var(--accent);color:#FFF7EA}
 .nf .btn-main::before{background:var(--brand)}
@@ -80,7 +86,7 @@
 </nav>
 
 <div class="phead">
-  <img src="/eightds-site/img/L3_倉庫.webp" alt="" aria-hidden="true" width="1920" height="1071">
+  <img src="/eightds-site/img/V1_引き.webp" alt="" aria-hidden="true" width="1800" height="1200">
   <div class="in">
     <p class="en">NOT FOUND</p>
     <h1>ページが見つかりません</h1>
@@ -107,7 +113,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <h3>有限会社エイト流通サービス</h3>
+        <h3><span class="nw">有限会社</span><span class="nw">エイト流通サービス</span></h3>
         <address>
           <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
           TEL <a href="tel:0473810142">047-381-0142</a>　<span class="nw">FAX 047-710-8186</span><br><br>

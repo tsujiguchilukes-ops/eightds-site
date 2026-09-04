@@ -1095,7 +1095,8 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
 }
 
 /* 実写の集合写真の帯。顔が上寄りなので、切り口を上へ（2026-08-27） */
-.band.face img{object-position:center 15%}
+/* 🚨 15%だと1920px幅でアゴが切れる（2026-09-04 実測）。21%は320〜1920の全幅で顔が丸ごと入る */
+.band.face img{object-position:center 21%}
 
 /* === 見出しを文節で折り返す（2026-09-03）=========================
    日本語はブラウザが単語の区切りを知らないので、「協力会社を募／集しています」

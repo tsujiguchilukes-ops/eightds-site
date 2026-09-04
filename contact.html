@@ -64,6 +64,8 @@
   border-top:1px solid var(--line);padding-top:20px}
 .faxrow dt{font-size:14px;color:var(--sub);letter-spacing:.1em}
 .faxrow dd{font-size:18px;color:var(--brand);font-weight:700;font-variant-numeric:tabular-nums}
+.faxrow dd .fx{display:block}
+.faxrow dd .fx+.fx{margin-top:4px}
 @media(max-width:900px){.faxrow{grid-template-columns:1fr;gap:4px}.faxrow dd{font-size:17px}}
 .uses{list-style:none;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
 .uses li{padding:14px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:17em 1fr;gap:24px;align-items:baseline}
@@ -185,7 +187,7 @@
           <p class="phn">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は、時間をおいて、もう一度お電話ください。</p>
           <dl class="faxrow">
             <dt>FAX</dt>
-            <dd>浦安本社 <span class="nw">047-710-8186</span>　／　埼玉営業所 <span class="nw">048-423-2365</span></dd>
+            <dd><span class="fx">浦安本社 <span class="nw">047-710-8186</span></span><span class="fx">埼玉営業所 <span class="nw">048-423-2365</span></span></dd>
           </dl>
           <p class="phn">メールフォームは、準備ができ次第ご案内します。</p>
           <ul class="uses">
@@ -280,7 +282,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <h3>有限会社エイト流通サービス</h3>
+        <h3><span class="nw">有限会社</span><span class="nw">エイト流通サービス</span></h3>
         <address>
           <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
           TEL <a href="tel:0473810142">047-381-0142</a>　<span class="nw">FAX 047-710-8186</span><br><br>
