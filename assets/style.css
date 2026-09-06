@@ -1292,8 +1292,8 @@ thead th{background:var(--deep);border-color:var(--deep)}
 .bv-k{font-size:13px;letter-spacing:.22em;font-weight:700;color:var(--brand);margin-bottom:22px}
 .bv-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .bv-note{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 24px 18px;position:relative}
-.bv-note::before{content:"“";position:absolute;top:6px;left:18px;font-size:44px;font-weight:700;color:#BBD7F3;font-family:Georgia,serif}
-.bv-note .q{font-size:15px;line-height:1.9;color:var(--ink);padding-top:14px}
+/* 飾りの引用符はコンマのゴミに見えるので置かない（2026-09-07 おでん実機指摘） */
+.bv-note .q{font-size:15px;line-height:1.9;color:var(--ink)}
 .bv-note .who{margin-top:10px;font-size:12.5px;color:var(--sub)}
 
 /* スマホ */
