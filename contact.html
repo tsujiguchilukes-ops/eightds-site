@@ -171,7 +171,7 @@
   <div class="wrap">
     <p class="en" data-rise="0">CONTACT</p>
     <h2 data-rise="0" id="c-title">配送委託のご相談</h2>
-    <p class="note" data-rise="0" id="c-lead">家電量販店様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。お急ぎの場合は、お電話ください。</p>
+    <p class="note" data-rise="0" id="c-lead">家電量販店様からのご依頼を受けています。お見積りは無料です。搬入できるかどうかのご確認も、お気軽にどうぞ。お急ぎの場合は、<span class="nw">お電話ください。</span></p>
 
     <div class="cgrid">
       <!-- ▼送信先（ENDPOINT）が決まったら hidden を消すだけでフォームが出ます。
@@ -336,7 +336,7 @@
       if (r) r.checked = true;
       var t = document.getElementById('c-title'), l = document.getElementById('c-lead'), b = document.getElementById('body');
       if (t) t.textContent = k[1];
-      if (l) l.textContent = k[2] + 'お急ぎの場合は、お電話ください。';
+      if (l) l.textContent = k[2] + 'お急ぎの場合は、<span class="nw">お電話ください。</span>';
       if (b) b.placeholder = k[3];
       document.title = k[1] + '｜有限会社エイト流通サービス';
     }

@@ -1746,3 +1746,8 @@ h1,h2,h3,.bh-lead{word-break:auto-phrase}
   .rfaq summary{padding:16px 28px 16px 38px;font-size:16px}
   .rfaq details>p{padding:0 4px 16px 38px}
 }
+
+/* 2026-09-07 改行の精度（文言変更に伴う泣き別れ対策）
+   pretty/auto-phraseはChrome系、balanceはSafariにも効く。文節はHTML側の.nwで補強 */
+p,li,dd,figcaption{text-wrap:pretty}
+summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
