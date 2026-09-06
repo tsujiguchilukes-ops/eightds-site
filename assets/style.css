@@ -1727,3 +1727,22 @@ h1,h2,h3,.bh-lead{word-break:auto-phrase}
 .is-line{background:var(--brand) !important;border-color:var(--brand) !important;color:#fff !important;
   box-shadow:0 10px 26px rgba(22,113,206,.26) !important}
 .is-line:hover{background:var(--deep) !important;border-color:var(--deep) !important}
+
+/* 応募前FAQ（2026-09-07 別案alt-realの#faqを参考に採用。色味は既存のまま） */
+.rfaq{margin-top:40px;border-top:1px solid var(--line)}
+.rfaq details{border-bottom:1px solid var(--line)}
+.rfaq summary{list-style:none;cursor:pointer;padding:20px 36px 20px 42px;font-size:17px;font-weight:700;
+  color:var(--brand);position:relative;transition:color .16s var(--ease)}
+.rfaq summary:hover{color:var(--deep)}
+.rfaq summary::-webkit-details-marker{display:none}
+.rfaq summary::before{content:"Q";position:absolute;left:0;top:20px;width:26px;height:26px;background:var(--brand);
+  color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
+.rfaq summary::after{content:"";position:absolute;right:8px;top:26px;width:10px;height:10px;
+  border-right:2px solid var(--brand);border-bottom:2px solid var(--brand);transform:rotate(45deg);
+  transition:transform .28s var(--ease)}
+.rfaq details[open] summary::after{transform:rotate(225deg)}
+.rfaq details>p{padding:0 36px 20px 42px;font-size:16px;line-height:1.9}
+@media(max-width:720px){
+  .rfaq summary{padding:16px 28px 16px 38px;font-size:16px}
+  .rfaq details>p{padding:0 4px 16px 38px}
+}
