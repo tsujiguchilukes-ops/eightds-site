@@ -1690,3 +1690,40 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 @media (min-width:721px) and (max-width:1000px){
   :root{ --s-sm:48px; --s-md:72px; --s-lg:104px; }
 }
+
+/* ===== 2026-09-07 実機指摘まとめ（おでん・深夜レビュー） ===== */
+/* 見出しの語中改行を防ぐ（「つ／なぐ」切れ。対応外ブラウザでは無視される） */
+h1,h2,h3,.bh-lead{word-break:auto-phrase}
+
+/* ヒーロー：白いチップ廃止→ひとことメッセージ */
+.bh-msg{margin-top:28px;color:#fff;font-size:21px;font-weight:700;letter-spacing:.1em;
+  text-shadow:0 1px 14px rgba(7,36,78,.5)}
+@media(max-width:720px){.bh-msg{font-size:17px;margin-top:20px}}
+
+/* どのページでも浮いて見える「先頭へ戻る」ボタンは出さない */
+.ptop{display:none !important}
+
+/* 固定バーは採用1本。端の見切れ感をなくす */
+@media(max-width:720px){
+  .bar{padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:8px}
+  .bar a{border-radius:999px;min-height:52px;line-height:52px;font-size:16px}
+}
+
+/* メニュー（ドロワー）内の丸ボタン→面で揃える（四角の中の丸の違和感） */
+.head .r2.open .hbtn{border-radius:14px;margin:8px 16px 16px}
+
+/* 三原則の書は、携帯でもPCでも3枚横並び */
+.shodo{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){
+  .shodo{grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .shodo img{max-width:100%}
+}
+
+/* 地図：ラベルに紙色のフチ（線と重なっても読める） */
+.mPinT,.mPinS{paint-order:stroke;stroke:#F3F8FD;stroke-width:6px;stroke-linejoin:round}
+
+/* 2026-09-07 おでん指摘: LINEボタンの深緑(#046B31)がダサい → サイトの青に統一
+   (LINEであることは文言で伝わる。明暗比: #1671CE on #fff文字=4.6:1) */
+.is-line{background:var(--brand) !important;border-color:var(--brand) !important;color:#fff !important;
+  box-shadow:0 10px 26px rgba(22,113,206,.26) !important}
+.is-line:hover{background:var(--deep) !important;border-color:var(--deep) !important}
