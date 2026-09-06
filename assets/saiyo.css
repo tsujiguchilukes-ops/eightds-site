@@ -66,6 +66,9 @@
 /* 時刻など桁の多い値は1段下げる（40pxだと173px幅のカードで折れる） */
 .bnums dd.sm b{font-size:28px}
 .bnums .d{display:block;margin-top:8px;font-size:14px;font-weight:400;line-height:1.7;color:var(--sub)}
+/* 🚨 説明文の中で強調したい語に <b> を使うと、上の .bnums dd b（40px）を拾って巨大になる。
+   説明文の中だけは元の大きさに戻す（2026-09-06 実測：「最寄り駅まで送迎します」が40pxで出た） */
+.bnums .d b{font-size:14px;font-weight:700;color:var(--ink);display:inline}
 /* 未確定のカードは白地を落として「仮」であることを地の色でも示す */
 .bnums>div.wide{grid-column:1/-1}
 .bnums>div[data-tmp]{background:var(--paper)}
@@ -257,6 +260,12 @@
   .bfv-fact dd b{font-size:56px}
   .bfv-acts{flex-direction:row;align-items:center;gap:24px}
   .bfv-acts .bcta-btn{min-width:320px}
+  /* 🚨 LINEボタンが入ると主ボタンが2本になり、320+24+320+60+余白=最低828px。
+     721〜827pxで最大107pxはみ出した（2026-09-06 検品）。この帯は縦積みに戻す */
+  @media (max-width:900px){
+    .bfv-acts:has(.is-line),.bfv-acts.has-line{flex-direction:column;align-items:stretch}
+    .bfv-acts:has(.is-line) .bcta-btn,.bfv-acts.has-line .bcta-btn{min-width:0}
+  }
   .bnums{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
   .bnums dd b{font-size:56px}
   .bstaff{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}

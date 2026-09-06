@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#FAF5E7">
+<meta name="theme-color" content="#1671CE">
 <title>家電の配送・設置・引き取り｜有限会社エイト流通サービス（浦安・新座）</title>
 <meta name="description" content="1986年創業。家電量販店・物流企業からお預かりした冷蔵庫・洗濯機・テレビ・エアコンを、個人のお宅まで運び、設置・取り付けをして、古い品物を引き取ります。浦安と新座の2拠点から東京・千葉・埼玉へ。">
 <link rel="canonical" href="https://tsujiguchilukes-ops.github.io/eightds-site/">
@@ -17,250 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-/* =========================================================
-   このページだけの組み：ドット絵ヒーロー（案2-B2 完成版 2026-08-25 採用）
-   4場面：①倉庫で受け渡し →（走行）町を走る→ ②お宅で搬入 → ③設置して感謝。
-   - 変数は .scrollhero にスコープ（共通CSSの :root と衝突させない）。
-     --tx / --lit はJSが .scrollhero 要素の style に書く（rootに書くと負ける）
-   - .hbands の幅はサイト共通の --max(1240px) を継承（ヘッダーと左端を揃える）
-   - スマホは固定下部バー(.bar)があるので .hbands の下だけ120pxあける
-   - 絵は viewBox 200x120。スマホは中央 x72〜128 しか映らないので
-     主役と吹き出しは必ずその帯に置く（車両の端・店先はPC用の背景）
-   - 動きはコマを刻む steps()。JSが落ちても場面1と文字が見える
-   ========================================================= */
-.scrollhero{
-  --paper:#F3EBDB; --paper-hi:#FBF6E9; --paper-dim:#E9DEC6;
-  --ink:#33291F; --ink-soft:#6A5D4D;
-  --terra:#93401D; --terra-g:#C0603A;
-  --cream:#FAF5E9; --cream-soft:#EAE2D0; --hot:#F5CD9E;
-  --lit:.9; --tx:6px;
-  --serif:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP",serif;
-  --tsh:0 1px 2px rgba(20,13,9,.98),0 3px 10px rgba(20,13,9,.9),0 10px 34px rgba(20,13,9,.8);
-}
-
-/* ---- ヒーロー：全面の絵＋暗幕＋文字 ---- */
-/* 走行区間を足したぶん220→270vh。300vhで「速く送ると飛ぶ」弱点が出たので+50に留め、
-   場面切替は閾値式のまま＝飛ばされても場面1→2の繋がりは壊れない */
-.scrollhero{position:relative;height:270vh;background:#5E7F96}
-.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#5E7F96}
-.pxs{position:absolute;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated;
-  opacity:0;visibility:hidden}
-.pxs.is-on{opacity:1;visibility:visible}
-html.go .pxs{transition:opacity .42s cubic-bezier(.22,1,.36,1),visibility 0s .42s}
-html.go .pxs.is-on{transition-delay:0s}
-.lights{opacity:var(--lit)}
-/* 暗幕＝文字の足場（下）＋頭の帯（上）。ドットの粒を殺さない程度の暖色の黒 */
-.scrim{position:absolute;inset:0;pointer-events:none;background:
-  linear-gradient(to top,rgba(24,16,11,.95) 0%,rgba(24,16,11,.84) 15%,rgba(24,16,11,.55) 32%,rgba(24,16,11,.2) 50%,rgba(24,16,11,0) 66%),
-  linear-gradient(to bottom,rgba(24,16,11,.5) 0%,rgba(24,16,11,0) 17%)}
-
-/* ---- 文字の帯（絵の上・左下） ---- */
-/* 節ごとの高さがだいぶ違う（節3だけ声2枚＋ボタン）ので、行の共有はせず
-   全節を下端ぞろえの独立ブロックにする。共有すると節1・2の文字が絵まで迫り上がる */
-.hbands{position:absolute;inset:0;max-width:var(--max);margin:0 auto;z-index:3;
-  padding:0 40px 56px;display:grid;pointer-events:none}
-.hband{grid-column:1;grid-row:1;align-self:end;justify-self:start;display:block;
-  width:min(92%,860px);opacity:0;visibility:hidden;transform:translateY(12px);
-  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility 0s .5s}
-.hband:first-of-type{opacity:1;visibility:visible;transform:none}   /* JSが落ちても場面1の文字は見える */
-html.go .hband{opacity:0;visibility:hidden;transform:translateY(12px)}
-/* 🚨 動きを抑える設定の人向け。動きを止めたぶん、3場面の言葉を縦に並べて全部読めるようにする。
-   「動きを減らす」であって「情報を減らす」ではない */
-html.reduce-hero .scrollhero{height:auto}
-/* 🚨 .stage を解かないと、中の文字が 100vh + overflow:hidden で切り落とされる。
-   実測（2026-08-26 UIチェック君・390px）：文字帯は y=471〜1385 まで伸びているのに
-   844で切れ、場面2の文が途中で切れ、場面3（お客様の声＋ボタン2つ）が丸ごと消えていた */
-html.reduce-hero .stage{position:static;height:auto;overflow:visible}
-/* 暗幕は「絵の上に文字を置く」ための足場。縦に並べる時は絵と文字が重ならないので不要。
-   残すと .hbands の z-index が効かず（static のため）文字の上に乗って読めなくなる */
-html.reduce-hero .scrim{display:none}
-html.reduce-hero .pxs{display:none}
-html.reduce-hero #sc1{display:block;position:relative;opacity:1;visibility:visible;height:52vh}
-/* position:relative を保つ＝z-index:3 が生きる。地は暗幕と同じ墨色を敷いて、
-   象牙色の文字のコントラストを確保する（#5E7F96 の上だと本文が3.9:1で基準未満） */
-/* 地は画面いっぱいに敷く（max-width:1240pxのままだと1440pxで左右100pxずつ、
-   1712pxで236pxずつ空色の帯が残って、板が中央に浮いて見える）。
-   文字の行長は .hband{width:min(92%,860px)} が受け持つので広がらない */
-html.reduce-hero .hbands{position:relative;z-index:3;display:block;max-width:none;
-  padding:32px max(40px,calc((100% - 1240px)/2 + 40px)) 56px;
-  background:rgba(24,16,11,.95)}
-html.reduce-hero .hband{opacity:1;visibility:visible;transform:none;margin:0 0 40px}
-html.reduce-hero .hband:last-of-type{margin-bottom:0}
-html.reduce-hero .cue2,html.reduce-hero .chap2{display:none}
-html.go .hband.is-in{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-.hband .k{font-size:13px;font-weight:700;letter-spacing:.28em;color:var(--hot);
-  margin-bottom:16px;display:flex;align-items:center;gap:12px;
-  text-shadow:0 0 2px rgba(20,13,9,1),0 1px 3px rgba(20,13,9,1),0 0 10px rgba(20,13,9,.98),0 0 22px rgba(20,13,9,.9)}
-.hband .k::before{content:"";width:24px;height:6px;flex:none;background:
-  linear-gradient(var(--terra-g),var(--terra-g)) 0 50%/6px 6px no-repeat,
-  linear-gradient(var(--terra-g),var(--terra-g)) 9px 50%/6px 6px no-repeat,
-  linear-gradient(var(--terra-g),var(--terra-g)) 18px 50%/6px 6px no-repeat}
-.hband h1,.hband .line{font-family:var(--serif);font-weight:600;color:var(--cream);
-  font-size:clamp(34px,3.9vw,54px);letter-spacing:.04em;line-height:1.42;text-shadow:var(--tsh)}
-.hband .sub{margin-top:16px;font-size:16px;font-weight:400;color:var(--cream-soft);letter-spacing:.05em;line-height:1.85;
-  text-shadow:0 1px 2px rgba(20,13,9,.98),0 3px 10px rgba(20,13,9,.9)}
-
-/* 「いただいた言葉」＝紙のメモ。文面は形式確認のサンプル（印を消さない）。
-   .note は共通CSSに別物（本文の注記）があるので margin を明示して切る */
-.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:min(100%,780px)}
-.scrollhero .note{position:relative;margin:0;max-width:none;background:var(--paper-hi);border:2px solid var(--ink);
-  padding:16px 18px 12px;box-shadow:5px 5px 0 rgba(20,13,9,.5)}
-.scrollhero .note::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;margin-left:-6px;
-  background:var(--terra-g);border:2px solid var(--ink)}
-.scrollhero .note .q{font-family:var(--serif);font-size:14px;line-height:1.8;letter-spacing:.02em;color:var(--ink)}
-.scrollhero .note .smp{display:inline-block;background:#EFE2C4;border:1px dashed #A6906C;padding:1px 7px;margin-right:6px;
-  font-family:"Hiragino Kaku Gothic ProN",sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;color:#6B5638;vertical-align:.1em}
-.scrollhero .note .who{margin-top:8px;font-size:11px;letter-spacing:.06em;color:var(--ink-soft);text-align:right}
-.fnote{margin-top:12px;font-size:12px;letter-spacing:.04em;color:#D8CFC0;
-  text-shadow:0 1px 2px rgba(20,13,9,.98),0 2px 8px rgba(20,13,9,.9)}
-.hband .go{margin-top:18px;display:flex;gap:16px;flex-wrap:wrap;pointer-events:auto}
-.btn2{display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:12px 22px;
-  font-size:15px;font-weight:700;letter-spacing:.1em;text-decoration:none;
-  border:2px solid var(--ink);background:var(--paper-hi);color:var(--ink);
-  box-shadow:4px 4px 0 rgba(20,13,9,.55);transition:transform .16s cubic-bezier(.22,1,.36,1)}
-.btn2::after{content:"";width:7px;height:7px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg)}
-.btn2:hover{transform:translate(-2px,-2px)}
-.btn2:active{transform:translate(2px,2px)}
-.btn2.fill{background:var(--terra);border-color:var(--ink);color:#FFF7EA}
-.scrollhero a:focus-visible{outline:3px solid #C0603A;outline-offset:3px}
-
-/* 章の目盛りとスクロールの合図（JSが動いた時だけ）。
-   right はサイト共通の右端固定ナビ(.quick 88px)の左隣＝34pxのままだとナビに隠れる */
-.chap2,.cue2{display:none}
-html.go .chap2{display:flex;position:absolute;right:112px;top:50%;transform:translateY(-50%);z-index:4;
-  flex-direction:column;gap:10px}
-html.go .chap2 i{width:10px;height:10px;border:2px solid var(--cream);background:transparent;box-shadow:0 1px 3px rgba(20,13,9,.7)}
-html.go .chap2 i.on{background:var(--terra-g)}
-html.go .cue2{display:flex;position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:4;
-  flex-direction:column;align-items:center;gap:5px;color:#E8DFC9;font-size:11px;letter-spacing:.3em;font-weight:700;
-  text-shadow:0 1px 2px rgba(20,13,9,.95)}
-html.go .cue2 svg{width:14px;height:9px;animation:cuestep 1.6s ease-in-out infinite}
-@keyframes cuestep{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-
-/* ---- コマを刻む自走アニメーション ---- */
-@keyframes wave{0%,100%{visibility:visible}50%{visibility:hidden}}
-@keyframes wave2{0%,100%{visibility:hidden}50%{visibility:visible}}
-.fr1{animation:wave 1.6s steps(1,end) infinite}
-.fr2{visibility:hidden;animation:wave2 1.6s steps(1,end) infinite}
-.fr1.fast,.fr2.fast{animation-duration:.5s}
-.fr1.slow2,.fr2.slow2{animation-duration:2.3s}
-@keyframes roll{0%,100%{opacity:1}50%{opacity:0}}
-.blink{animation:roll 1.1s steps(1,end) infinite}
-.glint{animation:roll .5s steps(1,end) infinite}
-.puff{opacity:0}
-@keyframes puff{0%{opacity:0;transform:translateY(0)}25%{opacity:.85;transform:translateY(0)}
-  55%{opacity:.55;transform:translateY(-2.5px)}80%{opacity:.25;transform:translateY(-5px)}100%{opacity:0;transform:translateY(-6px)}}
-.puff.p1{animation:puff 1.6s ease-out infinite}
-.puff.p2{animation:puff 1.6s ease-out .5s infinite}
-.puff.p3{animation:puff 1.6s ease-out 1s infinite}
-.bird{transform:translate(-10px,30px);animation:fly 26s linear infinite}
-@keyframes fly{0%{transform:translate(-10px,30px)}100%{transform:translate(210px,34px)}}
-.bird .wing-up{animation:wave .5s steps(1,end) infinite}
-.bird .wing-dn{visibility:hidden;animation:wave2 .5s steps(1,end) infinite}
-.cloud-a{animation:drifta 70s ease-in-out infinite alternate}
-.cloud-b{animation:driftb 90s ease-in-out infinite alternate}
-@keyframes drifta{from{transform:translateX(0)}to{transform:translateX(14px)}}
-@keyframes driftb{from{transform:translateX(0)}to{transform:translateX(-12px)}}
-/* 運ぶ社員：JSがマス単位で送る */
-.carrymove{transform:translate(var(--tx),0)}
-/* 走行区間（#scd）：町の3層はJSがスクロール量から2マス刻みで送る（transform属性を直接書く）。
-   車輪の光とわずかな上下揺れは、送り量の偶奇で2コマを切り替える＝スクロールを止めれば全部止まる。
-   JSなし・reduced-motionでは #scd 自体が出ない（既定 .pxs は非表示）ので動きも出ない */
-#scd .wB{visibility:hidden}
-#scd.alt .wA{visibility:hidden}
-#scd.alt .wB{visibility:visible}
-#scd.alt .tbob{transform:translateY(-0.7px)}
-/* 吹き出し：場面が入った半コマ後にパッと出る */
-@keyframes appear{to{opacity:1}}
-html.go .pxs .bub{opacity:0}
-html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
-
-/* ---- 幅ごとの調整 ---- */
-@media(max-width:1100px){
-  .hbands{padding:0 24px 48px}
-  .hband h1,.hband .line{font-size:clamp(30px,4.4vw,44px)}
-}
-@media(max-width:900px){
-  .hbands{padding-bottom:120px}   /* スマホ下部の固定バー(.bar)にボタンを隠されない */
-  html.go .chap2{display:none}
-  html.go .cue2{display:none}     /* 合図の位置に固定バーが重なる */
-}
-@media(max-width:720px){
-  .hbands{padding:0 20px 120px}
-  .hband{width:100%}
-  .hband h1,.hband .line{font-size:23px;letter-spacing:.02em}
-  .hband .sub{font-size:14px;margin-top:10px}
-  .hband .k{font-size:11px;letter-spacing:.22em;margin-bottom:10px;
-    background:rgba(24,16,11,.97);padding:5px 10px 5px 8px;width:max-content;max-width:100%}   /* 絵の明るい所に重なっても読めるインクの下敷き */
-  .notes{grid-template-columns:1fr;gap:10px}
-  .scrollhero .note{padding:13px 14px 10px}
-  .scrollhero .note .q{font-size:13px;line-height:1.75}
-  .fnote{font-size:11px;margin-top:10px}
-  .btn2{min-height:44px;padding:10px 16px;font-size:14px}
-  .pcname{display:none}   /* 車体の大きい社名はスマホでは切れるので出さない（後ろの小さい社名が残る） */
-}
-/* 🚨 絵は「高さに合わせて敷き詰める」ので、画面が縦に長いほど左右が大きく切られる。
-   見えるのは viewBox 200幅のうち 100±60×(画面幅÷画面高) だけ。
-   実測（2026-08-26）：390×932 で場面1の吹き出しが左に-12px、場面2が右に+28px、
-   320×844 で場面3が右に+28px はみ出していた。幅ではなく「縦横比」で切り替える。
-   🚨 場面2の吹き出しは「運ぶ社員」と一緒に右へ歩く（--tx）。吹き出しだけ動かすと
-   しっぽが社員から離れるので、動かすのは歩く距離のほう。 */
-@media (max-aspect-ratio:48/100){
-  #sc1 .bub{transform:translate(4px,0)}
-  .carrymove{transform:translate(calc(var(--tx) * .35),0)}
-  #sc3 .bub{transform:translate(-6px,0)}
-}
-/* さらに細長い端末では、寄せるだけでは入らないので少しだけ縮める */
-@media (max-aspect-ratio:2/5){
-  #sc1 .bub{transform:translate(4px,0) scale(.94);transform-origin:95px 38px}
-  #sc3 .bub{transform:translate(-6px,0) scale(.92);transform-origin:106px 35px}
-}
-@media(max-width:380px){.hband h1,.hband .line{font-size:20px}}
-/* 320px級では文字帯が絵の73%を覆い、「設置して感謝」の場面が右端しか見えなかった
-   （2026-08-26 実測）。声のメモは形式確認のサンプルなので、狭い端末では1枚だけにして絵を出す */
-@media(max-width:340px){
-  .hband h1,.hband .line{font-size:18px}
-  .hband .sub{font-size:13px;margin-top:8px}
-  .scrollhero .note{padding:10px 12px 8px}
-  .scrollhero .note .q{font-size:12px}
-  .notes{gap:8px}
-  .notes .note:nth-child(2){display:none}
-}
-
-/* 🚨 絵は「下端そろえ・高さに合わせて敷き詰める」ので、画面が短いほど小さくなる。
-   一方で文字の帯は高さが決まっているため、画面が短いほど帯が吹き出しに迫り、最後は重なる。
-   実測（2026-08-26・おでんのiPhoneでアドレスバーが出た状態で再現）：
-   440×860で -27px／390×844で -36px／390×750で -93px／360×700で -145px 重なっていた。
-   ⚠️ 今までの検査は「横にはみ出していないか」しか見ておらず、縦の重なりを見ていなかった。
-   短い画面では声のメモを1枚にして帯を低くする（メモは形式を確かめるためのサンプル）。
-   🚨 幅のメディアクエリより後ろに置くこと。前に置くと padding が上書きされて効かない */
-/* 声のメモは PC=3列で3枚。720px以下は1列に積むので背が伸び、絵の吹き出しに当たる。
-   → 狭い端末は2枚まで（3枚目を隠す）。短い画面はさらに1枚（下の max-height:900px）。
-   2026-08-27 実測：390x844 で3枚だと -46px 重なっていた */
-@media (max-width:720px){
-  .notes .note:nth-child(3){display:none}
-}
-@media (max-height:780px){
-  .hbands{padding-bottom:96px}
-  .hband .sub{font-size:13px;margin-top:8px}
-  .scrollhero .note{padding:11px 12px 9px}
-  .scrollhero .note .q{font-size:12px;line-height:1.7}
-  .fnote{font-size:11px;margin-top:8px}
-  .hband .go{margin-top:12px}
-}
-@media (max-height:680px){
-  .hbands{padding-bottom:88px}
-  .hband h1,.hband .line{font-size:20px}
-  .hband .sub{display:none}
-  .fnote{display:none}
-}
-/* 320×568級（アドレスバーが出ると実際は460前後）では、声のメモまで出すと
-   どうしても吹き出しに届く。見出しと進み先（2つのボタン）だけ残す */
-@media (max-height:620px){
-  .notes{display:none}
-  .hband .go{margin-top:16px}
-}
-
+/* 旧ドット絵ヒーローのCSS（約240行）は削除した（2026-09-06 Codex指摘18。生きている .chain 以降だけ残す） */
 /* 現場で決めていること */
 .chain{margin-top:64px;list-style:none;counter-reset:c;max-width:900px}
 .chain li{position:relative;padding:0 0 40px 80px}
@@ -411,395 +168,37 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
   <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
 </nav>
 
-<!-- ① ドット絵のヒーロー：朝の受け渡し → 町を走る → 搬入 → 設置とありがとう -->
-<section class="scrollhero" data-hero aria-label="一件の仕事の流れと、いただいた言葉">
-  <div class="stage">
-
-<!-- 場面1：協力会社から荷を預かる。家電が手から手へ -->
-<svg id="sc1" class="pxs is-on" viewBox="0 0 200 120" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
-<rect x="0" y="0" width="200" height="12.06" fill="#5E7F96"/><rect x="0" y="12" width="200" height="12.06" fill="#7595A6"/><rect x="0" y="24" width="200" height="10.06" fill="#8FACB4"/><rect x="0" y="34" width="200" height="8.06" fill="#A9C0BE"/><rect x="0" y="42" width="200" height="7.06" fill="#C2D2C6"/><rect x="0" y="49" width="200" height="6.06" fill="#D6DFCC"/><rect x="0" y="55" width="200" height="9.06" fill="#E8E9D2"/>
-<g><rect x="150" y="10" width="8" height="1" fill="#F5E9C8"/><rect x="149" y="11" width="10" height="1" fill="#F5E9C8"/><rect x="148" y="12" width="12" height="9" fill="#F5E9C8"/><rect x="150" y="13" width="8" height="7" fill="#FBF3DC"/></g>
-<g class="cloud-a"><rect x="26" y="13" width="18" height="1.2" fill="#DCE5E1"/><rect x="22" y="14.2" width="26" height="1.2" fill="#DCE5E1"/><rect x="29" y="15.4" width="13" height="1.2" fill="#DCE5E1"/></g>
-<g class="cloud-b"><rect x="88" y="18" width="16" height="1.2" fill="#E3EAE2"/><rect x="84" y="19.2" width="24" height="1.2" fill="#E3EAE2"/><rect x="91" y="20.4" width="12" height="1.2" fill="#E3EAE2"/></g>
-<g class="bird"><g class="wing-up"><rect x="0" y="0" width="1.2" height="1.2" fill="#2E2A3E"/><rect x="2.4" y="0" width="1.2" height="1.2" fill="#2E2A3E"/><rect x="1.2" y="1.2" width="1.2" height="1.2" fill="#2E2A3E"/></g><g class="wing-dn"><rect x="0" y="1.2" width="3.6" height="1.2" fill="#2E2A3E"/></g></g>
-<!-- 遠景の町（低く・淡く） -->
-<rect x="0" y="56" width="200" height="8.06" fill="#9FAA9E"/>
-<rect x="6" y="52.5" width="9" height="4" fill="#9FAA9E"/><rect x="22" y="53.5" width="7" height="3" fill="#9FAA9E"/><rect x="38" y="52" width="6" height="4.5" fill="#9FAA9E"/><rect x="88" y="50.5" width="5" height="6" fill="#9FAA9E"/><rect x="98" y="53" width="8" height="3.5" fill="#9FAA9E"/><rect x="118" y="52.5" width="7" height="4" fill="#9FAA9E"/><rect x="136" y="53.5" width="9" height="3" fill="#9FAA9E"/><rect x="176" y="52.5" width="8" height="4" fill="#9FAA9E"/><rect x="107" y="54" width="5" height="2.5" fill="#9FAA9E"/><rect x="112.5" y="51.5" width="0.7" height="3" fill="#9FAA9E"/><rect x="127" y="54.5" width="5" height="2" fill="#9FAA9E"/>
-<g class="lights"><rect x="8" y="58" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="40" y="58.6" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="89.5" y="57.4" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="100" y="58.8" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="110" y="59.4" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="120" y="58" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="128.6" y="58.8" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="138" y="58.6" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="178" y="58.2" width="1.2" height="1.2" fill="#C7D0C2"/></g>
-<!-- 倉庫の口（協力会社の搬出口。PC用の背景） -->
-<rect x="22" y="38" width="48" height="2.5" fill="#635E56"/><rect x="24" y="40.5" width="44" height="23.5" fill="#7B756B"/>
-<rect x="30" y="46" width="20" height="18" fill="#8E877C"/><rect x="30" y="49" width="20" height="0.7" fill="#746E64"/><rect x="30" y="52.5" width="20" height="0.7" fill="#746E64"/><rect x="30" y="56" width="20" height="0.7" fill="#746E64"/><rect x="30" y="59.5" width="20" height="0.7" fill="#746E64"/>
-<rect x="54" y="44" width="10" height="4" fill="#C0603A"/><rect x="55" y="44.8" width="8" height="2.4" fill="#E8D9BC"/>
-<!-- 歩道と車道 -->
-<rect x="0" y="64" width="200" height="2.6" fill="#B0A692"/><rect x="0" y="66.6" width="200" height="0.8" fill="#7E766A"/><rect x="0" y="67.4" width="200" height="52.6" fill="#837C72"/>
-<rect x="0" y="88" width="200" height="32" fill="#756E66"/><rect x="0" y="104" width="200" height="16" fill="#6A645C"/>
-<rect x="8" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="40" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="72" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="104" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="136" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="168" y="80" width="8" height="1.2" fill="#E2DACC"/>
-<!-- 協力会社のバン（左・PC用。荷室が開いている） -->
-<g transform="translate(38,43)">
-<rect x="0" y="0" width="22" height="20" fill="#8C8C80"/><rect x="0" y="0" width="22" height="1.2" fill="#9C9C90"/><rect x="20.6" y="0" width="1.4" height="20" fill="#77776B"/>
-<rect x="15" y="3" width="5.6" height="15" fill="#2E2838"/><rect x="16" y="12" width="4" height="6" fill="#C9A06A"/><rect x="16.4" y="8.5" width="3.2" height="3.5" fill="#B98A5C"/>
-<rect x="0" y="11" width="15" height="2" fill="#6E6A52"/>
-<rect x="0" y="20" width="22" height="1" fill="#35303C"/>
-<rect x="3" y="20.5" width="6.5" height="6" fill="#26222C"/><rect x="5.2" y="22.5" width="2" height="2" fill="#8A8478"/><g class="glint"><rect x="5.2" y="22.5" width="1" height="1" fill="#C9C2B0"/></g>
-<rect class="blink" x="20.8" y="17" width="1.6" height="1.6" fill="#F5A65A"/>
-</g>
-<!-- パレットの荷（PC用） -->
-<rect x="54" y="62.6" width="14" height="1.4" fill="#8A6E4E"/><rect x="55" y="56.5" width="6" height="6" fill="#C9A06A"/><rect x="62" y="58" width="5" height="4.5" fill="#B98A5C"/>
-<!-- 主役：手から手へ渡る家電の箱 -->
-<g><rect x="90" y="55" width="16" height="10.4" fill="#EDE3CC"/><rect x="90" y="55" width="16" height="1" fill="#F8F2E2"/><rect x="97.2" y="55" width="1.6" height="10.4" fill="#C0603A"/><rect x="92.5" y="57" width="2" height="2" fill="#C0603A"/><rect x="101" y="61.5" width="3" height="1.6" fill="#8A8478"/></g>
-<!-- 協力会社の担当（左・右向き） -->
-<g transform="translate(78,48.5)">
-<rect x="0.5" y="0" width="5" height="1.8" fill="#5C5844"/><rect x="5.5" y="1" width="1.7" height="0.9" fill="#5C5844"/>
-<rect x="1" y="1.8" width="4" height="4" fill="#E8C49A"/>
-<rect x="0" y="5.8" width="6.2" height="8.6" fill="#6E6A52"/>
-<rect x="6" y="7" width="4.5" height="1.8" fill="#6E6A52"/><rect x="10.5" y="7" width="1.7" height="1.8" fill="#E8C49A"/>
-<rect x="6" y="11" width="4.5" height="1.6" fill="#6E6A52"/><rect x="10.5" y="11" width="1.7" height="1.6" fill="#E8C49A"/>
-<rect x="0.3" y="14.4" width="2.2" height="6.2" fill="#4A4638"/><rect x="3.7" y="14.4" width="2.2" height="6.2" fill="#4A4638"/>
-<rect x="0" y="20.6" width="3" height="0.9" fill="#2E2838"/><rect x="3.7" y="20.6" width="3" height="0.9" fill="#2E2838"/>
-</g>
-<!-- エイトの社員（右・左向き。受け取りの会釈は2コマ） -->
-<g transform="translate(108,48.5)">
-<g class="fr1 slow2"><rect x="0.5" y="0" width="5" height="1.8" fill="#3E5A68"/><rect x="-1.2" y="1" width="1.7" height="0.9" fill="#3E5A68"/><rect x="1" y="1.8" width="4" height="4" fill="#E8C49A"/></g>
-<g class="fr2 slow2"><rect x="0.9" y="0.8" width="5" height="1.8" fill="#3E5A68"/><rect x="-0.8" y="1.8" width="1.7" height="0.9" fill="#3E5A68"/><rect x="1.4" y="2.6" width="4" height="4" fill="#E8C49A"/></g>
-<rect x="0" y="5.8" width="6.2" height="8.6" fill="#4E6E7E"/>
-<rect x="-4.3" y="7" width="4.5" height="1.8" fill="#4E6E7E"/><rect x="-6" y="7" width="1.7" height="1.8" fill="#E8C49A"/>
-<rect x="-4.3" y="11" width="4.5" height="1.6" fill="#4E6E7E"/><rect x="-6" y="11" width="1.7" height="1.6" fill="#E8C49A"/>
-<rect x="0.3" y="14.4" width="2.2" height="6.2" fill="#37424E"/><rect x="3.7" y="14.4" width="2.2" height="6.2" fill="#37424E"/>
-<rect x="0" y="20.6" width="3" height="0.9" fill="#2E2838"/><rect x="3.7" y="20.6" width="3" height="0.9" fill="#2E2838"/>
-</g>
-<!-- 台車（次の荷が載っている） -->
-<g transform="translate(112,42)">
-<rect x="13.5" y="0" width="1.3" height="14.4" fill="#8A8478"/><rect x="9.8" y="0" width="3.8" height="1.3" fill="#8A8478"/>
-<rect x="0" y="13" width="14" height="1.6" fill="#8A8478"/><rect x="1.5" y="14.6" width="2.2" height="2.2" fill="#26222C"/><rect x="10.5" y="14.6" width="2.2" height="2.2" fill="#26222C"/>
-<rect x="1" y="5.5" width="10" height="7.5" fill="#C9A06A"/><rect x="1" y="8.8" width="10" height="1" fill="#A87E4E"/>
-</g>
-<!-- エイトのトラック（右・PC用。2t箱車が全長まで見える。これから積み込む。
-     2026-08-25 走行・場面2と同じ丁寧な描き方に揃えた：段付きの丸いタイヤ・接地の影・
-     面の2〜3段の陰影・車台は車体内。部品は足していない。キャブは右＝後部が倉庫側（左）。
-     運転席は空（本人は外で荷を受けている）。停車中なのでハザード点滅とハブの光は場面2と同じ -->
-<g transform="translate(134,34.2)">
-<rect x="0" y="34.9" width="56" height="1" fill="#2C2834"/>
-<rect x="9.8" y="34.6" width="6.4" height="0.7" fill="#26222C"/><rect x="38.8" y="34.6" width="6.4" height="0.7" fill="#26222C"/>
-<rect x="10.5" y="27" width="5" height="0.9" fill="#26222C"/><rect x="9.6" y="27.9" width="6.8" height="0.9" fill="#26222C"/><rect x="9.1" y="28.8" width="7.8" height="4.4" fill="#26222C"/><rect x="9.6" y="33.2" width="6.8" height="0.9" fill="#26222C"/><rect x="10.3" y="34.1" width="5.4" height="0.7" fill="#26222C"/>
-<rect x="11.9" y="29.1" width="2.2" height="0.5" fill="#8A8478"/><rect x="11.3" y="29.6" width="3.4" height="2.8" fill="#8A8478"/><rect x="11.9" y="32.4" width="2.2" height="0.5" fill="#8A8478"/><rect x="12.4" y="30.6" width="1.2" height="1" fill="#35303C"/>
-<rect x="39.5" y="27" width="5" height="0.9" fill="#26222C"/><rect x="38.6" y="27.9" width="6.8" height="0.9" fill="#26222C"/><rect x="38.1" y="28.8" width="7.8" height="4.4" fill="#26222C"/><rect x="38.6" y="33.2" width="6.8" height="0.9" fill="#26222C"/><rect x="39.3" y="34.1" width="5.4" height="0.7" fill="#26222C"/>
-<rect x="40.9" y="29.1" width="2.2" height="0.5" fill="#8A8478"/><rect x="40.3" y="29.6" width="3.4" height="2.8" fill="#8A8478"/><rect x="40.9" y="32.4" width="2.2" height="0.5" fill="#8A8478"/><rect x="41.4" y="30.6" width="1.2" height="1" fill="#35303C"/>
-<g class="glint"><rect x="11.5" y="29.7" width="0.8" height="0.8" fill="#C9C2B0"/><rect x="40.5" y="29.7" width="0.8" height="0.8" fill="#C9C2B0"/></g>
-<rect x="0" y="0" width="37" height="25" fill="#F4EFE2"/><rect x="0" y="0" width="37" height="1.2" fill="#FFFFFF"/>
-<rect x="0" y="1.2" width="1.1" height="23.8" fill="#E4DECE"/>
-<rect x="0" y="17.8" width="37" height="1.7" fill="#E4DECE"/>
-<rect x="0" y="19.5" width="37" height="2.5" fill="#C0603A"/><rect x="0" y="22" width="37" height="3" fill="#D8D2C2"/>
-<rect x="37" y="0" width="1.4" height="11" fill="#E4DECE"/><rect x="37" y="0" width="1.4" height="1.2" fill="#FFFFFF"/>
-<rect x="38.4" y="10.6" width="0.5" height="14.4" fill="#35303C"/>
-<rect x="38.9" y="10" width="16.3" height="15" fill="#F4EFE2"/><rect x="38.9" y="10" width="16.3" height="1.2" fill="#FFFFFF"/>
-<rect x="38.9" y="17.8" width="16.3" height="1.7" fill="#E4DECE"/>
-<rect x="40.7" y="12" width="6.2" height="5.5" fill="#8FB4C4"/><rect x="48.8" y="12" width="6.2" height="5.5" fill="#8FB4C4"/><rect x="53.4" y="12.6" width="0.7" height="1.8" fill="#FFFFFF"/>
-<rect x="47.7" y="11.6" width="0.6" height="13.4" fill="#E4DECE"/>
-<rect x="38.9" y="19.5" width="16.3" height="2.5" fill="#C0603A"/><rect x="38.9" y="24" width="16.3" height="1" fill="#E4DECE"/>
-<rect x="55.2" y="11.6" width="1.6" height="0.5" fill="#35303C"/><rect x="56.3" y="12.1" width="1.1" height="2.9" fill="#35303C"/><rect x="56.6" y="12.4" width="0.5" height="2.3" fill="#8FB4C4"/>
-<rect x="1.2" y="25" width="35.2" height="1.5" fill="#35303C"/><rect x="39.2" y="25" width="12" height="1.4" fill="#35303C"/><rect x="17.6" y="26.4" width="20.2" height="0.9" fill="#2E2838"/>
-<rect x="8.7" y="26.1" width="8.6" height="1" fill="#2E2838"/><rect x="37.7" y="26.1" width="8.6" height="1" fill="#2E2838"/>
-<rect x="50.2" y="24.8" width="5.9" height="2" fill="#B8B2A4"/><rect x="50.2" y="26.3" width="5.9" height="0.5" fill="#8A8478"/>
-<rect x="53.6" y="23.4" width="1.6" height="1.3" fill="#F5C97E"/>
-<rect class="blink" x="53.6" y="22.2" width="1.6" height="1.1" fill="#F5A65A"/>
-<rect x="0.2" y="22.5" width="1.4" height="1.1" fill="#C0603A"/><rect class="blink" x="0.2" y="23.6" width="1.4" height="1" fill="#F5A65A"/>
-<rect x="32.2" y="8" width="3" height="1.1" fill="#C0603A"/><rect x="31.4" y="9.1" width="1.1" height="1.7" fill="#C0603A"/><rect x="34.4" y="9.1" width="1.1" height="1.7" fill="#C0603A"/><rect x="32.2" y="10.8" width="3" height="1.1" fill="#C0603A"/><rect x="31.4" y="11.9" width="1.1" height="1.7" fill="#C0603A"/><rect x="34.4" y="11.9" width="1.1" height="1.7" fill="#C0603A"/><rect x="32.2" y="13.6" width="3" height="1.1" fill="#C0603A"/>
-<text class="pcname" x="6.9" y="12.8" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="2.5" letter-spacing="0.08" fill="#93401D">エイト流通サービス</text>
-</g>
-<!-- 吹き出し（せりふだけ。人名・社名・数字は入れない） -->
-<g class="bub"><rect x="73.3" y="33.3" width="35.4" height="9.4" fill="#33291F"/><rect x="74" y="34" width="34" height="8" fill="#FBF6E9"/><rect x="79.5" y="42" width="2.2" height="1.8" fill="#33291F"/><rect x="80" y="43.8" width="1.7" height="1.8" fill="#33291F"/><rect x="80.4" y="45.6" width="1.2" height="1.8" fill="#33291F"/><text x="91" y="39.6" text-anchor="middle" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="3.3" fill="#33291F">今日もお願いします</text></g>
-</svg>
-
-<!-- 走行：倉庫を出て、お客様のお宅までの町。主役はトラック（場面2と同じ2t箱車比率）。
-     町は3層（遠景・中景・路面の印）のタイル200マス×2枚。JSがスクロール量から2マス刻みで送る。
-     中景＝商店街のテント・自転車・室外機・自販機・電柱と電線・街路樹・川と橋の欄干（浦安も新座も水のある町）。
-     電柱と店並びが繰り返し流れて「いつもの道」に見える。実在の社名・店名は描かない（文字自体を置かない） -->
-<svg id="scd" class="pxs" viewBox="0 0 200 120" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
-<rect x="0" y="0" width="200" height="12.06" fill="#5E7F96"/><rect x="0" y="12" width="200" height="12.06" fill="#7595A6"/><rect x="0" y="24" width="200" height="10.06" fill="#8FACB4"/><rect x="0" y="34" width="200" height="8.06" fill="#A9C0BE"/><rect x="0" y="42" width="200" height="7.06" fill="#C2D2C6"/><rect x="0" y="49" width="200" height="6.06" fill="#D6DFCC"/><rect x="0" y="55" width="200" height="9.06" fill="#E8E9D2"/>
-<g><rect x="150" y="10" width="8" height="1" fill="#F5E9C8"/><rect x="149" y="11" width="10" height="1" fill="#F5E9C8"/><rect x="148" y="12" width="12" height="9" fill="#F5E9C8"/><rect x="150" y="13" width="8" height="7" fill="#FBF3DC"/></g>
-<g class="cloud-a"><rect x="26" y="13" width="18" height="1.2" fill="#DCE5E1"/><rect x="22" y="14.2" width="26" height="1.2" fill="#DCE5E1"/><rect x="29" y="15.4" width="13" height="1.2" fill="#DCE5E1"/></g>
-<g class="cloud-b"><rect x="88" y="18" width="16" height="1.2" fill="#E3EAE2"/><rect x="84" y="19.2" width="24" height="1.2" fill="#E3EAE2"/><rect x="91" y="20.4" width="12" height="1.2" fill="#E3EAE2"/></g>
-<g class="bird"><g class="wing-up"><rect x="0" y="0" width="1.2" height="1.2" fill="#2E2A3E"/><rect x="2.4" y="0" width="1.2" height="1.2" fill="#2E2A3E"/><rect x="1.2" y="1.2" width="1.2" height="1.2" fill="#2E2A3E"/></g><g class="wing-dn"><rect x="0" y="1.2" width="3.6" height="1.2" fill="#2E2A3E"/></g></g>
-<!-- 遠景の町（ベース帯は静止・屋根の形と灯りだけ0.3倍で流れる） -->
-<rect x="0" y="56" width="200" height="8.06" fill="#9FAA9E"/>
-<g class="lyr-far"><g id="drv-far">
-<rect x="8" y="52.5" width="9" height="4" fill="#9FAA9E"/><rect x="30" y="53.5" width="7" height="3" fill="#9FAA9E"/><rect x="52" y="52" width="6" height="4.5" fill="#9FAA9E"/><rect x="74" y="50.5" width="5" height="6" fill="#9FAA9E"/><rect x="96" y="53" width="8" height="3.5" fill="#9FAA9E"/><rect x="110" y="54" width="5" height="2.5" fill="#9FAA9E"/><rect x="120" y="52.5" width="7" height="4" fill="#9FAA9E"/><rect x="142" y="53.5" width="9" height="3" fill="#9FAA9E"/><rect x="160" y="54" width="5" height="2.5" fill="#9FAA9E"/><rect x="166" y="51.5" width="0.7" height="3" fill="#9FAA9E"/><rect x="180" y="52.5" width="8" height="4" fill="#9FAA9E"/>
-<g class="lights"><rect x="6" y="57.6" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="11" y="58.4" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="186" y="57.8" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="196" y="58.6" width="1.2" height="1.2" fill="#C7D0C2"/></g>
-</g><use href="#drv-far" x="200"/></g>
-<!-- 歩道と車道（ベースは静止。sc1と同じ帯） -->
-<rect x="0" y="64" width="200" height="2.6" fill="#B0A692"/><rect x="0" y="66.6" width="200" height="0.8" fill="#7E766A"/><rect x="0" y="67.4" width="200" height="52.6" fill="#837C72"/>
-<rect x="0" y="88" width="200" height="32" fill="#756E66"/><rect x="0" y="104" width="200" height="16" fill="#6A645C"/>
-<!-- 中景：向かいの商店街。0.65倍で流れる -->
-<g class="lyr-mid"><g id="drv-mid">
-<!-- 電柱A（電線は次の電柱まで） -->
-<rect x="4" y="16" width="1.4" height="48" fill="#635E56"/><rect x="1" y="17.6" width="7.4" height="1.1" fill="#635E56"/><rect x="5.8" y="20.8" width="2.6" height="3.6" fill="#7B756B"/>
-<rect x="5.2" y="18.1" width="100" height="0.35" fill="#4A3A34"/><rect x="5.2" y="19.6" width="100" height="0.35" fill="#4A3A34"/>
-<!-- 商店ビルA：縞テントの店と緑テントの店 -->
-<rect x="13" y="35" width="50" height="1.4" fill="#746E64"/><rect x="14" y="36" width="48" height="28" fill="#8E877C"/>
-<rect x="17" y="39.5" width="5" height="4" fill="#8FB4C4"/><rect x="25" y="39.5" width="5" height="4" fill="#8FB4C4"/><rect x="33" y="39.5" width="5" height="4" fill="#8FB4C4"/><rect x="41" y="39.5" width="5" height="4" fill="#8FB4C4"/><rect x="49" y="39.5" width="5" height="4" fill="#8FB4C4"/>
-<rect x="16" y="45" width="2.5" height="3.5" fill="#C0603A"/><rect x="18.5" y="45" width="2.5" height="3.5" fill="#E8D9BC"/><rect x="21" y="45" width="2.5" height="3.5" fill="#C0603A"/><rect x="23.5" y="45" width="2.5" height="3.5" fill="#E8D9BC"/><rect x="26" y="45" width="2.5" height="3.5" fill="#C0603A"/><rect x="28.5" y="45" width="2.5" height="3.5" fill="#E8D9BC"/><rect x="31" y="45" width="2.5" height="3.5" fill="#C0603A"/><rect x="33.5" y="45" width="2.5" height="3.5" fill="#E8D9BC"/>
-<rect x="17" y="50" width="12" height="9.5" fill="#8FB4C4"/><rect x="17" y="59.5" width="12" height="0.7" fill="#746E64"/><rect x="31" y="50.5" width="4.5" height="13.5" fill="#4A3A34"/><rect x="31.8" y="51.5" width="2.9" height="4" fill="#F5E9C8"/>
-<rect x="38" y="45" width="22" height="3.5" fill="#5F6E52"/><rect x="38" y="48.1" width="22" height="0.7" fill="#4A3A34"/>
-<rect x="39" y="50" width="14" height="9.5" fill="#8FB4C4"/><rect x="39" y="59.5" width="14" height="0.7" fill="#746E64"/><rect x="55" y="50.5" width="4.5" height="13.5" fill="#4A3A34"/>
-<rect x="60.2" y="37.5" width="3.2" height="13" fill="#C0603A"/><rect x="60.9" y="38.4" width="1.8" height="11.2" fill="#E8D9BC"/>
-<!-- 店先の自転車と室外機 -->
-<rect x="20" y="62.9" width="2.6" height="2.6" fill="#35303C"/><rect x="24.6" y="62.9" width="2.6" height="2.6" fill="#35303C"/><rect x="21.6" y="62.4" width="4" height="0.8" fill="#37424E"/><rect x="25.2" y="61.3" width="0.8" height="1.6" fill="#37424E"/><rect x="21.2" y="61.6" width="1.6" height="0.7" fill="#37424E"/>
-<rect x="56.5" y="62" width="5" height="3.5" fill="#C9C2B0"/><rect x="57.2" y="62.8" width="3.6" height="0.5" fill="#8A8478"/><rect x="57.2" y="63.9" width="3.6" height="0.5" fill="#8A8478"/>
-<!-- 低いビルと自販機 -->
-<rect x="62.6" y="46.2" width="10.8" height="1" fill="#635E56"/><rect x="63" y="47" width="10" height="17" fill="#7B756B"/><rect x="64.5" y="49.5" width="4" height="4" fill="#8FB4C4"/>
-<rect x="64.5" y="58" width="4.2" height="7.5" fill="#C0603A"/><rect x="65.2" y="58.8" width="2.8" height="3" fill="#E8D9BC"/><rect x="65.2" y="62.6" width="2.8" height="0.8" fill="#33291F"/>
-<!-- 川と橋の欄干（浦安・新座はどちらも水のある町） -->
-<rect x="74" y="52.5" width="52" height="3.5" fill="#9FAA9E"/>
-<rect x="74" y="56" width="52" height="4.5" fill="#A9C0BE"/><rect x="74" y="60.5" width="52" height="3.5" fill="#C2D2C6"/>
-<rect x="82" y="57.6" width="2.4" height="0.7" fill="#E8E9D2"/><g class="glint"><rect x="99" y="58.8" width="2" height="0.7" fill="#E8E9D2"/></g><rect x="113" y="57.2" width="2.4" height="0.7" fill="#E8E9D2"/>
-<rect x="74" y="55.6" width="52" height="1" fill="#B0A692"/>
-<rect x="74.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="80.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="86.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="92.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="98.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="104.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="110.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="116.5" y="56.6" width="1.1" height="7.9" fill="#B0A692"/><rect x="122.9" y="56.6" width="1.1" height="7.9" fill="#B0A692"/>
-<!-- 電柱B -->
-<rect x="104" y="16" width="1.4" height="48" fill="#635E56"/><rect x="101" y="17.6" width="7.4" height="1.1" fill="#635E56"/><rect x="105.8" y="20.8" width="2.6" height="3.6" fill="#7B756B"/>
-<rect x="105.2" y="18.1" width="98.8" height="0.35" fill="#4A3A34"/><rect x="105.2" y="19.6" width="98.8" height="0.35" fill="#4A3A34"/>
-<!-- 商店ビルB：茶色の店と灰色のビル -->
-<rect x="125.4" y="37" width="27.2" height="1.4" fill="#71584A"/><rect x="126" y="38" width="26" height="26" fill="#7E6355"/>
-<rect x="129" y="42" width="5" height="4" fill="#8FB4C4"/><rect x="137" y="42" width="5" height="4" fill="#8FB4C4"/><rect x="145" y="42" width="5" height="4" fill="#8FB4C4"/>
-<rect x="128" y="48" width="2.5" height="3.5" fill="#C0603A"/><rect x="130.5" y="48" width="2.5" height="3.5" fill="#E8D9BC"/><rect x="133" y="48" width="2.5" height="3.5" fill="#C0603A"/><rect x="135.5" y="48" width="2.5" height="3.5" fill="#E8D9BC"/><rect x="138" y="48" width="2.5" height="3.5" fill="#C0603A"/><rect x="140.5" y="48" width="2.5" height="3.5" fill="#E8D9BC"/><rect x="143" y="48" width="2.5" height="3.5" fill="#C0603A"/><rect x="145.5" y="48" width="2.5" height="3.5" fill="#E8D9BC"/>
-<rect x="129" y="53" width="13" height="8" fill="#8FB4C4"/><rect x="129" y="61" width="13" height="0.7" fill="#746E64"/><rect x="144" y="53" width="4.5" height="11" fill="#4A3A34"/>
-<rect x="152.6" y="60.2" width="5" height="3" fill="#5F6E52"/><rect x="153.1" y="63.2" width="4" height="2.5" fill="#8A4A2E"/>
-<rect x="157.6" y="41" width="20.8" height="1.2" fill="#746E64"/><rect x="158" y="42" width="20" height="22" fill="#8E877C"/>
-<rect x="160.5" y="45" width="4.5" height="4" fill="#8FB4C4"/><rect x="167" y="45" width="4.5" height="4" fill="#8FB4C4"/><rect x="173" y="45" width="4.5" height="4" fill="#8FB4C4"/>
-<rect x="160" y="53.5" width="8" height="8" fill="#8FB4C4"/><rect x="170" y="53.5" width="4" height="10.5" fill="#4A3A34"/>
-<rect x="174.5" y="62" width="4" height="3.5" fill="#C9C2B0"/><rect x="175.1" y="62.8" width="2.8" height="0.5" fill="#8A8478"/>
-<!-- 街路樹 -->
-<rect x="180.5" y="48" width="9" height="6.5" fill="#5F6E52"/><rect x="182.5" y="46.5" width="5" height="1.5" fill="#5F6E52"/><rect x="184.4" y="54.5" width="1.8" height="11" fill="#6B4A3A"/>
-<rect x="191" y="50" width="8" height="5.5" fill="#5F6E52"/><rect x="194" y="55.5" width="1.6" height="10" fill="#6B4A3A"/>
-<!-- 歩道の目地 -->
-<rect x="16" y="64.2" width="0.7" height="2.2" fill="#7E766A"/><rect x="48" y="64.2" width="0.7" height="2.2" fill="#7E766A"/><rect x="80" y="64.2" width="0.7" height="2.2" fill="#7E766A"/><rect x="112" y="64.2" width="0.7" height="2.2" fill="#7E766A"/><rect x="144" y="64.2" width="0.7" height="2.2" fill="#7E766A"/><rect x="176" y="64.2" width="0.7" height="2.2" fill="#7E766A"/>
-</g><use href="#drv-mid" x="200"/></g>
-<!-- 路面の印：等倍で流れる（一番速い） -->
-<g class="lyr-gnd"><g id="drv-gnd">
-<rect x="8" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="40" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="72" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="104" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="136" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="168" y="80" width="8" height="1.2" fill="#E2DACC"/>
-<rect x="58" y="91.5" width="5" height="1.8" fill="#6A645C"/><rect x="120" y="72.5" width="16" height="2.2" fill="#756E66"/><rect x="30" y="75" width="9" height="1.8" fill="#756E66"/>
-</g><use href="#drv-gnd" x="200"/></g>
-<!-- 主役：走るエイトのトラック（場面2と同じ2t箱車・全長55マス・後輪1軸。スマホの帯x72〜128に全長が収まる）
-     2026-08-25 描き直し：キャブを進行方向（右。町は左へ流れる＝車は右へ走る）に。社名と8のロゴは鏡文字にしない。
-     部品は足さず、タイヤの丸み・接地・面の陰影2〜3段（光は右上の太陽）・車台のはみ出しを整えた。
-     後端x0・前バンパーx56。前軸x42＝前端から13マス（前オーバーハング1110mm相当）・後軸x13（軸距29マス）。
-     群はx71起点＝前ミラーまで携帯の帯x72.3〜127.7に収まる -->
-<g transform="translate(71,34.2)">
-<rect x="0" y="34.9" width="56" height="1" fill="#2C2834"/>
-<rect x="9.8" y="34.6" width="6.4" height="0.7" fill="#26222C"/><rect x="38.8" y="34.6" width="6.4" height="0.7" fill="#26222C"/>
-<rect x="10.5" y="27" width="5" height="0.9" fill="#26222C"/><rect x="9.6" y="27.9" width="6.8" height="0.9" fill="#26222C"/><rect x="9.1" y="28.8" width="7.8" height="4.4" fill="#26222C"/><rect x="9.6" y="33.2" width="6.8" height="0.9" fill="#26222C"/><rect x="10.3" y="34.1" width="5.4" height="0.7" fill="#26222C"/>
-<rect x="11.9" y="29.1" width="2.2" height="0.5" fill="#8A8478"/><rect x="11.3" y="29.6" width="3.4" height="2.8" fill="#8A8478"/><rect x="11.9" y="32.4" width="2.2" height="0.5" fill="#8A8478"/><rect x="12.4" y="30.6" width="1.2" height="1" fill="#35303C"/>
-<rect x="39.5" y="27" width="5" height="0.9" fill="#26222C"/><rect x="38.6" y="27.9" width="6.8" height="0.9" fill="#26222C"/><rect x="38.1" y="28.8" width="7.8" height="4.4" fill="#26222C"/><rect x="38.6" y="33.2" width="6.8" height="0.9" fill="#26222C"/><rect x="39.3" y="34.1" width="5.4" height="0.7" fill="#26222C"/>
-<rect x="40.9" y="29.1" width="2.2" height="0.5" fill="#8A8478"/><rect x="40.3" y="29.6" width="3.4" height="2.8" fill="#8A8478"/><rect x="40.9" y="32.4" width="2.2" height="0.5" fill="#8A8478"/><rect x="41.4" y="30.6" width="1.2" height="1" fill="#35303C"/>
-<g class="wA"><rect x="11.5" y="29.7" width="0.8" height="0.8" fill="#C9C2B0"/><rect x="40.5" y="29.7" width="0.8" height="0.8" fill="#C9C2B0"/></g>
-<g class="wB"><rect x="13.8" y="31.6" width="0.8" height="0.8" fill="#C9C2B0"/><rect x="42.8" y="31.6" width="0.8" height="0.8" fill="#C9C2B0"/></g>
-<g class="tbob">
-<rect x="0" y="0" width="37" height="25" fill="#F4EFE2"/><rect x="0" y="0" width="37" height="1.2" fill="#FFFFFF"/>
-<rect x="0" y="1.2" width="1.1" height="23.8" fill="#E4DECE"/>
-<rect x="0" y="17.8" width="37" height="1.7" fill="#E4DECE"/>
-<rect x="0" y="19.5" width="37" height="2.5" fill="#C0603A"/><rect x="0" y="22" width="37" height="3" fill="#D8D2C2"/>
-<rect x="37" y="0" width="1.4" height="11" fill="#E4DECE"/><rect x="37" y="0" width="1.4" height="1.2" fill="#FFFFFF"/>
-<rect x="38.4" y="10.6" width="0.5" height="14.4" fill="#35303C"/>
-<rect x="38.9" y="10" width="16.3" height="15" fill="#F4EFE2"/><rect x="38.9" y="10" width="16.3" height="1.2" fill="#FFFFFF"/>
-<rect x="38.9" y="17.8" width="16.3" height="1.7" fill="#E4DECE"/>
-<rect x="40.7" y="12" width="6.2" height="5.5" fill="#8FB4C4"/><rect x="48.8" y="12" width="6.2" height="5.5" fill="#8FB4C4"/><rect x="53.4" y="12.6" width="0.7" height="1.8" fill="#FFFFFF"/>
-<rect x="47.7" y="11.6" width="0.6" height="13.4" fill="#E4DECE"/>
-<rect x="43.1" y="12.6" width="2.6" height="1" fill="#3E5A68"/><rect x="45.7" y="12.9" width="0.7" height="0.7" fill="#3E5A68"/><rect x="43.4" y="13.6" width="2" height="1.8" fill="#E8C49A"/><rect x="42.7" y="15.4" width="3.4" height="2.1" fill="#3E5A68"/>
-<rect x="38.9" y="19.5" width="16.3" height="2.5" fill="#C0603A"/><rect x="38.9" y="24" width="16.3" height="1" fill="#E4DECE"/>
-<rect x="55.2" y="11.6" width="1.6" height="0.5" fill="#35303C"/><rect x="56.3" y="12.1" width="1.1" height="2.9" fill="#35303C"/><rect x="56.6" y="12.4" width="0.5" height="2.3" fill="#8FB4C4"/>
-<rect x="1.2" y="25" width="35.2" height="1.5" fill="#35303C"/><rect x="39.2" y="25" width="12" height="1.4" fill="#35303C"/><rect x="17.6" y="26.4" width="20.2" height="0.9" fill="#2E2838"/>
-<rect x="8.7" y="26.1" width="8.6" height="1" fill="#2E2838"/><rect x="37.7" y="26.1" width="8.6" height="1" fill="#2E2838"/>
-<rect x="50.2" y="24.8" width="5.9" height="2" fill="#B8B2A4"/><rect x="50.2" y="26.3" width="5.9" height="0.5" fill="#8A8478"/>
-<rect x="53.6" y="23.4" width="1.6" height="1.3" fill="#F5C97E"/>
-<rect class="blink" x="53.6" y="22.2" width="1.6" height="1.1" fill="#F5A65A"/>
-<rect x="0.2" y="22.5" width="1.4" height="1.1" fill="#C0603A"/><rect class="blink" x="0.2" y="23.6" width="1.4" height="1" fill="#F5A65A"/>
-<rect x="32.2" y="8" width="3" height="1.1" fill="#C0603A"/><rect x="31.4" y="9.1" width="1.1" height="1.7" fill="#C0603A"/><rect x="34.4" y="9.1" width="1.1" height="1.7" fill="#C0603A"/><rect x="32.2" y="10.8" width="3" height="1.1" fill="#C0603A"/><rect x="31.4" y="11.9" width="1.1" height="1.7" fill="#C0603A"/><rect x="34.4" y="11.9" width="1.1" height="1.7" fill="#C0603A"/><rect x="32.2" y="13.6" width="3" height="1.1" fill="#C0603A"/>
-<text class="pcname" x="6.9" y="12.8" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="2.5" letter-spacing="0.08" fill="#93401D">エイト流通サービス</text>
-</g>
-<g class="puff p1"><rect x="-2.6" y="26.5" width="1.4" height="1.4" fill="#C9C2B0"/></g><g class="puff p2"><rect x="-3.3" y="26.8" width="1.6" height="1.4" fill="#C9C2B0"/></g><g class="puff p3"><rect x="-4" y="26.2" width="1.8" height="1.6" fill="#C9C2B0"/></g>
-</g>
-</svg>
-
-<!-- 場面2：自社トラックから搬入。車体が画面の半分 -->
-<svg id="sc2" class="pxs" viewBox="0 0 200 120" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
-<rect x="0" y="0" width="200" height="12.06" fill="#5E7F96"/><rect x="0" y="12" width="200" height="12.06" fill="#7595A6"/><rect x="0" y="24" width="200" height="10.06" fill="#8FACB4"/><rect x="0" y="34" width="200" height="8.06" fill="#A9C0BE"/><rect x="0" y="42" width="200" height="7.06" fill="#C2D2C6"/><rect x="0" y="49" width="200" height="6.06" fill="#D6DFCC"/><rect x="0" y="55" width="200" height="9.06" fill="#E8E9D2"/>
-<g><rect x="150" y="10" width="8" height="1" fill="#F5E9C8"/><rect x="149" y="11" width="10" height="1" fill="#F5E9C8"/><rect x="148" y="12" width="12" height="9" fill="#F5E9C8"/><rect x="150" y="13" width="8" height="7" fill="#FBF3DC"/></g>
-<g class="cloud-a"><rect x="26" y="13" width="18" height="1.2" fill="#DCE5E1"/><rect x="22" y="14.2" width="26" height="1.2" fill="#DCE5E1"/><rect x="29" y="15.4" width="13" height="1.2" fill="#DCE5E1"/></g>
-<g class="cloud-b"><rect x="88" y="18" width="16" height="1.2" fill="#E3EAE2"/><rect x="84" y="19.2" width="24" height="1.2" fill="#E3EAE2"/><rect x="91" y="20.4" width="12" height="1.2" fill="#E3EAE2"/></g>
-<g class="bird"><g class="wing-up"><rect x="0" y="0" width="1.2" height="1.2" fill="#2E2A3E"/><rect x="2.4" y="0" width="1.2" height="1.2" fill="#2E2A3E"/><rect x="1.2" y="1.2" width="1.2" height="1.2" fill="#2E2A3E"/></g><g class="wing-dn"><rect x="0" y="1.2" width="3.6" height="1.2" fill="#2E2A3E"/></g></g>
-<rect x="0" y="56" width="200" height="8.06" fill="#9FAA9E"/>
-<rect x="6" y="52.5" width="9" height="4" fill="#9FAA9E"/><rect x="22" y="53.5" width="7" height="3" fill="#9FAA9E"/><rect x="38" y="52" width="6" height="4.5" fill="#9FAA9E"/><rect x="88" y="50.5" width="5" height="6" fill="#9FAA9E"/><rect x="98" y="53" width="8" height="3.5" fill="#9FAA9E"/><rect x="118" y="52.5" width="7" height="4" fill="#9FAA9E"/><rect x="136" y="53.5" width="9" height="3" fill="#9FAA9E"/><rect x="176" y="52.5" width="8" height="4" fill="#9FAA9E"/><rect x="107" y="54" width="5" height="2.5" fill="#9FAA9E"/><rect x="112.5" y="51.5" width="0.7" height="3" fill="#9FAA9E"/><rect x="127" y="54.5" width="5" height="2" fill="#9FAA9E"/>
-<g class="lights"><rect x="8" y="58" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="40" y="58.6" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="89.5" y="57.4" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="100" y="58.8" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="110" y="59.4" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="120" y="58" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="128.6" y="58.8" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="138" y="58.6" width="1.2" height="1.2" fill="#C7D0C2"/><rect x="178" y="58.2" width="1.2" height="1.2" fill="#C7D0C2"/></g>
-<rect x="0" y="64" width="200" height="2.6" fill="#B0A692"/><rect x="0" y="66.6" width="200" height="0.8" fill="#7E766A"/><rect x="0" y="67.4" width="200" height="52.6" fill="#837C72"/>
-<rect x="0" y="88" width="200" height="32" fill="#756E66"/><rect x="0" y="104" width="200" height="16" fill="#6A645C"/>
-<rect x="8" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="40" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="72" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="104" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="136" y="80" width="8" height="1.2" fill="#E2DACC"/><rect x="168" y="80" width="8" height="1.2" fill="#E2DACC"/>
-<!-- お届け先の玄関（右） -->
-<g transform="translate(146,0)">
-<rect x="0" y="28" width="30" height="36" fill="#7E6355"/>
-<rect x="4" y="36" width="2" height="2" fill="#C0603A"/><rect x="6" y="36" width="2" height="2" fill="#E8D9BC"/><rect x="8" y="36" width="2" height="2" fill="#C0603A"/><rect x="10" y="36" width="2" height="2" fill="#E8D9BC"/><rect x="12" y="36" width="2" height="2" fill="#C0603A"/><rect x="14" y="36" width="2" height="2" fill="#E8D9BC"/><rect x="16" y="36" width="2" height="2" fill="#C0603A"/><rect x="18" y="36" width="2" height="2" fill="#E8D9BC"/><rect x="20" y="36" width="2" height="2" fill="#C0603A"/><rect x="22" y="36" width="2" height="2" fill="#E8D9BC"/>
-<rect x="8" y="40" width="12" height="24" fill="#4A3A34"/><g class="lights"><rect x="9.5" y="41.5" width="9" height="22.5" fill="#F5E9C8"/></g>
-<rect x="24" y="42" width="6" height="8" fill="#4A3A34"/><g class="lights"><rect x="25" y="43" width="4" height="6" fill="#F8DFA6"/></g>
-<rect x="6" y="64" width="16" height="1.6" fill="#B0A692"/>
-<rect x="1.5" y="57" width="5" height="3" fill="#5F6E52"/><rect x="2" y="60" width="4" height="4" fill="#8A4A2E"/>
-</g>
-<!-- 引き取る古い洗濯機（回収も仕事。PC用。玄関先に出してある） -->
-<g transform="translate(138,58)"><rect x="0" y="0" width="8" height="11" fill="#C9C2B0"/><rect x="1" y="1" width="6" height="1" fill="#B0A896"/><rect x="2" y="4" width="4" height="4" fill="#8A8478"/><rect x="7" y="-1" width="2" height="3" fill="#E8D9BC"/></g>
-<!-- 主役：エイトのトラック（全長55マス＝いすゞエルフ2t標準アルミバン比。後輪1軸）
-     2026-08-25 停車はキャブ左＝前の向き（おでん指示）。走行の丁寧な描き方の鏡像
-     （段付きの丸いタイヤ・接地の影・面の2〜3段の陰影・車台は車体内）。
-     社名と8のロゴは鏡文字にしない。後部（右）を開けて荷下ろし。
-     群はx50起点＝荷下ろし口x102〜106と社員・吹き出しが携帯の帯x72〜128に入る -->
-<g transform="translate(50,34.2)">
-<rect x="0" y="34.9" width="56" height="1" fill="#2C2834"/>
-<rect x="10.8" y="34.6" width="6.4" height="0.7" fill="#26222C"/><rect x="39.8" y="34.6" width="6.4" height="0.7" fill="#26222C"/>
-<rect x="11.5" y="27" width="5" height="0.9" fill="#26222C"/><rect x="10.6" y="27.9" width="6.8" height="0.9" fill="#26222C"/><rect x="10.1" y="28.8" width="7.8" height="4.4" fill="#26222C"/><rect x="10.6" y="33.2" width="6.8" height="0.9" fill="#26222C"/><rect x="11.3" y="34.1" width="5.4" height="0.7" fill="#26222C"/>
-<rect x="12.9" y="29.1" width="2.2" height="0.5" fill="#8A8478"/><rect x="12.3" y="29.6" width="3.4" height="2.8" fill="#8A8478"/><rect x="12.9" y="32.4" width="2.2" height="0.5" fill="#8A8478"/><rect x="13.4" y="30.6" width="1.2" height="1" fill="#35303C"/>
-<rect x="40.5" y="27" width="5" height="0.9" fill="#26222C"/><rect x="39.6" y="27.9" width="6.8" height="0.9" fill="#26222C"/><rect x="39.1" y="28.8" width="7.8" height="4.4" fill="#26222C"/><rect x="39.6" y="33.2" width="6.8" height="0.9" fill="#26222C"/><rect x="40.3" y="34.1" width="5.4" height="0.7" fill="#26222C"/>
-<rect x="41.9" y="29.1" width="2.2" height="0.5" fill="#8A8478"/><rect x="41.3" y="29.6" width="3.4" height="2.8" fill="#8A8478"/><rect x="41.9" y="32.4" width="2.2" height="0.5" fill="#8A8478"/><rect x="42.4" y="30.6" width="1.2" height="1" fill="#35303C"/>
-<g class="glint"><rect x="14.7" y="29.7" width="0.8" height="0.8" fill="#C9C2B0"/><rect x="43.7" y="29.7" width="0.8" height="0.8" fill="#C9C2B0"/></g>
-<rect x="19" y="0" width="37" height="25" fill="#F4EFE2"/><rect x="19" y="0" width="37" height="1.2" fill="#FFFFFF"/>
-<rect x="19" y="17.8" width="37" height="1.7" fill="#E4DECE"/>
-<rect x="19" y="19.5" width="37" height="2.5" fill="#C0603A"/><rect x="19" y="22" width="37" height="3" fill="#D8D2C2"/>
-<rect x="51.8" y="1.5" width="3.8" height="18" fill="#2E2838"/>
-<rect x="52.3" y="14.8" width="2.5" height="4.7" fill="#C9A06A"/><rect x="52.3" y="16.8" width="2.5" height="0.8" fill="#A87E4E"/>
-<rect x="51.2" y="0.4" width="4.8" height="1.5" fill="#B8B2A4"/>
-<rect x="51.2" y="1.2" width="0.6" height="23.8" fill="#E4DECE"/><rect x="55.6" y="1.5" width="0.4" height="18" fill="#D8D2C2"/>
-<rect x="17.6" y="0" width="1.4" height="11" fill="#E4DECE"/><rect x="17.6" y="0" width="1.4" height="1.2" fill="#FFFFFF"/>
-<rect x="17.1" y="10.6" width="0.5" height="14.4" fill="#35303C"/>
-<rect x="0.8" y="10" width="16.3" height="15" fill="#F4EFE2"/><rect x="0.8" y="10" width="16.3" height="1.2" fill="#FFFFFF"/>
-<rect x="0.8" y="17.8" width="16.3" height="1.7" fill="#E4DECE"/>
-<rect x="1" y="12" width="6.2" height="5.5" fill="#8FB4C4"/><rect x="9.1" y="12" width="6.2" height="5.5" fill="#8FB4C4"/><rect x="1.9" y="12.6" width="0.7" height="1.8" fill="#FFFFFF"/>
-<rect x="7.7" y="11.6" width="0.6" height="13.4" fill="#E4DECE"/>
-<rect x="0.8" y="19.5" width="16.3" height="2.5" fill="#C0603A"/><rect x="0.8" y="24" width="16.3" height="1" fill="#E4DECE"/>
-<rect x="-0.8" y="11.6" width="1.6" height="0.5" fill="#35303C"/><rect x="-1.4" y="12.1" width="1.1" height="2.9" fill="#35303C"/><rect x="-1.1" y="12.4" width="0.5" height="2.3" fill="#8FB4C4"/>
-<rect x="19.6" y="25" width="35.2" height="1.5" fill="#35303C"/><rect x="4.8" y="25" width="12" height="1.4" fill="#35303C"/><rect x="18.2" y="26.4" width="20.2" height="0.9" fill="#2E2838"/>
-<rect x="9.7" y="26.1" width="8.6" height="1" fill="#2E2838"/><rect x="38.7" y="26.1" width="8.6" height="1" fill="#2E2838"/>
-<rect x="-0.1" y="24.8" width="5.9" height="2" fill="#B8B2A4"/><rect x="-0.1" y="26.3" width="5.9" height="0.5" fill="#8A8478"/>
-<rect x="0.8" y="23.4" width="1.6" height="1.3" fill="#F5C97E"/>
-<rect class="blink" x="0.8" y="22.2" width="1.6" height="1.1" fill="#F5A65A"/>
-<rect x="54" y="22.5" width="1.4" height="1.1" fill="#C0603A"/><rect class="blink" x="52.6" y="22.5" width="1.2" height="1.1" fill="#F5A65A"/>
-<rect x="56" y="26.5" width="3" height="1.2" fill="#8A8478"/><rect x="58.5" y="28.5" width="3" height="1.2" fill="#8A8478"/><rect x="61" y="30.5" width="3" height="1.2" fill="#8A8478"/>
-<rect x="20.8" y="8" width="3" height="1.1" fill="#C0603A"/><rect x="20.5" y="9.1" width="1.1" height="1.7" fill="#C0603A"/><rect x="23.5" y="9.1" width="1.1" height="1.7" fill="#C0603A"/><rect x="20.8" y="10.8" width="3" height="1.1" fill="#C0603A"/><rect x="20.5" y="11.9" width="1.1" height="1.7" fill="#C0603A"/><rect x="23.5" y="11.9" width="1.1" height="1.7" fill="#C0603A"/><rect x="20.8" y="13.6" width="3" height="1.1" fill="#C0603A"/>
-<text class="pcname" x="25.8" y="12.8" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="2.5" letter-spacing="0.08" fill="#93401D">エイト流通サービス</text>
-</g>
-<!-- 荷台の口（後部・右）で次の箱を下ろす社員（2コマ。左向き＝荷台に向かう） -->
-<g transform="translate(101.5,48.5)">
-<rect x="0.5" y="0" width="5" height="1.8" fill="#3E5A68"/><rect x="-1.2" y="1" width="1.7" height="0.9" fill="#3E5A68"/>
-<rect x="1" y="1.8" width="4" height="4" fill="#E8C49A"/>
-<rect x="0" y="5.8" width="6.2" height="8.6" fill="#4E6E7E"/>
-<g class="fr1"><rect x="-1.6" y="3.6" width="7" height="6" fill="#C9A06A"/><rect x="-2.4" y="6.6" width="1" height="1.6" fill="#E8C49A"/><rect x="5.4" y="6.6" width="1" height="1.6" fill="#E8C49A"/></g>
-<g class="fr2"><rect x="-1.6" y="5" width="7" height="6" fill="#C9A06A"/><rect x="-2.4" y="8" width="1" height="1.6" fill="#E8C49A"/><rect x="5.4" y="8" width="1" height="1.6" fill="#E8C49A"/></g>
-<rect x="0.3" y="14.4" width="2.2" height="6.2" fill="#37424E"/><rect x="3.7" y="14.4" width="2.2" height="6.2" fill="#37424E"/>
-<rect x="0" y="20.6" width="3" height="0.9" fill="#2E2838"/><rect x="3.7" y="20.6" width="3" height="0.9" fill="#2E2838"/>
-</g>
-<!-- 運ぶ社員（スクロールで玄関へ歩く。脚は2コマ。荷台後部（右）から玄関へ向かう位置） -->
-<g transform="translate(116,48.5)"><g class="carrymove">
-<rect x="0.5" y="0" width="5" height="1.8" fill="#3E5A68"/><rect x="5.5" y="1" width="1.7" height="0.9" fill="#3E5A68"/>
-<rect x="1" y="1.8" width="4" height="4" fill="#E8C49A"/>
-<rect x="0" y="5.8" width="6.2" height="8.6" fill="#4E6E7E"/>
-<rect x="5" y="1.4" width="9" height="7.4" fill="#C9A06A"/><rect x="5" y="4.6" width="9" height="1" fill="#A87E4E"/>
-<rect x="4.5" y="8.8" width="4" height="1.7" fill="#4E6E7E"/><rect x="8.5" y="8.8" width="1.6" height="1.7" fill="#E8C49A"/>
-<g class="fr1 fast"><rect x="-1.4" y="14.4" width="2.2" height="6.2" fill="#37424E"/><rect x="3" y="14.4" width="2.2" height="6.2" fill="#37424E"/><rect x="-1.7" y="20.6" width="2.9" height="0.9" fill="#2E2838"/><rect x="2.9" y="20.6" width="2.9" height="0.9" fill="#2E2838"/></g>
-<g class="fr2 fast"><rect x="0.2" y="14.4" width="2.2" height="6.2" fill="#37424E"/><rect x="2.7" y="14.4" width="2.2" height="6.2" fill="#37424E"/><rect x="-0.1" y="20.6" width="2.9" height="0.9" fill="#2E2838"/><rect x="2.7" y="20.6" width="2.9" height="0.9" fill="#2E2838"/></g>
-<g class="bub"><rect x="-25.7" y="-14.2" width="28.4" height="9.4" fill="#33291F"/><rect x="-25" y="-13.5" width="27" height="8" fill="#FBF6E9"/><rect x="-4" y="-4.9" width="2.2" height="1.7" fill="#33291F"/><rect x="-3.5" y="-3.2" width="1.7" height="1.6" fill="#33291F"/><rect x="-3.1" y="-1.6" width="1.2" height="1.6" fill="#33291F"/><text x="-11.5" y="-7.9" text-anchor="middle" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="3.3" fill="#33291F">おじゃまします</text></g>
-</g></g>
-</svg>
-
-<!-- 場面3：設置を終えた部屋。「ありがとう。またお願いね」 -->
-<svg id="sc3" class="pxs" viewBox="0 0 200 120" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
-<rect x="0" y="0" width="200" height="70" fill="#7E6552"/><rect x="0" y="0" width="200" height="4" fill="#71584A"/>
-<rect x="0" y="70" width="200" height="50" fill="#564238"/><rect x="0" y="69.2" width="200" height="0.8" fill="#463630"/>
-<rect x="0" y="76" width="200" height="0.6" fill="#48372F"/><rect x="0" y="84" width="200" height="0.6" fill="#48372F"/>
-<rect x="0" y="92" width="200" height="28" fill="#443430"/><rect x="0" y="106" width="200" height="14" fill="#382C25"/>
-<!-- 窓の外は同じ夕方の町（PC用・左） -->
-<rect x="16.6" y="14.5" width="3.4" height="39" fill="#A8836A"/><rect x="17.8" y="14.5" width="0.5" height="39" fill="#96745C"/>
-<rect x="56" y="14.5" width="3.4" height="39" fill="#A8836A"/><rect x="57.2" y="14.5" width="0.5" height="39" fill="#96745C"/>
-<rect x="18.8" y="16.8" width="38.4" height="34.4" fill="#4A3A34"/>
-<rect x="20" y="18" width="36" height="9" fill="#A9C0BE"/><rect x="20" y="27" width="36" height="8" fill="#C2D2C6"/><rect x="20" y="35" width="36" height="7" fill="#D6DFCC"/><rect x="20" y="42" width="36" height="8.4" fill="#E8E9D2"/>
-<rect x="20" y="41" width="36" height="1.8" fill="#9FAA9E"/><rect x="24" y="39.8" width="5" height="1.4" fill="#9FAA9E"/><rect x="38" y="39.6" width="4" height="1.6" fill="#9FAA9E"/><rect x="48" y="40" width="4" height="1.2" fill="#9FAA9E"/>
-<rect x="47" y="24" width="5" height="5" fill="#F5E9C8"/><rect x="48" y="25" width="3" height="3" fill="#FBF3DC"/>
-<rect x="37.3" y="18" width="1.4" height="32.4" fill="#4A3A34"/><rect x="20" y="33.6" width="36" height="1.4" fill="#4A3A34"/>
-<rect x="17.8" y="51.2" width="40.4" height="1.6" fill="#463630"/>
-<!-- 電灯（ともっている・左寄り。スマホの視界に半端に掛からない位置） -->
-<rect x="64" y="0" width="1.2" height="24" fill="#3E312C"/>
-<rect x="58" y="24" width="14" height="4.5" fill="#C0603A"/><rect x="58" y="28.5" width="14" height="1" fill="#8A4A2E"/>
-<g class="lights"><rect x="61.5" y="29.5" width="7" height="2" fill="#F8DFA6"/></g>
-<!-- 壁のエアコン（設置済み・ランプ点灯） -->
-<rect x="104" y="12" width="22" height="6" fill="#F4EFE2"/><rect x="105" y="16.5" width="20" height="0.8" fill="#D8D2C2"/><rect class="blink" x="122" y="15.5" width="1" height="1" fill="#7EA86A"/>
-<!-- 設置し終えた冷蔵庫 -->
-<rect x="76.5" y="70" width="25" height="1.2" fill="#463630"/>
-<rect x="78" y="44" width="22" height="26" fill="#F4EFE2"/><rect x="78" y="44" width="22" height="1.2" fill="#FFFFFF"/><rect x="78" y="53" width="22" height="1" fill="#D8D2C2"/><rect x="80" y="47.5" width="1.6" height="4" fill="#8A8478"/><rect x="80" y="56" width="1.6" height="7" fill="#8A8478"/><rect x="97.8" y="44" width="2.2" height="26" fill="#E2DBC8"/><rect x="79" y="67.8" width="20" height="1.4" fill="#B8B2A4"/><rect x="87.5" y="45.8" width="2" height="1" fill="#C0603A"/>
-<!-- お茶（出してもらった湯気） -->
-<rect x="59" y="56" width="12" height="1.8" fill="#6B4A3A"/><rect x="60" y="57.8" width="1.4" height="12.2" fill="#5A3E30"/><rect x="68.6" y="57.8" width="1.4" height="12.2" fill="#5A3E30"/>
-<rect x="63.5" y="53.4" width="3" height="2.6" fill="#E8DCC4"/>
-<g class="puff p1"><rect x="64.4" y="51" width="1.2" height="1.2" fill="#E0D8CA"/></g><g class="puff p2"><rect x="64" y="51" width="1.5" height="1.4" fill="#E0D8CA"/></g><g class="puff p3"><rect x="63.7" y="51" width="1.8" height="1.6" fill="#E0D8CA"/></g>
-<!-- 道具箱、畳んだ段ボールと台車（仕事が終わった印） -->
-<rect x="101.5" y="66" width="7" height="3.5" fill="#8A4A2E"/><rect x="104" y="65" width="2" height="1" fill="#5E3220"/>
-<g transform="translate(148,0)"><rect x="0" y="56" width="2" height="14" fill="#C9A06A"/><rect x="2.4" y="55" width="2" height="15" fill="#B98A5C"/><rect x="11" y="50" width="1.3" height="14" fill="#8A8478"/><rect x="7.5" y="50" width="3.5" height="1.3" fill="#8A8478"/><rect x="5" y="68" width="10" height="1.5" fill="#8A8478"/><rect x="6.5" y="69.5" width="2.2" height="2.2" fill="#26222C"/><rect x="12" y="69.5" width="2.2" height="2.2" fill="#26222C"/></g>
-<!-- 額（PC用・右の壁） -->
-<rect x="136" y="26" width="10" height="8" fill="#4A3A34"/><rect x="137.4" y="27.4" width="7.2" height="5.2" fill="#D8C9A8"/><rect x="139" y="30" width="4" height="1.4" fill="#96745C"/>
-<!-- 主役：社員へのありがとう。ふたりの礼は2コマ -->
-<g transform="translate(106,48.5)">
-<g class="fr1"><rect x="0.5" y="0" width="5" height="1.8" fill="#3E5A68"/><rect x="5.5" y="1" width="1.6" height="0.9" fill="#3E5A68"/><rect x="1" y="1.8" width="4" height="4" fill="#E8C49A"/><rect x="0" y="5.8" width="6" height="8.8" fill="#4E6E7E"/><rect x="5" y="7.1" width="1.8" height="5" fill="#4E6E7E"/><rect x="5" y="12.1" width="1.8" height="1.6" fill="#E8C49A"/></g>
-<g class="fr2"><rect x="2.3" y="1.6" width="5" height="1.8" fill="#3E5A68"/><rect x="7.3" y="2.6" width="1.6" height="0.9" fill="#3E5A68"/><rect x="2.8" y="3.4" width="4" height="4" fill="#E8C49A"/><rect x="0.3" y="6.6" width="6.2" height="8" fill="#4E6E7E"/><rect x="6" y="8.6" width="1.8" height="4.6" fill="#4E6E7E"/><rect x="6" y="13.2" width="1.8" height="1.6" fill="#E8C49A"/></g>
-<rect x="0.3" y="14.6" width="2.2" height="6" fill="#37424E"/><rect x="3.5" y="14.6" width="2.2" height="6" fill="#37424E"/>
-<rect x="0" y="20.6" width="2.9" height="0.9" fill="#2E2838"/><rect x="3.5" y="20.6" width="2.9" height="0.9" fill="#2E2838"/>
-</g>
-<g transform="translate(120,50.5)">
-<g class="fr2 slow2"><rect x="0.2" y="0" width="4.6" height="2" fill="#C9C2B0"/><rect x="0.5" y="1.6" width="4" height="3.8" fill="#E8C49A"/><rect x="0" y="5.4" width="6" height="7.6" fill="#A8735C"/><rect x="-1.4" y="7.1" width="1.6" height="3.4" fill="#A8735C"/><rect x="-1.4" y="10.5" width="1.6" height="1.4" fill="#E8C49A"/></g>
-<g class="fr1 slow2"><rect x="-1.6" y="1.4" width="4.6" height="2" fill="#C9C2B0"/><rect x="-1.3" y="3" width="4" height="3.8" fill="#E8C49A"/><rect x="-0.4" y="6" width="6.4" height="7" fill="#A8735C"/><rect x="-2.8" y="9.1" width="1.6" height="3" fill="#A8735C"/><rect x="-2.8" y="12.1" width="1.6" height="1.4" fill="#E8C49A"/></g>
-<rect x="0.4" y="13" width="2.2" height="5.6" fill="#6B4A44"/><rect x="3.4" y="13" width="2.2" height="5.6" fill="#6B4A44"/>
-<rect x="0.2" y="18.6" width="2.8" height="0.9" fill="#4A3324"/><rect x="3.4" y="18.6" width="2.8" height="0.9" fill="#4A3324"/>
-</g>
-<!-- 一番いい一言はここ -->
-<g class="bub" transform="translate(-2,0)"><rect x="83.3" y="30.3" width="45.4" height="9.4" fill="#33291F"/><rect x="84" y="31" width="44" height="8" fill="#FBF6E9"/><rect x="118.5" y="39" width="2.2" height="2.2" fill="#33291F"/><rect x="119" y="41.2" width="1.7" height="2.2" fill="#33291F"/><rect x="119.4" y="43.4" width="1.2" height="2.2" fill="#33291F"/><rect x="119.8" y="45.6" width="0.9" height="2.2" fill="#33291F"/><text x="106" y="36.6" text-anchor="middle" font-family="Hiragino Kaku Gothic ProN,Hiragino Sans,sans-serif" font-weight="600" font-size="3.3" fill="#33291F">ありがとう。またお願いね</text></g>
-</svg>
-
-    <div class="scrim" aria-hidden="true"></div>
-
-    <!-- 文字の帯（絵の上）。場面1はJSが無くても読める -->
-    <div class="hbands">
-      <div class="hband is-in" data-a="0" data-b="0.50">
-        <p class="k">創業1986年　浦安・新座</p>
-        <h1>家電の配送と<br>設置工事。</h1>
-        <div class="foot">
-          <p class="sub">家電量販店・運送会社・工事会社から荷物をお預かりして、お客様のお宅へ。40年になりました。</p>
-        </div>
-      </div>
-      <div class="hband" data-a="0.50" data-b="0.77">
-        <p class="k">配送・設置工事・収集運搬</p>
-        <p class="line">運んで、取り付けて、<br>引き取るまで。</p>
-        <div class="foot">
-          <p class="sub">開梱・設置・接続、リサイクル家電の回収まで。登録電気工事業者／産業廃棄物収集運搬業。</p>
-        </div>
-      </div>
-      <div class="hband" data-a="0.77" data-b="1">
-        <p class="k">お客様・協力会社からの言葉</p>
-        <div class="notes">
-          <div class="note">
-            <p class="q">洗濯機の入れ替えでお願いしました。通路が狭いのに、壁も床も傷ひとつ付きませんでした。</p>
-            <p class="who">― お客様の声</p>
-          </div>
-          <div class="note">
-            <p class="q">エアコンをお願いした日の夕方には、もう涼しくなっていました。早くて助かりました。</p>
-            <p class="who">― お客様の声</p>
-          </div>
-          <div class="note">
-            <p class="q">配車の連絡が早いので、こちらも段取りが組みやすいです。長くお願いしている理由です。</p>
-            <p class="who">― 協力会社の声</p>
-          </div>
-        </div>
-        <div class="foot">
-          <div class="go">
-            <a class="btn2 fill" href="business.html">法人のお客様へ</a>
-            <a class="btn2" href="recruit.html">採用情報（募集中）</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="chap2" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
-    <p class="cue2" aria-hidden="true">SCROLL<svg viewBox="0 0 14 9"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></p>
+<!-- ① ヒーロー：チャッピー（ChatGPT）のデザイン（青×白・実写トラック）を実装。
+     動きはCSSのみ（パターンB＝アニメーション）。パターンA（実写動画）はHiggsfieldの
+     クレジットが入り次第、.bh-photo の img を <video> に差し替えるだけで載る作り。
+     旧ドット絵ヒーローは _改修前_20260906_ブルー化/ にある（「戻して」で戻せる） -->
+<section class="bluehero" aria-label="動かすのは、人の暮らしと、もっといい未来。">
+  <div class="bh-sky" aria-hidden="true">
+    <i class="bh-sun"></i>
+    <i class="bh-cloud c1"></i><i class="bh-cloud c2"></i><i class="bh-cloud c3"></i><i class="bh-cloud c4"></i>
   </div>
+  <div class="bh-photo" aria-hidden="true">
+    <!-- パターンA（実写風動画・Kling 3.0 Pro・2026-09-06生成）。posterは同じ構図の静止画なので
+         読み込み中も飛ばない。末尾0.6秒を先頭にクロスフェードした完全ループ（継ぎ目なし） -->
+    <video src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="874"
+      autoplay muted loop playsinline disablepictureinpicture></video>
+  </div>
+  <div class="bh-in">
+    <p class="bh-en">LOGISTICS FOR A BRIGHTER TOMORROW</p>
+    <h1>動かすのは、<br>人の暮らしと、<br>もっといい未来。</h1>
+    <p class="bh-lead">エイト流通サービスは、<br class="sponly">物流で地域と社会をつなぐ、縁の下の力持ちです。</p>
+    <div class="bh-acts">
+      <a class="bh-btn main" href="recruit.html">採用情報を見る<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+      <a class="bh-btn ghost" href="about.html">私たちのこと<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+    </div>
+    <ul class="bh-chips" aria-label="働く環境の要点">
+      <li>社員26人中24人が未経験スタート</li>
+      <li>2人1組</li>
+      <li>残業なし</li>
+      <li>賞与 年3回</li>
+    </ul>
+  </div>
+  <p class="bh-scroll" aria-hidden="true">SCROLL</p>
 </section>
 
 
@@ -825,6 +224,18 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
     <span class="s">正社員3職種・アルバイト募集中／エアコン工事の指導は当社で行います</span>
   </a>
 </div>
+
+<!-- お客様・協力会社の言葉（ヒーローから移設。文面は据え置き） -->
+<section class="bluevoice" aria-label="お客様・協力会社からの言葉">
+  <div class="wrap">
+    <p class="bv-k">お客様・協力会社からの言葉</p>
+    <div class="bv-notes">
+      <div class="bv-note"><p class="q">洗濯機の入れ替えでお願いしました。通路が狭いのに、壁も床も傷ひとつ付きませんでした。</p><p class="who">― お客様の声</p></div>
+      <div class="bv-note"><p class="q">エアコンをお願いした日の夕方には、もう涼しくなっていました。早くて助かりました。</p><p class="who">― お客様の声</p></div>
+      <div class="bv-note"><p class="q">配車の連絡が早いので、こちらも段取りが組みやすいです。長くお願いしている理由です。</p><p class="who">― 協力会社の声</p></div>
+    </div>
+  </div>
+</section>
 
 <!-- 朝 -->
 <div class="band face">
@@ -1081,84 +492,17 @@ html.go .pxs.is-on .bub{animation:appear .01s steps(1,end) .5s forwards}
 </div>
 
 <a class="ptop" href="#" aria-label="ページの先頭へ戻る"><span>ページの先頭へ戻る</span></a>
+<!-- 旧スクロールヒーローのJSは削除した（.scrollhero が無くなり毎回例外になっていた・2026-09-06 Codex指摘） -->
+
 <script>
-/* スクロールで3つの場面と文字が入れ替わる。支度が済んだ時だけ重ね表示。
-   失敗したら場面1＋最初の文字のまま（opacity:0を既定にしない） */
-(function () {
-  try {
-    /* 🚨 動きは止めるが、情報は減らさない。前は1場面目しか読めず、
-       搬入と「設置して感謝」の内容に届かなかった（2026-08-26 Codex指摘・実測で再現） */
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('reduce-hero'); return;
-    }
-    var hero = document.querySelector('.scrollhero');
-    var bands = [].slice.call(hero.querySelectorAll('.hband'));
-    var chaps = [].slice.call(hero.querySelectorAll('.chap2 i'));
-    var scenes = [document.getElementById('sc1'), document.getElementById('scd'), document.getElementById('sc2'), document.getElementById('sc3')];
-    if (!hero || bands.length !== 3 || scenes.indexOf(null) !== -1) return;
-    var scd = scenes[1];
-    var drv = { far: scd.querySelector('.lyr-far'), mid: scd.querySelector('.lyr-mid'), gnd: scd.querySelector('.lyr-gnd') };
-    if (!drv.far || !drv.mid || !drv.gnd) return;
-    var root = document.documentElement;
-    root.classList.add('go');
-
-    var ranges = bands.map(function (el) {
-      return { el: el, a: +el.dataset.a, b: +el.dataset.b };
-    });
-
-    function progress() {
-      var range = hero.offsetHeight - innerHeight;
-      if (range <= 0) return 0;
-      var p = -hero.getBoundingClientRect().top / range;
-      return p < 0 ? 0 : p > 1 ? 1 : p;
-    }
-
-    var ticking = false;
-    function paint() {
-      ticking = false;
-      var p = progress();
-      var cur = 0;
-      /* 区間は隙間なし・半開（最後だけ閉じる）＝どの進行度でも点くのは常に1枚。
-         止まった時に2枚重なったまま残らない。切り替えの見た目はCSSの
-         クロスフェード（消える側.38s・出る側は即時）が受け持つので「無」の瞬間も出ない */
-      ranges.forEach(function (r, i) {
-        var on = p >= r.a && (i === ranges.length - 1 ? p <= r.b : p < r.b);
-        r.el.classList.toggle('is-in', on);
-        if (on) cur = i;
-      });
-      chaps.forEach(function (c, i) { c.classList.toggle('on', i === cur); });
-      /* 場面は4つ（1→走行→2→3）。閾値式なので、速く送られても順に繋がって壊れない */
-      var sc = p < 0.29 ? 0 : p < 0.53 ? 1 : p < 0.77 ? 2 : 3;
-      scenes.forEach(function (s, i) { s.classList.toggle('is-on', i === sc); });
-      /* 走行：スクロール量→町の送り量400マス。層ごとに速さを変え、2マス刻みで送る。
-         止めれば止まる。車輪の光と車体の揺れは送り量の偶奇で2コマ */
-      var dp = Math.max(0, Math.min(1, (p - 0.29) / 0.24));
-      var off = dp * 400;
-      /* 🚨 2マス刻みで送っていたので、指を動かすと町が飛び飛びに動いて「カクカクして重い」
-         と言われた（2026-08-26）。実測では120fps・コマ落ち0で、重いのではなく刻みが原因。
-         送り量はそのまま、刻むのをやめる。車輪の光と車体の揺れの2コマ切替はそのまま残す */
-      var put = function (el, v) { el.setAttribute('transform', 'translate(' + (-(v % 200)).toFixed(2) + ',0)'); };
-      put(drv.far, off * 0.3); put(drv.mid, off * 0.65); put(drv.gnd, off);
-      scd.classList.toggle('alt', Math.floor(off / 6) % 2 === 1);
-      /* 運ぶ社員：マス単位で玄関へ。コマを刻む */
-      var w = Math.max(0, Math.min(1, (p - 0.56) / 0.18));
-      hero.style.setProperty('--tx', (w * 10).toFixed(2) + 'px');
-      /* 灯り：5段階で刻んでいたのをやめて、連なりでともる */
-      var lit = (0.55 + p * 0.45).toFixed(3);
-      hero.style.setProperty('--lit', lit);
-    }
-    function onScroll() {
-      if (!ticking) { ticking = true; requestAnimationFrame(paint); }
-    }
-    addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll);
-    paint();
-  } catch (e) {
-    document.documentElement.classList.remove('go');
-  }
+/* 視差を減らす設定の端末では、ヒーロー動画を回さない（1コマ目＝posterと同じ構図で静止） */
+(function(){
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var v=document.querySelector('.bh-photo video');
+  if(v){v.removeAttribute('autoplay');v.removeAttribute('loop');v.pause();}
 })();
 </script>
-
 <script src="assets/motion.js"></script>
+<script src="assets/line.js"></script>
 </body>
 </html>

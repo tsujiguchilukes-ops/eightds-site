@@ -1,0 +1,557 @@
+@charset "utf-8";
+/* =========================================================
+   採用ページ 案2（saiyo2.html だけが読む）
+   🚨 共通の assets/style.css には1文字も手を入れない。
+   クラスは s2- 接頭辞で衝突を避ける。
+   - ブランド維持：色は style.css の var(--…) だけ／書体 Hiragino Kaku Gothic ProN／
+     字番 14/16/18/22/28/40/56（※仮タグのみ12）／余白は8の倍数
+   - 案1（角丸0＋ずらし影のPXスキン）と見分けるため、案2は
+     「映画のレターボックス＋pill＋角丸8/12の白カード＋薄い1段影」で作る
+     （pillは手本実測の標準：関空r100px・三和r9999px。影1段以下も手本7本の実測どおり）
+   - FVは明るい地＋濃い文字（関空型）。全面の暗幕はかけない。
+     写真の上の小さい文字だけ --hot-hi（白地では使わない）
+   ========================================================= */
+
+/* 🚨 style.css のPXスキンは h1/h2/h3 を明朝（--serif）に上書きしている。
+   発注書「黒背景＋トラック＋力強い明朝＝捨てる（実測でも8本中セリフ体0本）」に従い、
+   案2の見出しはゴシックへ戻す（共通ヘッダーのロゴとフッターは触らない） */
+.s2title h1,.s2sec h2,.s2career h2,.s2sec h3,.s2career h3,.s2close h3{
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic Medium","游ゴシック Medium","Meiryo",sans-serif}
+.s2sec h2,.s2career h2,.s2sec h3,.s2career h3,.s2close h3{font-weight:700}
+
+/* ---- ※要確認 の印（未確定 data-tmp="1" の値の横に必ず置く） ----
+   🚨 2026-09-05 デザイン検品：accent色のバッジ27個で 35,925px² を塗っており、
+   主CTA（21,600px²）の1.66倍。「押せる物より未定の印のほうが広い」＝作りかけに見える。
+   → 値はそのまま出し、印だけ静かにする（色を使わない・囲まない・小さく）。
+   機械側の目印は data-tmp="1" に残してあるので、条件が届いたら一括で外せる。 */
+.tmp{display:inline;margin-left:6px;padding:0;
+  font-size:12px;font-weight:400;line-height:1.6;letter-spacing:.04em;
+  color:var(--sub);background:none;box-shadow:none;border-radius:0;white-space:nowrap}
+
+/* =========================================================
+   ヒーロー＝映画のワンシーン（H-1：実写＋演出だけ）
+   ========================================================= */
+/* 本文へ飛ぶリンク（キーボードで最初のTabに出る。マウスでは見えない） */
+.skip{position:absolute;left:8px;top:-64px;z-index:200;padding:12px 20px;min-height:44px;
+  display:inline-flex;align-items:center;background:var(--ink);color:#FFF7EA;font-weight:700;
+  text-decoration:none;border-radius:8px;transition:top .12s var(--ease)}
+.skip:focus{top:8px}
+
+.s2hero{background:var(--paper);padding-top:var(--head)}
+
+/* レターボックス：インクの帯の中に 16:9 の1カット。
+   （黒背景を「主役」にはしない＝帯はこの1箇所だけ。地はあくまで紙） */
+.s2film{background:var(--ink);padding:16px 0}
+.s2frame{position:relative;max-width:1160px;margin:0 auto;overflow:hidden}
+.s2frame img,.s2frame video{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;
+  /* 元写真は3:2（1800x1200）。16:9は上下を12.5%切るだけ＝顔は切れない。
+     顔2つは縦25〜55%にあるので、気持ち上寄せ */
+  object-position:50% 38%;display:block}
+/* 文字の足場：上下の両方に勾配。
+   🚨 2026-09-05 実測：上に勾配が無く「SCENE 01」の明暗比が 1.01〜3.04 だった（要4.5）。
+   元写真 P2 は白飛びが 8.26% あり、上側は明るい。下だけの勾配では足りない。 */
+.s2frame::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(16,20,24,.72) 0%,rgba(16,20,24,.34) 12%,transparent 26%),
+    linear-gradient(to top,rgba(16,20,24,.78) 0%,rgba(16,20,24,.24) 22%,transparent 40%)}
+/* 🚨 var(--hot-hi) は使わない。style.css:813 のPXスキンが --hot-hi を --hot と同値
+   （#F2C594）に上書きしていて、style.css:15 が自分で「4.0:1で足りない」と書いた色になる。
+   ＝安全用に作った変数が無効化されていた（[[css-written-is-not-css-working]]）。色は直書きする。 */
+.s2scenehead{position:absolute;top:16px;left:16px;z-index:1;
+  font-size:14px;font-weight:700;letter-spacing:.24em;color:#FFF7EA;
+  text-shadow:0 1px 8px rgba(16,20,24,.9)}
+.s2scenehead b{font-weight:700;margin-right:16px;color:#FFF7EA}
+.s2subtitle{position:absolute;left:16px;right:16px;bottom:16px;z-index:1;text-align:center;
+  font-size:16px;font-weight:700;letter-spacing:.3em;text-indent:.3em;color:#FFF7EA;
+  text-shadow:0 1px 10px rgba(16,20,24,.95)}
+
+/* 題字（映画のタイトル文字。紙の上・左揃え）
+   🚨 2026-09-05 デザイン検品：h1 56px＝本文の3.5倍は「安い側」の作法（合格帯は2.1倍前後）。
+   日本語の見出しに .05em 以上の字間を入れると間延びする（合格は 0em）。
+   手本3社とも見出しは左揃えで、中央揃えは0社だった。 */
+.s2title{max-width:var(--max);margin:0 auto;padding:40px 24px 48px;text-align:left}
+.s2title .s2en{font-size:14px;font-weight:700;letter-spacing:.24em;color:var(--accent)}
+.s2title h1{margin-top:16px;font-size:34px;font-weight:700;line-height:1.45;letter-spacing:0;
+  color:var(--ink)}
+.s2lead{margin:16px 0 0;max-width:36em;font-size:17px;line-height:1.95;color:var(--ink);text-align:left}
+/* 見出しの字間はサイト共通スキン（style.css:829 の h2{letter-spacing:.05em}）を打ち消す */
+.s2sec h2,.s2career h2,.s2sec h3,.s2career h3,.s2close h3,.s2sec h4,.s2career h4{letter-spacing:0}
+/* 本文は17px（16pxは合格帯 14/17/18 の下限割れ） */
+.s2lead,.s2jobs p:not(.k),.s2day p,.s2scene p,.s2real li,.s2fit li,.s2faq .a p,
+.s2close>.in>p,.s2said p,.s2career .s2todo{font-size:17px}
+
+/* 確定の待遇札（チェック付きpill。確定した事実だけを入れる） */
+.s2chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;margin-top:24px}
+.s2chips li{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--brand);
+  box-shadow:inset 0 0 0 1px var(--line);font-size:14px;font-weight:700;padding:6px 16px;border-radius:999px}
+.s2chips li::before{content:"";width:14px;height:11px;flex:none;background:var(--accent);
+  -webkit-mask:var(--check) no-repeat center/contain;mask:var(--check) no-repeat center/contain}
+
+/* 確定している唯一の給与の数字（アルバイト日給）を独立して大きく */
+.s2fact{margin:24px 0 0;max-width:480px;padding:16px 24px;background:var(--white);
+  border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(31,35,40,.06);text-align:left}
+.s2fact dt{font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.s2fact dd{margin-top:4px;font-size:16px;font-weight:700;color:var(--ink)}
+.s2fact dd b{font-size:40px;font-weight:700;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.s2fact dd small{font-size:16px;font-weight:700;margin-left:2px}
+.s2fact .d{display:block;margin-top:4px;font-size:14px;font-weight:400;color:var(--sub)}
+
+/* CTA（文言は「◯◯で話を聞いてみる」1本に統一。押した瞬間に単独で分かる:active） */
+.s2acts{margin:24px 0 0;max-width:480px;display:flex;flex-direction:column;gap:16px;align-items:stretch}
+.s2cta{display:flex;align-items:center;justify-content:center;width:100%;min-height:60px;
+  padding:8px 24px;background:var(--accent);color:#FFF7EA;font-size:18px;font-weight:700;
+  letter-spacing:.04em;text-decoration:none;border-radius:999px;
+  box-shadow:0 8px 20px rgba(201,83,31,.28);
+  transition:transform .12s var(--ease),box-shadow .12s var(--ease)}
+.s2cta:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(201,83,31,.34)}
+.s2cta:active{transform:scale(.97);box-shadow:0 2px 8px rgba(201,83,31,.3)}
+.s2cta:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.s2sub-link{display:inline-flex;align-items:center;min-height:44px;
+  font-size:16px;font-weight:700;color:var(--brand);text-decoration:none;
+  border-bottom:2px solid var(--accent);padding:4px 8px}
+.s2sub-link::after{content:"　→"}
+.s2sub-link:hover{color:var(--accent)}
+.s2sub-link:active{transform:translate(1px,1px);opacity:.8}
+
+/* ヒーローの入り（開いてすぐ出す。JSに頼らないCSSアニメだけ。
+   遅延+時間は最長でも 0.9s ＝ 1.2秒までに全部出切る） */
+@media (prefers-reduced-motion: no-preference){
+  /* 🚨 img だけだと、ヒーローを動画に差し替えた瞬間にズームが消える */
+  .s2frame img,.s2frame video{animation:s2zoom 16s var(--ease) both}
+  .s2scenehead{animation:s2in .5s var(--ease) .2s both}
+  .s2subtitle{animation:s2in .5s var(--ease) .35s both}
+  .s2title .s2en{animation:s2in .5s var(--ease) .1s both}
+  .s2title h1{animation:s2in .6s var(--ease) .2s both}
+  .s2lead,.s2chips{animation:s2in .6s var(--ease) .3s both}
+  .s2fact,.s2acts{animation:s2in .6s var(--ease) .4s both}
+}
+@keyframes s2in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes s2zoom{from{transform:scale(1.06)}to{transform:none}}
+
+/* =========================================================
+   節の共通（.sec/.wrap/.en/h2/.note は style.css のものを使う）
+   ========================================================= */
+/* 🚨 style.css:823 のPXスキンが --check を「ドット階段」の版に差し替えていて、
+   14x11px では階段のままチェックに見えなかった（3倍に拡大しないと分からない）。
+   案2は角丸999pxの滑らかな作法なので、滑らかなチェックに戻す（このページの中だけ） */
+body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M1.2 5.6 5 9.4 12.8 1.6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+
+.s2sec h3.s2h{font-size:22px;font-weight:700;margin-top:64px;padding-left:16px;
+  border-left:4px solid var(--accent)}
+.s2sec h3.s2h:first-of-type{margin-top:48px}
+.s2sec .s2h+.note{margin-top:16px}
+
+/* ---- 01 仕事を知る：職種カード ---- */
+.s2jobs{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.s2jobs article{background:var(--white);border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;box-shadow:0 8px 24px rgba(31,35,40,.06)}
+.s2jobs .ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block}
+.s2jobs .ph-todo{display:flex;align-items:center;justify-content:center;aspect-ratio:3/2;
+  background:var(--paper);border-bottom:1px dashed var(--line);
+  color:var(--sub);font-size:14px;line-height:1.8;text-align:center}
+.s2jobs .tx{padding:24px}
+.s2jobs .k{display:inline-block;font-size:14px;font-weight:700;letter-spacing:.14em;
+  color:var(--accent)}
+/* 🚨 見出しに色を付けない（合格＝白か墨。色は小さいラベル `.k` `.n` だけ） */
+.s2jobs h3{font-size:22px;font-weight:700;line-height:1.5;margin-top:8px;color:var(--ink)}
+.s2jobs p:not(.k){margin-top:8px;font-size:16px;line-height:1.9;color:var(--ink)}
+
+/* ---- 1日の流れ（縦タイムライン。時刻は仮） ---- */
+.s2day{margin-top:40px;border-left:2px solid var(--brand);padding-left:24px;max-width:640px}
+.s2day>div{position:relative;padding:0 0 32px}
+.s2day>div:last-child{padding-bottom:0}
+.s2day>div::before{content:"";position:absolute;left:-31px;top:8px;width:12px;height:12px;
+  border-radius:50%;background:var(--accent)}
+.s2day .t{font-size:18px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+.s2day b{display:block;font-size:18px;font-weight:700;margin-top:2px}
+.s2day p{font-size:16px;color:var(--sub);line-height:1.8;margin-top:4px}
+
+
+/* ---- 本人の言葉が届くまでの箱（作った文を実在の人に付けないための枠） ---- */
+.s2band-in{margin-top:40px;border-radius:16px;overflow:hidden}
+.s2band-in img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;object-position:50% 38%}
+.s2todo-box{margin-top:24px;padding:24px;background:var(--white);border:1px dashed var(--line);
+  border-radius:16px}
+.s2todo-box p{font-size:17px;line-height:1.9;color:var(--ink)}
+.s2todo-box p+p{margin-top:8px;color:var(--sub);font-size:16px}
+
+/* ---- SNS動画の枠（まだ0本＝絵を置かず枠と文だけ。SPは横スワイプ） ---- */
+.s2sns{display:grid;grid-auto-flow:column;grid-auto-columns:64%;gap:16px;margin-top:40px;
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+  padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.s2sns>div{scroll-snap-align:center;aspect-ratio:9/16;background:var(--white);
+  border:1px dashed var(--line);border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:var(--sub);font-size:14px;text-align:center;padding:16px}
+.s2sns b{font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+
+/* ---- 03 給料と待遇：数字カード（数字は本文の2.5倍・単位は別要素） ---- */
+.s2nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
+.s2nums>div{background:var(--white);border:1px solid var(--line);border-radius:16px;
+  padding:24px 16px;box-shadow:0 8px 24px rgba(31,35,40,.06)}
+.s2nums>div.wide{grid-column:1/-1;text-align:center}
+.s2nums>div[data-tmp]{background:var(--paper);box-shadow:none}
+.s2nums dt{font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--accent)}
+.s2nums dd{margin-top:8px;font-size:16px;font-weight:700;line-height:1.3;color:var(--ink)}
+.s2nums dd b{font-size:40px;font-weight:700;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.s2nums dd.sm b{font-size:28px}
+.s2nums dd small{font-size:14px;font-weight:700}
+.s2nums .d{display:block;margin-top:8px;font-size:14px;font-weight:400;line-height:1.7;color:var(--sub)}
+.s2wel{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.s2wel span{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--brand);
+  box-shadow:inset 0 0 0 1px var(--line);font-size:14px;padding:6px 16px;border-radius:999px}
+.s2wel span::before{content:"";width:14px;height:11px;flex:none;background:var(--accent);
+  -webkit-mask:var(--check) no-repeat center/contain;mask:var(--check) no-repeat center/contain}
+/* 給与モデル（全部仮） */
+.s2model{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+.s2model>div{background:var(--paper);border-radius:16px;padding:24px 16px}
+.s2model .k{font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+.s2model .v{margin-top:8px;font-size:16px;font-weight:700}
+.s2model .v b{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums}
+.s2model .v small{font-size:14px;font-weight:700}
+.s2model .d{display:block;margin-top:8px;font-size:14px;font-weight:400;color:var(--sub);line-height:1.7}
+.s2model .todo{display:flex;align-items:center;justify-content:center;min-height:120px;
+  font-size:14px;color:var(--sub);border:1px dashed var(--line);background:var(--white);
+  border-radius:16px;text-align:center;line-height:1.8}
+
+/* =========================================================
+   04 道すじ＝映画の章立て（紺の1節だけ夜のトーン。黒地ではない）
+   ========================================================= */
+/* 🚨 --deep はスキンでほぼ黒（#221D28）。黒地を主役にしないため、
+   夕方のスレート（--brand #35505C）を地にする（白文字で実測7:1前後） */
+.s2career{background:var(--brand);color:#FBF6E9;padding:96px 0}
+.s2career .en{color:var(--hot)}
+.s2career h2{color:#FBF6E9}
+.s2career .note{color:#DCD5C5}
+.s2scenes{margin-top:48px;display:grid;gap:24px}
+.s2scene{background:rgba(251,246,233,.06);border:1px solid rgba(251,246,233,.16);
+  border-radius:16px;overflow:hidden}
+.s2scene .ph img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
+/* 🚨 L4_台車は左端に先輩の顔がある。中央寄せだと768〜1023pxで顔が半分切れる（実測 可視x220〜）。
+   左寄せで顔を丸ごと残す（右の作業者の顔はx1250までなので左寄せでも切れない） */
+.s2scene .ph img.pos-l{object-position:0% 50%}
+/* 🚨 色は目で選ばない。スレート rgb(65,89,101) の上で 4.5:1 を満たす最小の明るさ＝#DCD5C5
+   （実測：#C9C0AE=4.08、#CFC6B3=4.35 で どちらも不足していた） */
+.s2scene .ph-todo{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;
+  border-bottom:1px dashed rgba(251,246,233,.24);color:#DCD5C5;font-size:14px;line-height:1.8;
+  text-align:center}
+.s2scene .tx{padding:24px}
+.s2scene .n{font-size:14px;font-weight:700;letter-spacing:.24em;color:var(--hot)}
+.s2scene h3{font-size:22px;font-weight:700;line-height:1.5;margin-top:8px}
+.s2scene p{margin-top:8px;font-size:16px;line-height:1.9;color:#E9E2D4}
+.s2scene .cau{display:block;margin-top:8px;font-size:14px;color:#DCD5C5}
+/* 役職・昇進＝未確定の正直な箱 */
+.s2career .s2todo{margin-top:24px;padding:24px;border:1px dashed rgba(251,246,233,.4);
+  border-radius:16px;font-size:14px;line-height:1.9;color:#E9E2D4}
+.s2career .s2todo .tmp{background:transparent;color:var(--hot);box-shadow:inset 0 0 0 1px var(--hot)}
+
+/* ---- 05 正直なところ ---- */
+.s2real{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.s2real>div{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px}
+.s2real>div.yes{border:2px solid var(--accent)}
+.s2real h3{font-size:18px;font-weight:700;letter-spacing:.06em}
+.s2real .yes h3{color:var(--ink)}
+.s2real ul{list-style:none;margin-top:16px}
+.s2real li{position:relative;padding:8px 0 8px 24px;font-size:16px;line-height:1.8;
+  border-top:1px solid var(--line)}
+.s2real li::before{content:"";position:absolute;left:2px;top:19px;width:8px;height:8px;
+  border-radius:50%;background:var(--sub)}
+.s2real .yes li::before{background:var(--accent)}
+.s2said{margin-top:24px;padding:24px;background:var(--paper);border-left:4px solid var(--accent);
+  border-radius:0 16px 16px 0}
+.s2said p{font-size:16px;line-height:2;font-weight:700}
+.s2said cite{display:block;margin-top:8px;font-style:normal;font-size:14px;color:var(--sub)}
+/* 向いている人／向いていないかも */
+.s2fit{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.s2fit h3{font-size:18px;font-weight:700}
+.s2fit ul{list-style:none;margin-top:8px;border-top:2px solid var(--brand)}
+.s2fit li{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);
+  font-size:16px;font-weight:700;line-height:1.6}
+.s2fit .n{flex:none;width:40px;height:40px;border-radius:50%;background:var(--brand);color:#FFF7EA;
+  display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+.s2fit .no ul{border-top-color:var(--line)}
+.s2fit .no .n{background:var(--white);color:var(--sub);box-shadow:inset 0 0 0 1px var(--line)}
+.s2fit .no li{font-weight:400;color:var(--ink)}
+
+/* ---- FAQ ---- */
+.s2faq{margin-top:40px;border-top:2px solid var(--brand)}
+.s2faq details{border-bottom:1px solid var(--line)}
+.s2faq summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:16px;
+  padding:16px 32px 16px 0;font-size:16px;font-weight:700;line-height:1.7;position:relative;min-height:44px}
+.s2faq summary::-webkit-details-marker{display:none}
+.s2faq summary::before{content:"Q";flex:none;color:var(--accent);font-weight:700}
+.s2faq summary::after{content:"＋";position:absolute;right:4px;top:16px;color:var(--sub);font-weight:400}
+.s2faq details[open] summary::after{content:"−"}
+.s2faq summary:active{background:var(--white);transform:scale(.985);opacity:.85}
+.s2faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s2faq .a{display:flex;align-items:baseline;gap:16px;padding:0 0 24px}
+.s2faq .a::before{content:"A";flex:none;color:var(--brand);font-weight:700}
+.s2faq .a p{font-size:16px;line-height:1.9;color:var(--ink)}
+
+/* ---- 写真の帯（素の縦横比・全幅＝トリミング0で顔が切れない） ---- */
+.s2band{background:var(--ink)}
+.s2band img{width:100%;height:auto;display:block;max-width:1440px;margin:0 auto}
+
+/* ---- 締めのCTA ---- */
+.s2close{background:var(--accent);color:#FFF7EA}
+.s2close .in{max-width:var(--max);margin:0 auto;padding:64px 24px;text-align:left}
+.s2close h3{font-size:28px;line-height:1.5;color:#FFF7EA}
+.s2close>.in>p{margin:16px 0 0;font-size:16px;line-height:1.9;max-width:36em;text-align:left}
+.s2close .s2cta{margin:24px 0 0;max-width:480px;background:var(--white);color:var(--ink);
+  box-shadow:0 8px 20px rgba(31,35,40,.2)}
+.s2close .s2cta:active{transform:scale(.97)}
+.s2close .tel-row{margin-top:24px;font-size:16px;line-height:2}
+.s2close .tel-row span{display:block}
+/* 🚨 2026-09-05 Web検品：179x22px＝押し所44px未満、しかも :active の変化が0で
+   「押しても何も起きない」画面だった。インライン要素の当たり判定は line-height を含まない。 */
+.s2close .tel-row a{display:inline-block;padding:11px 8px;margin:-11px -8px;
+  color:#FFF7EA;font-weight:700;font-size:22px;text-decoration:none;
+  white-space:nowrap;font-variant-numeric:tabular-nums;border-radius:8px}
+.s2close .tel-row a:active{opacity:.8;transform:translate(1px,1px);background:rgba(255,255,255,.12)}
+.s2close .tel-row a:focus-visible{outline:3px solid #FFF7EA;outline-offset:2px}
+
+/* 共通ヘッダーの2つは style.css の :active 一覧に入っておらず、押しても無反応だった。
+   style.css は触れないので、案2のページに限って足す（ロゴはスマホで唯一のトップへ戻る口） */
+body.saiyo2 .logo:active{transform:scale(.97);opacity:.85}
+body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
+.s2close .note2{margin-top:16px;font-size:14px;color:#FFEFE2}
+
+/* ---- スマホ下部の固定CTA（固定バーはこの1本だけ・主60px） ---- */
+.s2bar{position:fixed;left:0;right:0;bottom:0;z-index:95;display:none;
+  grid-template-columns:1fr auto;gap:8px;align-items:stretch;
+  background:var(--white);border-top:1px solid var(--line);
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+.s2bar .s2cta{min-height:60px;font-size:18px;box-shadow:none}
+.s2bar-sub{display:flex;align-items:center;justify-content:center;min-height:60px;padding:0 16px;
+  font-size:14px;font-weight:700;letter-spacing:.02em;text-decoration:none;white-space:nowrap;
+  color:var(--brand);background:var(--white);box-shadow:inset 0 0 0 2px var(--brand);border-radius:999px}
+.s2bar-sub:active{background:var(--paper);transform:scale(.97)}
+@media (max-width:359px){
+  .s2bar .s2cta{font-size:14px;padding:8px 8px}
+  .s2bar-sub{font-size:12px;padding:0 10px}
+}
+
+/* =========================================================
+   幅別
+   ========================================================= */
+@media (max-width:720px){
+  .s2bar{display:grid}
+  /* 固定バー（実測 約78px＋安全域）に最後の内容が隠れないための逃げ */
+  body.saiyo2{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+  .s2sec.sec{padding:64px 0}
+  .s2career{padding:64px 0}
+  .s2film{padding:12px 0}
+  .s2scenehead{top:12px;left:12px}
+  .s2subtitle{bottom:10px;font-size:14px;letter-spacing:.2em;text-indent:.2em}
+  .s2title{padding:32px 24px 40px}
+  .s2title h1{font-size:40px}
+  .s2sec h3.s2h{margin-top:48px}
+}
+@media (max-width:375px){
+  .s2title h1{font-size:28px}
+  .s2fact dd b{font-size:28px}
+}
+/* 🚨 320px（iPhone SE1）だけ、h2「日給11,980円から、手に職まで。」が3行になり
+   1行目に「日給」の2字しか残らなかった（入る幅9.7字に対し「11,980円から、」が8.3字） */
+@media (max-width:359px){
+  .s2sec h2,.s2career h2{font-size:22px}
+}
+@media (min-width:721px){
+  .s2title{padding:48px 40px 56px}
+  /* 🚨 56px（本文の3.5倍）→ 40px（2.35倍）。字間は0。中央揃えをやめる */
+  .s2title h1{font-size:36px;letter-spacing:0}
+  .s2lead{text-align:left}
+  .s2fact dd b{font-size:56px}
+  .s2acts{max-width:none;flex-direction:row;justify-content:flex-start;gap:32px;align-items:center}
+  .s2acts .s2cta{width:auto;min-width:360px}
+  /* 🚨 PC1440では左右140px・上下12pxの「帯」になっていて、レターボックスに見えていなかった。
+     全幅にして上下だけ墨を残す＝本物の横長。あわせて背が縮むので、
+     PCの初期画面（折り＝900px）にCTAが入る（実測ではCTAが折りの496px下にあった） */
+  .s2frame{max-width:none}
+  .s2frame img,.s2frame video{aspect-ratio:auto;height:min(38vh,420px);object-position:50% 40%}
+  /* 🚨 PCの初期画面（折り＝900px）に応募のCTAが1つも無かった（実測でCTAは折りの496px下）。
+     PCには固定バーが無いので、ここに入らないと押す物が画面から消える。
+     題字を2段組にして、右側に「日給」と「電話で話を聞いてみる」を上げる */
+  .s2title{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);
+    column-gap:56px;align-items:start}
+  .s2title>.s2en{grid-column:1;grid-row:1}
+  .s2title>h1{grid-column:1;grid-row:2}
+  .s2title>.s2lead{grid-column:1;grid-row:3}
+  .s2title>.s2chips{grid-column:1;grid-row:4}
+  .s2title>.s2fact{grid-column:2;grid-row:1/4;align-self:start;margin-top:8px;max-width:none}
+  /* 右の段は幅400pxしかないので、ここだけは縦積みに戻す（横に並べると副リンクが潰れる） */
+  .s2title>.s2acts{grid-column:2;grid-row:4;align-self:start;margin-top:0;
+    flex-direction:column;align-items:stretch;gap:12px}
+  .s2title>.s2acts .s2cta{min-width:0;width:100%}
+  .s2title>.s2acts .s2sub-link{justify-content:center}
+  .s2scenehead{top:24px;left:24px}
+  .s2subtitle{bottom:24px;font-size:18px}
+  /* 🚨 repeat(3, minmax(320px,…)) は 768px で 1008px になり264pxはみ出す（実測）。
+     auto-fit＋min(320px,100%) で「入る数だけ並ぶ」形にする */
+  .s2jobs{grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:24px}
+  .s2sns{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-columns:auto;
+    overflow-x:visible;scroll-snap-type:none;max-width:720px;gap:24px}
+  .s2nums{gap:24px}
+  .s2model{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  .s2scenes{gap:32px}
+  .s2scene{display:grid;grid-template-columns:minmax(280px,480px) 1fr;align-items:stretch}
+  .s2scene .ph img{height:100%;aspect-ratio:auto;min-height:240px}
+  .s2scene .ph-todo{height:100%;aspect-ratio:auto;border-bottom:0;
+    border-right:1px dashed rgba(251,246,233,.24)}
+  .s2scene .tx{padding:32px 40px;align-self:center}
+  .s2real{grid-template-columns:1fr 1fr}
+  .s2fit{grid-template-columns:1fr 1fr;gap:40px}
+  .s2close .in{padding:96px 40px}
+  .s2close h3{font-size:32px}
+  .s2close>.in>p{text-align:left}
+}
+
+@media (min-width:1024px){
+  /* 数字カードの3列化と数字の56px化は、カードが十分広くなる1024pxから
+     （768pxで3列にすると「8:30〜17:00」が入り切らない） */
+  .s2nums{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .s2nums dd b{font-size:56px}
+  .s2nums dd.sm b{font-size:40px}
+}
+
+/* 動きを減らす設定の人には、ヒーローの動きを全部止める */
+@media (prefers-reduced-motion: reduce){
+  .s2frame img,.s2frame video,.s2scenehead,.s2subtitle,.s2title .s2en,.s2title h1,
+  .s2lead,.s2chips,.s2fact,.s2acts{animation:none!important}
+  /* モーション検品：reduce の人だけ will-change が46要素に残り続けていた
+     （通常は motion.js の transitionend が掃除するが、reduce 分岐は掃除役が動かない） */
+  .js-rise [data-rise]{will-change:auto}
+}
+
+/* =========================================================
+   仕上げ（2026-09-05 デザイン検品の差し戻し）
+   🚨 ここは必ずファイルの最後に置く。
+   前は 81行目に本文17pxを書いていたが、後ろの個別ルール（.s2said p{16px} 等）と
+   同じ詳細度で「後勝ち」に負けて、83件が16pxのままだった
+   （[[css-written-is-not-css-working]] の再発。書いた＝効いている ではない）
+   ========================================================= */
+
+/* 本文は17px */
+.s2lead,.s2jobs p:not(.k),.s2day p,.s2scene p,.s2real li,.s2fit li,.s2faq .a p,
+.s2said p,.s2career .s2todo,.s2todo-box p,.s2close .in p{font-size:17px}
+.s2todo-box p+p{font-size:16px}
+
+/* 見出しの上限（40pxは本文の2.4倍。合格帯は28〜36px） */
+@media (min-width:1024px){
+  .s2sec h2,.s2career h2{font-size:36px}
+  .s2close h3{font-size:32px}
+}
+
+/* 🚨 ※要確認 は地の色ごとに変える。
+   締め（accent地）で --sub を載せたら明暗比 1.04 ＝ 完全に消えていた */
+.s2close .tmp{color:#FFE6D6}
+.s2career .tmp,.s2career .s2todo .tmp{color:#DCD5C5;background:none;box-shadow:none}
+
+/* 副リンクの下線が列幅いっぱい（400px＝文字の3.5倍）に伸びて区切り線に見えていた */
+.s2sub-link{align-self:flex-start;width:auto}
+.s2title>.s2acts .s2sub-link{align-self:center}
+
+/* SNSの3箱の右に440px（38%）の死んだ余白ができていた */
+@media (min-width:721px){ .s2sns{max-width:none} }
+
+/* 節の上下余白を120pxにそろえる（96pxが2か所だけ浅かった） */
+@media (min-width:721px){
+  .s2career{padding:120px 0}
+  .s2close .in{padding:120px 40px}
+}
+
+/* 小さいラベルの字間を .24em にそろえる（98件中14件しか揃っていなかった） */
+.s2fact dt,.s2nums dt,.s2model .k,.s2jobs .k{letter-spacing:.24em}
+
+/* 🚨 固定バーの主CTAが 360〜413px で「る」1文字だけ改行していた（iPhone SE2/8/12/13/14 の帯）。
+   逃げが ≤359px までしか無かった */
+@media (max-width:413px){
+  .s2bar{gap:6px;padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
+  .s2bar .s2cta{font-size:16px;padding:8px 10px;letter-spacing:0}
+  .s2bar-sub{font-size:13px;padding:0 10px}
+}
+@media (max-width:359px){
+  .s2bar .s2cta{font-size:14px;padding:8px 8px}
+  .s2bar-sub{font-size:12px;padding:0 8px}
+}
+
+/* 粒。共通の .grain は position:fixed; z-index:-1 で body の背景に隠れ、
+   このページでは1画素も出ていなかった（実測 0.0000%・σ=0.0）。
+   手本7本の中央値 0.18% に合わせて、案2の節にだけ薄く乗せる */
+.s2sec,.s2career,.s2close,.s2hero{position:relative}
+.s2sec>*,.s2career>*,.s2close>*,.s2hero>*{position:relative;z-index:1}
+.s2sec::after,.s2career::after,.s2close::after,.s2hero::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  background-size:120px 120px;mix-blend-mode:multiply;opacity:.05}
+.s2career::after,.s2close::after{mix-blend-mode:screen;opacity:.035}
+
+/* PCの縦700pxのノートでも初期画面にCTAを入れる（1440x700 で18px切れていた） */
+@media (min-width:721px){
+  .s2film{padding:12px 0}
+  .s2title{padding:32px 40px 48px}
+}
+
+/* =========================================================
+   仕上げ2（2026-09-05 Web検品の差し戻し）
+   ========================================================= */
+
+/* 🚨 A：ヒーローを 38vh に下げたら、横に長い窓で顔が切れた（私が入れた崩れ）。
+   1440x568・2560x1300・3440x1440 で顔が2個→1個。枠の縦横比が約5.8:1を超えると切れる。
+   高さの下限を「幅÷5.6」で持たせて、どの窓でも 5.6:1 より横長にしない */
+@media (min-width:721px){
+  .s2frame img,.s2frame video{min-height:calc(100vw / 5.6);max-height:70vh}
+}
+/* 記録4：スマホの SCENE 01 は 16:9 に切るので、左の作業者の額から上が消えていた */
+.s2scene .ph img.pos-l{object-position:0% 25%}
+
+/* 記録1：字幕「現場へは、2人1組で。」が全15条件で明暗比4.5未満だった。
+   勾配を濃くするより、字の後ろに座を敷くほうが確実。
+   🚨 中央寄せに transform を使わない。入場アニメ s2in が最後に transform:none を当てるので、
+   translateX(-50%) が打ち消されて座が右にはみ出す（実物を見るまで機械判定では出なかった）。
+   left/right を両方置いて margin:auto で寄せる */
+.s2subtitle{display:block;width:fit-content;max-width:calc(100% - 32px);
+  margin-left:auto;margin-right:auto;
+  padding:6px 16px;border-radius:999px;
+  background:rgba(16,20,24,.6);backdrop-filter:blur(2px)}
+
+/* 記録5：2段組の左列が721pxで185pxしかなく、h1が列からはみ出していた */
+@media (min-width:721px) and (max-width:999px){
+  .s2title{display:block}
+  .s2title>.s2fact,.s2title>.s2acts{max-width:480px}
+}
+
+/* C：動きを減らす設定のとき、ヒーローの動画も止める（JSでpauseし、posterを残す） */
+@media (prefers-reduced-motion: reduce){
+  .s2frame video{animation:none!important}
+}
+
+/* 映像の一時停止ボタン（5秒を超える自動再生には停止操作が要る） */
+.s2vtoggle{position:absolute;right:12px;top:12px;z-index:2;
+  min-height:44px;min-width:44px;padding:8px 16px;
+  font-size:13px;font-weight:700;line-height:1.4;letter-spacing:.04em;
+  color:#FFF7EA;background:rgba(16,20,24,.55);border:1px solid rgba(255,247,234,.45);
+  border-radius:999px;cursor:pointer;backdrop-filter:blur(2px)}
+.s2vtoggle:hover{background:rgba(16,20,24,.75)}
+.s2vtoggle:active{transform:scale(.95);opacity:.85}
+.s2vtoggle:focus-visible{outline:3px solid #FFF7EA;outline-offset:2px}
+@media (min-width:721px){ .s2vtoggle{right:24px;top:24px} }
+
+/* 🚨 共通ヘッダー・フッターの押せる物14個に :active が無い（電話リンク3本を含む）。
+   採用ページで一番押される番号に手応えが無いので、このページの中だけ塞ぐ
+   （style.css は触らない） */
+body.saiyo2 .r2 .in a:active,
+body.saiyo2 .fgrid a:active,
+body.saiyo2 .copy a:active,
+body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
+
+/* 320pxでは枠が狭く、右上のボタンが「SCENE 01 …」に重なった。
+   ボタンを44x44の記号だけにして、SCENE表記側にもボタンぶんの逃げを作る */
+@media (max-width:413px){
+  .s2vtoggle{min-width:44px;width:44px;padding:0;font-size:0;right:8px;top:8px}
+  .s2vtoggle::before{content:"❙❙";font-size:13px;letter-spacing:1px}
+  .s2scenehead{right:60px;padding-right:0}
+}
+@media (max-width:413px){
+  .s2vtoggle[data-state="paused"]::before{content:"▶"}
+}

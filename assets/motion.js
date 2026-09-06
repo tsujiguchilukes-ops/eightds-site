@@ -89,7 +89,8 @@
   var last = window.pageYOffset;
   var check = function () {
     var y = window.pageYOffset;
-    var hero = document.querySelector('.scrollhero');
+    /* 新トップは .bluehero（旧 .scrollhero は index から消えた・2026-09-06） */
+    var hero = document.querySelector('.scrollhero, .bluehero');
     var past = hero ? y > hero.offsetTop + hero.offsetHeight - window.innerHeight : y > 600;
     var want = past && y > 600;
     if (want && narrow.matches && y > last + 4) want = false;   // 下へ送っている間は出さない
@@ -170,8 +171,10 @@
   var head = document.querySelector('.head');
   if (!env && !prog && !head) return;
 
-  /* セクションごとに地の色をわずかにずらす（同じ場所の、時間帯が動く感じ） */
-  var TONES = ['#FAF5E7', '#F5EEDC', '#F8F1E1', '#F3EBDB', '#FAF4E3'];
+  /* セクションごとに地の色をわずかにずらす（同じ場所の、時間帯が動く感じ）
+     🚨 2026-09-06 ブルー化：紙のクリーム→青みの白へ。この配列がインラインで
+     .env に塗られるので、CSSの上書きでは勝てない（検品で全ページの地がクリームに見えた原因） */
+  var TONES = ['#FFFFFF', '#F4F9FE', '#EFF5FB', '#F7FBFF', '#F2F7FD'];
   var secs = [].slice.call(document.querySelectorAll('section, .band, .gates, .pband'));
   if (env && secs.length && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {

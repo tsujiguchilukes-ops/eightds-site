@@ -1107,4 +1107,353 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
    🚨 見出しの文言を書き換えたら `node ~/.claude/tools/nihongo/budoux-wbr.cjs <file>` を
       もう一度かけること。手で <span class="nw"> を置いた見出しは対象外（機械は触らない）。
    🚨 検査は `node ~/.claude/tools/nihongo/budoux-break.cjs <URL>`（語の途中で割れた所を数える） */
-h1,h2,h3,h4,dt,th,.nm,.fitlist .t,.welcome span,.btn,.jgo a,.go,.uses b{word-break:auto-phrase}
+h1,h2,h3,h4,dt,th,.nm,.fitlist .t,.welcome span,.btn,.jgo a,.go,.uses b,
+/* 🚨 案Bの数字カードと説明文も対象に入れる。入れないと「週休2／日」「7時に始ま／り13時」と
+   語の途中で割れる（2026-09-06 実測・360/390/414/768pxすべてで発生） */
+.bnums dd b,.bnums .d,.bnums .d b,.bfv-fact dd b,.bfv-fact .d,.bmodel .v,.bmodel .k,.bmodel .d,
+.bday b,.bday p,.breal li,.bfit li,.bjobs p,.bstaff .yr{word-break:auto-phrase}
+
+/* =========================================================================
+   公式LINEのボタン（assets/line.js が LINE_URL を持っている間だけ出る）
+   🚨 LINEブランドの緑 #06C755 は、白文字だと明暗比2.4:1で基準（4.5:1）に届かない。
+      地を一段濃い #046B31 にして白文字で5.5:1を確保する（緑であることは伝わる）。
+      角丸を使わない・影は右下へずらしたベタ、というこのサイトの作法は守る。
+   🚨 記号のマスクは使わない（潰れて「●」に見えた・2026-09-06 実測）。文字だけで通す。
+   ========================================================================= */
+.is-line{
+  background:#046B31 !important; color:#fff !important; border-color:#046B31 !important;
+  display:block !important; width:100% !important; margin:0 0 12px !important;
+  text-align:center;
+}
+/* 電話は副に下げる（消さない。年齢層の高い応募者は電話が速い） */
+.is-sub{
+  background:transparent !important; color:var(--ink) !important;
+  border:2px solid var(--line) !important; box-shadow:none !important;
+}
+/* スマホ下部の固定バーの中だけは、他のボタンと同じ形（横並び）に保つ */
+.bar .is-line, .bbar .is-line, .s2bar .is-line{
+  display:inline-flex !important; width:auto !important; margin:0 !important;
+  align-items:center; justify-content:center;
+  /* 🚨 404では18pxまで潰れていた。inline-flex にすると .bar a の line-height:46px が
+     高さを作らなくなるため、min-height と padding の両方で押し所を確保する
+     🚨 .s2bar を忘れると saiyo2 だけ margin 12px が生きて下端がズレる（2026-09-06 検品） */
+  min-height:46px; padding:0 6px;
+}
+/* LINEボタンの影はオレンジのにじみを引き継がない（緑の地にオレンジ影が出ていた） */
+.is-line{box-shadow:0 8px 20px rgba(4,107,49,.22) !important}
+.bar .is-line,.bbar .is-line,.s2bar .is-line{box-shadow:none !important}
+/* 固定バーに残す電話（短縮形）。主のLINEより一段引く */
+.is-subbar{filter:saturate(.55);opacity:.92}
+/* 🚨 320pxの横はみ出し（既存）：index の許認可の複合語と business の .nm が折れない */
+.bnums .d,.uses .nm,span.nm,span.d{overflow-wrap:break-word}
+/* 電話番号の箱の前に置く主ボタン。箱と同じ幅にそろえる */
+.line-lead{
+  display:block !important; width:100% !important; max-width:480px;
+  margin:0 0 16px !important; padding:14px 20px; min-height:56px;
+  font-weight:700; text-decoration:none; line-height:1.4;
+  display:flex !important; align-items:center; justify-content:center;
+  box-shadow:4px 4px 0 var(--shadow-soft);
+}
+
+/* =========================================================================
+   BLUEスキン（2026-09-06）— チャッピー（ChatGPT）が作ったデザインの実装
+   青×白・実写・丸み。上のPXスキン（ドット絵）を上書きする層。
+   🚨 戻すときはこの層を消すだけ（PXスキンは残してある）。
+   色は参考画像から実測：CTA #1671CE／空 #4EABFA→#A8D3F6／制服の紺 #0F2A4A系
+   ========================================================================= */
+:root{
+  --ink:#16283C; --ink-deep:#0B1B2C; --sub:#51677E;
+  --brand:#1671CE; --deep:#0E4F9E; --accent:#1671CE;
+  --hot:#9CC9F5; --hot-hi:#D9EBFC;
+  --paper:#EFF5FB; --line:#D6E4F2; --white:#FFFFFF;
+  --shadow:rgba(13,54,105,.16); --shadow-soft:rgba(13,54,105,.10);
+  /* 見出しも角ゴシック太字に（PXスキンが見出しに var(--serif) を当てているので、変数ごと差し替える） */
+  --serif:"Hiragino Kaku Gothic ProN","Yu Gothic Medium","游ゴシック Medium",Meiryo,sans-serif;
+  /* 矢印・チェックをなめらかな線画に戻す（ドットの階段をやめる） */
+  --arrow:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 12'><path d='M0 6h26.5M21.5 1.5 27 6l-5.5 4.5' fill='none' stroke='black' stroke-width='1.4'/></svg>");
+  --check:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'><path d='M1 5.6 5 9.6 13 1.4' fill='none' stroke='black' stroke-width='2'/></svg>");
+}
+h1,h2,h3,.logo,.phead h1,.entries b,.gate h3{font-weight:700;letter-spacing:.02em}
+
+/* ---- ヘッダー：白い帯・紺のロゴ・青いピルのCTA ---- */
+.head{background:var(--white);border-bottom:1px solid var(--line)}
+.logo{color:var(--deep)}
+.hbtn{border-radius:999px;background:var(--brand);border:0;color:#fff;
+  box-shadow:0 8px 20px rgba(22,113,206,.28);padding:12px 22px}
+.mtoggle{border-radius:999px;border:2px solid var(--line);box-shadow:none}
+.mtoggle:hover{transform:none;box-shadow:0 6px 16px var(--shadow-soft)}
+.gnav .drop{border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 44px rgba(13,54,105,.14)}
+.gnav .drop a{border:1px solid var(--line);border-radius:12px}
+.gnav .drop a:hover{transform:translateY(-2px);box-shadow:0 8px 18px var(--shadow-soft)}
+.gnav .drop .im{border:1px solid var(--line);border-radius:10px}
+
+/* ---- 部品の丸み：角丸＋やわらかい影に総取り替え ---- */
+.btn{border-radius:999px;border:0;box-shadow:0 10px 26px rgba(22,113,206,.26)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(22,113,206,.32)}
+.btn:active{transform:translateY(1px);box-shadow:0 4px 12px rgba(22,113,206,.2)}
+.btn-ghost{border:2px solid rgba(255,255,255,.8);box-shadow:none;border-radius:999px}
+.route .cell{border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 22px var(--shadow-soft)}
+.facts{border:1px solid var(--line);border-radius:16px;background:var(--white)}
+.shot img{border:0;border-radius:16px;box-shadow:0 16px 36px var(--shadow-soft)}
+.gate{border:1px solid var(--line);border-radius:16px}
+.bar a,.bbar a,.s2bar a{border-radius:12px;border:1px solid var(--line)}
+.ptop{border-radius:999px;border:1px solid var(--line);box-shadow:0 10px 24px var(--shadow-soft)}
+.quick{border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(13,54,105,.18);
+  border:1px solid var(--line)}
+.quick a{background:rgba(255,255,255,.94);color:var(--deep);border-bottom:1px solid var(--line)}
+.quick a:last-child{border-bottom:0}
+.quick a:hover{background:var(--paper)}
+.quick a:first-child{background:var(--brand);color:#fff}
+.quick a:first-child:hover{background:var(--deep)}
+.quick .ico{stroke:currentColor}
+.tbl,.bnums>div,.bwel span,.bjobs article,.breal>div,.bfit>div,.bfaq details,
+.bday>div,.bmodel>div,.bstaff article,.bint,.bsns>div,.bchips span,.bfv-fact,
+.note,.card,.bsaid{border-radius:14px}
+.bcta-btn,.is-line,.line-lead,.bbar-sub{border-radius:999px !important}
+.news{border-radius:999px}
+thead th{background:var(--deep);border-color:var(--deep)}
+
+/* ---- 2つの入口：採用を主役に（採用特化） ---- */
+.entries a{border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 28px var(--shadow-soft);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.entries a:hover{transform:translateY(-4px);box-shadow:0 18px 40px var(--shadow)}
+.entries a[href="recruit.html"]{background:linear-gradient(135deg,#1671CE,#0E4F9E);border:0}
+.entries a[href="recruit.html"] .k{color:#BFDCF9}
+.entries a[href="recruit.html"] b{color:#fff}
+.entries a[href="recruit.html"] .s{color:#D9EBFC}
+
+/* =========================================================================
+   ヒーロー（bluehero）— パターンB：CSSアニメーション
+   ========================================================================= */
+.bluehero{position:relative;min-height:min(92vh,860px);display:flex;align-items:center;
+  overflow:hidden;padding-top:var(--head);
+  background:linear-gradient(180deg,#2E8BE8 0%,#4EA6F5 34%,#8CC6F8 62%,#D8EDFC 84%,#FFFFFF 100%)}
+.bh-sky{position:absolute;inset:0;pointer-events:none}
+.bh-sun{position:absolute;left:34%;top:26%;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,246,220,.85),rgba(255,246,220,0) 62%);
+  animation:bh-glow 9s ease-in-out infinite}
+.bh-cloud{position:absolute;background:rgba(255,255,255,.92);border-radius:999px;filter:blur(1px)}
+.bh-cloud::before,.bh-cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.bh-cloud.c1{width:170px;height:34px;left:8%;top:9%;opacity:.8;animation:bh-drift 96s linear infinite}
+.bh-cloud.c1::before{width:66px;height:66px;left:28px;top:-34px}
+.bh-cloud.c1::after{width:44px;height:44px;left:92px;top:-20px}
+.bh-cloud.c2{width:150px;height:32px;left:44%;top:10%;opacity:.8;animation:bh-drift 140s linear infinite reverse}
+.bh-cloud.c2::before{width:64px;height:64px;left:26px;top:-32px}
+.bh-cloud.c3{width:180px;height:36px;left:70%;top:24%;opacity:.7;animation:bh-drift 120s linear infinite}
+.bh-cloud.c3::before{width:70px;height:70px;left:40px;top:-36px}
+.bh-cloud.c4{width:110px;height:24px;left:24%;top:6%;opacity:.5;animation:bh-drift 160s linear infinite reverse}
+@keyframes bh-drift{from{transform:translateX(0)}50%{transform:translateX(120px)}to{transform:translateX(0)}}
+@keyframes bh-glow{0%,100%{opacity:.75}50%{opacity:1}}
+.bh-photo{position:absolute;right:0;bottom:0;width:min(60vw,980px);pointer-events:none}
+.bh-photo img{width:100%;height:auto;display:block;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 22%);
+  animation:bh-photoin 1.5s var(--ease) both .25s}
+@keyframes bh-photoin{from{opacity:0;transform:translateX(64px)}to{opacity:1;transform:none}}
+.bh-in{position:relative;z-index:2;max-width:var(--max);margin:0 auto;
+  padding:64px 40px 120px;width:100%}
+.bh-en{display:flex;align-items:center;gap:16px;color:#EAF4FF;font-size:13px;font-weight:700;
+  letter-spacing:.3em;margin-bottom:22px;animation:bh-rise .9s var(--ease) both .1s}
+.bh-en::after{content:"";width:72px;height:2px;background:rgba(255,255,255,.7)}
+.bluehero h1{font-size:clamp(40px,5.3vw,74px);line-height:1.34;color:#fff;letter-spacing:.04em;word-break:auto-phrase;
+  text-shadow:0 2px 28px rgba(16,74,150,.4);animation:bh-rise .9s var(--ease) both .24s}
+.bh-lead{margin-top:26px;font-size:18px;line-height:2;color:#F2F9FF;word-break:auto-phrase;
+  text-shadow:0 1px 18px rgba(16,74,150,.45);animation:bh-rise .9s var(--ease) both .42s}
+.bh-acts{display:flex;gap:18px;margin-top:38px;flex-wrap:wrap;animation:bh-rise .9s var(--ease) both .58s}
+.bh-btn{display:inline-flex;align-items:center;gap:12px;min-height:60px;padding:0 34px;
+  border-radius:999px;font-size:16px;font-weight:700;text-decoration:none;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.bh-btn svg{width:15px;height:11px}
+.bh-btn.main{background:#0E4F9E;color:#fff;box-shadow:0 14px 34px rgba(8,48,100,.4)}
+.bh-btn.main:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(8,48,100,.5)}
+.bh-btn.ghost{border:2px solid rgba(255,255,255,.78);color:#fff;background:rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.bh-btn.ghost:hover{background:rgba(255,255,255,.26);transform:translateY(-2px)}
+.bh-chips{list-style:none;display:flex;gap:10px;flex-wrap:wrap;margin-top:34px;padding:0;
+  animation:bh-rise .9s var(--ease) both .72s}
+.bh-chips li{background:rgba(255,255,255,.9);color:var(--deep);font-size:13.5px;font-weight:700;
+  padding:9px 18px;border-radius:999px;box-shadow:0 6px 16px rgba(13,54,105,.14)}
+.bh-scroll{position:absolute;right:40px;bottom:96px;z-index:2;color:#fff;font-size:11px;
+  letter-spacing:.3em;writing-mode:vertical-rl;opacity:.85}
+.bh-scroll::after{content:"";display:block;width:1px;height:52px;margin:12px auto 0;
+  background:rgba(255,255,255,.8);animation:bh-line 2.2s var(--ease) infinite}
+@keyframes bh-line{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}
+  55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes bh-rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* お知らせ：白いピルでヒーローの裾に浮かべる */
+.news{position:relative;z-index:3;max-width:880px;margin:-46px auto 0;background:var(--white);
+  box-shadow:0 16px 40px rgba(13,54,105,.14);border:1px solid var(--line)}
+
+/* 声の3枚 */
+.bluevoice{padding:76px 0 8px;background:var(--white)}
+.bv-k{font-size:13px;letter-spacing:.22em;font-weight:700;color:var(--brand);margin-bottom:22px}
+.bv-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.bv-note{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 24px 18px;position:relative}
+.bv-note::before{content:"“";position:absolute;top:6px;left:18px;font-size:44px;font-weight:700;color:#BBD7F3;font-family:Georgia,serif}
+.bv-note .q{font-size:15px;line-height:1.9;color:var(--ink);padding-top:14px}
+.bv-note .who{margin-top:10px;font-size:12.5px;color:var(--sub)}
+
+/* スマホ */
+@media (max-width:720px){
+  /* 🚨 100svhにすると写真が1画面目に入らない（2026-09-06 実測）。自然高さで詰める */
+  .bluehero{min-height:auto;align-items:flex-start}
+  .bh-in{padding:48px 24px 0}
+  .bh-en{font-size:11px;letter-spacing:.22em}
+  .bh-en::after{display:none}
+  .bh-cloud.c1,.bh-cloud.c4{display:none}
+  .bh-cloud.c2{top:5%}
+  .bluehero h1{font-size:clamp(34px,9.6vw,44px)}
+  .bh-lead{font-size:15px}
+  .sponly{display:inline}
+  /* absolute→通常フローへ。指定はこの1か所に統合（Codex指摘13） */
+  .bh-photo{position:relative;width:118%;margin:26px 0 0 -9%;right:auto;bottom:auto;order:2;
+    -webkit-mask-image:none;mask-image:none}
+  .bh-photo img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%);
+    mask-image:linear-gradient(180deg,transparent 0,#000 18%)}
+  .bluehero{flex-direction:column}
+  .bh-acts .bh-btn{width:100%;justify-content:center}
+  .bh-scroll{display:none}
+  .bv-notes{grid-template-columns:1fr}
+  .news{margin:-24px 16px 0;border-radius:20px}
+}
+@media (min-width:721px) and (max-width:1000px){
+  .bh-photo{width:74vw;opacity:.9}
+  .bluehero h1{font-size:clamp(36px,6.4vw,56px)}
+}
+/* 視差や動きを減らす設定の端末では、全部止めて最初から見せる */
+@media (prefers-reduced-motion:reduce){
+  .bh-cloud,.bh-sun,.bh-scroll::after,.bh-photo img,
+  .bh-en,.bluehero h1,.bh-lead,.bh-acts,.bh-chips{animation:none}
+}
+/* 青地の上のクリーム文字は白に（テラコッタ時代の名残。青×クリームは濁って見える） */
+.bclose,.bclose h3,.bclose .btel a{color:#fff}
+.bclose .note2{color:#D9EBFC}
+.bfit .n{color:#fff}
+.s2scenehead,.s2scenehead b{color:#fff}
+/* 🚨 320px：「メーカー系サービス会社」を auto-phrase が1つの文節として扱い、
+   246pxのまま折り返さない（overflow-wrap:break-word も負ける・2026-09-06 実測）。
+   狭い幅では auto-phrase を外して普通に折る */
+@media (max-width:374px){
+  .clients .nm{word-break:normal}
+}
+/* 「こんな日。」のマーカー：サーモン（テラコッタ時代の色）→ 空色に。書体も角ゴへ */
+.vcopy{font-family:var(--gothic,"Hiragino Kaku Gothic ProN","Yu Gothic Medium",sans-serif);letter-spacing:.08em}
+.vcopy b{background:linear-gradient(transparent 48%,rgba(120,190,250,.38) 48%,rgba(120,190,250,.38) 84%,transparent 84%)}
+
+/* ---- Codexレビュー反映（2026-09-06・指摘3〜12,20,22） ---- */
+/* 3: ナビのhoverが墨ベタの四角のまま残っていた */
+.gnav>li:hover>a,.gnav>li:focus-within>a,.gnav>li[aria-current]>a{
+  background:transparent;color:var(--brand)}
+/* 4: 2つの入口の親が黒背景＋2px墨線のままだった */
+.entries{background:var(--white);gap:18px;border-top:0;border-bottom:0;padding:8px 40px 40px}
+/* 5: 写真帯の上下の2px墨線 */
+.band{border-top:0;border-bottom:0}
+/* 6: 表の上罫線 */
+.tbl{border-top:1px solid var(--line)}
+/* 7: 理念の上下線 */
+.vision{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* 8: 下層の見出し下線 */
+.phead{border-bottom:1px solid var(--line)}
+/* 9: スマホ下部バーの上線 */
+.bar{border-top:1px solid var(--line)}
+/* 10: on-hero付きのメニュー釦はPXが詳細度で勝つ（将来data-heroを戻した時の保険） */
+.head.on-hero .mtoggle,.mtoggle{border-radius:999px;box-shadow:none}
+.head.on-hero .mtoggle:hover,.mtoggle:hover{transform:none;box-shadow:0 6px 16px var(--shadow-soft)}
+/* 22: 面部品の線と影をまとめて柔らかく（今後の部品追加でも既定で効く） */
+.card,.note,.route .cell,.facts,.gate,.shot img{border-color:var(--line)}
+/* 11: mask非対応ブラウザでは写真が硬い矩形で出る → グラデを被せる代替 */
+@supports not (mask-image:linear-gradient(#000,#000)) {
+  .bh-photo::before{content:"";position:absolute;top:0;bottom:0;left:0;width:34%;
+    background:linear-gradient(90deg,#4EA6F5,rgba(78,166,245,0));z-index:1;pointer-events:none}
+}
+/* 20: 明るい空の帯で白文字が沈まないよう、文字側に薄い青のスクリム */
+.bluehero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(10,58,116,.34) 0%,rgba(10,58,116,.16) 40%,rgba(10,58,116,0) 66%)}
+.bh-in{z-index:2}
+/* 19: ページ遷移の幕をドット柄の墨→青の無地に（動きのJSはそのまま使う） */
+.pxwipe .q1,.pxwipe .q2,.pxwipe .q3,.pxwipe .q4{background-image:none;background:#0E4F9E}
+.pxwipe .dots b{background:#fff;border-radius:50%}
+
+/* =========================================================================
+   デザイン検品（2026-09-06・31件）の反映 第2弾
+   ========================================================================= */
+/* #1: 全ページの地がクリームのまま（.env とテラコッタのラジアル・紙の粒） */
+.env{background:#fff}
+.env::before{display:none}
+.grain{display:none}
+/* #3: フッター＋CTAのベージュ文字280か所 → 青系へ */
+.cta .lead{color:#D9EBFC}
+.ctel .n{color:#BFDCF9}
+.ctel .h{color:#BFDCF9}
+.ctel a{border-top-color:rgba(217,235,252,.32)}
+.fgrid address{color:#D9EBFC}
+.fnav .t{color:#BFDCF9}
+.fnav a{color:#D9EBFC}
+.copy,.copy span,.copy a{color:#BFDCF9}
+/* #4: quickレールの2px墨枠 */
+.quick a{border-left:0}
+/* #5: recruitヒーローのボタン＝角0・墨枠・旧インクのベタ影 → ピル＋ぼかし影 */
+.hact{border-radius:999px !important;border:0 !important;
+  box-shadow:0 10px 26px rgba(8,48,100,.35) !important;color:#fff !important}
+.hact:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(8,48,100,.45) !important}
+.hact-main{background:#0047AB !important}
+/* #7: saiyo（案B）の面部品＝2px墨枠＋4pxベタ影 → 1px淡枠＋ぼかし影 */
+.bnums>div,.bfv-fact,.bstaff article,.bjobs article,.bmodel>div,.breal>div,
+.bfit>div,.bday>div,.bint,.bsns>div,.bfaq details,.bwel span,.bchips span{
+  border:1px solid var(--line) !important;box-shadow:0 8px 22px var(--shadow-soft) !important}
+.bsaid{border:1px solid var(--line) !important;box-shadow:none !important}
+/* #8: btn-ghost の地が旧インクの紫茶 */
+.btn-ghost{background:rgba(14,79,158,.30) !important;color:#fff}
+.btn-ghost::before{background:#fff}
+/* #9: 四角い粒25か所 → 丸に */
+.en::before,.en::after,.vpart::after,.breal li::before,.why li::before{border-radius:50%}
+/* #10: SVG地図がクリーム＋カーキ → 青系の紙に */
+.mSea{fill:#DCEBFA}
+.mNear{fill:#C3DCF5}
+.mCover{fill:#9CC5EE}
+/* 検品の追加指摘: hover/focusのベタ影の残骸 */
+.gnav .drop a:focus-visible{box-shadow:0 8px 18px var(--shadow-soft)}
+/* #26/#27: 本文16px→17px・h2 40px→36px（8ページ） */
+body{font-size:17px}
+h2{font-size:36px}
+/* #13: 主ボタンの青が鈍い → 手本のコバルトへ */
+.bh-btn.main{background:#0047AB}
+/* #12/#18: 副ボタンの内側が白すぎて文字が1.73:1 → 青い半透明パネルに */
+.bh-btn.ghost{background:rgba(14,79,158,.34);border-color:rgba(255,255,255,.6)}
+.bh-btn.ghost:hover{background:rgba(14,79,158,.5)}
+/* #15-17: ヒーロー文字のコントラスト → スクリムを濃く・広く */
+.bluehero::before{background:linear-gradient(90deg,rgba(8,44,92,.52) 0%,rgba(8,44,92,.3) 42%,rgba(8,44,92,0) 66%)}
+.bh-lead{color:#FFFFFF;text-shadow:0 1px 20px rgba(8,44,92,.6)}
+.bh-en{color:#F2F9FF}
+/* #19: SCROLLが白い雲に重なって1.58:1 → 雲の無い右下へ・薄い下敷き */
+.bh-scroll{right:44px;bottom:110px;color:#fff;text-shadow:0 1px 10px rgba(8,44,92,.65)}
+/* #11/#29: 「描いた雲」に見える → 大きくぼかして奥の空気に落とす（形を主張させない） */
+.bh-cloud{filter:blur(14px);opacity:.5}
+.bh-cloud.c2{opacity:.4}
+.bh-cloud.c3{opacity:.35}
+/* #28: 写真が0.3秒時点で未到着 → 遅延なしで入れる */
+.bh-photo img{animation-delay:0s}
+.bh-sun{opacity:.6}
+/* 検品の目視指摘: NEWSピルがトラックの前輪に被る → ヒーローに食い込ませない */
+.news{margin:20px auto 0}
+/* #31: SPで主役のトラックが1画面目に出ない → チップを1行の横スクロールに畳む */
+@media (max-width:720px){
+  .bh-chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;margin-top:22px;padding-bottom:4px}
+  .bh-chips::-webkit-scrollbar{display:none}
+  .bh-chips li{white-space:nowrap;flex:none}
+  .bh-photo{margin-top:18px}
+  .bh-acts{margin-top:26px}
+  .bluehero h1{font-size:clamp(30px,8.8vw,40px)}
+}
+/* ヒーロー動画（パターンA）。imgと同じマスク・同じ入場 */
+.bh-photo video{width:100%;height:auto;display:block;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 22%);
+  animation:bh-photoin 1.5s var(--ease) both}
+@media (max-width:720px){
+  .bh-photo video{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%);
+    mask-image:linear-gradient(180deg,transparent 0,#000 18%)}
+}
+@media (prefers-reduced-motion:reduce){.bh-photo video{animation:none}}
