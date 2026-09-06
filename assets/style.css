@@ -1600,3 +1600,20 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 .vcopy b{color:inherit}
 /* エラー文はエラーの赤のまま（意味色）。ただし青地で沈まない赤に */
 .err{color:#C0361F}
+
+/* ---- Codexレビュー2周目の反映（2026-09-06） ---- */
+/* 指摘3: LINEが入った固定バーは3ボタン。2列のままだと2段に折れる → 3列に */
+.bbar.has-line,.s2bar.has-line{grid-template-columns:1.2fr 1fr auto}
+.bbar.has-line .bcta-btn,.s2bar.has-line .s2cta{font-size:15px;min-height:56px}
+.bbar.has-line .bbar-sub,.s2bar.has-line .s2bar-sub{font-size:13px}
+/* 指摘4: 写真の視差はPCだけ（スマホの合成負荷を抑える）。will-changeの常時指定をやめる */
+@media (max-width:900px),(hover:none){
+  .band>img{animation:none !important;will-change:auto}
+}
+.band>img{will-change:auto}
+/* 指摘5: クイックレールを1200pxまで残す（タブレット横の導線） */
+@media (min-width:1201px) and (max-width:1400px){
+  .quick{display:block;top:auto;bottom:24px;transform:none;right:12px;
+    border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(13,54,105,.18);border:1px solid var(--line)}
+  .quick a{width:68px;padding:10px 4px;font-size:10.5px}
+}

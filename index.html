@@ -59,11 +59,11 @@
    白文字の明暗比を4.5:1以上に保つ（実測：幕なしだと h3=4.05・本文=2.61 で基準未満 2026-08-25）。
    文字ブロックは下から62%（PC 380px中235px・ラベルの上端）まで届くので、66%までは濃いまま保つ */
 .gate::after{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;pointer-events:none;
-  background:linear-gradient(to top,rgba(24,16,11,.95) 0%,rgba(24,16,11,.9) 66%,rgba(24,16,11,.72) 78%,rgba(24,16,11,.25) 90%,rgba(24,16,11,0) 98%)}
+  background:linear-gradient(to top,rgba(6,32,66,.94) 0%,rgba(6,32,66,.88) 66%,rgba(6,32,66,.66) 78%,rgba(6,32,66,.22) 90%,rgba(6,32,66,0) 98%)}
 .gate .g{position:relative;z-index:1;padding:40px}
-.gate .k{font-size:14px;letter-spacing:.24em;color:var(--hot);font-weight:700}
+.gate .k{font-size:14px;letter-spacing:.24em;color:#9CC9F5;font-weight:700}
 .gate h3{font-size:40px;margin-top:8px}
-.gate p{font-size:16px;margin-top:8px;color:#E5DCC8}
+.gate p{font-size:16px;margin-top:8px;color:#D9EBFC}
 .gate .go{display:inline-block;margin-top:24px;font-size:16px;font-weight:700;border-bottom:2px solid #fff;padding-bottom:4px}
 
 /* 協力会社募集 */
@@ -79,10 +79,10 @@
    他の節は1440pxで左100px・1712pxで左236pxから始まるので、そこだけ縁からはみ出して見えた
    （2026-08-26 おでん指摘「端によりすぎ」）。同じ縁（1240px・左右40px）に揃え、
    「お知らせ｜日付｜本文」を1行に組む */
-.news{background:var(--paper);border-bottom:2px solid var(--ink)}
+.news{background:var(--white);border-bottom:0}
 .news .in{max-width:var(--max);margin:0 auto;padding:16px 40px;
   display:flex;align-items:center;gap:8px 20px;flex-wrap:wrap;font-size:15px}
-.news .lb{flex:none;margin:0;padding:5px 10px;background:var(--accent);color:#FFF7EA;
+.news .lb{flex:none;margin:0;padding:5px 10px;background:var(--accent);color:#fff;border-radius:999px;
   font-size:12px;font-weight:700;letter-spacing:.16em;line-height:1.4}
 .news time{flex:none;font-size:14px;color:var(--sub);letter-spacing:.06em;
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
@@ -180,8 +180,10 @@
   <div class="bh-photo" aria-hidden="true">
     <!-- パターンA（実写風動画・Kling 3.0 Pro・2026-09-06生成）。posterは同じ構図の静止画なので
          読み込み中も飛ばない。末尾0.6秒を先頭にクロスフェードした完全ループ（継ぎ目なし） -->
-    <video src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="720"
-      autoplay muted loop playsinline disablepictureinpicture></video>
+    <!-- 🚨 srcは直書きしない。reduced-motion・データセーバーの端末では読み込み自体を止め、
+         posterの静止画だけで成立させる（2026-09-06 Codex指摘1） -->
+    <video data-src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="720"
+      muted loop playsinline preload="none" disablepictureinpicture></video>
   </div>
   <div class="bh-in">
     <p class="bh-en">創業1986年 ／ 浦安・新座 ／ 家電の配送と設置工事</p>
@@ -495,11 +497,18 @@
 <!-- 旧スクロールヒーローのJSは削除した（.scrollhero が無くなり毎回例外になっていた・2026-09-06 Codex指摘） -->
 
 <script>
-/* 視差を減らす設定の端末では、ヒーロー動画を回さない（1コマ目＝posterと同じ構図で静止） */
+/* ヒーロー動画は「読み込んでよい端末」だけで読む。
+   reduced-motion・データセーバーでは src を入れない＝1バイトも取らない（posterで成立） */
 (function(){
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var v=document.querySelector('.bh-photo video');
-  if(v){v.removeAttribute('autoplay');v.removeAttribute('loop');v.pause();}
+  if(!v) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var save=navigator.connection && navigator.connection.saveData;
+  if(reduce || save) return;
+  v.src=v.getAttribute('data-src');
+  v.autoplay=true;
+  v.load();
+  var p=v.play(); if(p && p.catch) p.catch(function(){});
 })();
 </script>
 <script src="assets/motion.js"></script>

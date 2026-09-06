@@ -37,6 +37,7 @@
   /* ---- 4. ヘッダー：ヒーローに重なっている間だけ透ける ---- */
   /* 最初から HTML に on-hero を付けておき、通り過ぎたら外す（読み込み直後のチラつきを作らない） */
   (function () {
+    /* 透過ヘッダー（on-hero）はブルー化で廃止。初期クラスが無ければ何もしない（2026-09-06） */
     var head = document.querySelector('.head.on-hero');
     var heroes = [].slice.call(document.querySelectorAll('[data-hero]'));
     var hero = heroes.filter(function (h) { return h.offsetParent !== null || h.offsetHeight > 0; })[0] || heroes[0];

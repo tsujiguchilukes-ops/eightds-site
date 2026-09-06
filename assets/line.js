@@ -59,6 +59,8 @@
       var lb = make(a.className.replace('is-subbar','') + ' is-line', SHORT);
       lb.setAttribute('data-ga-place', 'fixed_bar');
       a.parentNode.insertBefore(lb, a);
+      /* 🚨 2列グリッドに3ボタンだと2段に折れる（2026-09-06 Codex指摘3）。親に印を付けて3列へ */
+      var bar = a.closest('.bar,.bbar,.s2bar'); if (bar) bar.classList.add('has-line');
       return;
     }
 
