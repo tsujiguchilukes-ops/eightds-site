@@ -55,7 +55,7 @@
 /* ヒーロー */
 .rhero{position:relative;height:100vh;min-height:620px;overflow:hidden;background:var(--deep);
   border-bottom:2px solid var(--ink)}
-.rhero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.rhero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
 .rhero .tone{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,20,30,.88),rgba(26,20,30,.2))}
 .rhero .in{position:relative;height:100%;max-width:var(--max);margin:0 auto;padding:0 40px 88px;
   display:flex;flex-direction:column;justify-content:flex-end;color:#FBF6E9}
@@ -104,10 +104,13 @@
 .done{position:relative;overflow:hidden;background:var(--deep);color:#FBF6E9}
 /* 人の表情を見せたい写真なので、暗く落としすぎない。文字が乗る左だけ濃くする */
 .done>picture{display:block}
-.done>img,.done>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 60%;filter:brightness(.8)}
+.done>img,.done>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:45% 60%;filter:brightness(.8)}
 /* 🚨 スマホは器が縦長で、写真の横23%しか出ない。横位置のままだと顔が右端で切れる（2026-09-04 おでん指摘）。
    幅720px以下は縦の切り抜き（img/R1_仲間_sp.webp）に差し替え、中央寄せで顔を丸ごと出す。 */
-@media(max-width:720px){.done>picture>img{object-position:50% 50%}}
+/* 顔切れ対策(2026-09-07 機械測定): 狭い幅は窓が約450pxしかなく2人は入らない→
+   手前の1人の顔を丸ごと見せ、もう1人は完全に画面外へ(600px前後は2人とも入る位置) */
+@media(max-width:560px){.done>picture>img{object-position:30% 50%}}
+@media(min-width:561px) and (max-width:720px){.done>picture>img{object-position:37% 50%}}
 .done .tone{position:absolute;inset:0;
   background:linear-gradient(to right,rgba(26,20,30,.92) 0%,rgba(26,20,30,.68) 40%,rgba(26,20,30,.24) 100%)}
 .done .in{position:relative;max-width:var(--max);margin:0 auto;padding:120px 40px}
@@ -253,6 +256,14 @@
   .heroacts{margin-top:14px;gap:6px}
   .hact{min-height:46px}
 }
+/* 🚨 顔切れ対策（2026-09-07 機械測定・kaogire全10幅で0件を確認してから触ること）
+   721〜1200pxは、ヒーローの高さを写真の比率（3:2）に寄せて4人全員の顔を窓に入れる。
+   100vh任せだと窓が狭くなり、端の人の顔が「一部だけ見える」＝切れになる。
+   ※上の max-width:900px ブロックより後に書いて勝たせている。移動禁止 */
+@media(min-width:721px) and (max-width:1200px){
+  .rhero{height:calc(100vw * 2 / 3);min-height:560px;max-height:none;aspect-ratio:auto}
+  .rhero>img{object-position:center 50%}
+}
 </style>
 </head>
 <body>
@@ -297,7 +308,7 @@
 
 <!-- ヒーロー -->
 <section class="rhero" data-hero>
-  <img src="img/L2_トラック列.webp" alt="積み終えたトラックの前に並ぶ配送の四人" width="1800" height="1200" style="object-position:center 40%">
+  <img src="img/L2_トラック列.webp" alt="積み終えたトラックの前に並ぶ配送の四人" width="1800" height="1200">
   <div class="tone"></div>
   <div class="in">
     <h1>未経験で、<br class="sponly"><span class="nw">月給34万円から。</span></h1>
