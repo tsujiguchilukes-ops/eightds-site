@@ -1255,7 +1255,9 @@ thead th{background:var(--deep);border-color:var(--deep)}
 .bh-en{display:flex;align-items:center;gap:16px;color:#EAF4FF;font-size:13.5px;font-weight:700;
   letter-spacing:.14em;margin-bottom:22px;animation:bh-rise .9s var(--ease) both .1s}
 .bh-en::after{content:"";width:72px;height:2px;background:rgba(255,255,255,.7)}
-.bluehero h1{font-size:clamp(40px,5.3vw,74px);line-height:1.34;color:#fff;letter-spacing:.04em;word-break:auto-phrase;
+.bluehero h1{font-size:clamp(40px,5.3vw,74px);line-height:1.3;color:#fff;letter-spacing:.02em;word-break:auto-phrase;
+  /* 約物（、。）の前後を詰める。ベタ組みのままだと読点の空きが素人臭くなる */
+  font-feature-settings:'palt';
   text-shadow:0 2px 28px rgba(16,74,150,.4);animation:bh-rise .9s var(--ease) both .24s}
 .bh-lead{margin-top:26px;font-size:18px;line-height:2;color:#F2F9FF;word-break:auto-phrase;
   text-shadow:0 1px 18px rgba(16,74,150,.45);animation:bh-rise .9s var(--ease) both .42s}
@@ -1472,3 +1474,129 @@ h2{font-size:36px}
 @media (prefers-reduced-motion:reduce){
   .bluehero h1 .ln>span{transform:none;animation:none}
 }
+
+/* =========================================================================
+   磨き層（アートディレクター設計 2026-09-06）
+   根拠：実測14件（余白1段・字間プラス・色相10度窓・角丸7種・影16種・写真の色相159度バラけ 等）
+   ========================================================================= */
+
+/* ---- B-8: 旧テラコッタ期の取り残し（実測90箇所超）と検索レールの当たり ---- */
+.cta .en,.phead .en{color:#9CC9F5}
+.gate p{color:#D9EBFC}
+/* クイックレール：1440pxで採用ゲート本文に57px食い込んでいた。中間幅は下部バー・ヘッダーCTAで足りる */
+@media (min-width:1401px){
+  .quick{top:auto;bottom:24px;transform:none;right:16px;border-radius:16px;overflow:hidden}
+  .quick a{width:76px;padding:12px 6px;font-size:11px}
+}
+@media (max-width:1400px){ .quick{display:none} }
+
+/* ---- B-1: 写真の階調を1本に揃える（実測：色相ひらき159度→16度） ---- */
+:root{ --ph-gray:.55; --ph-tint:.34; --ph-lift:.30; --ph-blue:#2168B4; --ph-warm:#2E7BD0; }
+.band,.shot,.phead,.gate,.cta{position:relative;isolation:isolate}
+.band>img,.shot img,.phead>img,.cta>img{
+  filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.98)}
+.band::after,.shot::after,.phead::after,.cta::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:var(--ph-blue);mix-blend-mode:color;opacity:var(--ph-tint)}
+.band::before,.shot::before{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:var(--ph-warm);mix-blend-mode:soft-light;opacity:var(--ph-lift)}
+.phead .in,.cta .in,.gate .g{position:relative;z-index:3}
+.gate::after{background:linear-gradient(to top,
+  rgba(6,32,66,.94) 0%,rgba(6,32,66,.86) 62%,rgba(6,32,66,.60) 78%,
+  rgba(6,32,66,.18) 92%,rgba(6,32,66,0) 100%)}
+.gate>img{filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.72) saturate(1.05)}
+/* 人物が主役の帯は色を抜きすぎない */
+.band.is-people>img{filter:grayscale(.34) contrast(1.08) saturate(1.05)}
+.band.is-people::after{opacity:.20}
+.band.is-people::before{opacity:.22}
+
+/* ---- B-3: 字。正のトラッキング廃止・行間を役割で分ける・禁則（実測8件→0件） ---- */
+h1,h2,h3,.logo,.phead h1,.entries b,.gate h3{letter-spacing:-.012em}
+.bluehero h1{letter-spacing:-.02em;line-height:1.22}
+h2{line-height:1.28;letter-spacing:-.015em}
+.vcopy{line-height:1.32;letter-spacing:-.01em}
+.sec h2{font-size:clamp(30px,3.0vw,42px)}
+.note,p,li,dd{line-height:1.85}
+.note{max-width:34em}
+.tel,.ocard .tel,.facts dd{font-feature-settings:"tnum" 1;font-variant-numeric:tabular-nums lining-nums}
+body{line-break:strict}
+address,.fgrid address,.ocard address{word-break:auto-phrase}
+
+/* ---- B-2: 余白のリズム 1段→4段（順序に意味がある。並べ替えない） ---- */
+:root{ --s-sm:72px; --s-md:112px; --s-lg:168px; }
+.sec{padding:var(--s-md) 0}
+.band + .sec,.gates + .sec,.vision + .sec{padding-top:var(--s-sm)}
+.sec:has(+ .band),.sec:has(+ .gates),.sec:has(+ .vision){padding-bottom:var(--s-sm)}
+.sec.is-key,.sec.is-key:has(+ .band),.band + .sec.is-key{
+  padding-top:var(--s-lg);padding-bottom:var(--s-lg)}
+.sec.is-key h2{font-size:clamp(40px,4.4vw,62px);line-height:1.18}
+
+/* ---- B-4: 面を2枚→5枚に ---- */
+:root{ --field-2:#F2F7FC; --field-3:#DDE9F7; }
+.sec-paper{background:var(--field-2)}
+.vision,.sec.is-key{background:var(--field-3)}
+
+/* ---- B-5: 角丸3種・影3段 ---- */
+:root{
+  --r-sm:4px; --r-md:16px; --r-pill:999px;
+  --e1:0 1px 2px rgba(9,42,88,.06), 0 2px 6px rgba(9,42,88,.05);
+  --e2:0 1px 2px rgba(9,42,88,.07), 0 6px 14px rgba(9,42,88,.07), 0 14px 34px rgba(9,42,88,.06);
+  --e3:0 2px 4px rgba(9,42,88,.08), 0 12px 26px rgba(9,42,88,.10), 0 30px 64px rgba(9,42,88,.10);
+}
+.tbl,.bnums>div,.bwel span,.bjobs article,.breal>div,.bfit>div,.bfaq details,
+.bday>div,.bmodel>div,.bstaff article,.bint,.bsns>div,.bfv-fact,
+.note,.card,.bsaid,.route .cell,.facts,.gate,.shot img,.bv-note,.ocard,
+.entries a,.gnav .drop,.gnav .drop a,.bar a,.bbar a,.s2bar a{border-radius:var(--r-md)}
+.gnav .drop .im,.bchips span{border-radius:var(--r-sm)}
+.route .cell,.bv-note,.ocard,.facts{box-shadow:var(--e1), inset 0 1px 0 rgba(255,255,255,.9)}
+.entries a,.card,.news,.bnums>div,.bjobs article,.bstaff article{box-shadow:var(--e2)}
+.entries a:hover{box-shadow:var(--e3)}
+.gnav .drop{box-shadow:var(--e3)}
+
+/* ---- B-6: 質感（粒は暗い面・中間の面の上だけ。白地に敷かない） ---- */
+.cta,.vision,.sec.is-key,.phead{position:relative}
+.cta::before,.sec.is-key::before,.phead::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.32;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='120' height='120' filter='url(%23n)' opacity='.5'/></svg>")}
+
+/* ---- B-7: 動きを1種→3段に（ライブラリなし） ---- */
+.js-rise [data-rise]{transform:translateY(12px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.js-rise .sec h2[data-rise],.js-rise .vcopy[data-rise]{transform:translateY(22px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js-rise .route .cell:nth-child(2),.js-rise .bv-note:nth-child(2),
+.js-rise .ocard:nth-child(2),.js-rise .entries a:nth-child(2){transition-delay:.07s}
+.js-rise .route .cell:nth-child(3),.js-rise .bv-note:nth-child(3),
+.js-rise .ocard:nth-child(3){transition-delay:.14s}
+@supports (animation-timeline: view()){
+  @keyframes ph-par{
+    from{transform:translate3d(0,-7%,0) scale(1.16)}
+    to  {transform:translate3d(0, 7%,0) scale(1.16)}}
+  .band{view-timeline:--bandline block;overflow:hidden}
+  .band>img{animation:ph-par linear both;animation-timeline:--bandline;
+    animation-range:cover 0% cover 100%;transition:none;will-change:transform}
+}
+@media (prefers-reduced-motion:reduce){ .band>img{animation:none !important} }
+
+/* ---- B-10: 章ラベル（粒3つ廃止→文字のあとに罫。手本の作法） ---- */
+.en{display:flex;align-items:center;gap:14px;letter-spacing:.2em}
+.en::before{display:none}
+.en::after{content:"";height:1px;flex:1;max-width:120px;background:currentColor;opacity:.45}
+/* ---- クリーム文字の残党（全ページ実測で特定した24種） ---- */
+.news .lb{color:#fff}
+.entries .s,.entries a .s{color:#5B7EA8}
+.entries a[href="recruit.html"] .s{color:#D9EBFC}
+.gate .k,.phead .k,.hero .k{color:#9CC9F5}
+.phead .nw,.hero .nw{color:inherit}
+.hact,.hact small,.hero .sub{color:#fff}
+.bclose h3,.bclose p,.bclose .btel a{color:#fff}
+.bclose .n{color:#D9EBFC}
+.skip{color:#fff}
+.s2subtitle,.s2scenehead b,.s2vtoggle{color:#fff}
+.btn.btn-main,a.btn-main{color:#fff}
+.pay dd small,.pay dt{color:#D9EBFC}
+.vcopy b{color:inherit}
+/* エラー文はエラーの赤のまま（意味色）。ただし青地で沈まない赤に */
+.err{color:#C0361F}
