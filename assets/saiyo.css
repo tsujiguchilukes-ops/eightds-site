@@ -262,7 +262,7 @@
   .bfv-acts .bcta-btn{min-width:320px}
   /* 🚨 LINEボタンが入ると主ボタンが2本になり、320+24+320+60+余白=最低828px。
      721〜827pxで最大107pxはみ出した（2026-09-06 検品）。この帯は縦積みに戻す */
-  @media (max-width:900px){
+  @media (max-width:1150px){
     .bfv-acts:has(.is-line),.bfv-acts.has-line{flex-direction:column;align-items:stretch}
     .bfv-acts:has(.is-line) .bcta-btn,.bfv-acts.has-line .bcta-btn{min-width:0}
   }
