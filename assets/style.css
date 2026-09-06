@@ -1457,3 +1457,18 @@ h2{font-size:36px}
     mask-image:linear-gradient(180deg,transparent 0,#000 18%)}
 }
 @media (prefers-reduced-motion:reduce){.bh-photo video{animation:none}}
+
+/* ヒーローの見出し：行ごとのマスクリビール（「ヒーローセッションが命」2026-09-06） */
+.bluehero h1{animation:none}
+.bluehero h1 .ln{display:block;overflow:hidden;
+  /* 下端の「、」を噛まないよう下だけ余らせる。上に余らせると次の行の頭が覗く（実測） */
+  margin-bottom:-0.1em;padding-bottom:0.1em}
+.bluehero h1 .ln>span{display:inline-block;transform:translateY(112%);
+  animation:bh-line-up .9s cubic-bezier(.19,1,.22,1) forwards}
+.bluehero h1 .ln:nth-child(1)>span{animation-delay:.18s}
+.bluehero h1 .ln:nth-child(2)>span{animation-delay:.30s}
+.bluehero h1 .ln:nth-child(3)>span{animation-delay:.42s}
+@keyframes bh-line-up{to{transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){
+  .bluehero h1 .ln>span{transform:none;animation:none}
+}
