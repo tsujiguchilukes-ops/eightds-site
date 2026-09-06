@@ -1672,3 +1672,21 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 
 /* ---- is-key の見出しが62pxまで膨らむ → 48pxに ---- */
 .sec.is-key h2{font-size:clamp(38px,4vw,48px)}
+
+/* =========================================================================
+   余白の詰め（2026-09-06 おでん実機指摘「ページとページのスペース広すぎ」）
+   🚨 原因：磨き層の .sec{padding:112px} がSP用の64px指定（カスケードで先）を
+   上書きして、スマホの余白が倍増していた。SPは変数ごと落とす
+   ========================================================================= */
+:root{ --s-sm:64px; --s-md:96px; --s-lg:140px; }
+.vision{padding:120px 0}
+@media (max-width:720px){
+  :root{ --s-sm:40px; --s-md:56px; --s-lg:80px; }
+  .sec{padding:var(--s-md) 0}
+  .vision{padding:72px 0}
+  .bluevoice{padding:48px 0 8px}
+  .news{margin:16px 16px 0}
+}
+@media (min-width:721px) and (max-width:1000px){
+  :root{ --s-sm:48px; --s-md:72px; --s-lg:104px; }
+}
