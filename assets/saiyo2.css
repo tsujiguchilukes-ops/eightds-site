@@ -335,9 +335,8 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
    幅別
    ========================================================= */
 @media (max-width:720px){
-  .s2bar{display:grid}
-  /* 固定バー（実測 約78px＋安全域）に最後の内容が隠れないための逃げ */
-  body.saiyo2{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+  /* 2026-09-07 固定バーは「浮くUIは置かない」指示で撤去 */
+  body.saiyo2{padding-bottom:env(safe-area-inset-bottom)}
   .s2sec.sec{padding:64px 0}
   .s2career{padding:64px 0}
   .s2film{padding:12px 0}
@@ -581,3 +580,65 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 @media (min-width:721px) and (max-width:999px){
   .s2title>.s2facts{max-width:760px}
 }
+
+.s2alt-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center}
+
+/* 長い採用ページの入口で、仕事内容・条件・応募の位置を先に見せる */
+.s2jump{position:sticky;top:var(--head);z-index:40;display:grid;grid-template-columns:repeat(4,1fr);
+  max-width:1160px;margin:0 auto;background:rgba(255,255,255,.96);border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(13,54,105,.10);backdrop-filter:blur(10px)}
+.s2jump a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;padding:10px 14px;
+  color:var(--ink);font-size:15px;font-weight:700;text-decoration:none;border-right:1px solid var(--line)}
+.s2jump a:last-child{border-right:0;background:var(--brand);color:#fff}
+.s2jump span{color:var(--accent);font-size:11px;letter-spacing:.12em}
+.s2jump a:last-child span{color:#D9EBFC}
+.s2jump a:hover{background:var(--paper)}
+.s2jump a:last-child:hover{background:var(--deep)}
+.s2jump a:active{transform:scale(.98)}
+.s2jump a:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
+body.saiyo2 section[id]{scroll-margin-top:70px}
+.s2bar.has-line{grid-template-columns:1.25fr .75fr}
+.s2jobs .ph img,.s2scene .ph img,.s2band-in img,.s2band img{filter:saturate(.98) contrast(1.02) brightness(1.01)}
+.ph-role{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;aspect-ratio:3/2;
+  color:#fff;background:linear-gradient(145deg,#0A356B,#1671CE);overflow:hidden;position:relative}
+.ph-role::before{content:"";position:absolute;width:72%;aspect-ratio:1;border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;transform:translate(38%,-26%)}
+.ph-role span{font-size:clamp(52px,7vw,92px);font-weight:800;line-height:1;letter-spacing:-.06em}
+.ph-role small{font-size:10px;font-weight:700;letter-spacing:.18em}
+.s2scene .ph-role{aspect-ratio:16/9}
+.s2nums dt{letter-spacing:.08em}
+@media(max-width:720px){
+  .s2jump{grid-template-columns:repeat(4,minmax(0,1fr));border-left:0;border-right:0}
+  .s2jump a{min-height:54px;padding:7px 3px;gap:3px;flex-direction:column;font-size:11px;line-height:1.2}
+  .s2jump span{font-size:9px}
+}
+@media(max-width:359px){
+  .s2nums{grid-template-columns:1fr;gap:12px}
+  .s2nums>div.wide{grid-column:auto}
+  .s2nums>div{padding:22px 20px}
+  .s2nums dd b,.s2nums dd.sm b{font-size:36px}
+  .s2nums .d{max-width:22em}
+}
+
+/* 2026-09-07 語中改行の抑止（日本語チェック君の実測：320pxで8か所・390pxで2か所を解消） */
+@supports (word-break:auto-phrase){
+  .s2lead,.note,.note2,.s2faq summary,h1,h2,h3,
+  .s2jobs p,.s2scene p,.s2day p{word-break:auto-phrase;overflow-wrap:normal}
+}
+
+/* 2026-09-07 固定バー撤去の後始末。style.css の @media(max-width:900px){body{padding-bottom:96px}}
+   は他ページの .bar 用に生きているので触らず、このページだけ 900px まで打ち消す
+   （720pxまでしか解除しておらず、721〜900px でフッター下に96pxの白帯が出ていた） */
+@media (max-width:900px){
+  body.saiyo2{padding-bottom:env(safe-area-inset-bottom)}
+  body.saiyo2 footer{padding-bottom:40px}
+}
+/* 721〜1024px で AC の青板が伸びきって本文を覆っていた（768pxでは文字が100%隠れていた） */
+@media (min-width:721px){
+  .s2scene .ph-role{height:100%;aspect-ratio:auto;min-height:240px}
+}
+
+/* 2026-09-07 応募節の電話2本が縦に22px重なり、浦安の下15%を押すと埼玉にかかっていた。
+   44px確保の負マージンが2行で食い合っていたので、行を箱にして重なりを断つ */
+.s2close .tel-row span{display:flex;align-items:center;min-height:48px;gap:calc(.4em + 8px)}
+.s2close .tel-row a{margin:0 -8px;padding:8px}

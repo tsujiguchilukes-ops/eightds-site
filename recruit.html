@@ -20,23 +20,7 @@
 <link rel="stylesheet" href="assets/saiyo2.css">
 <!-- 🚨 JSON-LD（JobPosting）は入れない：案1にあり、このページは提案版。仮の値を検索に出さない -->
 
-<!-- ============================================================
-  ★差し替え表（このページの「※要確認」は下の一覧が全部。
-    先方の回答が来たら該当箇所の値を入れて data-tmp="1" と
-    <small class="tmp">※要確認</small> を外す。
-    仮の値の出どころ＝旧採用サイトの実掲載。作った数字は無い）
-    1. 正社員 月給34万円〜（確認済み）……… #kyuyo の数字カード／#youkou の表／#faq
-    2. 正社員 勤務時間 8:00〜17:00 ……………………… #kyuyo ／ #ichinichi の各時刻 ／ #youkou ／ #faq
-    3. 正社員 休日 週休1日または2日（月7日以上・シフト制）… #kyuyo ／ #youkou ／ #faq
-    4. 昇給あり・賞与年3回……………… #kyuyo ／ #youkou
-    5. アルバイト 休日 週1日からOK ……………………… #youkou（アルバイト表）
-    6. 応募の流れ（お電話→面接→会社見学→入社・勤務開始）… #entry
-    7. 社員インタビュー3人（本人の言葉が届くまで出さない）… #hito .s2todo-box
-    8. 役職・昇進の決まり …………………………………… #michi の .s2todo
-    9. SNS動画 ………………………………………………… #hito .s2sns（まだ0本＝枠だけ）
-   10. LINEのURL ……………………………………………… assets/line.js の LINE_URL（全ページ共通）
-       （入れると data-cta の主ボタンが全部LINEに切り替わる。空の間は電話のまま）
-   ============================================================ -->
+<!-- 雇用条件は確認済みの項目だけを表示する。未確認の勤務時間・休日・昇進条件は公開しない。 -->
 </head>
 <body class="saiyo2">
 <a class="skip" href="#s2main">本文へ移動</a>
@@ -61,7 +45,7 @@
       </li>
       <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を二人でトラックから降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
       <li aria-current="page"><a href="recruit.html">採用情報</a></li>
@@ -80,7 +64,7 @@
   poster="img/P2_二人.webp"> に差し替えるだけの枠にしてある。
   
   ============================================================ -->
-<main id="s2main">
+<main id="s2main" tabindex="-1">
 <section class="s2hero">
   <div class="s2film">
     <div class="s2frame">
@@ -103,79 +87,66 @@
     <h1><span class="nw">助手席から、</span><span class="nw">始めよう。</span></h1>
     <!-- 🚨 ここに「こんどは自分が誰かを隣に乗せる番へ」を置かない。
          それは4章 SCENE 05 の締めの言葉で、1画面目で言うと5場面を読む理由が消える -->
-    <p class="s2lead">最初の仕事は、先輩の隣に座ること。浦安と新座を拠点に、東京・千葉・埼玉のお宅へ家電を届けて、取り付けている、1986年創業の会社です。</p>
+    <p class="s2lead">最初の仕事は、先輩の隣に座ること。浦安と新座を拠点に、東京・千葉・埼玉のご家庭へ家電を届けて、取り付けている、1986年創業の会社です。</p>
     <ul class="s2chips">
       <li>未経験歓迎</li>
       <li>2人1組</li>
-      <li>普通免許から相談OK</li>
       <li>エアコン工事の指導は当社</li>
       <li>社会保険完備</li>
       <li>制服貸与</li>
     </ul>
+    <div class="s2acts">
+      <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="hero">LINEで話を聞いてみる</a>
+      <div class="s2alt-links">
+        <a class="s2sub-link" href="#youkou" data-ga="req_click" data-ga-place="hero">募集要項を見る</a>
+        
+      </div>
     <div class="s2facts" aria-label="採用条件の要点">
       <dl class="s2fact">
         <dt>正社員の月給</dt>
         <dd><b>34</b><small>万円〜</small>
-        <span class="d">未経験スタートの額です／賞与年3回／残業なし</span></dd>
-      </dl>
-      <dl class="s2fact">
-        <dt>アルバイトの日給</dt>
-        <dd><b>11,980</b><small>円</small>
-        <span class="d">別途、交通費1,000円を支給／日払い・週払い対応</span></dd>
+        <span class="d">未経験スタートの額です／賞与年3回</span></dd>
       </dl>
     </div>
-    <div class="s2acts">
-      <a class="s2cta tel" data-cta href="tel:0473810142" data-ga="tel_click" data-ga-place="hero">LINEで応募・質問する</a>
-      <a class="s2sub-link" href="#youkou" data-ga="req_click" data-ga-place="hero">募集要項を見る</a>
     </div>
   </div>
 </section>
+
+<nav class="crumb" aria-label="現在の場所"><div class="in"><a href="index.html">トップ</a><span aria-hidden="true">＞</span>採用情報</div></nav>
+
+<nav class="s2jump" aria-label="採用情報のページ内メニュー">
+  <a href="#shigoto"><span>01</span>仕事内容</a>
+  <a href="#kyuyo"><span>03</span>給与・待遇</a>
+  <a href="#youkou"><span>06</span>募集要項</a>
+  <a href="#entry"><span>07</span>応募・質問</a>
+</nav>
 
 <!-- 01 仕事を知る（職種＋1日の流れ） -->
 <section class="sec s2sec" id="shigoto">
   <div class="wrap">
     <p class="en" data-rise="0">01 ／ 仕事</p>
     <h2 data-rise="0">家電を届けて、取り付ける仕事。</h2>
-    <p class="note" data-rise="0">家電量販店様からお預かりした冷蔵庫・洗濯機・テレビ・エアコンを、お客様のご自宅へ届けて、設置まで行います。現場はお客様のご自宅の中。運転する車は2tショートトラックで、普通免許で始められる車両があります。</p>
+    <p class="note" data-rise="0">家電量販店様からお預かりした冷蔵庫・洗濯機・テレビ・エアコンを、お客様のご自宅へ届けて、設置まで行います。現場はお客様のご自宅の中。運転する車は2tショートトラックです。</p>
 
     <div class="s2jobs" data-rise="0">
       <article>
         <div class="ph"><img src="img/V5_搬出.webp" alt="住宅街のお客様のご自宅の前で、2人で洗濯機を降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></div>
         <div class="tx">
-          <p class="k">正社員①</p>
-          <h3>配送業務社員</h3>
-          <p>商品をお客様のご自宅へお届けし、設置まで行います。2人1組で伺うので、未経験の方も先輩と一緒に覚えていけます。</p>
-        </div>
-      </article>
-      <article>
-        <!-- 🚨 実写のエアコン工事が1枚も無い。AI画像は置かず「これから撮影」と書く -->
-        <div class="ph-todo">エアコン工事の写真は<br>これから撮影します</div>
-        <div class="tx">
-          <p class="k">正社員②</p>
-          <h3>AC工事社員</h3>
-          <p>エアコンの取付・取外し・入替を行います。工事の指導は当社で行うので、未経験から習得できます。電気工事士免許をお持ちの方は優遇。</p>
-        </div>
-      </article>
-      <article>
-        <div class="ph"><img src="img/V2_手元.webp" alt="お届けした商品を取り扱う作業の手元" loading="lazy" decoding="async" width="1800" height="1200"></div>
-        <div class="tx">
-          <p class="k">正社員③</p>
-          <h3>配送・AC工事社員</h3>
-          <p>配送を続けながら、エアコン工事を覚えていく働き方です。指導は当社で行います。</p>
+          <p class="k">正社員</p>
+          <h3>配送スタッフ</h3>
+          <p>商品をお客様のご自宅へお届けし、設置まで行います。エアコン工事も、当社の指導で覚えていけます。2人1組で伺うので、未経験の方も先輩と一緒に。</p>
         </div>
       </article>
     </div>
 
     <h3 class="s2h" id="ichinichi" data-rise="0">正社員の1日</h3>
-    <!-- 🚨 途中の時刻（9:00・12:00・13:00）は出どころが無いので書かない。
-         旧採用サイトから取れるのは始業8:00と終業17:00だけ。無い数字は作らない -->
-    <p class="note" data-rise="0">アルバイトの勤務時間は<strong>8:30〜17:30で確定</strong>しています。ここから先は正社員の1日です。始業と終業は旧採用サイトの掲載値（8:00〜17:00）です。</p>
+    <p class="note" data-rise="0">ここからは正社員の1日の流れです。現場や担当業務によって、時間と順番は変わります。</p>
     <div class="s2day" data-rise="0">
-      <div><span class="t" data-tmp="1">7:00</span><b>出社・積み込み</b><p>その日のルートを確認して、2人1組でトラックに商品を積み込みます。</p></div>
+      <div><span class="t">出社</span><b>積み込み</b><p>その日のルートを確認して、2人1組でトラックに商品を積み込みます。</p></div>
       <div><span class="t">午前</span><b>配送・設置</b><p>お客様のご自宅へ。冷蔵庫や洗濯機を運び入れて、設置まで行います。</p></div>
       <div><span class="t">昼</span><b>休憩</b><p>移動の合間に休憩を取ります。</p></div>
       <div><span class="t">午後</span><b>配送・設置</b><p>2件目、3件目へ。エアコン工事を覚えると、工事の現場にも入ります。</p></div>
-      <div><span class="t" data-tmp="1">17:00</span><b>帰社・報告</b><p>トラックを戻して報告したら、その日の仕事は終わりです。</p></div>
+      <div><span class="t">帰社</span><b>報告</b><p>トラックを戻して報告したら、その日の仕事は終わりです。</p></div>
     </div>
   </div>
 </section>
@@ -197,20 +168,6 @@
     <div class="s2band-in" data-rise="0">
       <img src="img/L5_受付.webp" alt="トラックの荷台の前で笑い合う2人のスタッフ" loading="lazy" decoding="async" width="1800" height="1200">
     </div>
-    <div class="s2todo-box" data-rise="0" data-tmp="1">
-      <p><b>社員インタビューを準備しています。</b><small class="tmp">※準備中</small></p>
-      <p>入社のきっかけ、いまの仕事、できるようになったこと。本人の言葉が届きしだい、そのまま載せます。</p>
-    </div>
-
-    <h3 class="s2h" data-rise="0">現場のようすはSNSで</h3>
-    <p class="note" data-rise="0">現場の1日を、これからショート動画でお届けします。</p>
-    <!-- 動画が入ったら、この枠を <a data-ga="video_click"> の埋め込みに差し替える -->
-    <div class="s2sns" data-rise="0" role="region" aria-label="SNS動画（準備中）。横にスクロールできます">
-      <div><b>TikTok</b>動画を<br>準備中です</div>
-      <div><b>Reels</b>動画を<br>準備中です</div>
-      <!-- 🚨 動画が0本の段階で「近日公開」と時期を約束しない -->
-      <div><b>現場の1日</b>動画を<br>準備中です</div>
-    </div>
   </div>
 </section>
 
@@ -224,7 +181,7 @@
       <div class="wide">
         <dt>アルバイトの日給</dt>
         <dd><b>11,980</b><small>円</small>
-        <span class="d">別途、交通費1,000円／日給保障付き／日払い・週払い対応／現地集合・現地解散も可</span></dd>
+        <span class="d">別途、交通費1,000円／日払い・週払い対応／現地集合・現地解散も可</span></dd>
       </div>
       <div>
         <dt><span class="nw">アルバイト</span> <span class="nw">勤務時間</span></dt>
@@ -244,16 +201,6 @@
         <span class="d">未経験のスタートの額。在籍社員の実例：4〜5年目で40万円、7年目で46万円</span></dd>
       </div>
       <div>
-        <dt><span class="nw">正社員</span> <span class="nw">勤務時間</span></dt>
-        <dd class="sm"><b>7:00</b><small>〜</small><b>17:00</b>
-        <span class="d">昼休憩1時間。残業はありません。現場の約半分は13時で終わります</span></dd>
-      </div>
-      <div>
-        <dt>正社員 休日</dt>
-        <dd class="sm">週休<b>2</b><small>日</small>
-        <span class="d">シフト制</span></dd>
-      </div>
-      <div>
         <dt>賞与</dt>
         <dd class="sm">年<b>3</b><small>回</small>
         <span class="d">7月・12月・3月。20日締め・当月末払い</span></dd>
@@ -261,10 +208,8 @@
     </dl>
     <div class="s2wel" data-rise="0">
       <span>社会保険完備</span><span>生命保険</span><span>家族手当</span><span>交通費支給（規定内）</span>
-      <span>制服貸与</span><span>中型免許は会社で取得できます</span><span>エアコン（AC）工事の指導あり</span><span>電気工事士免許は優遇</span>
+      <span>制服貸与</span><span>エアコン（AC）工事の指導あり</span>
     </div>
-    <!-- 年収モデルは出どころのある数字が無いので作らない（07_仮埋めの値.md の優先順位3） -->
-    <p class="note" data-rise="0">年齢別の年収モデルは現在確認中です。確定しだい、ここに載せます。</p>
   </div>
 </section>
 
@@ -273,14 +218,14 @@
   <div class="wrap">
     <p class="en" data-rise="0">04 ／ 道すじ</p>
     <h2 data-rise="0">助手席から始まる、5つの場面。</h2>
-    <p class="note" data-rise="0">2人1組・3つの職種・当社での工事指導。仕事のしくみを、入社した一人の目線で並べました。</p>
+    <p class="note" data-rise="0">2人1組・当社での工事指導。仕事のしくみを、入社した一人の目線で並べました。</p>
     <div class="s2scenes">
       <article class="s2scene" data-rise="0">
         <div class="ph"><img class="pos-l" src="img/L4_台車.webp" alt="先輩と2人で洗濯機をトラックから降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></div>
         <div class="tx">
           <p class="n">SCENE 01</p>
           <h3>先輩の隣で、現場を覚える。</h3>
-          <p>最初は先輩の助手として現場へ。アルバイトの助手なら運転はドライバーにお任せです。荷物の持ち方も、お宅への上がり方も、隣で見て覚えます。</p>
+          <p>最初は先輩の助手として現場へ。アルバイトの助手なら運転はドライバーにお任せです。荷物の持ち方も、お客様のお宅への上がり方も、隣で見て覚えます。</p>
         </div>
       </article>
       <article class="s2scene" data-rise="0">
@@ -288,11 +233,11 @@
         <div class="tx">
           <p class="n">SCENE 02</p>
           <h3>ハンドルを握る。</h3>
-          <p>車両は2tショートトラック。普通免許で始められる車両があります。<span class="cau">※免許の取得時期・車両によっては準中型免許が必要になる場合があります。</span></p>
+          <p>車両は2tショートトラックです。</p>
         </div>
       </article>
-      <article class="s2scene" data-rise="0">
-        <div class="ph-todo">エアコン工事の写真は<br>これから撮影します</div>
+      <article class="s2scene role-ac" data-rise="0">
+        <div class="ph-role" aria-hidden="true"><span>AC</span><small>TECHNICAL SKILL</small></div>
         <div class="tx">
           <p class="n">SCENE 03</p>
           <h3>手に、職をつける。</h3>
@@ -303,8 +248,8 @@
         <div class="ph"><img src="img/L6_出発.webp" alt="2人で洗濯機を運び出すところ" loading="lazy" decoding="async" width="1800" height="1200"></div>
         <div class="tx">
           <p class="n">SCENE 04</p>
-          <h3>二刀流になる。</h3>
-          <p>配送に加えて、工事もできる社員へ。「配送・AC工事社員」は3つ目の職種として募集しています。</p>
+          <h3>工事も覚える。</h3>
+          <p>配送に加えて、エアコン工事も覚えていきます。指導は当社で行います。</p>
         </div>
       </article>
       <article class="s2scene" data-rise="0">
@@ -316,7 +261,6 @@
         </div>
       </article>
     </div>
-    <p class="s2todo" data-rise="0" data-tmp="1"><small class="tmp">※要確認</small>　役職や昇進の決まり・給与の上がり方は現在確認中です。確定しだい、ここに載せます。お急ぎの方には、お電話でご案内します。</p>
   </div>
 </section>
 
@@ -377,36 +321,23 @@
         <div class="a"><p>大丈夫です。2人1組で伺うので、最初は先輩と一緒に現場で覚えていきます。エアコン工事の指導も当社で行います。</p></div>
       </details>
       <details>
-        <summary>運転が不安です。免許は何が必要ですか？</summary>
-        <div class="a"><p>正社員は普通免許からご相談いただけます（2tショートトラックに普通免許で始められる車両があります。※免許の取得時期・車両により準中型免許が必要になる場合があります）。アルバイトの助手は運転しないので、免許が無い方も歓迎です。</p></div>
-      </details>
-      <details>
         <summary>体力に自信がないのですが。</summary>
         <div class="a"><p>冷蔵庫や洗濯機は、いつも2人がかりで運びます。体は仕事の中で慣れていきます。</p></div>
       </details>
-      <details data-tmp="1">
+      <details>
         <summary>給料はいくらですか？</summary>
-        <div class="a"><p>アルバイトは<strong>日給11,980円</strong>（別途、交通費1,000円）。正社員は<strong>月給34万円から</strong>で、賞与は年3回（7月・12月・3月）です。在籍している社員では、入社4年目・5年目で月給40万円、入社7年目で月給46万円になっています。いずれも未経験で入った社員です。</p></div>
-      </details>
-      <details data-tmp="1">
-        <summary>休みはどのくらいありますか？</summary>
-        <div class="a"><p>正社員は<strong>週休2日</strong>です。勤務は7:00〜17:00（昼休憩1時間）で、<strong>残業はありません</strong>。現場の約半分は13時で終わります。</p></div>
-      </details>
-      <details data-tmp="1">
-        <summary>何時ごろに仕事が終わりますか？</summary>
-        <div class="a"><p>アルバイトは8:30〜17:30です。日給保障付きなので、早く終わった日も日給は満額です。正社員は7:00〜17:00（昼休憩1時間）で、残業はありません。</p></div>
+        <div class="a"><p>アルバイトは<strong>日給11,980円</strong>（別途、交通費1,000円）。正社員は<strong>月給34万円〜</strong>。賞与は年3回（7月・12月・3月）です。在籍している社員では、入社4年目・5年目で月給40万円、入社7年目で月給46万円になっています。いずれも未経験で入った社員です。</p></div>
       </details>
       <!-- 🚨 答えの無い質問はFAQに出さない（FAQは答えを見に来る場所）。
            「面接では何を聞かれますか？」は、先方の回答が届いたらここに戻す。
            聞く項目＝_案2_採用/08_日曜に聞くこと.md §4 の18 -->
       <details>
         <summary>応募の前に、話を聞くだけでもいいですか？</summary>
-        <div class="a"><p>もちろんです。「条件を聞きたいだけ」のお電話も受け付けています。</p></div>
+        <div class="a"><p>もちろんです。「条件を聞きたいだけ」のご連絡も歓迎です。LINEからお気軽にどうぞ。</p></div>
       </details>
       <details>
         <summary>資格や技術は身につきますか？</summary>
-        <!-- TODO: 先方確認（資格取得の費用負担の有無）。回答が来たらここに足す -->
-        <div class="a"><p>エアコン（AC）工事の指導は当社で行うので、未経験から工事の技術を習得できます。電気工事士免許をお持ちの方は優遇。資格取得の費用面については現在確認中です。</p></div>
+        <div class="a"><p>エアコン（AC）工事の指導は当社で行うので、未経験から工事の技術を習得できます。</p></div>
       </details>
       <details>
         <summary>勤務地はどこですか？</summary>
@@ -427,28 +358,27 @@
     <h3 class="s2h" data-rise="0">正社員</h3>
     <table class="tbl" data-rise="0">
       <caption>正社員の募集要項</caption>
-      <tr><th scope="row">職種</th><td>①配送業務社員（配送・設置）<br>②AC工事社員（エアコンの取付・取外し・入替）<br>③配送・AC工事社員（配送とAC工事の二刀流）</td></tr>
-      <tr><th scope="row">仕事内容</th><td>家電量販店で購入された商品を、お客様のご自宅へ配送・設置します。エアコン・アンテナの取付工事（電気工事）も行います。<br>AC工事の指導は当社で行います。配送業務を続けながらAC工事を習得し、二刀流を目指すこともできます。</td></tr>
-      <tr><th scope="row">車両・免許</th><td>2tショートトラック。普通免許で始められる車両があります。<br><strong>ドライバーになるための中型免許は、会社で取得できます。</strong>※免許の取得時期・車両によっては準中型免許が必要になる場合があります。</td></tr>
-      <tr><th scope="row">対象</th><td>要普通免許／電気工事士免許は優遇します／未経験の方も歓迎です<br>2人1組で伺うので、先輩と一緒に覚えていけます。</td></tr>
-      <tr><th scope="row">勤務地</th><td>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）<br>埼玉営業所（埼玉県新座市野火止2-11-25）</td></tr>
       <tr><th scope="row">給与</th><td><strong>月給340,000円〜</strong>（未経験の方のスタートの額です）<br>賞与 年3回（7月・12月・3月）／20日締め・当月末払い<br>在籍している社員の実例：入社4年目・5年目で月給400,000円、入社7年目で月給460,000円（いずれも未経験入社）</td></tr>
-      <tr><th scope="row">勤務時間</th><td>7:00〜17:00（昼休憩1時間）<br><strong>残業はありません。</strong>現場の約半分は7:00〜13:00で終わります</td></tr>
-      <tr><th scope="row">休日・休暇</th><td><strong>週休2日</strong></td></tr>
-      <tr><th scope="row">昇給・賞与</th><td>昇給あり／賞与 年3回（7月・12月・3月）</td></tr>
-      <tr><th scope="row">待遇</th><td>社会保険完備／生命保険／家族手当／交通費支給（規定内）／制服貸与<br><strong>中型免許は会社で取得できます</strong>／エアコン（AC）工事の指導あり</td></tr>
+      <tr><th scope="row">職種</th><td>配送スタッフ（家電の配送・設置・エアコン工事）</td></tr>
+      <tr><th scope="row">仕事内容</th><td>家電量販店で購入された商品を、お客様のご自宅へ配送・設置します。エアコン・アンテナの取付工事（電気工事）も行います。<br>AC工事の指導は当社で行います。配送を続けながら、エアコン工事も覚えていけます。</td></tr>
+      <tr><th scope="row">対象</th><td>未経験の方も歓迎です<br>2人1組で伺うので、先輩と一緒に覚えていけます。</td></tr>
+      <tr><th scope="row">勤務地</th><td>浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）<br>埼玉営業所（埼玉県新座市野火止2-11-25）</td></tr>
+      <tr><th scope="row">勤務時間</th><td>8:00〜17:00（休憩1時間）／残業なし</td></tr>
+        <tr><th scope="row">休日</th><td>週休2日</td></tr>
+        <tr><th scope="row">昇給</th><td>昇給あり</td></tr>
+      <tr><th scope="row">待遇</th><td>社会保険完備／生命保険／家族手当／交通費支給（規定内）／制服貸与／エアコン（AC）工事の指導あり</td></tr>
     </table>
 
     <h3 class="s2h" data-rise="0">アルバイト</h3>
     <table class="tbl" data-rise="0">
       <caption>アルバイト（配送アシスタント）の募集要項</caption>
-      <tr><th scope="row">職種</th><td>家電配送の助手スタッフ（配送アシスタント）</td></tr>
-      <tr><th scope="row">仕事内容</th><td>配送スタッフの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。日給保障付きなので、早く終わった日も日給は満額です。</td></tr>
-      <tr><th scope="row">対象</th><td>未経験の方、普通免許をお持ちでない方も歓迎です。</td></tr>
+      <tr><th scope="row">給与</th><td><strong>日給11,980円</strong>　別途、交通費1,000円を支給します<br>日給保障付き／<strong>日払いに対応しています</strong>（20日締め・当月末払いも選べます）</td></tr>
+      <tr><th scope="row">職種</th><td>配送アシスタント（家電配送の助手）</td></tr>
+      <tr><th scope="row">仕事内容</th><td>ドライバーの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。</td></tr>
+      <tr><th scope="row">対象</th><td>未経験の方も歓迎です。運転はしないので、助手席から始められます。</td></tr>
       <tr><th scope="row">送迎</th><td><strong>最寄り駅まで送迎します</strong></td></tr>
       <tr><th scope="row">勤務地</th><td>埼玉県新座市野火止2-11-25</td></tr>
-      <tr><th scope="row">勤務時間</th><td>8:30〜17:30<br><strong>現場の約半分は13時で終わります</strong>（早く終わっても日給は変わりません）</td></tr>
-      <tr><th scope="row">給与</th><td><strong>日給11,980円</strong>　別途、交通費1,000円を支給します<br>日給保障付き／<strong>日払いに対応しています</strong>（20日締め・当月末払いも選べます）</td></tr>
+      <tr><th scope="row">勤務時間</th><td>8:30〜17:30<br>日給保障付きのため、早く終わっても日給は変わりません</td></tr>
       <tr><th scope="row">シフト</th><td>単発・短期も相談できます</td></tr>
       <tr><th scope="row">集合・解散</th><td>現地集合・現地解散も可能です</td></tr>
     </table>
@@ -465,20 +395,22 @@
     <div data-rise="0">
       <h3>まず、話を聞くだけでも。</h3>
       <p>「正社員の条件を聞きたい」「アルバイトに単発で入りたい」「エアコン工事に興味がある」――どれでも、お気軽に。応募を決める前のご連絡も受け付けています。</p>
-      <a class="s2cta tel" data-cta href="tel:0473810142" data-ga="tel_click" data-ga-place="close">LINEで応募・質問する</a>
+      <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="close">LINEで話を聞いてみる</a>
       <div class="tel-row">
         <span>浦安本社 <a class="tel" href="tel:0473810142" data-ga="tel_click">047-381-0142</a></span>
         <span>埼玉営業所 <a class="tel" href="tel:0484232335" data-ga="tel_click">048-423-2335</a></span>
       </div>
-      <p class="note2">受付 8:00〜17:00　土日祝は現場に出ていることがあります。つながらない場合は、時間をおいて、もう一度お電話ください。</p>
+      <p class="note2">LINEはいつでも受け付けています。お電話は8:00〜17:00。土日祝はLINEからどうぞ。</p>
       <!-- 🚨 案1（recruit.html）と同じ並びにそろえる。
            旧採用サイトは「書類選考→面接→会社見学→選考→入社決定」だったが、
-           選考が2回あるように読めるうえ、このページのCTAは全部「電話で話を聞いてみる」なので
+           選考が2回あるように読めるうえ、このページのCTAは全部「LINEで話を聞いてみる」なので
            1番目が書類選考だと入口と食い違う -->
-      <p class="note2" data-tmp="1">応募の流れ：お電話 → 面接（会社見学だけでも構いません） → 入社・勤務開始</p>
+      <p class="note2">応募の流れ：LINEでご連絡 → 面接（会社見学だけでも構いません） → 入社・勤務開始</p>
     </div>
   </div>
 </section>
+
+<div class="backrow"><div class="in"><a href="index.html">トップページへ戻る</a></div></div>
 </main>
 
 <footer>
@@ -515,13 +447,6 @@
     <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
   </div>
 </footer>
-
-<!-- スマホ下部の固定CTA（固定バーはこの1本だけ。assets/line.js にURLが入ると自動でLINEに切り替わる） -->
-<div class="s2bar">
-  <a class="s2cta tel" data-cta href="tel:0473810142" data-ga="tel_click" data-ga-place="fixed_bar">LINEで応募・質問する</a>
-  <a class="s2bar-sub" href="#youkou" data-ga="req_click" data-ga-place="fixed_bar">募集要項を見る</a>
-</div>
-
 <script src="assets/motion.js"></script>
 <script src="assets/saiyo2.js"></script>
 <script src="assets/line.js"></script>

@@ -361,7 +361,7 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .hero>img{animation:slowzoom 20s ease-out both}
 @media(prefers-reduced-motion:reduce){
   .hero>img{animation:none}
-  .js-rise [data-rise]{opacity:1;transform:none}
+  .js-rise [data-rise]{opacity:1!important;transform:none!important}
 }
 
 /* =========================================================
@@ -1564,7 +1564,7 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 /* ---- B-7: 動きを1種→3段に（ライブラリなし） ---- */
 .js-rise [data-rise]{transform:translateY(12px);
   transition:opacity .55s var(--ease),transform .55s var(--ease)}
-.js-rise .sec h2[data-rise],.js-rise .vcopy[data-rise]{transform:translateY(22px);
+.js-rise :where(.sec h2,.vcopy)[data-rise]{transform:translateY(22px);
   transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .js-rise .route .cell:nth-child(2),.js-rise .bv-note:nth-child(2),
 .js-rise .ocard:nth-child(2),.js-rise .entries a:nth-child(2){transition-delay:.07s}
@@ -1766,7 +1766,6 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .bh-btn.main:hover{box-shadow:0 18px 42px rgba(3,28,60,.42)}
 .bh-btn.ghost{background:rgba(3,28,60,.46);border-color:rgba(255,255,255,.74)}
 .entries a.entry-recruit{position:relative;overflow:hidden}
-.entries a.entry-recruit::after{content:"採用の入口";position:absolute;right:22px;top:18px;padding:6px 10px;border-radius:999px;background:#fff;color:#0047AB;font-size:12px;font-weight:700;letter-spacing:.08em}
 @media(max-width:720px){
   .bluehero{min-height:calc(100svh - 0px)}
   .bh-in{padding:40px 24px 104px;justify-content:flex-end}
@@ -1805,3 +1804,120 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 
 /* 2026-09-07 review pass4: H1 reveal用マスクで「もっといい未来。」の下が切れるため、表示優先で開放 */
 .bluehero h1 .ln{overflow:visible !important;padding-bottom:0;margin-bottom:0}
+
+/* 採用・法人の入口から、現場の信頼へ一続きに見せる */
+.band-first{height:clamp(300px,42vw,560px);margin-top:0}
+.band-first>img{object-position:center 30%}
+.band.is-people>img{filter:saturate(.98) contrast(1.02) brightness(1.02)}
+.band.is-people::after{opacity:.08}
+.band.is-people::before{opacity:.06}
+@media(max-width:720px){
+  .band-first{height:62vw;min-height:230px;max-height:340px}
+  .band-first>img{object-position:46% 28%}
+}
+
+.bh-vtoggle{position:absolute;right:28px;top:calc(var(--head) + 24px);z-index:4;min-height:44px;padding:0 18px;
+  color:#fff;background:rgba(4,30,64,.64);border:1px solid rgba(255,255,255,.72);border-radius:999px;
+  font:700 13px/1 var(--gothic);cursor:pointer;backdrop-filter:blur(6px)}
+.bh-vtoggle:hover{background:rgba(4,30,64,.82)}
+.bh-vtoggle:active{transform:scale(.96)}
+.bh-vtoggle:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:720px){.bh-vtoggle{right:14px;top:14px;padding:0 14px}}
+
+/* ── 業務内容の3カード（別案「実写主義」から移植：SERVICE 01/02/03） 2026-09-07 ── */
+.svc3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.svc3i{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:36px 32px 32px;
+  box-shadow:0 1px 2px rgba(9,42,88,.06),0 2px 6px rgba(9,42,88,.05),inset 0 1px 0 rgba(255,255,255,.9)}
+.svc3ic{width:48px;height:48px;display:flex;align-items:center;justify-content:center}
+.svc3ic svg{width:100%;height:100%;fill:none;stroke:var(--brand);stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round}
+.svc3n{margin-top:22px;font-size:13px;font-weight:700;letter-spacing:.24em;color:var(--accent)}
+.svc3i h3{margin-top:10px;font-size:22px;line-height:1.5;word-break:auto-phrase}
+/* 説明文だけを指す。`.svc3i p` にすると .svc3n（番号ラベル）まで拾って青が灰に負ける */
+.svc3i h3+p{margin-top:12px;color:var(--sub);line-height:1.95;word-break:auto-phrase}
+@media(max-width:980px){.svc3{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.svc3{grid-template-columns:1fr;gap:16px;margin-top:44px}
+  .svc3i{padding:28px 24px 26px}.svc3i h3{font-size:20px}}
+
+/* ── 採用の数字（別案「実写主義」から移植：待遇を独立した見せ場に） 2026-09-07 ── */
+.rnum{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:64px 0}
+.rnum dl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 28px;margin:0}
+.rnum dl>div{padding-left:28px;border-left:1px solid var(--line)}
+.rnum dl>div:first-child{padding-left:0;border-left:0}
+.rnum dt{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--sub)}
+.rnum dd{margin:10px 0 0;font-size:22px;font-weight:700;line-height:1.25;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.rnum dd b{font-size:42px;font-weight:800;line-height:1;color:var(--brand);
+  font-variant-numeric:tabular-nums}
+.rnum dd.sm{margin-top:6px;font-size:15px;font-weight:600;color:var(--sub)}
+.rnum-src{margin-top:26px;font-size:13px;color:var(--sub)}
+@media(max-width:900px){
+  .rnum dl{grid-template-columns:1fr 1fr;gap:26px 22px}
+  .rnum dl>div{padding-left:22px}
+  .rnum dl>div:nth-child(odd){padding-left:0;border-left:0}
+}
+@media(max-width:520px){
+  .rnum{padding:34px 0}
+  .rnum dd{font-size:19px}.rnum dd b{font-size:34px}
+  .rnum-src{margin-top:20px;font-size:12px}
+}
+/* 数字と単位を泣き別れさせない（320pxで「月給34／万円〜」に割れていた） */
+.rnum dd{white-space:nowrap}
+@media(max-width:400px){.rnum dd{font-size:17px}.rnum dd b{font-size:28px}
+  .rnum dt{font-size:12px;letter-spacing:.1em}}
+@media(max-width:360px){.rnum dd{font-size:15px}.rnum dd b{font-size:24px}
+  .rnum dl{gap:22px 16px}.rnum dl>div{padding-left:16px}}
+/* 42pxだと h2 と同格になって格が下がる。狭い幅の指定を上書きしないよう min-width で囲む */
+@media(min-width:521px){.rnum dd b{font-size:36px}}
+
+/* ── 現場の3枚（別案「実写主義」の作法を移植：figure＋動詞のキャプション） 2026-09-07 ── */
+.wphotos{padding:24px 0 8px}
+.wphotos .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.wph{margin:0;position:relative;isolation:isolate}
+/* 元画像は3枚とも1800×1200。枠を3:2に揃えて切り落としを作らない（顔切れ対策） */
+.wph img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;
+  background:var(--paper);
+  filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.98)}
+/* 既存の写真帯と同じトーンに揃える。filterだけでは色相が動かないので覆いを2枚重ねる */
+.wph::after{content:"";position:absolute;left:0;right:0;top:0;aspect-ratio:3/2;z-index:1;
+  pointer-events:none;background:var(--ph-blue);mix-blend-mode:color;opacity:var(--ph-tint)}
+.wph::before{content:"";position:absolute;left:0;right:0;top:0;aspect-ratio:3/2;z-index:2;
+  pointer-events:none;background:var(--ph-warm);mix-blend-mode:soft-light;opacity:var(--ph-lift)}
+.wph figcaption{position:relative;z-index:3}
+.wph figcaption{margin-top:14px;font-size:15px;line-height:1.85;color:var(--sub);
+  word-break:auto-phrase}
+.wph figcaption>span:first-child{display:block;margin-bottom:4px;font-size:17px;font-weight:700;
+  color:var(--ink);letter-spacing:.02em}
+/* 隣の .svc3 と同じ 980px で折る（列数が食い違わないように）。
+   3枚目を全幅にすると 641〜900px で1枚だけ4.3倍になるので等価のまま2列に置く */
+@media(max-width:980px){.wphotos .wrap{grid-template-columns:1fr 1fr;gap:22px}}
+@media(max-width:720px){.wphotos .wrap{grid-template-columns:1fr;gap:26px}
+  .wph figcaption{font-size:14px}.wph figcaption>span:first-child{font-size:16px}}
+/* 条件を見た直後に next を1本だけ出す（釦を増やさずテキストリンクで） */
+.rnum-src{display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px}
+.rnum-next{display:inline-flex;align-items:center;gap:12px;min-height:44px;font-size:16px;
+  color:var(--brand);font-weight:700;text-decoration:none;
+  border-bottom:2px solid currentColor;line-height:1.4}
+.rnum-next:hover{border-bottom-width:3px}
+.rnum-next:active{translate:1px 1px;opacity:.82}
+
+/* ── 2026-09-07 デザイン再検品の差し戻し分 ── */
+/* 版面：.entries だけ .wrap の外に出ていて左端が100pxずれる */
+.entries{max-width:1240px;margin-inline:auto}
+/* 2026-09-07 見出しが下がったままになる件は、原因側（:where() 化）で直したのでパッチは削除 */
+/* wph1（積み込む）だけ青が乗り切らず白く浮くので、この1枚だけ露出を落とす */
+.wph:first-child img{filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.90) saturate(.92)}
+/* 4列目の「2」は補足行なので、主役の数字(36px)より小さく置く */
+.rnum dd.sm b{font-size:22px;font-weight:800;color:var(--brand)}
+/* 2026-09-07 帯のキャプション。.band は height:380px + overflow:hidden + img が絶対配置なので、
+   figcaption を .band の中に入れると画像の裏に回って1文字も見えない（フェイブル5.1が発見）。
+   画像を .band に包み、キャプションはその外へ出す */
+.bandcap{margin:0}
+.bandcap>figcaption{max-width:1240px;margin:14px auto 0;padding:0 40px;
+  font-size:15px;line-height:1.85;color:var(--sub);word-break:auto-phrase}
+.bandcap>figcaption>span:first-child{display:block;margin-bottom:4px;font-size:17px;
+  font-weight:700;color:var(--ink);letter-spacing:.02em}
+@media(max-width:720px){.bandcap>figcaption{padding:0 20px;font-size:14px}
+  .bandcap>figcaption>span:first-child{font-size:16px}}

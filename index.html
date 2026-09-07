@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="有限会社エイト流通サービス">
-<meta property="og:title" content="有限会社エイト流通サービス">
+<meta property="og:title" content="家電の配送・設置・引き取り｜有限会社エイト流通サービス">
 <meta property="og:description" content="家電量販店からお預かりした家電を、お客様のご自宅で使える状態にするところまで。浦安・新座の2拠点から東京・千葉・埼玉へ。">
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
@@ -120,7 +120,7 @@
 "description":"家電量販店様からお預かりした家電を、お客様のご自宅へ配送・設置し、エアコンなどの取付工事と古い家電のお引き取りまで行います。1986年創業。",
 "url":"https://tsujiguchilukes-ops.github.io/eightds-site/","foundingDate":"1986-07","image":"https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp",
 "address":{"@type":"PostalAddress","postalCode":"279-0043","addressRegion":"千葉県","addressLocality":"浦安市","streetAddress":"富士見3-11-1 舞浜ガーデンヒルズ207号室","addressCountry":"JP"},
-"telephone":"+81-47-381-0142","faxNumber":"+81-47-381-0142",
+"telephone":"+81-47-381-0142","faxNumber":"+81-47-710-8186",
 "openingHours":"Mo-Fr 08:00-17:00",
 "areaServed":[{"@type":"AdministrativeArea","name":"東京都"},{"@type":"AdministrativeArea","name":"千葉県"},{"@type":"AdministrativeArea","name":"埼玉県"}],
 "branch":[{"@type":"LocalBusiness","name":"埼玉営業所","telephone":"+81-48-423-2335",
@@ -129,12 +129,13 @@
 </head>
 <body>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
+<a class="skip" href="#main">本文へ移動</a>
 
 <header class="head">
   <div class="r1">
     <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 浦安・新座</span></a>
-    <button class="mtoggle" aria-expanded="false">メニュー</button>
-    <div class="r2"><div class="in">
+    <button class="mtoggle" aria-expanded="false" aria-controls="indexGnav">メニュー</button>
+    <div class="r2" id="indexGnav"><div class="in">
     <ul class="gnav">
       <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
@@ -166,6 +167,7 @@
   <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
 </nav>
 
+<main id="main" tabindex="-1">
 <!-- ヒーロー：実写を主役に、採用と法人の入口を初画面で分ける -->
 <section class="bluehero" aria-label="有限会社エイト流通サービスのトップ">
   <div class="bh-sky" aria-hidden="true">
@@ -179,15 +181,16 @@
     <video data-src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="720"
       muted loop playsinline preload="none" disablepictureinpicture></video>
   </div>
+  <button class="bh-vtoggle" type="button" aria-pressed="false">一時停止</button>
   <div class="bh-in">
-    <p class="bh-en">創業1986年 ／ 浦安・新座 ／ 家電の配送と設置工事</p>
-    <h1><span class="ln"><span>動かすのは、</span></span><span class="ln"><span>人の暮らしと、</span></span><span class="ln"><span>もっといい未来。</span></span></h1>
+    <p class="bh-en">創業1986年 ／ 浦安・新座 ／ <span class="nw">家電の配送と設置工事</span></p>
+    <h1><span class="ln"><span>冷蔵庫も、</span></span><span class="ln"><span>洗濯機も、</span></span><span class="ln"><span>二人で運ぶ。</span></span></h1>
+    <!-- 2026-09-07 h1を具体語へ（旧「動かすのは、人の暮らしと、もっといい未来。」21字・具体語0・価値形容詞1） -->
     <p class="bh-lead">家電量販店から荷物をお預かりして、<br class="sponly">お客様のご自宅へ。40年になりました。</p>
     <div class="bh-acts">
       <a class="bh-btn main" href="recruit.html">採用情報を見る<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
       <a class="bh-btn ghost" href="business.html">法人のお客様へ<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
     </div>
-    <p class="bh-msg">採用はここから。未経験歓迎・2人1組。</p>
   </div>
   <p class="bh-scroll" aria-hidden="true">SCROLL</p>
 </section>
@@ -198,14 +201,32 @@
 <div class="entries">
   <a href="recruit.html" class="entry-recruit">
     <span class="k">RECRUIT</span>
-    <b>採用情報はこちら</b>
-    <span class="s">助手席から始める採用ページへ。未経験歓迎／2人1組／正社員・アルバイト募集中</span>
+    <b class="nw">採用情報はこちら</b>
+    <span class="s">助手席から始める採用ページへ。未経験歓迎／2人1組／正社員募集中（アルバイトは配送助手）</span>
   </a>
   <a href="business.html">
     <span class="k">FOR BUSINESS</span>
     <b>法人のお客様へ</b>
     <span class="s">配送・設置・電気工事のご依頼／お見積りは無料です</span>
   </a>
+</div>
+
+<!-- 採用の数字（2026-09-07 別案「実写主義」から移植：待遇を独立した見せ場にする） -->
+<div class="rnum" data-rise="0">
+  <div class="wrap">
+    <dl aria-label="確認済みの採用条件">
+      <div><dt>未経験入社</dt><dd><b>26</b>人中<b>24</b>人</dd></div>
+      <div><dt>正社員</dt><dd>月給<b>34</b>万円〜</dd></div>
+      <div><dt>賞与</dt><dd>年<b>3</b>回</dd></div>
+      <div><dt>働き方</dt><dd>残業なし</dd><dd class="sm">週休<b>2</b>日</dd></div>
+    </dl>
+    <p class="rnum-src">2026年9月6日に代表者に確認した条件です。<a class="rnum-next" href="recruit.html#youkou">募集要項を見る<span aria-hidden="true"> →</span></a></p>
+  </div>
+</div>
+
+<!-- 入口カードの直後に実際の現場を見せ、文字だけの区間を続けない -->
+<div class="band face is-people band-first">
+  <img src="img/L4_台車.webp" alt="洗濯機を二人でトラックから降ろすところ" width="1800" height="1200" loading="lazy">
 </div>
 
 <!-- お客様の声（2026-09-07 おでん指示：全部お客様の声・喜びが見える感想に） -->
@@ -220,58 +241,66 @@
   </div>
 </section>
 
-<!-- 朝 -->
-<div class="band face is-people">
-  <img src="img/L4_台車.webp" alt="洗濯機を二人でトラックから降ろすところ" width="1800" height="1200" loading="lazy">
-</div>
-
 <!-- ④ 私たちの仕事（どこまで受け持つか） -->
 <section class="sec">
   <div class="wrap">
     <p class="en" data-rise="0">01 ／ 業務内容</p>
     <h2 data-rise="0">配送から、設置・取付、お引き取りまで。</h2>
-    <p class="note" data-rise="0">家電量販店様からお預かりした商品を、お客様のご自宅へお届けし、開梱・設置・接続まで行います。取付工事や、入れ替えで出た古い家電のお引き取りまで、まとめてお任せいただけます。</p>
-    <div class="route" data-rise="0">
-      <div class="cell">
-        <p class="k">お預かりする</p>
-        <h3>家電量販店</h3>
-        <p>商品をお預かりします。</p>
-        <p>大手家電量販店 各社</p>
-      </div>
-      <div class="cell mid">
-        <p class="k">当社が対応する範囲</p>
-        <h3><span class="nw">有限会社</span><span class="nw">エイト流通サービス</span></h3>
-        <ul>
-          <li>積み込みと配送</li>
-          <li>搬入経路の確認</li>
-          <li>設置と接続、使い方の説明</li>
-          <li>電気工事</li>
-          <li>不用品のお引き取り</li>
-        </ul>
-        <p>登録電気工事業者／産業廃棄物収集運搬業</p>
-      </div>
-      <div class="cell">
-        <p class="k">お届けする</p>
-        <h3>お客様のご自宅</h3>
-        <p>搬入から設置、動作確認までお任せください！</p>
-        <p>東京都・千葉県・埼玉県</p>
-      </div>
+    <p class="note" data-rise="0">お預かりした商品を、<span class="nw">使えるところまで。</span></p>
+    <div class="svc3" data-rise="0" role="list">
+      <article class="svc3i" role="listitem">
+        <div class="svc3ic" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M10 18h33v33H10zM43 29h7l6 9v13H43M19 51a5 5 0 1 0 10 0M45 51a5 5 0 1 0 10 0M17 26h19M17 34h19"/></svg>
+        </div>
+        <p class="svc3n">SERVICE 01</p>
+        <h3>家電の配送・設置</h3>
+        <p>冷蔵庫・洗濯機・テレビなどを2人1組で運び、開梱・設置・接続まで行います。</p>
+      </article>
+      <article class="svc3i" role="listitem">
+        <div class="svc3ic" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><rect x="9" y="12" width="46" height="22" rx="2"/><path d="M17 23h30M20 43c4-6 20-6 24 0M24 51c3-4 13-4 16 0"/></svg>
+        </div>
+        <p class="svc3n">SERVICE 02</p>
+        <h3>電気工事</h3>
+        <p>エアコン・アンテナ・<span class="nw">温水洗浄便座</span>を取り付けます。入れ替えのときの取り外しも承ります。</p>
+      </article>
+      <article class="svc3i" role="listitem">
+        <div class="svc3ic" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M18 19h28l-2 35H20zM14 19h36M25 19v-7h14v7M27 28v17M37 28v17"/></svg>
+        </div>
+        <p class="svc3n">SERVICE 03</p>
+        <h3>古い家電のお引き取り</h3>
+        <p>新しい家電の設置に合わせて、古い家電を同じトラックで<span class="nw">お引き取りします。</span></p>
+      </article>
     </div>
     <p class="next" data-rise="0"><a href="service.html">サービスの詳細を見る</a></p>
   </div>
 </section>
 
-<!-- 玄関の前 -->
-<div class="band up">
-  <img src="img/V5_搬出.webp" alt="住宅街のご自宅の前で荷を降ろすところ" width="1800" height="1200" loading="lazy">
+<!-- 現場の3枚（2026-09-07 別案「実写主義」の作法を移植：figure＋動詞のキャプション） -->
+<div class="wphotos" data-rise="0">
+  <div class="wrap">
+    <figure class="wph">
+      <img src="img/L1_積込.webp" alt="大型の洗濯機の箱をトラックへ積み込むところ" width="1800" height="1200" loading="lazy" decoding="async">
+      <figcaption><span>積み込む</span>その日のルートを確かめて、荷台へ。</figcaption>
+    </figure>
+    <figure class="wph">
+      <img src="img/L7_二人で運ぶ.webp" alt="洗濯機の箱を二人で持ち上げて運ぶところ" width="1800" height="1200" loading="lazy" decoding="async">
+      <figcaption><span>持ち上げる</span>持ち手と足元を、声で合わせる。</figcaption>
+    </figure>
+    <figure class="wph">
+      <img src="img/V5_搬出.webp" alt="住宅街のお客様のご自宅の前で荷を降ろすところ" width="1800" height="1200" loading="lazy" decoding="async">
+      <figcaption><span>お届けする</span>お客様のご自宅へ運び、<span class="nw">使えるところまで。</span></figcaption>
+    </figure>
+  </div>
 </div>
 
 <!-- エリア -->
 <section class="sec" id="area">
   <div class="wrap">
     <p class="en" data-rise="0">02 ／ 拠点</p>
-    <h2 data-rise="0">浦安と新座、2つの拠点。</h2>
-    <p class="note" data-rise="0">東京をはさんで東と西。浦安本社と埼玉営業所、2つの事務所が<span class="nw">あります。</span></p>
+    <h2 data-rise="0">東と西に、2つの拠点。</h2>
+    <p class="note" data-rise="0">東京をはさんで東と西。<span class="nw">浦安本社</span>と<span class="nw">埼玉営業所</span>、2つの事務所が<span class="nw">あります。</span></p>
     <div class="area">
       <div data-rise="0">
 <svg class="jmap" viewBox="0 0 1000 1014" role="img" aria-label="拠点の地図。浦安本社と埼玉営業所の位置。">
@@ -307,15 +336,14 @@
   </div>
 </section>
 
-<!-- 荷降ろし（2026-09-04 AI画像→おでんが撮った実写に差し替え） -->
-<div class="band">
-  <img src="img/V2_手元.webp" alt="冷凍冷蔵庫を二人でトラックから降ろすところ" width="1800" height="1200" loading="lazy">
-</div>
-
-<!-- 積み終えた荷台（2026-09-04 AI画像→実写に差し替え） -->
-<div class="band">
-  <img src="img/L2_トラック列.webp" alt="積み終えたトラックの前に並ぶ配送の四人" width="1800" height="1200" loading="lazy">
-</div>
+<!-- 2026-09-07 写真帯が2枚続いていたのを1枚に減らし、別案の作法どおり説明を添えた
+     （消したのは V2_手元。同じ「荷を降ろす」絵が上の現場3枚と重なっていた） -->
+<figure class="bandcap">
+  <div class="band">
+    <img src="img/L2_トラック列.webp" alt="積み終えたトラックの前に並ぶ配送の四人" width="1800" height="1200" loading="lazy">
+  </div>
+  <figcaption><span>現場へ出る</span>浦安と新座の2拠点から、その日の担当先へ。</figcaption>
+</figure>
 
 <!-- 事実 -->
 <section class="sec sec-paper">
@@ -323,7 +351,7 @@
     <p class="en" data-rise="0">03 ／ 会社概要</p>
     <!-- 🚨 「拠点」「対応エリア」は 02 の地図＋拠点カード（住所・電話つき）で既に出している。
          ここで繰り返すと、読み手は「さっき読んだ」と感じて以降を流す（2026-09-03 フェイブル指摘） -->
-    <h2 data-rise="0">1986年創業。家電の配送ひとすじ。</h2>
+    <h2 data-rise="0">1986年創業。家電の配送・設置ひとすじ。</h2>
     <dl class="facts two" data-rise="0">
       <div><dt>この道</dt><dd>40<small>年</small><span class="d">1986年創業。家電の配送・設置ひとすじ</span></dd></div>
       <div><dt>許認可</dt><dd>5<small>件</small><span class="d">電気工事業登録／産業廃棄物収集運搬業（4都県）</span></dd></div>
@@ -349,9 +377,9 @@
   <a class="gate" href="recruit.html">
     <img src="img/P2_二人.webp" alt="2人1組で現場へ向かうところ" loading="lazy" width="1800" height="1200">    <div class="g">
       <p class="k">RECRUIT</p>
-      <h3>未経験で、<br class="sponly">月給34万円から。</h3>
-      <p>社員26人中24人が未経験スタート。2人1組で、先輩がイチから教えます。正社員・アルバイト募集中。アルバイトは日給11,980円＋交通費1,000円、単発・短期もOKです。</p>
-      <span class="go">募集要項を見る →</span>
+      <h3>先輩の隣から。</h3>
+      <p>2人1組で、先輩がイチから教えます。<span class="nw">手に職がつく仕事です。</span></p>
+      <span class="go">仕事の内容を見る →</span>
     </div>
   </a>
 </div>
@@ -365,6 +393,8 @@
   <a class="btn btn-ghost" href="business.html#partner">詳しく見る</a>
 </div></div>
 
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -397,7 +427,7 @@
         <li><a href="contact.html">お問い合わせ</a></li>
       </ul>
     </div>
-    <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
+    <p class="copy"><span>Copyright © <span class="nw">有限会社エイト流通サービス</span></span><a href="privacy.html">プライバシーポリシー</a></p>
   </div>
 </footer>
 
@@ -412,11 +442,20 @@
   if(!v) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var save=navigator.connection && navigator.connection.saveData;
-  if(reduce || save) return;
+  var b=document.querySelector('.bh-vtoggle');
+  if(reduce || save){ if(b) b.hidden=true; return; }
   v.src=v.getAttribute('data-src');
   v.autoplay=true;
   v.load();
   var p=v.play(); if(p && p.catch) p.catch(function(){});
+  if(b) b.addEventListener('click',function(){
+    if(v.paused){
+      var play=v.play(); if(play && play.catch) play.catch(function(){});
+      b.textContent='一時停止'; b.setAttribute('aria-pressed','false');
+    }else{
+      v.pause(); b.textContent='再生する'; b.setAttribute('aria-pressed','true');
+    }
+  });
 })();
 </script>
 <script src="assets/motion.js"></script>

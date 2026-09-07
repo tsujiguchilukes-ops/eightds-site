@@ -70,11 +70,28 @@
       document.documentElement.style.overflow = open ? 'hidden' : '';
       document.body.style.overflow = open ? 'hidden' : '';
     };
-    mt.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!r2.classList.contains('open')); });
+    mt.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !r2.classList.contains('open');
+      setOpen(open);
+      if (open) {
+        var first = r2.querySelector('a,button');
+        if (first) setTimeout(function(){ first.focus(); }, 0);
+      }
+    });
     document.addEventListener('click', function (e) {          // 外を触ったら閉じる
       if (r2.classList.contains('open') && !r2.contains(e.target) && e.target !== mt) setOpen(false);
     });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (!r2.classList.contains('open')) return;
+      if (e.key === 'Escape') { setOpen(false); mt.focus(); return; }
+      if (e.key !== 'Tab') return;
+      var items = [mt].concat([].slice.call(r2.querySelectorAll('a,button')).filter(function(el){ return el.offsetParent !== null; }));
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
   }
 })();
 
@@ -194,12 +211,14 @@
     var h = document.documentElement.scrollHeight - window.innerHeight;
     if (prog) prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, y / h) : 0).toFixed(4) + ')';
     if (head) {
-      if (y > 160) head.classList.toggle('tucked', y > lastY + 4);
+      if (head.contains(document.activeElement)) head.classList.remove('tucked');
+      else if (y > 160) head.classList.toggle('tucked', y > lastY + 4);
       else head.classList.remove('tucked');
     }
     lastY = y; t = false;
   }
   window.addEventListener('scroll', function () { if (t) return; t = true; requestAnimationFrame(frame); }, { passive: true });
+  if (head) head.addEventListener('focusin', function(){ head.classList.remove('tucked'); });
   frame();
   if (reduce && head) head.classList.remove('tucked');
 })();

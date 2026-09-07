@@ -27,8 +27,8 @@
   var url = (LINE_URL || '').trim();
   if (!url) return;                       // 空なら何もしない＝いまの見た目のまま
 
-  var LABEL = 'LINEで応募・質問する';
-  var SHORT = 'LINEで応募';
+  var LABEL = 'LINEで話を聞いてみる';
+  var SHORT = 'LINEで相談';
 
   function make(cls, label) {
     var a = document.createElement('a');
