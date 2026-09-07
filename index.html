@@ -166,18 +166,14 @@
   <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
 </nav>
 
-<!-- ① ヒーロー：チャッピー（ChatGPT）のデザイン（青×白・実写トラック）を実装。
-     動きはCSSのみ（パターンB＝アニメーション）。パターンA（実写動画）はHiggsfieldの
-     クレジットが入り次第、.bh-photo の img を <video> に差し替えるだけで載る作り。
-     旧ドット絵ヒーローは _改修前_20260906_ブルー化/ にある（「戻して」で戻せる） -->
-<section class="bluehero" aria-label="動かすのは、人の暮らしと、もっといい未来。">
+<!-- ヒーロー：実写を主役に、採用と法人の入口を初画面で分ける -->
+<section class="bluehero" aria-label="有限会社エイト流通サービスのトップ">
   <div class="bh-sky" aria-hidden="true">
     <i class="bh-sun"></i>
     <i class="bh-cloud c1"></i><i class="bh-cloud c2"></i><i class="bh-cloud c3"></i><i class="bh-cloud c4"></i>
   </div>
   <div class="bh-photo" aria-hidden="true">
-    <!-- パターンA（実写風動画・Kling 3.0 Pro・2026-09-06生成）。posterは同じ構図の静止画なので
-         読み込み中も飛ばない。末尾0.6秒を先頭にクロスフェードした完全ループ（継ぎ目なし） -->
+    <!-- 読み込み中は同じ構図のposterを表示する -->
     <!-- 🚨 srcは直書きしない。reduced-motion・データセーバーの端末では読み込み自体を止め、
          posterの静止画だけで成立させる（2026-09-06 Codex指摘1） -->
     <video data-src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="720"
@@ -189,9 +185,9 @@
     <p class="bh-lead">家電量販店から荷物をお預かりして、<br class="sponly">お客様のご自宅へ。40年になりました。</p>
     <div class="bh-acts">
       <a class="bh-btn main" href="recruit.html">採用情報を見る<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
-      <a class="bh-btn ghost" href="about.html">私たちのこと<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+      <a class="bh-btn ghost" href="business.html">法人のお客様へ<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
     </div>
-    <p class="bh-msg">未経験から、手に職を。</p>
+    <p class="bh-msg">採用はここから。未経験歓迎・2人1組。</p>
   </div>
   <p class="bh-scroll" aria-hidden="true">SCROLL</p>
 </section>
@@ -200,10 +196,10 @@
 
 <!-- 2つの入口（ここで分ける） -->
 <div class="entries">
-  <a href="recruit.html">
+  <a href="recruit.html" class="entry-recruit">
     <span class="k">RECRUIT</span>
-    <b>採用情報</b>
-    <span class="s">未経験で月給34万円スタート／正社員・アルバイト募集中</span>
+    <b>採用情報はこちら</b>
+    <span class="s">助手席から始める採用ページへ。未経験歓迎／2人1組／正社員・アルバイト募集中</span>
   </a>
   <a href="business.html">
     <span class="k">FOR BUSINESS</span>

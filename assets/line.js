@@ -64,10 +64,14 @@
       return;
     }
 
-    var btn = make(a.className + ' is-line', LABEL);
-    a.parentNode.insertBefore(btn, a);
-    a.classList.add('is-sub');             // 電話は控えめな見た目へ
-    /* :has() が使えないブラウザ用に、親にもクラスで印を付ける（Codex指摘14） */
+    /* 通常の主CTAは増やさず、1つのボタンをLINEへ差し替える。
+       2つ並ぶと「どっちを押すのか」が分からなくなるため。電話は固定バーと電話番号欄に残す。 */
+    a.href = url;
+    a.textContent = LABEL;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.classList.add('is-line');
+    a.setAttribute('data-ga', 'line_click');
     var acts = a.closest('.bfv-acts'); if (acts) acts.classList.add('has-line');
   });
 

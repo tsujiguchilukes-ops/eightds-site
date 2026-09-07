@@ -1756,3 +1756,52 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
    スマホは窓が横1/4しかない。30%に寄せると「積む」「玄関」の顔が丸ごと入り、
    「運転」の顔は丸ごと画面外＝構図になる（一部だけ見える状態を無くす） */
 @media(max-width:720px){.bh-photo video,.bh-photo img{object-position:30% 50%}}
+
+
+/* 2026-09-07 review: トップは採用入口を迷わせない。写真の青被りを弱め、人物とトラックを読ませる */
+.bluehero::before{background:linear-gradient(90deg,rgba(6,28,58,.78) 0%,rgba(6,28,58,.54) 35%,rgba(8,44,92,.20) 62%,rgba(8,44,92,.08) 100%)}
+.bluehero::after{background:linear-gradient(180deg,rgba(6,28,58,.18) 0%,rgba(6,28,58,0) 28%,rgba(6,28,58,0) 68%,rgba(6,28,58,.46) 100%)}
+.bh-photo video,.bh-photo img{filter:saturate(.96) contrast(1.02) brightness(1.04)}
+.bh-btn.main{background:#fff;color:#0047AB;box-shadow:0 14px 34px rgba(3,28,60,.32)}
+.bh-btn.main:hover{box-shadow:0 18px 42px rgba(3,28,60,.42)}
+.bh-btn.ghost{background:rgba(3,28,60,.46);border-color:rgba(255,255,255,.74)}
+.entries a.entry-recruit{position:relative;overflow:hidden}
+.entries a.entry-recruit::after{content:"採用の入口";position:absolute;right:22px;top:18px;padding:6px 10px;border-radius:999px;background:#fff;color:#0047AB;font-size:12px;font-weight:700;letter-spacing:.08em}
+@media(max-width:720px){
+  .bluehero{min-height:calc(100svh - 0px)}
+  .bh-in{padding:40px 24px 104px;justify-content:flex-end}
+  .bluehero h1{font-size:clamp(31px,8.7vw,39px);line-height:1.26}
+  .bh-lead{font-size:15px;line-height:1.85}
+  .bh-photo video,.bh-photo img{object-position:36% 50%}
+  .bh-acts{gap:10px;margin-top:26px}
+}
+
+
+/* 2026-09-07 review pass2: 初画面の採用ボタンを写真から完全に浮かせる。PC/SPとも最重要CTAとして読む */
+.bluehero .bh-acts{position:relative;z-index:3;margin-top:30px;opacity:1 !important;transform:none !important;animation:none !important}
+.bluehero .bh-btn{min-height:62px;padding:0 34px;border-radius:999px;font-weight:800;letter-spacing:.02em;opacity:1 !important;filter:none !important;-webkit-backdrop-filter:none;backdrop-filter:none}
+.bluehero .bh-btn.main{background:#fff !important;color:#0047AB !important;border:2px solid rgba(255,255,255,.96);box-shadow:0 14px 36px rgba(0,24,56,.46),0 0 0 1px rgba(0,71,171,.10) inset;text-shadow:none !important}
+.bluehero .bh-btn.ghost{background:rgba(4,30,64,.76) !important;color:#fff !important;border:2px solid rgba(255,255,255,.82);box-shadow:0 10px 28px rgba(0,24,56,.28);text-shadow:none !important}
+.bluehero .bh-msg{position:relative;z-index:3;display:inline-block;margin-top:20px;padding:9px 14px;border-radius:999px;background:rgba(4,30,64,.62);box-shadow:0 8px 24px rgba(0,24,56,.25);text-shadow:none;letter-spacing:.04em}
+@media(max-width:720px){
+  .bluehero::before{background:linear-gradient(90deg,rgba(5,24,52,.84) 0%,rgba(5,24,52,.62) 42%,rgba(5,24,52,.24) 100%)}
+  .bluehero .bh-in{padding:34px 24px 76px;justify-content:flex-end;min-height:calc(100svh - var(--head))}
+  .bluehero .bh-en{font-size:10px;letter-spacing:.16em;margin-bottom:13px;line-height:1.7}
+  .bluehero h1{font-size:clamp(29px,8.2vw,36px);line-height:1.22;text-shadow:0 2px 18px rgba(0,24,56,.75)}
+  .bluehero .bh-lead{margin-top:16px;font-size:14px;line-height:1.72;max-width:23em}
+  .bluehero .bh-acts{display:grid;grid-template-columns:1fr;gap:9px;margin-top:18px}
+  .bluehero .bh-btn{width:100%;justify-content:center;min-height:54px;padding:0 18px;font-size:15px}
+  .bluehero .bh-msg{margin-top:12px;font-size:14px;line-height:1.55;letter-spacing:.03em}
+}
+@media(max-width:360px){
+  .bluehero .bh-in{padding:28px 20px 66px}
+  .bluehero h1{font-size:29px}
+  .bluehero .bh-lead{font-size:13px;line-height:1.62}
+  .bluehero .bh-btn{min-height:52px}
+}
+
+/* 2026-09-07 review pass3: トップH1の約物・下端がマスクで切れないようにする */
+.bluehero h1 .ln{padding-bottom:.08em;margin-bottom:-.03em}
+
+/* 2026-09-07 review pass4: H1 reveal用マスクで「もっといい未来。」の下が切れるため、表示優先で開放 */
+.bluehero h1 .ln{overflow:visible !important;padding-bottom:0;margin-bottom:0}

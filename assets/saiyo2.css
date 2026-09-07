@@ -555,3 +555,29 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 @media (max-width:413px){
   .s2vtoggle[data-state="paused"]::before{content:"▶"}
 }
+
+
+/* 2026-09-07 review: recruit.htmlを正本化。採用条件は初画面で2枚に分けて迷わせない */
+.s2facts{margin:24px 0 0;max-width:760px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.s2facts .s2fact{margin:0;max-width:none;height:100%}
+@media(max-width:720px){
+  .s2facts{grid-template-columns:1fr;gap:10px;max-width:none}
+  .s2title{padding-top:32px}
+  .s2frame img,.s2frame video{object-position:48% 36%}
+  .s2scenehead{font-size:12px;letter-spacing:.18em;right:72px}
+  .s2subtitle{font-size:14px;letter-spacing:.14em;text-indent:.14em}
+}
+@media(max-width:360px){.s2scenehead{font-size:11px;letter-spacing:.12em}.s2subtitle{font-size:13px}}
+
+/* 2026-09-07 review pass2: s2facts導入後のPCグリッドを再指定。右カードだけ上、本文は上から始める */
+@media (min-width:1000px){
+  .s2title>.s2facts{grid-column:2;grid-row:1/4;align-self:start;margin-top:0;max-width:none}
+  .s2title>.s2acts{grid-column:2;grid-row:4;align-self:start;margin-top:18px}
+  .s2title>.s2en{grid-column:1;grid-row:1}
+  .s2title>h1{grid-column:1;grid-row:2;margin-top:18px}
+  .s2title>.s2lead{grid-column:1;grid-row:3}
+  .s2title>.s2chips{grid-column:1;grid-row:4}
+}
+@media (min-width:721px) and (max-width:999px){
+  .s2title>.s2facts{max-width:760px}
+}
