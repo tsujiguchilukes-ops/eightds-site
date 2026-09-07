@@ -1874,7 +1874,7 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 
 /* ── 現場の3枚（別案「実写主義」の作法を移植：figure＋動詞のキャプション） 2026-09-07 ── */
 .wphotos{padding:24px 0 8px}
-.wphotos .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.wphotos .wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
 .wph{margin:0;position:relative;isolation:isolate}
 /* 元画像は3枚とも1800×1200。枠を3:2に揃えて切り落としを作らない（顔切れ対策） */
 .wph img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;
