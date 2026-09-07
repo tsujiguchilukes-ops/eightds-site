@@ -1751,3 +1751,8 @@ h1,h2,h3,.bh-lead{word-break:auto-phrase}
    pretty/auto-phraseはChrome系、balanceはSafariにも効く。文節はHTML側の.nwで補強 */
 p,li,dd,figcaption{text-wrap:pretty}
 summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
+
+/* ヒーロー動画の顔切れ対策（2026-09-07 コマ抜き×顔検出で6シーン×主要6端末を検算）
+   スマホは窓が横1/4しかない。30%に寄せると「積む」「玄関」の顔が丸ごと入り、
+   「運転」の顔は丸ごと画面外＝構図になる（一部だけ見える状態を無くす） */
+@media(max-width:720px){.bh-photo video,.bh-photo img{object-position:30% 50%}}
