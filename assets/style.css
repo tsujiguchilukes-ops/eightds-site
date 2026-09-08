@@ -1761,7 +1761,11 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 
 
 /* 2026-09-07 review: トップは採用入口を迷わせない。写真の青被りを弱め、人物とトラックを読ませる */
-.bluehero::before{background:linear-gradient(90deg,rgba(6,28,58,.78) 0%,rgba(6,28,58,.54) 35%,rgba(8,44,92,.20) 62%,rgba(8,44,92,.08) 100%)}
+/* 左端 .78→.80（2026-09-08）。眉「正社員｜配送スタッフ ／ 浦安本社・埼玉営業所」が
+   p5=4.49 で 0.01 足りなかった。.80 で 4.55。左30%の平均色の変化は ΔE=0.45＝
+   並べても見分けがつかない領域（ΔE<1.0）。.83 は ΔE=1.18 で境目に乗るので採らない。
+   ヒーローの見た目はおでんが決めた形のまま。数字だけ動かしている。 */
+.bluehero::before{background:linear-gradient(90deg,rgba(6,28,58,.80) 0%,rgba(6,28,58,.54) 35%,rgba(8,44,92,.20) 62%,rgba(8,44,92,.08) 100%)}
 .bluehero::after{background:linear-gradient(180deg,rgba(6,28,58,.18) 0%,rgba(6,28,58,0) 28%,rgba(6,28,58,0) 68%,rgba(6,28,58,.46) 100%)}
 .bh-photo video,.bh-photo img{filter:saturate(.96) contrast(1.02) brightness(1.04)}
 .bh-btn.main{background:#fff;color:#0047AB;box-shadow:0 14px 34px rgba(3,28,60,.32)}
@@ -1785,6 +1789,9 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .bluehero .bh-btn.ghost{background:rgba(4,30,64,.76) !important;color:#fff !important;border:2px solid rgba(255,255,255,.82);box-shadow:0 10px 28px rgba(0,24,56,.28);text-shadow:none !important}
 .bluehero .bh-msg{position:relative;z-index:3;display:inline-block;margin-top:20px;padding:9px 14px;border-radius:999px;background:rgba(4,30,64,.62);box-shadow:0 8px 24px rgba(0,24,56,.25);text-shadow:none;letter-spacing:.04em}
 @media(max-width:720px){
+  /* 🚨 ここは .84 のまま触らないこと。スマホの眉は元から p5=13.25（基準の2.9倍）で
+     余裕がある。一度 .86 に上げたが p5 は 13.25 で1ミリも動かず、効果ゼロだったので戻した。
+     PC(1764行)だけが 4.49 でギリギリだった＝直すのは向こうだけでよい。 */
   .bluehero::before{background:linear-gradient(90deg,rgba(5,24,52,.84) 0%,rgba(5,24,52,.62) 42%,rgba(5,24,52,.24) 100%)}
   .bluehero .bh-in{padding:34px 24px 76px;justify-content:flex-end;min-height:calc(100svh - var(--head))}
   .bluehero .bh-en{font-size:10px;letter-spacing:.16em;margin-bottom:13px;line-height:1.7}
@@ -2301,7 +2308,7 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .cta .en,.phead .en,.hero .k,.phead .k,
 .s2scene .n,.s2film .s2scenehead,.s2subtitle,
 .partner .pnote,.pband .in p,.pband h3,
-.bv-k,.cta .lead,.cta p,.gate .k{color:#fff}
+.cta .lead,.cta p,.gate .k{color:#fff}
 .partner .pnote,.pband .in p{color:#EDF4FB}
 /* 橙は白地で4.98だが、砂色(#F4E8D1)の上では4.11で不足。砂色の上だけ濃くする */
 .rnum .en,.rnum .rnp-lab,.sec-paper .en{color:#9C4219}
@@ -2341,10 +2348,36 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   --hot-hi:#F4F9FE;
   --accent:#8F3C16;   /* 薄青の地(#DDE9F7)でも 4.5 を超える。白地では7.43 */
 }
-/* 区切りの「／」が薄すぎて比1.67。装飾なので読み上げからも外す */
-.rnp-grid dd .sl,.bh-en .sl{color:var(--sub);opacity:.7}
+/* 区切りの「／」。opacity:.7 だと白地で 3.05 にしかならない（実測）。
+   透過をやめて色そのもので決める（#586877＝白地で 5.74）。
+   🚨 aria-hidden を付けてはいけない。付けると読み上げが「残業なし週休2日」と
+   1本に繋がり、2つの条件の境目が消える（2026-09-08 支援技術の読み上げを実測）。
+   色で 5.74 を確保したので、読み上げには残す。 */
+.rnp-grid dd .sl,.bh-en .sl{color:#586877}
 /* 新設したフッターリンクが高さ17px（44px必要）だった */
 .ftel-link{margin-top:14px}
+/* 濃紺のフッター地(#0E4F9E)の上。--brand(#1671CE)だと比1.63で読めない。
+   同じフッターの他9本と同じ淡色にそろえる（実測 比 7.54／このリンクがあるのは
+   contact.html を除く7ページ） */
 .ftel-link a{display:inline-flex;align-items:center;min-height:44px;
-  color:var(--brand);font-weight:700;text-decoration:underline;text-underline-offset:4px}
+  color:var(--hot-hi);font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .ftel-link a:active{translate:1px 1px;opacity:.82}
+
+/* =========================================================================
+   2026-09-08 写真ヘッダーの白い英字ラベル（.phead .en）の読みにくさ
+   実測：service@390 3.47 ／ about@390 3.68・@1440 4.29 ／ business@390 3.77・@1440 4.35
+   ＝8測定中5つが 4.5 割れ。原因は写真の明るい所。
+   写真を薄くする案（opacity .34→.20）は検品の実測で合格するが、写真がほぼ消える。
+   写真の濃さ（opacity .34）は変えず、明るさだけ .98→.72 に落とす＝ディテールは残る。
+   🚨 数字は検品の実測（手計算の見込み 4.94 は外れ。::after の青かぶりを
+   計算に入れていなかった）。実測 4.62〜7.88 で 10測定すべて合格、
+   一番きついのが service@390 の 4.62＝余裕は 0.12 しかない。
+   ここで写真を明るく戻すと割れる。
+   🚨 ラベルの色で余裕を足そうとしても無駄。.phead .en は 2301行ですでに #fff で、
+     1486行の #F0F7FE は負けて効いていない（上書きを足しても変化0を実証済み）。
+     余裕を足す手は「写真をさらに暗くする」か「文字の後ろにスクリムを敷く」の2つだけ。
+   ※ .gate>img も brightness を持つが、index.html の inline style に
+     上書きされて実際は .6。ここの .72 と揃っているわけではない。
+   ※ 影 text-shadow(1661行) を地に数えると service@390 は 5.31。0.12 は最悪の見積もり。
+   ========================================================================= */
+.phead>img{filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.72)}

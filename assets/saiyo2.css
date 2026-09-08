@@ -217,10 +217,13 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 /* =========================================================
    04 道すじ＝映画の章立て（紺の1節だけ夜のトーン。黒地ではない）
    ========================================================= */
-/* 🚨 --deep はスキンでほぼ黒（#221D28）。黒地を主役にしないため、
-   夕方のスレート（--brand #35505C）を地にする（白文字で実測7:1前後） */
+/* 🚨 このコメントは2026-09-08に実測で訂正。ブルー化後は
+   --brand=#1671CE（青）／--deep=#0E4F9E で、スレートでも黒でもない。
+   この地に白文字で実測 4.90（粒を入れると 4.84） */
 .s2career{background:var(--brand);color:#FBF6E9;padding:96px 0}
-.s2career .en{color:var(--hot)}
+/* 🚨 --hot(#F0F7FE) は地の #1671CE に対し理論4.53だが、::after の粒
+   (mix-blend-mode:screen) が地を1段明るくして実測4.48で落ちる。白なら4.85 */
+.s2career .en{color:#fff}
 .s2career h2{color:#FBF6E9}
 .s2career .note{color:#F4F9FE}
 .s2scenes{margin-top:48px;display:grid;gap:24px}
