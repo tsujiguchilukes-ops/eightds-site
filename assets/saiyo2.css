@@ -103,8 +103,10 @@
   letter-spacing:.04em;text-decoration:none;border-radius:999px;
   box-shadow:0 8px 20px rgba(201,83,31,.28);
   transition:transform .12s var(--ease),box-shadow .12s var(--ease)}
-.s2cta:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(201,83,31,.34)}
-.s2cta:active{transform:scale(.97);box-shadow:0 2px 8px rgba(201,83,31,.3)}
+.s2cta:hover{transform:translateY(-2px)}
+/* 影の色は書かない：LINEのボタン（.is-line）は style.css が !important で影ごと指定していて、
+   ここに橙を書いても当たらない死にコードになる */
+.s2cta:active{transform:scale(.97)}
 .s2cta:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
 .s2sub-link{display:inline-flex;align-items:center;min-height:44px;
   font-size:16px;font-weight:700;color:var(--brand);text-decoration:none;
@@ -341,7 +343,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
    上帯は眉ラベルと同じ #9C4219 に（4px隣で #8F3C16 と2種の橙が並んでいた）。
    板の幅は 760px で止める：1160pxのままだと中身が左612pxに収まって右55%が空になり、
    面積は稼げても「作りかけのバナー」に見える */
-.s2close .in>div{position:relative;overflow:hidden;max-width:760px;
+.s2close .in>div{position:relative;overflow:hidden;max-width:760px;margin-inline:auto;
   background:var(--paper-warm);border:1px solid #E6DCC4;border-top:4px solid #9C4219;
   border-radius:16px;padding:40px 24px;box-shadow:0 14px 34px rgba(13,54,105,.16)}
 /* カードは節の粒（::after）より上に乗るので、粒が1画素も掛かっていなかった。カードにも同じ粒を掛ける */
@@ -652,6 +654,11 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 }
 
 .s2alt-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center}
+/* 押す前に「別のアプリが開く」と分かるようにする（戻れないと感じさせないため） */
+.s2note-ext{width:100%;margin:0;font-size:13px;line-height:1.7;color:var(--sub)}
+/* 目には出さず、読み上げにだけ届ける（文字を足せないボタン用） */
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 
 /* 長い採用ページの入口で、仕事内容・条件・応募の位置を先に見せる */
 /* 🚨 2026-09-09 おでん指示「応募質問のところは青くしなくていい。同じ白でいい」。
@@ -672,6 +679,10 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
    その時この帯の top が var(--head) のままだと、空いた64px（PCは76px）の穴から本文が覗き、
    タブだけが宙に浮いた短冊になる。ヘッダーが引っ込んでいる間は上端に貼り付ける */
 body.saiyo2:has(.head.tucked) .s2jump{top:0}
+/* 🚨 :has が無い環境むけ（saiyo2.js が <html> に head-tucked を写す）。
+   上と1本にまとめてはいけない：セレクタを1つでも解析できないブラウザは
+   **ルールごと捨てる**ので、代わりの指定まで一緒に消える */
+html.head-tucked body.saiyo2 .s2jump{top:0}
 /* 章送りタブの現在地。31画面ぶんあるページを帯だけで移動するので、
    いまどの章にいるかが分からないと迷子になる（印は saiyo2.js が付ける） */
 .s2jump a[aria-current="true"]{background:var(--paper);box-shadow:inset 0 -3px 0 var(--accent)}
@@ -691,11 +702,14 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
      最後まで送っても最後のタブの右1/3が薄いままになり、そこにフォーカスが当たっても薄い。
      幅590〜720pxでは7つ全部入りきってスクロールできないのにぼかしだけ残る。
      「まだ先がある」は、5つ目が端で切れて見えること自体で足りる */
-  .s2jump{display:flex;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  /* 🚨 scroll-snap は外した。札の先頭を container の先頭に吸着させるので、
+     キーボードで選んだ札を「ちょうど収まる位置」に寄せても、スナップが引き戻して
+     16〜30px はみ出したままになる（ブラウザ既定の scroll-into-view も効かなくなる） */
+  .s2jump{display:flex;overflow-x:auto;overscroll-behavior-x:contain;
     -webkit-overflow-scrolling:touch;border-left:0;border-right:0;scrollbar-width:none}
   .s2jump::-webkit-scrollbar{display:none}
   .s2jump a{flex:0 0 auto;min-width:84px;min-height:54px;padding:7px 12px;gap:3px;
-    flex-direction:column;font-size:12px;line-height:1.2;scroll-snap-align:start}
+    flex-direction:column;font-size:12px;line-height:1.2}
   .s2jump span{font-size:9px}
 }
 @media(max-width:359px){
@@ -710,6 +724,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
      アルバイトの数字が36pxに戻り、正社員の「月給34」を抜いてページ最大の字の塊になる */
   .s2nums-sub dd b,.s2nums-sub dd.sm b{font-size:19px}
   .s2nums .d{max-width:22em}
+  /* 320pxでは、応募の見出しが枠の内側を15px超え、ボタンの文字が「聞いてみ／る」と1字で折れる。
+     この幅のときだけ級数を落とす（文言は3か所でそろえているので変えない） */
+  .s2close h3{font-size:26px}
+  .s2close .s2cta{font-size:17px}
 }
 
 /* 2026-09-07 語中改行の抑止（日本語チェック君の実測：320pxで8か所・390pxで2か所を解消） */

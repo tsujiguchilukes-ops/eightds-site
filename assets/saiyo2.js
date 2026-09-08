@@ -151,22 +151,47 @@
       if (n === i) a.setAttribute('aria-current', 'true');
       else a.removeAttribute('aria-current');
     });
-    /* 横スクロールの帯では、印を付けた札が画面の外にいることがある。その時だけ寄せる */
-    if (i >= 0 && nav.scrollWidth > nav.clientWidth) {
-      var a = links[i];
-      var l = a.offsetLeft, r = l + a.offsetWidth;
-      if (l < nav.scrollLeft || r > nav.scrollLeft + nav.clientWidth) {
-        nav.scrollTo({ left: Math.max(0, l - 12), behavior: 'smooth' });
-      }
+    /* 横スクロールの帯では、印を付けた札が画面の外にいることがある。その時だけ寄せる。
+       🚨 キーボードで帯の中を移動している間は寄せない。
+          「フォーカスした札へ寄せる」と「現在地の札へ寄せる」が引っ張り合って、
+          Tabで選んだ札が帯の外に押し戻される */
+    if (i >= 0 && !kbd) into(links[i]);
+  };
+
+  /* 札を帯の中に入れる。🚨 動きを減らす設定の人には滑らせない
+     （縦に送っている間、帯が勝手に横へ動くのは「減らす」に反する） */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var into = function (a) {
+    if (!a || nav.scrollWidth <= nav.clientWidth) return;
+    var l = a.offsetLeft, r = l + a.offsetWidth;
+    if (l < nav.scrollLeft) nav.scrollTo({ left: Math.max(0, l - 12), behavior: reduce ? 'auto' : 'smooth' });
+    else if (r > nav.scrollLeft + nav.clientWidth) {
+      nav.scrollTo({ left: r - nav.clientWidth + 12, behavior: reduce ? 'auto' : 'smooth' });
     }
   };
 
+  /* 🚨 キーボードで帯を送ると、フォーカスした札が容器の外に残っていた
+     （scroll-snap が入っているので既定の scroll-into-view が効かない） */
+  var kbd = false;
+  nav.addEventListener('focusin', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!a) return;
+    kbd = true;
+    into(a);
+  });
+  nav.addEventListener('focusout', function () { kbd = false; });
+
   var pick = function () {
-    var line = nav.getBoundingClientRect().bottom + 8;
+    /* 🚨 判定線を「帯の下端」に置くと、着地位置（scroll-padding-top + scroll-margin-top）より
+       20px 上になり、押した札の**1つ前**が光る（35通り中30通りでずれていた）。
+       着地線と同じ高さで判定する。 */
+    var sp = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     var cur = -1;
     for (var n = 0; n < targets.length; n++) {
       var el = targets[n];
       if (!el) continue;
+      var land = sp + (parseFloat(getComputedStyle(el).scrollMarginTop) || 0) + 4;
+      var line = Math.max(nav.getBoundingClientRect().bottom + 8, land);
       if (el.getBoundingClientRect().top <= line) cur = n;
     }
     mark(cur);
@@ -180,4 +205,22 @@
   }, { passive: true });
   window.addEventListener('resize', pick, { passive: true });
   pick();
+})();
+
+/* -----------------------------------------------------
+   7) ヘッダーが引っ込んだことを <html> にも写す（2026-09-09）
+      章送りの帯は、ヘッダーが画面外へ逃げた間だけ上端に貼り付ける必要がある。
+      CSSでは `body:has(.head.tucked)` で書いてあるが、:has が無い環境
+      （Safari 15.3以前・Firefox 119以前・Chrome 104以前）では丸ごと効かず、
+      ヘッダーが消えた64px（PC76px）の穴から本文が覗く。
+      クラスを1つ写しておけば、:has の無い環境でも同じCSSが当たる。
+   ----------------------------------------------------- */
+(function () {
+  var head = document.querySelector('.head');
+  if (!head || !window.MutationObserver) return;
+  var sync = function () {
+    document.documentElement.classList.toggle('head-tucked', head.classList.contains('tucked'));
+  };
+  new MutationObserver(sync).observe(head, { attributes: true, attributeFilter: ['class'] });
+  sync();
 })();

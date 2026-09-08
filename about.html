@@ -26,6 +26,11 @@
 .rule h3{font-size:22px;margin-top:8px;color:var(--brand)}
 .rule p{font-size:16px;margin-top:12px}
 .msg{display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:start;margin-top:64px}
+/* 🚨 グリッドの子は既定で min-width:auto ＝「中身の最小幅」より細くならない。
+   2026-09-09 に本文へ word-break:auto-phrase を入れたら、その最小幅が文節ぶん（384px）に育ち、
+   320pxの画面で横に88pxはみ出した（メニューが画面の外に出ていた）。
+   auto-phrase は残したいので、縮める側を許可する */
+.msg>*{min-width:0}
 .msg .side .k{font-size:14px;letter-spacing:.2em;color:var(--sub)}
 .msg .side .nm{font-size:28px;font-weight:700;margin-top:8px;letter-spacing:.08em}
 /* お写真の枠。3:4。あとから撮ったお写真をそのまま入れられる */
