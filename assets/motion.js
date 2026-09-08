@@ -250,3 +250,32 @@
   }
   window.addEventListener('wheel', function (e) { if (e.deltaY < 0) add(-e.deltaY); }, { passive: true });
 })();
+
+/* ヒーローの見出しを映像に合わせて切り替える（2026-09-08）
+   🚨 動きを減らす設定では切り替えない。1本目だけが出たまま成立する作りにしてある */
+(function(){
+  var h1 = document.querySelector('.bh-h1');
+  if (!h1) return;
+  var items = h1.querySelectorAll('.hl');
+  if (items.length < 2) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduce.matches) return;                 // 動きを減らす設定＝1本目のまま
+  var v = document.querySelector('.bh-photo video, .bluehero video');
+  var n = items.length, cur = 0;
+  function show(i){
+    if (i === cur) return;
+    items[cur].classList.remove('is-on');
+    items[i].classList.add('is-on');
+    cur = i;
+  }
+  if (v && isFinite(v.duration) && v.duration > 0) {
+    /* 映像の再生位置に合わせる（場面と言葉がずれないように） */
+    v.addEventListener('timeupdate', function(){
+      var d = v.duration || 1;
+      show(Math.min(n - 1, Math.floor((v.currentTime / d) * n)));
+    });
+  } else {
+    /* 映像が読めない環境では一定間隔で送る */
+    setInterval(function(){ show((cur + 1) % n); }, 4400);
+  }
+})();

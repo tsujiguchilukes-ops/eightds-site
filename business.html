@@ -41,14 +41,14 @@
 .partner .in{max-width:var(--max);margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr auto;
   gap:64px;align-items:center}
 .partner h2{color:#fff}
-.partner .en{color:#9CC9F5}
-.partner p{margin-top:16px;font-size:16px;color:#CFE0E8;max-width:40em}
+.partner .en{color:#F0F7FE}
+.partner p{margin-top:16px;font-size:16px;color:#F0F7FE;max-width:40em}
 .pcond{margin-top:32px;max-width:44em;border-top:1px solid rgba(255,255,255,.2)}
 .pcond>div{display:grid;grid-template-columns:9em 1fr;gap:20px;padding:14px 0;
   border-bottom:1px solid rgba(255,255,255,.2)}
-.pcond dt{font-size:14px;letter-spacing:.1em;color:#D9EBFC}
+.pcond dt{font-size:14px;letter-spacing:.1em;color:#F4F9FE}
 .pcond dd{font-size:16px;color:#fff;line-height:1.8}
-.partner .pnote{margin-top:20px;font-size:14px;color:#9EC2D3}
+.partner .pnote{margin-top:20px;font-size:14px;color:#F0F7FE}
 @media(max-width:900px){
   .pcond>div{grid-template-columns:1fr;gap:4px;padding:12px 0}
 }
@@ -105,7 +105,7 @@
 .cta-band{background:var(--brand);color:#fff}
 .cta-band .in{max-width:var(--max);margin:0 auto;padding:64px 40px;text-align:center}
 .cta-band h2{color:#fff}
-.cta-band p{font-size:16px;color:#CFE0E8;margin-top:16px}
+.cta-band p{font-size:16px;color:#F0F7FE;margin-top:16px}
 .cta-band .btns{margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .cta-band .btn-w{background:#fff;color:var(--brand)}
 .cta-band .btn-w:hover{background:var(--accent);color:#fff}
@@ -137,19 +137,20 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main">本文へ移動</a>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
 <div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="bar"></span></div>
 
 <header class="head">
   <div class="r1">
-    <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 浦安・新座</span></a>
-    <button class="mtoggle" aria-expanded="false">メニュー</button>
-    <div class="r2"><div class="in">
+    <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 家電の配送・設置</span></a>
+    <button class="mtoggle" type="button" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <div class="r2" id="gnav"><div class="in">
     <ul class="gnav">
       <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。浦安・新座</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>現場の決まりごと</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
@@ -159,21 +160,22 @@
       </li>
       <li aria-current="page"><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を二人でトラックから降ろすところ" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
       <li><a href="recruit.html">採用情報</a></li>
     </ul>
-    <a class="hbtn" href="contact.html">お問い合わせ</a>
+    <a class="hbtn" href="https://lin.ee/YRmILrV" target="_blank" rel="noopener">公式LINEで相談</a>
   </div></div>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
 <nav class="quick" aria-label="クイックアクセス">
   <a href="recruit.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 21c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4"/></svg>採用情報</a>
-  <a href="contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14"/><path d="M2 6l10 7 10-7"/></svg>お見積り</a>
+  <a href="https://lin.ee/YRmILrV" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14"/><path d="M2 6l10 7 10-7"/></svg>LINEで相談</a>
   <a href="about.html#urayasu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>倉庫・拠点</a>
-  <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>電話</a>
+  <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>法人の電話相談</a>
 </nav>
 
 <div class="phead">
@@ -266,7 +268,7 @@
         <p class="k">03</p>
         <h3>帰るのは、使い方を説明してから</h3>
         <p>運び入れる前に通り道を確かめ、養生を敷いてから上がります。設置して電源を入れ、使い方をご説明してから帰ります。玄関で応対するのは、伺った2人です。</p>
-        <p class="next" style="margin-top:24px"><a href="about.html#rules">現場の決まりごとを見る</a></p>
+        <p class="next" style="margin-top:24px"><a href="about.html#rules">三原則を見る</a></p>
       </article>
     </div>
   </div>
@@ -288,7 +290,7 @@
       </dl>
       <p class="pnote">上記に当てはまらない場合も、まずはご相談ください。稼働日数・単価などの条件は個別にご相談のうえ決めさせていただきます。</p>
     </div>
-    <div data-rise="0"><a class="btn btn-ghost" href="contact.html?kind=partner">協力会社として応募する</a></div>
+    <div data-rise="0"><a class="btn btn-ghost" href="https://lin.ee/YRmILrV" target="_blank" rel="noopener">協力会社として応募する</a></div>
   </div>
 </section>
 
@@ -311,18 +313,17 @@
 
 <div class="backrow"><div class="in"><a href="index.html">トップページへ戻る</a></div></div>
 
+</main>
 <footer>
   <div class="wrap">
     <div class="fgrid">
       <div>
         <h3><span class="nw">有限会社</span><span class="nw">エイト流通サービス</span></h3>
         <address>
-          <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
-          TEL <a href="tel:0473810142">047-381-0142</a>　<span class="nw">FAX 047-710-8186</span><br><br>
-          <strong>埼玉営業所</strong>　〒352-0011 埼玉県新座市野火止2-11-25<br>
-          TEL <a href="tel:0484232335">048-423-2335</a>　<span class="nw">FAX 048-423-2365</span><br><br>
-          受付時間 8:00〜17:00
-        </address>
+          <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br><br>
+          <strong>埼玉営業所</strong>　〒352-0011 埼玉県新座市野火止2-11-25<br><br>
+</address>
+        <p class="ftel-link"><a href="contact.html">拠点・連絡先を見る</a></p>
       </div>
       <ul class="fnav">
         <li class="t">会社について</li>

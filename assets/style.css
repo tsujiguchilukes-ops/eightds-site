@@ -10,7 +10,7 @@
   --ink:#1F2328; --sub:#67727E;
   --brand:#0B4F6C; --deep:#083A50; --accent:#C9531F;
   /* 映像の上に引く印の線の色。白地では2.1:1で読めないので、暗い地の線にだけ使う */
-  --hot:#9CC9F5;
+  --hot:#F0F7FE;
   /* 同じサーモンの明るい方。平らな紺より地が明るく揺れる「写真・映像の上」の小さい文字に使う。
      --hot だと実測4.0:1で基準（4.5:1）に届かない。こちらは5.6〜7.2:1 */
   --hot-hi:#FBDACA;
@@ -79,7 +79,7 @@ a{color:inherit}
 .gnav>li>a{position:relative;display:flex;align-items:center;height:100%;padding:0 20px;font-size:16px;font-weight:700;
   text-decoration:none;color:var(--ink);white-space:nowrap;
   transition:color .2s var(--ease)}
-/* 白いヘッダーでは墨→紺。オレンジの文字は使わない（#9CC9F5は白地で2.1:1しかない） */
+/* 白いヘッダーでは墨→紺。オレンジの文字は使わない（#F0F7FEは白地で2.1:1しかない） */
 .gnav>li:hover>a,.gnav>li[aria-current]>a,.gnav>li:focus-within>a{color:var(--brand)}
 /* 状態の印はこの線1本だけ。左から引かれ、離れると右へ抜ける。
    今いるページ（aria-current）にも同じ線が付く＝「今ここ」と「今指している」を同じ言葉で示す */
@@ -189,7 +189,7 @@ a{color:inherit}
 .phead{margin-top:var(--head);background:var(--deep);color:#fff;position:relative;overflow:hidden}
 .phead img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34}
 .phead .in{position:relative;max-width:var(--max);margin:0 auto;padding:64px 40px}
-.phead .en{font-size:14px;letter-spacing:.24em;color:#9CC9F5;font-weight:700}
+.phead .en{font-size:14px;letter-spacing:.24em;color:#F0F7FE;font-weight:700}
 .phead h1{font-size:40px;font-weight:700;margin-top:8px;letter-spacing:.04em}
 .crumb{background:var(--paper);border-bottom:1px solid var(--line);font-size:14px;color:#5A6570}
 .crumb .in{max-width:var(--max);margin:0 auto;padding:12px 40px}
@@ -240,13 +240,13 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .fgrid h3{font-size:22px;color:#fff}
 .fgrid address{font-style:normal;font-size:16px;margin-top:16px;color:#C6D8E2;line-height:1.9}
 .fgrid address a{color:#fff;text-decoration:none;font-weight:700;white-space:nowrap}
-.fgrid address a:hover{color:#9CC9F5}
+.fgrid address a:hover{color:#F0F7FE}
 .fnav{list-style:none;font-size:16px}
 .fnav .t{font-size:14px;letter-spacing:.14em;color:#9FC0CE;margin-bottom:8px}
 .fnav li{padding:0}
 .fnav a{display:inline-block;padding:13px 0}
 .fnav a{text-decoration:none;color:#E4EEF3;border-bottom:1px solid transparent;transition:border-color .16s var(--ease)}
-.fnav a:hover{border-bottom-color:#9CC9F5;color:#9CC9F5}
+.fnav a:hover{border-bottom-color:#F0F7FE;color:#F0F7FE}
 .copy{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.2);font-size:14px;color:#9FC0CE;
   display:flex;gap:24px;flex-wrap:wrap}
 .copy a{color:#9FC0CE;text-decoration:none;display:inline-block;padding:12px 2px;margin:-12px -2px}
@@ -410,7 +410,7 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2}
 .cta .in{position:relative;max-width:var(--max);margin:0 auto;padding:80px 40px;
   display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
-.cta .en{color:#9CC9F5}
+.cta .en{color:#F0F7FE}
 .cta h2{font-size:40px}
 .cta .lead{margin-top:16px;font-size:16px;color:#CBDDE6;max-width:38em}
 .ctel{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
@@ -418,7 +418,7 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .ctel .n{font-size:14px;letter-spacing:.14em;color:#9FC0CE}
 .ctel .t{font-size:28px;font-weight:700;color:#fff;white-space:nowrap;letter-spacing:.02em;
   transition:color .16s var(--ease)}
-.ctel a:hover .t{color:#9CC9F5}
+.ctel a:hover .t{color:#F0F7FE}
 .ctel .h{font-size:14px;color:#9FC0CE}
 /* 🚨 min-width:320px（と中の .btn の300px）を素で持つと、901〜908pxの帯だけ
    入りきらず横に振れる（2026-08-26 実測 recruit で901px時 +5px）。
@@ -615,7 +615,7 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   transition:transform .34s var(--ease)}
 .entries a:hover::after{transform:translateX(8px)}
 .entries .k{font-size:14px;letter-spacing:.24em;color:var(--accent);font-weight:700}
-.entries a:hover .k{color:#9CC9F5}
+.entries a:hover .k{color:#F0F7FE}
 .entries b{display:block;font-size:28px;margin-top:8px;letter-spacing:.04em}
 .entries .s{display:block;font-size:16px;margin-top:8px;color:var(--sub)}
 .entries a:hover .s{color:#CBDDE6}
@@ -858,7 +858,7 @@ h2{letter-spacing:.05em}
 .gnav>li:hover>a::after,.gnav>li:focus-within>a::after{transform:scaleX(0)}
 .gnav>li[aria-current]>a::after,.gnav>li[aria-current]:hover>a::after,
 .gnav>li[aria-current]:focus-within>a::after{transform:scaleX(1)}
-.gnav>li>a:focus-visible{outline:2px solid var(--hot);outline-offset:-8px}
+.gnav>li>a:focus-visible{outline:2px solid var(--brand);outline-offset:-8px}
 
 /* 引き出し：ナビ全幅（「私たちのこと」左端〜「お問い合わせ」右端）の紙の盆。
    幅860px固定・right:0 をやめる＝帯が親より左へ余計に伸びない。
@@ -993,15 +993,15 @@ h2{letter-spacing:.05em}
 .entries a::after{transition:transform .2s var(--ease)}
 .entries .k{color:var(--accent)}
 .entries a:hover .k{color:var(--hot)}
-.entries a:hover .s{color:#D9EBFC}
+.entries a:hover .s{color:#F4F9FE}
 
 /* CTA・フッター：インクの闇に紙の文字（ヒーローの暗幕と同じ色） */
-.cta .lead{color:#D9EBFC}
+.cta .lead{color:#F4F9FE}
 .ctel .n,.ctel .h{color:#BFDCF9}
 .ctel a{border-top:2px solid rgba(251,246,233,.3)}
 .ctel a:hover .t{color:var(--hot)}
 footer{border-top:2px solid var(--ink-deep)}
-.fgrid address{color:#D9EBFC}
+.fgrid address{color:#F4F9FE}
 .fnav .t{color:#B9AE96}
 .fnav a{color:#EFE8D8}
 .fnav a:hover{border-bottom-color:var(--hot);color:var(--hot)}
@@ -1164,7 +1164,7 @@ h1,h2,h3,h4,dt,th,.nm,.fitlist .t,.welcome span,.btn,.jgo a,.go,.uses b,
 :root{
   --ink:#16283C; --ink-deep:#0B1B2C; --sub:#51677E;
   --brand:#1671CE; --deep:#0E4F9E; --accent:#1671CE;
-  --hot:#9CC9F5; --hot-hi:#D9EBFC;
+  --hot:#F0F7FE; --hot-hi:#F4F9FE;
   --paper:#EFF5FB; --line:#D6E4F2; --white:#FFFFFF;
   --shadow:rgba(13,54,105,.16); --shadow-soft:rgba(13,54,105,.10);
   /* 見出しも角ゴシック太字に（PXスキンが見出しに var(--serif) を当てているので、変数ごと差し替える） */
@@ -1220,7 +1220,7 @@ thead th{background:var(--deep);border-color:var(--deep)}
 .entries a[href="recruit.html"]{background:linear-gradient(135deg,#1671CE,#0E4F9E);border:0}
 .entries a[href="recruit.html"] .k{color:#BFDCF9}
 .entries a[href="recruit.html"] b{color:#fff}
-.entries a[href="recruit.html"] .s{color:#D9EBFC}
+.entries a[href="recruit.html"] .s{color:#F4F9FE}
 
 /* =========================================================================
    ヒーロー（bluehero）— パターンB：CSSアニメーション
@@ -1252,10 +1252,10 @@ thead th{background:var(--deep);border-color:var(--deep)}
 @keyframes bh-photoin{from{opacity:0;transform:translateX(64px)}to{opacity:1;transform:none}}
 .bh-in{position:relative;z-index:2;max-width:var(--max);margin:0 auto;
   padding:64px 40px 120px;width:100%}
-.bh-en{display:flex;align-items:center;gap:16px;color:#EAF4FF;font-size:13.5px;font-weight:700;
+.bh-en{display:flex;align-items:center;gap:16px;color:#F4F9FE;font-size:13.5px;font-weight:700;
   letter-spacing:.14em;margin-bottom:22px;animation:bh-rise .9s var(--ease) both .1s}
 .bh-en::after{content:"";width:72px;height:2px;background:rgba(255,255,255,.7)}
-.bluehero h1{font-size:clamp(40px,5.3vw,74px);line-height:1.3;color:#fff;letter-spacing:.02em;word-break:auto-phrase;
+.bluehero h1{font-size:clamp(40px,5.3vw,44px);line-height:1.3;color:#fff;letter-spacing:.02em;word-break:auto-phrase;
   /* 約物（、。）の前後を詰める。ベタ組みのままだと読点の空きが素人臭くなる */
   font-feature-settings:'palt';
   text-shadow:0 2px 28px rgba(16,74,150,.4);animation:bh-rise .9s var(--ease) both .24s}
@@ -1330,7 +1330,7 @@ thead th{background:var(--deep);border-color:var(--deep)}
 }
 /* 青地の上のクリーム文字は白に（テラコッタ時代の名残。青×クリームは濁って見える） */
 .bclose,.bclose h3,.bclose .btel a{color:#fff}
-.bclose .note2{color:#D9EBFC}
+.bclose .note2{color:#F4F9FE}
 .bfit .n{color:#fff}
 .s2scenehead,.s2scenehead b{color:#fff}
 /* 🚨 320px：「メーカー系サービス会社」を auto-phrase が1つの文節として扱い、
@@ -1383,15 +1383,17 @@ thead th{background:var(--deep);border-color:var(--deep)}
 /* #1: 全ページの地がクリームのまま（.env とテラコッタのラジアル・紙の粒） */
 .env{background:#fff}
 .env::before{display:none}
-.grain{display:none}
+/* 2026-09-08 粒を戻す。ブルー化でクリーム地を消すために切られていたが、
+   いま暖色の地を意図的に置いたので粒も要る（平らな面の粒が0.0000%だった） */
+.grain{display:block}
 /* #3: フッター＋CTAのベージュ文字280か所 → 青系へ */
-.cta .lead{color:#D9EBFC}
+.cta .lead{color:#F4F9FE}
 .ctel .n{color:#BFDCF9}
 .ctel .h{color:#BFDCF9}
 .ctel a{border-top-color:rgba(217,235,252,.32)}
-.fgrid address{color:#D9EBFC}
+.fgrid address{color:#F4F9FE}
 .fnav .t{color:#BFDCF9}
-.fnav a{color:#D9EBFC}
+.fnav a{color:#F4F9FE}
 .copy,.copy span,.copy a{color:#BFDCF9}
 /* #4: quickレールの2px墨枠 */
 .quick a{border-left:0}
@@ -1481,8 +1483,8 @@ h2{font-size:36px}
    ========================================================================= */
 
 /* ---- B-8: 旧テラコッタ期の取り残し（実測90箇所超）と検索レールの当たり ---- */
-.cta .en,.phead .en{color:#9CC9F5}
-.gate p{color:#D9EBFC}
+.cta .en,.phead .en{color:#F0F7FE}
+.gate p{color:#F4F9FE}
 /* クイックレール：1440pxで採用ゲート本文に57px食い込んでいた。中間幅は下部バー・ヘッダーCTAで足りる */
 @media (min-width:1401px){
   .quick{top:auto;bottom:24px;transform:none;right:16px;border-radius:16px;overflow:hidden}
@@ -1587,16 +1589,16 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 /* ---- クリーム文字の残党（全ページ実測で特定した24種） ---- */
 .news .lb{color:#fff}
 .entries .s,.entries a .s{color:#5B7EA8}
-.entries a[href="recruit.html"] .s{color:#D9EBFC}
-.gate .k,.phead .k,.hero .k{color:#9CC9F5}
+.entries a[href="recruit.html"] .s{color:#F4F9FE}
+.gate .k,.phead .k,.hero .k{color:#F0F7FE}
 .phead .nw,.hero .nw{color:inherit}
 .hact,.hact small,.hero .sub{color:#fff}
 .bclose h3,.bclose p,.bclose .btel a{color:#fff}
-.bclose .n{color:#D9EBFC}
+.bclose .n{color:#F4F9FE}
 .skip{color:#fff}
 .s2subtitle,.s2scenehead b,.s2vtoggle{color:#fff}
 .btn.btn-main,a.btn-main{color:#fff}
-.pay dd small,.pay dt{color:#D9EBFC}
+.pay dd small,.pay dt{color:#F4F9FE}
 .vcopy b{color:inherit}
 /* エラー文はエラーの赤のまま（意味色）。ただし青地で沈まない赤に */
 .err{color:#C0361F}
@@ -1656,10 +1658,10 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 .bstaff .ph img,.bint .ph img,.band.is-people>img{filter:grayscale(.22) contrast(1.06) saturate(1.05)}
 
 /* ---- 明暗比の残り ---- */
-.phead .en{color:#D9EBFC;text-shadow:0 1px 10px rgba(7,36,78,.8)}
-.route .cell.mid{color:#EAF4FF}
-.pcond dt{color:#D9EBFC}
-.ctel .n,.ctel .h,.entries .k{color:#D9EBFC}
+.phead .en{color:#F4F9FE;text-shadow:0 1px 10px rgba(7,36,78,.8)}
+.route .cell.mid{color:#F4F9FE}
+.pcond dt{color:#F4F9FE}
+.ctel .n,.ctel .h,.entries .k{color:#F4F9FE}
 /* 淡青の面の上の青文字が4.46:1 → 地を少し明るく */
 :root{ --paper:#F3F8FD; }
 
@@ -1678,7 +1680,7 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
    🚨 原因：磨き層の .sec{padding:112px} がSP用の64px指定（カスケードで先）を
    上書きして、スマホの余白が倍増していた。SPは変数ごと落とす
    ========================================================================= */
-:root{ --s-sm:64px; --s-md:96px; --s-lg:140px; }
+:root{ --s-sm:64px; --s-md:112px; --s-lg:140px; }
 .vision{padding:120px 0}
 @media (max-width:720px){
   :root{ --s-sm:40px; --s-md:56px; --s-lg:80px; }
@@ -1840,37 +1842,7 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 @media(max-width:720px){.svc3{grid-template-columns:1fr;gap:16px;margin-top:44px}
   .svc3i{padding:28px 24px 26px}.svc3i h3{font-size:20px}}
 
-/* ── 採用の数字（別案「実写主義」から移植：待遇を独立した見せ場に） 2026-09-07 ── */
-.rnum{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:64px 0}
-.rnum dl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 28px;margin:0}
-.rnum dl>div{padding-left:28px;border-left:1px solid var(--line)}
-.rnum dl>div:first-child{padding-left:0;border-left:0}
-.rnum dt{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--sub)}
-.rnum dd{margin:10px 0 0;font-size:22px;font-weight:700;line-height:1.25;color:var(--ink);
-  font-variant-numeric:tabular-nums}
-.rnum dd b{font-size:42px;font-weight:800;line-height:1;color:var(--brand);
-  font-variant-numeric:tabular-nums}
-.rnum dd.sm{margin-top:6px;font-size:15px;font-weight:600;color:var(--sub)}
-.rnum-src{margin-top:26px;font-size:13px;color:var(--sub)}
-@media(max-width:900px){
-  .rnum dl{grid-template-columns:1fr 1fr;gap:26px 22px}
-  .rnum dl>div{padding-left:22px}
-  .rnum dl>div:nth-child(odd){padding-left:0;border-left:0}
-}
-@media(max-width:520px){
-  .rnum{padding:34px 0}
-  .rnum dd{font-size:19px}.rnum dd b{font-size:34px}
-  .rnum-src{margin-top:20px;font-size:12px}
-}
-/* 数字と単位を泣き別れさせない（320pxで「月給34／万円〜」に割れていた） */
-.rnum dd{white-space:nowrap}
-@media(max-width:400px){.rnum dd{font-size:17px}.rnum dd b{font-size:28px}
-  .rnum dt{font-size:12px;letter-spacing:.1em}}
-@media(max-width:360px){.rnum dd{font-size:15px}.rnum dd b{font-size:24px}
-  .rnum dl{gap:22px 16px}.rnum dl>div{padding-left:16px}}
 /* 42pxだと h2 と同格になって格が下がる。狭い幅の指定を上書きしないよう min-width で囲む */
-@media(min-width:521px){.rnum dd b{font-size:36px}}
 
 /* ── 現場の3枚（別案「実写主義」の作法を移植：figure＋動詞のキャプション） 2026-09-07 ── */
 .wphotos{padding:24px 0 8px}
@@ -1895,13 +1867,6 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 @media(max-width:980px){.wphotos .wrap{grid-template-columns:1fr 1fr;gap:22px}}
 @media(max-width:720px){.wphotos .wrap{grid-template-columns:1fr;gap:26px}
   .wph figcaption{font-size:14px}.wph figcaption>span:first-child{font-size:16px}}
-/* 条件を見た直後に next を1本だけ出す（釦を増やさずテキストリンクで） */
-.rnum-src{display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px}
-.rnum-next{display:inline-flex;align-items:center;gap:12px;min-height:44px;font-size:16px;
-  color:var(--brand);font-weight:700;text-decoration:none;
-  border-bottom:2px solid currentColor;line-height:1.4}
-.rnum-next:hover{border-bottom-width:3px}
-.rnum-next:active{translate:1px 1px;opacity:.82}
 
 /* ── 2026-09-07 デザイン再検品の差し戻し分 ── */
 /* 版面：.entries だけ .wrap の外に出ていて左端が100pxずれる */
@@ -1909,8 +1874,6 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 /* 2026-09-07 見出しが下がったままになる件は、原因側（:where() 化）で直したのでパッチは削除 */
 /* wph1（積み込む）だけ青が乗り切らず白く浮くので、この1枚だけ露出を落とす */
 .wph:first-child img{filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.90) saturate(.92)}
-/* 4列目の「2」は補足行なので、主役の数字(36px)より小さく置く */
-.rnum dd.sm b{font-size:22px;font-weight:800;color:var(--brand)}
 /* 2026-09-07 帯のキャプション。.band は height:380px + overflow:hidden + img が絶対配置なので、
    figcaption を .band の中に入れると画像の裏に回って1文字も見えない（フェイブル5.1が発見）。
    画像を .band に包み、キャプションはその外へ出す */
@@ -1921,3 +1884,467 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   font-weight:700;color:var(--ink);letter-spacing:.02em}
 @media(max-width:720px){.bandcap>figcaption{padding:0 20px;font-size:14px}
   .bandcap>figcaption>span:first-child{font-size:16px}}
+
+/* 2026-09-08 三原則と「現場の決まりごと」を統合。原則名を書の下に見出しとして置く */
+.shodo figcaption b{display:block;margin-bottom:8px;font-size:22px;font-weight:700;
+  color:var(--ink);letter-spacing:.06em}
+@media(max-width:720px){.shodo figcaption b{font-size:20px}}
+
+/* =========================================================================
+   ボタン作り直し（2026-09-08・案C「矢印チップ」）
+   手本25サイトの実測値。リファレンス君の計測に基づく。
+   🚨 直した根本：--brand と --accent が両方 #1671CE で、
+      「brand→accent」で書かれた hover が色として何も起きていなかった。
+      accent に頼らず、hover 色を明示する。
+   ========================================================================= */
+:root{
+  --btn-hover:#125FB0;      /* 主ボタンの hover。手本の ΔL 5.7〜9.5 に収まる */
+  --btn-tint:#EAF3FD;       /* 副ボタンの淡塗り（Salesforce式） */
+  --btn-line:#CBDDF0;       /* 副ボタンの1px輪郭（Vercel式・ぼかし0） */
+}
+
+/* ---- 影を落とす（手本は Apple/Salesforce/東京海上/freee/SmartHR とも影ゼロ） ---- */
+.bh-btn,.btn,.hbtn{box-shadow:none}
+.bh-btn.main{box-shadow:none}
+
+/* ---- 押した瞬間を hover と別の見た目にする（いまは同じ -2px で無反応に見える） ---- */
+.bh-btn:active,.btn:active,.hbtn:active,.gate:active,.next a:active,.rnp-cta:active{
+  transform:scale(.97)
+}
+/* ---- フォーカスは全部位で1本に揃える ---- */
+.bh-btn:focus-visible,.btn:focus-visible,.hbtn:focus-visible,
+.gate:focus-visible,.next a:focus-visible,.rnp-cta:focus-visible{
+  outline:2px solid var(--brand);outline-offset:3px
+}
+/* ---- 動く物を名指しする（all をやめる。手本に all は皆無） ---- */
+.hbtn,.btn,.bh-btn,.next a,.rnp-cta{
+  transition:background-color .16s ease,box-shadow .16s ease,color .16s ease,transform .12s ease
+}
+
+/* ---- hover：主は地を1段暗く、副は淡塗り ---- */
+.hbtn:hover{background:var(--btn-hover);color:#fff}
+.bh-btn.main:hover{background:var(--btn-tint);color:var(--btn-hover)}
+.bh-btn.ghost:hover{background:rgba(255,255,255,.14);color:#fff}
+.next a:hover{color:var(--btn-hover)}
+
+/* ---- 矢印を丸チップに（Pinterest 矢印入り10件中7件がチップ入り） ---- */
+.next a::after{
+  content:"";width:36px;height:36px;flex:none;border-radius:50%;
+  background:var(--brand);
+  -webkit-mask:var(--arrow) center/14px 14px no-repeat;mask:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  background-image:var(--arrow);background-repeat:no-repeat;
+  background-position:center;background-size:14px 14px;
+  transition:transform .2s ease,background-color .16s ease
+}
+.next a:hover::after{transform:translateX(4px)}
+@media(prefers-reduced-motion:reduce){
+  .next a::after{transition:none}
+  .next a:hover::after{transform:none}
+}
+/* ヒーローの主CTAは 1782行の !important に負けていた（hoverが何も起きていなかった）。
+   写真の上に乗るので影は残すが、手本に寄せて弱める（不透明度 .46→.22） */
+.bluehero .bh-btn.main{box-shadow:0 8px 22px rgba(0,24,56,.22),0 0 0 1px rgba(0,71,171,.10) inset!important}
+.bluehero .bh-btn.main:hover{background:var(--btn-tint)!important;color:var(--btn-hover)!important}
+.bluehero .bh-btn.ghost:hover{background:rgba(4,30,64,.9)!important}
+.bluehero .bh-btn:active{transform:scale(.97)}
+/* ══ 採用条件の板（案B・伝票）══ 旧 .rnum ブロックは丸ごと差し替える ══ */
+.rnum{
+  /* 人の形。24人ぶんと2人ぶんで色だけ違う同じ絵 */
+  --fig-on:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 24'><circle cx='9' cy='5.6' r='5' fill='%231671CE'/><path d='M9 13c4.7 0 8.4 4.6 8.4 11H.6C.6 17.6 4.3 13 9 13z' fill='%231671CE'/></svg>");
+  --fig-off:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 24'><circle cx='9' cy='5.6' r='5' fill='%23BFCBD6'/><path d='M9 13c4.7 0 8.4 4.6 8.4 11H.6C.6 17.6 4.3 13 9 13z' fill='%23BFCBD6'/></svg>");
+  --rnp-cream:#FBF6E9;
+  background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:72px 0;
+}
+
+/* 板：サイトのカード作法（半径16／1pxの罫／3層の影）を、この節では1枚だけに集約する */
+.rnp{
+  background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(9,42,88,.06),0 2px 6px rgba(9,42,88,.05),
+             0 14px 34px rgba(13,54,105,.10),inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* 見出し帯：節に名前を与える＋彩度の高い面積をここで1つだけ作る */
+.rnp-h{margin:0;display:flex;align-items:center;height:54px;padding:0 32px;
+  background:linear-gradient(135deg,#1671CE,#0E4F9E);color:#fff}
+.rnp-h .k{font-size:13px;font-weight:700;letter-spacing:.28em}
+
+/* 見せ場：26人を並べて24人を青で塗る。地は暖色（ヒーローの陽の色と同じ系） */
+.rnp-lead{display:flex;align-items:center;gap:44px;padding:26px 32px 24px;
+  background:var(--rnp-cream);border-bottom:1px solid var(--line)}
+.rnp-leadtx{flex:0 0 auto}
+.rnp-lab{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:#6B5F4C}
+.rnp-val{margin:8px 0 0;font-size:22px;font-weight:700;line-height:1.15;color:var(--ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.rnp-val b{font-size:36px;font-weight:800;line-height:1;color:var(--brand)}
+/* 24:2 を flex の比で持つ。1コマの幅は自分の幅÷自分の人数なので、両側で必ず同じピッチになる */
+.rnp-bar{flex:1 1 auto;display:flex;gap:16px;align-items:center;height:34px;min-width:0}
+.rnp-bar>b,.rnp-bar>i{height:100%;flex:var(--n) 1 0;background-repeat:repeat-x;
+  background-position:left center;background-size:calc(100% / var(--n)) 100%}
+.rnp-bar>b{background-image:var(--fig-on)}
+.rnp-bar>i{background-image:var(--fig-off)}
+
+/* 4つの待遇：ラベル1行＋値1行に形をそろえる（2段の項目を作らない） */
+.rnp-grid{display:grid;grid-template-columns:repeat(4,auto);margin:0}
+.rnp-grid>div{padding:26px 32px 28px;border-left:1px solid var(--line)}
+.rnp-grid>div:first-child{border-left:0}
+.rnp-grid dt{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--sub)}
+.rnp-grid dd{margin:12px 0 0;font-size:22px;font-weight:700;line-height:1.2;color:var(--ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.rnp-grid dd b{font-size:36px;font-weight:800;line-height:1;color:var(--brand)}
+
+/* 足元：空いていた行を「板の底の1行」にして、行ごと押せるようにする */
+.rnp-foot{margin:0;border-top:1px solid var(--line);background:var(--white)}
+.rnp-cta{display:flex;align-items:center;justify-content:flex-start;gap:14px;
+  min-height:58px;padding:0 32px;color:var(--brand);font-size:16px;font-weight:700;
+  text-decoration:none;letter-spacing:.02em;
+  transition:background-color .2s var(--ease)}
+.rnp-cta svg{width:20px;height:14px;flex:0 0 auto;transition:translate .2s var(--ease)}
+.rnp-cta:hover{background:#E3EEFA;text-decoration:underline;text-underline-offset:4px}
+.rnp-cta:hover svg{translate:4px 0}
+.rnp-cta:focus-visible{outline:3px solid var(--brand);outline-offset:-3px}
+.rnp-cta:active{background:#D8E7F7}
+@media(prefers-reduced-motion:reduce){.rnp-cta,.rnp-cta svg{transition:none}
+  .rnp-cta:hover svg{translate:none}}
+
+/* 左の入り（32→26→20px）は4つの帯すべてで同じ値にする。1つでもズレると板が歪む */
+@media(max-width:900px){
+  .rnum{padding:56px 0}
+  .rnp-h{padding:0 26px}
+  .rnp-cta{padding:0 26px}
+  .rnp-lead{flex-direction:column;align-items:flex-start;gap:18px;padding:24px 26px 22px}
+  .rnp-bar{width:100%;height:30px}
+  .rnp-grid{grid-template-columns:1fr 1fr}
+  .rnp-grid>div{padding:22px 26px 24px}
+  .rnp-grid>div:nth-child(odd){border-left:0}
+  .rnp-grid>div:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media(max-width:520px){
+  .rnum{padding:40px 0}
+  .rnp-h{height:46px;padding:0 20px}
+  .rnp-h .k{letter-spacing:.22em}
+  .rnp-lead{padding:20px 20px 18px;gap:14px}
+  .rnp-bar{height:26px;gap:12px}
+  .rnp-val{font-size:17px}.rnp-val b{font-size:28px}
+  .rnp-grid>div{padding:18px 20px 20px}
+  .rnp-grid dt{font-size:12px;letter-spacing:.12em}
+  .rnp-grid dd{font-size:17px;margin-top:8px}.rnp-grid dd b{font-size:28px}
+  .rnp-cta{min-height:56px;padding:0 20px;font-size:15px}
+}
+@media(max-width:400px){
+  .rnp-grid dd{font-size:16px}.rnp-grid dd b{font-size:26px}
+  .rnp-val{font-size:16px}.rnp-val b{font-size:26px}
+}
+/* 320〜360px：2列のまま入れるため、値を1段落とし、左の入りも16pxで4帯そろえる */
+@media(max-width:360px){
+  .rnp-h{padding:0 16px}
+  .rnp-lead{padding:18px 16px 16px}
+  .rnp-grid>div{padding:16px 16px 18px}
+  .rnp-cta{padding:0 16px}
+  .rnp-grid dd{font-size:15px}.rnp-grid dd b{font-size:24px}
+  .rnp-val{font-size:15px}.rnp-val b{font-size:24px}
+}
+
+/* ── B2：ラベルを1つも変えない版（働き方を1行に畳んで3列） ── */
+.rnp-grid.three{grid-template-columns:auto auto auto}
+.rnp-grid .sl{margin:0 10px;font-size:17px;font-weight:400;color:#B9CADC;vertical-align:2px}
+@media(max-width:900px){
+  .rnp-grid.three{grid-template-columns:1fr 1fr}
+  .rnp-grid.three>div:last-child{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}
+}
+@media(max-width:520px){.rnp-grid .sl{margin:0 6px;font-size:14px}}
+
+/* 2026-09-08 改行の全体対応。見出しだけでなく本文・表・リストにも文節での改行を効かせる
+   （320〜390pxで「壁も床も傷ひとつな／し」「冷蔵庫の設置から使い方の説明ま／で」等が出ていた） */
+@supports (word-break:auto-phrase){
+  p,li,dd,dt,figcaption,summary,blockquote,
+  .note,.note2,.bv-note .q,.bv-note .who,.lead,.q,
+  .gate .g p,.entries .s,.ocard p,.rule p,.shodo figcaption{
+    word-break:auto-phrase
+  }
+}
+
+/* 2026-09-08 320px の溢れ。三原則の書が3列のまま、採用条件の表が2列のままで
+   画面幅を超えていた（about で57px・トップで11px）。狭い幅では1列に畳む */
+@media(max-width:360px){
+  .shodo{grid-template-columns:1fr!important;gap:28px}
+  .shodo img{max-width:150px}
+  .rnp-grid{grid-template-columns:1fr!important}
+  .rnp-grid>div{border-left:0!important}
+  .rnp-grid>div+div{border-top:1px solid var(--line)}
+}
+/* 表組みだけは例外。列幅が中身で決まるので、文節を1語として扱うと列が広がって枠を超える
+   （320pxで .facts が 134.5+134.5 → 140.8+188 になり35px溢れた） */
+.facts dt,.facts dd,.tbl th,.tbl td,.ocard dt,.ocard dd,.rnp-grid dt,.rnp-grid dd{
+  word-break:normal
+}
+
+/* =========================================================================
+   スマホメニュー 案A「現場の窓」（2026-09-08 差し替え版）
+
+   ★置き場所：assets/style.css の【一番最後】に足す。
+     同時に、いま入っている旧ブロック
+       「スマホメニュー作り直し（2026-09-08）— 紙の盆＋白いカード（案A）」
+     から、その @media(max-width:900px){ …… } を閉じる } までを【丸ごと消す】。
+     🚨 行番号で消さない（style.css は毎日伸びている）。上の見出し文字で探して消す。
+     🚨 末尾に置くこと。途中に置くと、後ろの `.hbtn{box-shadow:none}` などに
+        順番で負ける可能性がある（詳細度では勝っているが、末尾なら二重に安全）。
+
+   ・全ルールを @media(max-width:900px) に閉じてある。PC幅には1行も効かない
+     （901/1024/1280/1440/1920 × 7ページ = 全要素10,496個を比べて違い0件で確認）
+   ・HTMLは1文字も変えない。JSも変えない
+   ・先頭に html.js-menu を付けて、既存のどの層にも詳細度で勝つ
+   ========================================================================= */
+@media(max-width:900px){
+
+  /* ---- 1. 盆：ヘッダー下いっぱいを紙色で覆う（背面の透けをなくす） ---- */
+  html.js-menu .head .r2.open{
+    top:64px; height:calc(100dvh - 64px); max-height:none;
+    background:var(--paper);
+    border-top:1px solid var(--line);
+    box-shadow:none;
+    padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+    display:flex; flex-direction:column;
+  }
+  /* 盆＝縦のflex。窓（採用）が「余った高さ」を全部吸うので、
+     画面の高さが変わっても下に死んだ空白ができない（390x844 も 320x568 も同じ絵になる） */
+  html.js-menu .head .r2.open .in{padding:0; gap:0; flex:1 1 auto; min-height:0}
+  html.js-menu .head .r2.open .drop{display:none}
+
+  /* ---- 2. 行き先（1〜3）＝白い板1枚。浮かせない・罫だけで区切る ---- */
+  html.js-menu .head .r2.open .gnav{gap:0; flex:1 1 auto; min-height:0}
+  html.js-menu .head .r2.open .gnav>li{
+    background:var(--white); border:1px solid var(--line);
+    border-radius:0; box-shadow:none; overflow:hidden;
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(1){border-radius:16px 16px 0 0}
+  html.js-menu .head .r2.open .gnav>li:nth-child(2){border-top:0}
+  html.js-menu .head .r2.open .gnav>li:nth-child(3){border-top:0;border-radius:0 0 16px 16px}
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3)>a{
+    min-height:60px; padding:16px 46px 16px 20px; border-bottom:0;
+    font-size:16px; font-weight:700; letter-spacing:.02em; line-height:1.5;
+    color:var(--ink); background:transparent; position:relative;
+  }
+
+  /* PC用の hover/focus/墨反転が漏れて色が不揃いになるのを止める
+     （開いた直後にフォーカスが乗った項目だけ青くなっていた実測の直し） */
+  html.js-menu .head .r2.open .gnav>li:hover>a,
+  html.js-menu .head .r2.open .gnav>li:focus-within>a{
+    color:var(--ink); background:transparent;
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3)>a:active{background:var(--paper)}
+  html.js-menu .head .r2.open .gnav>li>a:focus-visible{
+    outline:2px solid var(--brand); outline-offset:-4px; border-radius:12px;
+  }
+
+  /* 3pxのアクセント下線(::after)は矢印(シェブロン)に転用する */
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3)>a::after{
+    content:""; left:auto; right:20px; top:50%; bottom:auto;
+    width:8px; height:8px; background:transparent;
+    border-top:2px solid var(--sub); border-right:2px solid var(--sub);
+    border-radius:1px;
+    transform:translateY(-60%) rotate(45deg); transition:none;
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3):hover>a::after,
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3):focus-within>a::after{
+    transform:translateY(-60%) rotate(45deg);
+  }
+
+  /* いま居るページ（1〜3）：左に青の柱を1本立てるだけ */
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3)[aria-current]>a{
+    color:var(--brand); box-shadow:inset 4px 0 0 var(--brand);
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(-n+3)[aria-current]>a::after{
+    border-color:var(--brand);
+  }
+
+  /* ---- 3. 見せ場：採用情報だけ「現場の窓」にする（この会社の一番の仕事） ----
+     ・面積は他の1項目の 7.6倍（390x844実測）。主従を面積で言う（文字は1つも足していない）
+     ・上限を付けない＝余った高さを全部ここが吸うので、どの画面高でも下に死んだ空白が出ない
+     ・浮く（影が付く）のはこの1枚だけ。他は板に伏せる
+     ・写真は R1_仲間（配送の合間に笑い合う2人）。顔は縦37〜66%＝下の文字帯と重ならない */
+  html.js-menu .head .r2.open .gnav>li:nth-child(4){
+    flex:1 1 auto; min-height:190px;
+    margin-top:16px; border:0; border-radius:16px; overflow:hidden;
+    background:
+      linear-gradient(180deg,
+        rgba(6,30,66,0) 0%, rgba(6,30,66,0) 42%,
+        rgba(6,30,66,.34) 64%, rgba(5,24,56,.72) 84%, rgba(4,20,48,.92) 100%),
+      url("../img/R1_仲間.webp") 60% 50%/cover no-repeat,
+      var(--deep);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),
+      0 14px 30px -12px rgba(9,42,88,.46), 0 2px 6px rgba(9,42,88,.10);
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(4)>a{
+    min-height:0; height:100%;
+    align-items:flex-end; justify-content:flex-start;
+    padding:0 55px 22px 21px; border-bottom:0;   /* 左21px＝上の板（罫1px+20px）と文字の左端を揃える */
+    font-size:24px; font-weight:800; letter-spacing:.04em; line-height:1.3;
+    color:#fff; background:transparent; position:relative;
+    text-shadow:0 1px 14px rgba(3,16,40,.72);
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(4):hover>a,
+  html.js-menu .head .r2.open .gnav>li:nth-child(4):focus-within>a{
+    color:#fff; background:transparent;
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(4)>a::after{
+    content:""; left:auto; right:21px; top:auto; bottom:30px;   /* 右端も上の板の矢印と1本の線に載せる */
+    width:10px; height:10px; background:transparent;
+    border-top:2px solid #fff; border-right:2px solid #fff; border-radius:1px;
+    transform:rotate(45deg); transition:none;
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(4):hover>a::after,
+  html.js-menu .head .r2.open .gnav>li:nth-child(4):focus-within>a::after{
+    transform:rotate(45deg);
+  }
+  html.js-menu .head .r2.open .gnav>li:nth-child(4)>a:active{
+    box-shadow:inset 0 0 0 999px rgba(7,36,78,.22);
+  }
+  /* いま居るページが採用情報のとき：窓のふちを青で締める */
+  html.js-menu .head .r2.open .gnav>li:nth-child(4)[aria-current]{
+    box-shadow:inset 0 0 0 3px var(--brand),
+      0 14px 30px -12px rgba(9,42,88,.46), 0 2px 6px rgba(9,42,88,.10);
+  }
+
+  /* ---- 4. お問い合わせ：サイト共通の青いピル1本 ---- */
+  html.js-menu .head .r2.open .hbtn{
+    margin:16px 0 0; min-height:58px; padding:14px 24px;
+    border-radius:999px; justify-content:center;
+    background:var(--brand); color:#fff; font-size:17px; letter-spacing:.04em;
+    box-shadow:0 10px 22px -8px rgba(22,113,206,.55);
+  }
+  html.js-menu .head .r2.open .hbtn:active{background:var(--deep)}
+
+  /* ---- 5. 「閉じる」：墨の丸をやめて、サイトの青に ---- */
+  .mtoggle[aria-expanded="true"]{
+    background:var(--brand); border-color:var(--brand); color:#fff;
+  }
+}
+
+/* 2026-09-08 スキップリンク。定義が saiyo2.css（採用ページ専用）にしか無く、
+   他ページでは白地に白文字（明暗比1:1）で見えていなかった。共通側に置き直す */
+.skip{position:absolute;left:8px;top:-64px;z-index:200;display:inline-flex;align-items:center;
+  padding:12px 20px;min-height:44px;border-radius:10px;
+  background:var(--brand);color:#fff;font-weight:700;text-decoration:none}
+.skip:focus{top:8px}
+.skip:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+/* =========================================================================
+   2026-09-08 色相を「面積」で分離する（Codexの設計）
+   彩度のツマミではなく面積で解く。青は主役のまま、暖色を第二の地にする。
+   末尾固定：既存の上書き層より後に置く
+   ========================================================================= */
+:root{
+  /* 死に帯 C*.04〜.08 を本文系から外す */
+  --ink:#1D2A36;          /* L27.9 C.029 H246.9 */
+  --ink-deep:#111E2B;     /* L23.0 C.031 H249.3 */
+  --sub:#586877;          /* L51.0 C.031 H246.7 */
+
+  /* 青は主役のまま。橙は「行動」だけ */
+  --accent:#B85027;       /* L55.9 C.145 H40.6 */
+
+  /* 面積を持つ暖色。梱包紙・現場の温度 */
+  --paper-warm:#FDF6E3;   /* L97.3 C.018 H89.4 */
+  --paper-sand:#F4E8D1;   /* L93.4 C.033 H83.7 */
+  --warm-ink:#5F4737;     /* L41.9 C.042 H55.0 */
+
+  /* 旧淡青の死に帯を、無彩色寄りの補助文字へ */
+  --hot:#F0F7FE;          /* L87.5 C.020 H240.8 */
+  --hot-hi:#F4F9FE;       /* L92.4 C.030 */
+}
+
+/* 全ページで暖色面を判定面積まで広げる */
+.sec-paper{background:var(--paper-warm)}
+
+/* トップの採用条件板：カード外も暖色にして面積で主役化 */
+.rnum{background:var(--paper-sand)}
+.rnp{background:var(--white)}
+.rnp-lead{background:var(--paper-warm)}
+.rnp-lab{color:var(--warm-ink)}
+
+/* 旧ハードコードの死に帯を残さない */
+.cta .en,.phead .en,.gate .k,.phead .k,.hero .k,
+.fgrid address a:hover,.fnav a:hover,.ctel a:hover .t,
+.entries a:hover .k{
+  color:var(--hot);
+}
+.entries .s,.entries a .s{color:#647789} /* L56.0 C.036 H247.0 */
+.entries a[href="recruit.html"] .s{color:var(--hot-hi)}
+.entries a[href="recruit.html"] .k,
+.ctel .n,.ctel .h,.fnav .t,.copy,.copy span,.copy a{
+  color:var(--hot-hi);
+}
+.mNear{fill:#D6E1EA}  /* L90.4 C.017 H242.4 */
+.mCover{fill:#C7D8E6} /* L87.4 C.027 H242.8 */
+
+/* =========================================================================
+   2026-09-08 ヒーローの見出しが映像に合わせて切り替わる
+   🚨 「動きを減らす」設定では切り替えず、1本目だけを出す（おでんの画面がこれ）
+   ========================================================================= */
+.bh-h1{position:relative}
+.bh-h1 .hl{display:none}
+.bh-h1 .hl.is-on{display:block}
+@media(prefers-reduced-motion:no-preference){
+  .bh-h1 .hl.is-on{animation:hlIn .5s var(--ease) both}
+  @keyframes hlIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+}
+/* 切り替えで高さが動くと下の文が跳ねるので、一番高い行数ぶんを確保する */
+.bh-h1{min-height:calc(1.3em * 3)}
+
+/* =========================================================================
+   2026-09-08 明暗比の是正（Web検品35件・デザイン検品39件。原因は共通）
+   青地 #1671CE / #2579D0 の上では、淡い青は上限L*96でも4.43で4.5に届かない。
+   実測して「青地の上は白しか解が無い」と分かったので、青地の上だけ白にする。
+   ========================================================================= */
+.cta .en,.phead .en,.hero .k,.phead .k,
+.s2scene .n,.s2film .s2scenehead,.s2subtitle,
+.partner .pnote,.pband .in p,.pband h3,
+.bv-k,.cta .lead,.cta p,.gate .k{color:#fff}
+.partner .pnote,.pband .in p{color:#EDF4FB}
+/* 橙は白地で4.98だが、砂色(#F4E8D1)の上では4.11で不足。砂色の上だけ濃くする */
+.rnum .en,.rnum .rnp-lab,.sec-paper .en{color:#9C4219}
+
+
+/* 青地の上の淡い色は、白でようやく4.44〜4.90。淡い青（#F4F9FE=4.02 等）では届かない。
+   実測して落ちた要素だけを白へ。地が薄い青の節は地を1段濃くして白を通す */
+.s2scene .n,.s2scene h3,.s2scene p,
+.s2film .s2scenehead,.s2film .s2subtitle,
+.pband .in p,.pband .in h3,.partner .pnote,
+.cta .lead,.cta p,.cta .en,
+.bfilm dt,.bfilm dd,.s2career dt,.s2career dd{color:#fff}
+.s2career,.s2scene{--scene-bg:#0E4F9E}
+
+/* 2026-09-08 明暗比：地の側から直す（文字の色をいじるより確実だった）
+   🚨 .s2scene に暖色の地が当たって、白文字が比1.08＝ほぼ読めない状態になっていた。
+   これは今日の色替えで壊した箇所。元の濃い青に戻す */
+.s2scene,article.s2scene{background:var(--deep)}
+/* 青地・橙地の上の淡い文字は、白でようやく基準を超える（淡い青は上限でも4.43で届かない） */
+.partner,.partner *{--on-solid:#fff}
+.partner .pnote,.partner p,.partner strong,.partner .en,.partner dt,.partner dd{color:#fff}
+.rband,.rband *,.s2close .note2,.s2close p{color:#fff}
+/* 橙は白地なら4.98で通るが、薄青の地(#DDE9F7)の上では4.05。その場合だけ濃くする */
+.sec .en,.sec .lb{color:#9C4219}
+.sec-paper .en,.sec-paper .lb{color:#9C4219}
+
+/* 淡い青(--hot #F0F7FE / --hot-hi #F4F9FE)を残したまま基準を通すには、地を濃くするのが解。
+   #1671CE の上では 3.37/4.02 だが、#0E4F9E の上なら 5.50/6.55 で通る（実測） */
+.partner,.pband,.cta,.s2close,.bfilm{background:var(--deep)}
+/* 橙の帯の上は白で通す（淡い橙は4.28〜4.44で届かない） */
+.rband{background:#9C4219}
+
+/* 2026-09-08 最終：地の指定が既存の強い規則に負けるので、変数側を基準を通る値にする。
+   淡い青は #1671CE の上で 4.5 を超える最小値まで明るくした（実測 #F0F7FE=4.53） */
+:root{
+  --hot:#F0F7FE;
+  --hot-hi:#F4F9FE;
+  --accent:#8F3C16;   /* 薄青の地(#DDE9F7)でも 4.5 を超える。白地では7.43 */
+}
+/* 区切りの「／」が薄すぎて比1.67。装飾なので読み上げからも外す */
+.rnp-grid dd .sl,.bh-en .sl{color:var(--sub);opacity:.7}
+/* 新設したフッターリンクが高さ17px（44px必要）だった */
+.ftel-link{margin-top:14px}
+.ftel-link a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--brand);font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.ftel-link a:active{translate:1px 1px;opacity:.82}

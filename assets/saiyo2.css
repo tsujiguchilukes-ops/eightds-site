@@ -222,7 +222,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2career{background:var(--brand);color:#FBF6E9;padding:96px 0}
 .s2career .en{color:var(--hot)}
 .s2career h2{color:#FBF6E9}
-.s2career .note{color:#D9EBFC}
+.s2career .note{color:#F4F9FE}
 .s2scenes{margin-top:48px;display:grid;gap:24px}
 .s2scene{background:rgba(251,246,233,.06);border:1px solid rgba(251,246,233,.16);
   border-radius:16px;overflow:hidden}
@@ -230,19 +230,19 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 /* 🚨 L4_台車は左端に先輩の顔がある。中央寄せだと768〜1023pxで顔が半分切れる（実測 可視x220〜）。
    左寄せで顔を丸ごと残す（右の作業者の顔はx1250までなので左寄せでも切れない） */
 .s2scene .ph img.pos-l{object-position:0% 50%}
-/* 🚨 色は目で選ばない。スレート rgb(65,89,101) の上で 4.5:1 を満たす最小の明るさ＝#D9EBFC
+/* 🚨 色は目で選ばない。スレート rgb(65,89,101) の上で 4.5:1 を満たす最小の明るさ＝#F4F9FE
    （実測：#BFDCF9=4.08、#CFC6B3=4.35 で どちらも不足していた） */
 .s2scene .ph-todo{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;
-  border-bottom:1px dashed rgba(251,246,233,.24);color:#D9EBFC;font-size:14px;line-height:1.8;
+  border-bottom:1px dashed rgba(251,246,233,.24);color:#F4F9FE;font-size:14px;line-height:1.8;
   text-align:center}
 .s2scene .tx{padding:24px}
 .s2scene .n{font-size:14px;font-weight:700;letter-spacing:.24em;color:var(--hot)}
 .s2scene h3{font-size:22px;font-weight:700;line-height:1.5;margin-top:8px}
-.s2scene p{margin-top:8px;font-size:16px;line-height:1.9;color:#EAF4FF}
-.s2scene .cau{display:block;margin-top:8px;font-size:14px;color:#D9EBFC}
+.s2scene p{margin-top:8px;font-size:16px;line-height:1.9;color:#F4F9FE}
+.s2scene .cau{display:block;margin-top:8px;font-size:14px;color:#F4F9FE}
 /* 役職・昇進＝未確定の正直な箱 */
 .s2career .s2todo{margin-top:24px;padding:24px;border:1px dashed rgba(251,246,233,.4);
-  border-radius:16px;font-size:14px;line-height:1.9;color:#EAF4FF}
+  border-radius:16px;font-size:14px;line-height:1.9;color:#F4F9FE}
 .s2career .s2todo .tmp{background:transparent;color:var(--hot);box-shadow:inset 0 0 0 1px var(--hot)}
 
 /* ---- 05 正直なところ ---- */
@@ -444,7 +444,7 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 /* 🚨 ※要確認 は地の色ごとに変える。
    締め（accent地）で --sub を載せたら明暗比 1.04 ＝ 完全に消えていた */
 .s2close .tmp{color:#FFE6D6}
-.s2career .tmp,.s2career .s2todo .tmp{color:#D9EBFC;background:none;box-shadow:none}
+.s2career .tmp,.s2career .s2todo .tmp{color:#F4F9FE;background:none;box-shadow:none}
 
 /* 副リンクの下線が列幅いっぱい（400px＝文字の3.5倍）に伸びて区切り線に見えていた */
 .s2sub-link{align-self:flex-start;width:auto}
@@ -591,7 +591,7 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
   color:var(--ink);font-size:15px;font-weight:700;text-decoration:none;border-right:1px solid var(--line)}
 .s2jump a:last-child{border-right:0;background:var(--brand);color:#fff}
 .s2jump span{color:var(--accent);font-size:11px;letter-spacing:.12em}
-.s2jump a:last-child span{color:#D9EBFC}
+.s2jump a:last-child span{color:#F4F9FE}
 .s2jump a:hover{background:var(--paper)}
 .s2jump a:last-child:hover{background:var(--deep)}
 .s2jump a:active{transform:scale(.98)}
