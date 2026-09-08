@@ -171,7 +171,8 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2band-in{margin-top:40px;border-radius:16px;overflow:hidden}
 .s2band-in img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;object-position:50% 38%}
 /* 写真の下の一言（2026-09-09 指示39,40）。写真の説明であって本文ではないので、本文より1段小さく */
-.s2band-cap{margin-top:16px;font-size:15px;line-height:1.8;color:var(--sub)}
+/* 級数はページにある14／16に合わせる（15pxを新しく作らない）。行長も本文と同じ枠に収める */
+.s2band-cap{margin-top:16px;font-size:14px;line-height:1.8;color:var(--sub);max-width:34em}
 .s2todo-box{margin-top:24px;padding:24px;background:var(--white);border:1px dashed var(--line);
   border-radius:16px}
 .s2todo-box p{font-size:17px;line-height:1.9;color:var(--ink)}
@@ -189,8 +190,9 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 
 /* ---- 03 給料と待遇：数字カード（数字は本文の2.5倍・単位は別要素） ---- */
 .s2nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
+/* 影の色は青系に統一（rgba(31,35,40,..) は旧スキンの残りで、この案件の影と一族が違う） */
 .s2nums>div{background:var(--white);border:1px solid var(--line);border-radius:16px;
-  padding:24px 16px;box-shadow:0 8px 24px rgba(31,35,40,.06)}
+  padding:24px 16px;box-shadow:0 8px 24px rgba(13,54,105,.07)}
 .s2nums>div.wide{grid-column:1/-1;text-align:center}
 .s2nums>div[data-tmp]{background:var(--paper);box-shadow:none}
 .s2nums dt{font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--accent)}
@@ -203,11 +205,14 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
    単位ではなく区切り記号として、数字に近い大きさで置く */
 .s2nums dd .rng{font-style:normal;font-size:20px;font-weight:700;padding:0 2px}
 /* アルバイトは正社員の後ろに、小さく置く（2026-09-09 おでん指示45「アルバイトを大きく目立たせるのは違う」）。
-   数字の級数を落として、正社員の箱と見分けがつくようにする */
-.s2nums-sub{margin-top:24px}
-.s2nums-sub>div{background:var(--paper);box-shadow:none}
-.s2nums-sub dd b{font-size:26px}
-.s2nums-sub dd.sm b{font-size:26px}
+   🚨 級数だけ下げても足りなかった。画面上の「字の外接面積」で測ると、
+      アルバイトの「8:30〜17:30」が9,470px²で1位、正社員の「月給34」が4,529px²で4位＝主従が逆だった。
+      ①数字を24pxまで落とす ②箱は白＋罫だけにして影を持たせない（影は正社員の箱にだけ）
+      ③2枚しかないので2列に固定する（3列だと空きマスが出る） */
+.s2nums-sub{margin-top:24px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.s2nums-sub>div{background:var(--white);box-shadow:none}
+.s2nums-sub dd b,.s2nums-sub dd.sm b{font-size:24px}
+.s2nums-sub dt{color:var(--sub)}
 .s2wel{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
 .s2wel span{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--brand);
   box-shadow:inset 0 0 0 1px var(--line);font-size:14px;padding:6px 16px;border-radius:999px}
@@ -216,7 +221,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 /* 募集要項の更新日（2026-09-09 指示58「目立たない形で目につくところに」）。
    🚨 薄い色にすると明暗比の下限（4.5:1）を割る。--sub(#586877) は白地で 5.74 ＝ 基準内。
    これより薄くしない */
-.s2upd{margin-top:24px;font-size:13px;line-height:1.7;color:var(--sub);letter-spacing:.04em}
+.s2upd{margin-top:24px;font-size:14px;line-height:1.7;color:var(--sub);letter-spacing:.04em;max-width:34em}
 /* 給与モデル（全部仮） */
 .s2model{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
 .s2model>div{background:var(--paper);border-radius:16px;padding:24px 16px}
@@ -321,11 +326,23 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
    勝ってLINEの青になる。ここに橙を書くと、出ている物と食い違う死にコードになる。 */
 .s2close{background:var(--white);color:var(--ink)}
 .s2close .in{max-width:var(--max);margin:0 auto;padding:64px 24px;text-align:left}
-.s2close .in>div{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--accent);
-  border-radius:20px;padding:40px 24px;box-shadow:0 10px 30px rgba(13,54,105,.07)}
-/* 眉ラベルも <p> なので、`.s2close .in p`(0-2-1) に負けないところまで上げる（16pxで出てしまう） */
-.s2close .in p.en{margin:0;font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
-.s2close h3{margin-top:12px;font-size:28px;line-height:1.5;color:var(--ink)}
+/* 🚨 白地にしただけだと、この節の誘目（面積×白との色差）が橙地の頃の 1/14 まで落ちた（実測）。
+   面を薄い青(--paper／白との色差4.05)から**暖色紙**(--paper-warm／同8前後)に替える。
+   ページの中で暖色の面はここと02だけなので、色を足さずに「面の温度」で応募の位置が立つ。
+   角丸はページの一族（16px）に戻し、影は罫より効くところまで濃くする。 */
+.s2close .in>div{position:relative;overflow:hidden;
+  background:var(--paper-warm);border:1px solid var(--line);border-top:4px solid var(--accent);
+  border-radius:16px;padding:40px 24px;box-shadow:0 14px 34px rgba(13,54,105,.16)}
+/* カードは節の粒（::after）より上に乗るので、粒が1画素も掛かっていなかった。カードにも同じ粒を掛ける */
+.s2close .in>div::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  background-size:120px 120px;mix-blend-mode:multiply;opacity:.08}
+.s2close .in>div>*{position:relative;z-index:1}
+/* 眉ラベルも <p> なので、`.s2close .in p`(0-2-1) に負けないところまで上げる（16pxで出てしまう）。
+   級数・字間・色は他6つの眉ラベルと同じ値にそろえる（ここだけ13px/.14em/別の橙になっていた） */
+.s2close .in p.en{margin:0;font-size:14px;font-weight:700;letter-spacing:.2em;color:#9C4219}
+/* このページで一番大事な見出しが、章見出し(36px)より小さかった。本文比も1.88倍しかなかった */
+.s2close h3{margin-top:12px;font-size:30px;line-height:1.5;color:var(--ink)}
 .s2close .in p{margin:16px 0 0;font-size:16px;line-height:1.9;max-width:36em;text-align:left;color:var(--ink)}
 .s2close .s2cta{margin:24px 0 0;max-width:480px}
 .s2close .s2cta:active{transform:scale(.97)}
@@ -359,6 +376,10 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 @media (max-width:720px){
   /* 2026-09-07 固定バーは「浮くUIは置かない」指示で撤去 */
   body.saiyo2{padding-bottom:env(safe-area-inset-bottom)}
+  /* 🚨 応募のカードを足したぶん、節の余白24pxと合わせて片側48pxになり、
+     本文の幅が342→292px（−14.6%）・行数が4→6行に増えて読みにくくなっていた。
+     スマホではカードの内側を詰める */
+  .s2close .in>div{padding:28px 16px}
   .s2sec.sec{padding:64px 0}
   .s2career{padding:64px 0}
   .s2film{padding:12px 0}
@@ -428,16 +449,21 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   .s2real{grid-template-columns:1fr 1fr}
   .s2fit{grid-template-columns:1fr 1fr;gap:40px}
   .s2close .in{padding:96px 40px}
-  .s2close h3{font-size:32px}
+  .s2close h3{font-size:36px}
   .s2close .in>div{padding:56px 48px}
 }
 
 @media (min-width:1024px){
   /* 数字カードの3列化と数字の56px化は、カードが十分広くなる1024pxから
      （768pxで3列にすると「8:30〜17:00」が入り切らない） */
-  .s2nums{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* 正社員は横長1枚＋4枚。3列だと3行目に1枚だけ残って空きマスが2つ出るので4列にする */
+  .s2nums{grid-template-columns:repeat(4,minmax(0,1fr))}
   .s2nums dd b{font-size:56px}
   .s2nums dd.sm b{font-size:40px}
+  /* 🚨 この2行を書かないと、上の `.s2nums dd b`（同じ強さで後ろにある）に負けて
+     アルバイトの数字が40pxに戻り、正社員より大きくなる */
+  .s2nums-sub{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s2nums-sub dd b,.s2nums-sub dd.sm b{font-size:24px}
 }
 
 /* 動きを減らす設定の人には、ヒーローの動きを全部止める */
@@ -465,7 +491,8 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 /* 見出しの上限（40pxは本文の2.4倍。合格帯は28〜36px） */
 @media (min-width:1024px){
   .s2sec h2,.s2career h2{font-size:36px}
-  .s2close h3{font-size:32px}
+  /* 応募の見出しは章見出しと同じ36px。ここが一番大事な行なので、章見出しより小さくしない */
+  .s2close h3{font-size:36px}
 }
 
 /* 🚨 ※要確認 は地の色ごとに変える。
