@@ -38,6 +38,8 @@ body{background:var(--white);color:var(--ink);
   font-size:18px;line-height:1.9;letter-spacing:.02em}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
+/* 2026-09-09 地図の iframe はキーボードで入れるのに輪郭が出ていなかった（about の2枚） */
+iframe:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
@@ -600,7 +602,10 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 @media(max-width:900px){
   .ptop{right:16px;bottom:104px;width:44px;height:44px;background:rgba(8,58,80,.82);
     -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-  .backrow .in{padding:20px 24px;gap:16px}
+  /* 🚨 2026-09-09 recruit だけリンクが2つあり、折り返すと当たり判定が8px重なっていた。
+     .crumb a,.backrow a の `margin:-12px -4px`（縦24px）が gap:16px を食う（16−24=−8）。
+     字は重ならないので見た目では分からず、下端を押すと別のリンクへ飛んでいた（幅320〜355で再現） */
+  .backrow .in{padding:20px 24px;column-gap:16px;row-gap:36px}
   .backrow .r{margin-left:0;width:100%;font-size:14px}
   /* 下層はホームへ戻る口を下のバーにも出す */
   .bar .b0{flex:0 0 92px;background:var(--white);color:var(--brand);box-shadow:inset 0 0 0 1px var(--line)}
@@ -1690,7 +1695,10 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
    下へ逃がす旧方式（bottom:180px）では被りが消えない。実測で縦30〜65px・横21px 重なっていた。
    レールが出る1401px以上だけ、横にずらして避ける（レールは右14px＋幅100px＝右端から114px） */
 .bh-scroll{bottom:110px}
-@media (min-width:1401px){ .bh-scroll{right:130px} }
+/* 🚨 2026-09-09 画面が低い（高さ568〜585px）と .quick が上へ伸びて「一時停止」を覆い、
+   ボタンの中心を押すと採用情報へ飛んでいた。.quick は6ページ共通なので触らず、
+   .bh-scroll と同じ作法で映像の釦を左へ逃がす（.quick は right:16px＋幅104px＝右端から120px） */
+@media (min-width:1401px){ .bh-scroll{right:130px} .bh-vtoggle{right:130px} }
 @media (max-width:720px){
   .bluehero{min-height:100svh}
   .bh-photo{position:absolute;inset:0;width:auto;margin:0;order:0}
@@ -2088,7 +2096,10 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   .rnp-cta{padding:0 26px}
   .rnp-lead{grid-template-columns:1fr;align-items:flex-start;gap:18px;padding:24px 26px 22px}
   .rnp-note{padding:16px 26px 18px}
-  .rnp-grid{grid-template-columns:1fr 1fr}
+  /* 🚨 2026-09-09 `1fr` は `minmax(auto,1fr)` なので、セルの min-content（実測200px）より細くならない。
+     361〜427px で板から最大48pxはみ出し、375pxでは「週休2日」の「日」が消えていた（実測）。
+     下限を外して、収まらない語は折り返させる */
+  .rnp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .rnp-grid>div{padding:22px 26px 24px}
   .rnp-grid>div:nth-child(odd){border-left:0}
   .rnp-grid>div:nth-child(n+3){border-top:1px solid var(--line)}
@@ -2109,8 +2120,10 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   .rnp-grid dd{font-size:16px}.rnp-grid dd b{font-size:26px}
   .rnp-val{font-size:16px}.rnp-val b{font-size:26px}
 }
-/* 320〜360px：2列のまま入れるため、値を1段落とし、左の入りも16pxで4帯そろえる */
-@media(max-width:360px){
+/* 320〜430px：2列のまま入れるため、値を1段落とし、左の入りも16pxで4帯そろえる
+   🚨 2026-09-09 上限を360→430pxに広げた。361〜427pxがこの字下げから漏れていて、
+      その帯だけ板から字がはみ出していた（375pxで「日」が完全に消えていた） */
+@media(max-width:430px){
   .rnp-h{padding:12px 16px}
   .rnp-h .k{font-size:15px}
   .rnp-lead{padding:18px 16px 16px}
