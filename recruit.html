@@ -115,11 +115,18 @@
 
 <nav class="crumb" aria-label="現在の場所"><div class="in"><a href="index.html">トップ</a><span aria-hidden="true">＞</span>採用情報</div></nav>
 
+<!-- 2026-09-09 おでん指示「応募質問のところは青くしなくていい。同じ白でいい」＝07の青地を外した。
+     あわせて、指示外の不具合を1件直した：番号が 01→03→06→07 と飛んでいて「02・04・05が壊れている」
+     ように見えていた。節は7つあるのにタブは4つしか載せていなかったのが原因なので、全7節を載せた。
+     🚨 タブの文字は各節の眉ラベル（01 ／ 仕事 など）と1字一句そろえる。別々に育てると必ずズレる -->
 <nav class="s2jump" aria-label="採用情報のページ内メニュー">
-  <a href="#shigoto"><span>01</span>仕事内容</a>
-  <a href="#kyuyo"><span>03</span>給与・待遇</a>
+  <a href="#shigoto"><span>01</span>仕事</a>
+  <a href="#hito"><span>02</span>仲間</a>
+  <a href="#kyuyo"><span>03</span>給与</a>
+  <a href="#michi"><span>04</span>道すじ</a>
+  <a href="#real"><span>05</span>本音</a>
   <a href="#youkou"><span>06</span>募集要項</a>
-  <a href="#entry"><span>07</span>応募・質問</a>
+  <a href="#entry"><span>07</span>応募</a>
 </nav>
 
 <!-- 01 仕事を知る（職種＋1日の流れ） -->
@@ -169,19 +176,66 @@
     <div class="s2band-in" data-rise="0">
       <img src="img/L5_受付.webp" alt="トラックの荷台の前で笑い合う2人のスタッフ" loading="lazy" decoding="async" width="1800" height="1200">
     </div>
+    <!-- 2026-09-09 おでん指示「写真の下に、和気あいあいとしてる雰囲気が伝わる一言を入れて」。
+         🚨「アットホームな職場」は書かない（求人媒体で使い古され、求職者側では警戒される定番語）。
+            「仲が良い」と書かずに、仲が良くなる理由になっている事実（1日じゅう2人1組）で書いた -->
+    <p class="s2band-cap" data-rise="0">朝から夕方まで、ずっと2人1組。写真は配送の合間のひとコマです。</p>
   </div>
 </section>
 
 <!-- 03 給料と待遇 -->
 <section class="sec s2sec" id="kyuyo">
   <div class="wrap">
-    <p class="en" data-rise="0">03 ／ 給料と待遇</p>
-    <h2 data-rise="0">日給11,980円から、手に職まで。</h2>
-    <p class="note" data-rise="0">下の条件は、2026年9月に渡邉社長から直接確認したものです。</p>
+    <!-- 2026-09-09 おでん指示（41〜46）で、この節を組み替えた。
+         ①却下された見出し＝「日給11,980円から、手に職まで。」「アルバイトから手に職」。
+           →「アルバイトから正社員になれる」を軸にし、金額から始めない。この節では「手に職」を使わない
+         ②アルバイトの募集は正社員の後（指示45）。日給を見出し級・wide の大きさで出さない
+         ③正社員で必ず出す4点＝賞与年3回／昇給／年収500万円以下は0人／月給34万円〜（指示46）
+         🚨 昇給の46万円・年収500万円の2つは社長の確認が取れていない。
+            `社長に聞くこと_20260908.md` C-2 でNGが出たら、この2枚を落とす -->
+    <p class="en" data-rise="0">03 ／ 給与</p>
+    <h2 data-rise="0">アルバイトから、正社員へ。</h2>
+    <p class="note" data-rise="0">未経験で入って、正社員になって、上がっていけます。下の条件は、2026年9月に渡邉社長から直接確認したものです。</p>
+
+    <h3 class="s2h" data-rise="0">正社員</h3>
     <dl class="s2nums" data-rise="0">
       <div class="wide">
+        <dt>正社員 月給</dt>
+        <dd><b>34</b><small>万円〜</small>
+        <span class="d">未経験で入った方のスタートの額です。残業なし・週休2日</span></dd>
+      </div>
+      <div>
+        <dt>賞与</dt>
+        <dd class="sm">年<b>3</b><small>回</small>
+        <span class="d">7月・12月・3月。20日締め・当月末払い</span></dd>
+      </div>
+      <div>
+        <dt>昇給</dt>
+        <dd class="sm"><b>34</b><small>→</small><b>46</b><small>万円</small>
+        <span class="d">アルバイトから入社して7年目の社員の実額です。4年目・5年目では40万円になっています</span></dd>
+      </div>
+      <div>
+        <dt>年収500万円以下</dt>
+        <dd><b>0</b><small>人</small>
+        <span class="d">いまの社員に年収500万円以下はいません</span></dd>
+      </div>
+      <div>
+        <dt>体制</dt>
+        <dd><b>2</b><small>人1組</small>
+        <span class="d">先輩と一緒に伺うので、未経験の方も現場で覚えられます</span></dd>
+      </div>
+    </dl>
+    <div class="s2wel" data-rise="0">
+      <span>社会保険完備</span><span>生命保険</span><span>家族手当</span><span>交通費支給（規定内）</span>
+      <span>制服貸与</span><span>エアコン（AC）工事の指導あり</span>
+    </div>
+
+    <h3 class="s2h" data-rise="0">アルバイトは、正社員への入口です</h3>
+    <p class="note" data-rise="0">まずアルバイトの助手として入って、続けられそうなら正社員へ。運転はドライバーにお任せなので、助手席から始められます。実際に、アルバイトから入って7年目で月給46万円になった社員がいます。</p>
+    <dl class="s2nums s2nums-sub" data-rise="0">
+      <div>
         <dt>アルバイトの日給</dt>
-        <dd><b>11,980</b><small>円</small>
+        <dd class="sm"><b>11,980</b><small>円</small>
         <span class="d">別途、交通費1,000円／日払い・週払い対応／現地集合・現地解散も可</span></dd>
       </div>
       <div>
@@ -191,26 +245,7 @@
         <dd class="sm"><b>8:30</b><small>〜</small><b>17:30</b>
         <span class="d">日給保障付き。早く終わった日も日給は満額です</span></dd>
       </div>
-      <div>
-        <dt>体制</dt>
-        <dd><b>2</b><small>人1組</small>
-        <span class="d">先輩と一緒に伺うので、未経験の方も現場で覚えられます</span></dd>
-      </div>
-      <div>
-        <dt>正社員 月給</dt>
-        <dd><b>34</b><small>万円〜</small>
-        <span class="d">未経験のスタートの額。在籍社員の実例：4〜5年目で40万円、7年目で46万円</span></dd>
-      </div>
-      <div>
-        <dt>賞与</dt>
-        <dd class="sm">年<b>3</b><small>回</small>
-        <span class="d">7月・12月・3月。20日締め・当月末払い</span></dd>
-      </div>
     </dl>
-    <div class="s2wel" data-rise="0">
-      <span>社会保険完備</span><span>生命保険</span><span>家族手当</span><span>交通費支給（規定内）</span>
-      <span>制服貸与</span><span>エアコン（AC）工事の指導あり</span>
-    </div>
   </div>
 </section>
 
@@ -269,14 +304,17 @@
 <section class="sec sec-paper s2sec" id="real">
   <div class="wrap">
     <p class="en" data-rise="0">05 ／ 本音</p>
-    <h2 data-rise="0">大変なところも、先に。</h2>
+    <!-- 2026-09-09 おでん指示「大変なところも先に って言葉おかしいよ、直して」。
+         「先に」が何より先なのかを言っておらず、体言止めで主語も述語も無かった。
+         この節の役目（＝良いことより先に、都合の悪いことを言う）が一読で伝わる形に直した -->
+    <h2 data-rise="0">大変なところを、先に言います。</h2>
     <div class="s2real" data-rise="0">
       <div>
         <h3>正直、大変なところ</h3>
         <ul>
           <li>冷蔵庫や洗濯機は重い。体を使う仕事です</li>
-          <li>階段やせまい通路を通す現場もあります</li>
-          <li>お客様のご自宅に上がる仕事なので、あいさつと気配りが要ります</li>
+          <li>階段や狭い通路を通す現場もあります</li>
+          <li>お客様のご自宅に上がる仕事なので、挨拶と気配りが要ります</li>
         </ul>
       </div>
       <div class="yes">
@@ -299,7 +337,7 @@
       <div>
         <h3>向いている人</h3>
         <ul>
-          <li><span class="n">01</span>明るくあいさつができる方</li>
+          <li><span class="n">01</span>明るく挨拶ができる方</li>
           <li><span class="n">02</span>体を動かす仕事を探している方</li>
           <li><span class="n">03</span>「ありがとう」を直接もらいたい方</li>
           <li><span class="n">04</span>手に職をつけたい方</li>
@@ -310,7 +348,8 @@
         <ul>
           <li><span class="n">－</span>ずっとひとりで黙々と作業したい方（2人1組で動きます）</li>
           <li><span class="n">－</span>体を動かしたくない方（家電を運ぶ体力仕事です）</li>
-          <li><span class="n">－</span>毎日同じ場所で働きたい方（現場は日ごとに変わります）</li>
+          <!-- 2026-09-09 おでん指示：「毎日同じ場所で働きたい方」はやめて「車酔いをする人」に差し替え -->
+          <li><span class="n">－</span>車に酔いやすい方（1日トラックで移動し、現場は日ごとに変わります）</li>
         </ul>
       </div>
     </div>
@@ -349,12 +388,12 @@
 </section>
 
 <!-- 06 募集要項 -->
-<section class="sec s2sec" id="youkou">
+<!-- 2026-09-09 おでん指示「これは書かなくていいかな」＝h2「正社員とアルバイト、それぞれの条件。」と
+     note「条件は2026年9月時点のものです。」を削除し、眉ラベルから表へ直行する形にした。
+     🚨 h2 が無くなると、この区画が何かを読み上げる物が消えるので section に aria-label を付ける -->
+<section class="sec s2sec" id="youkou" aria-label="募集要項">
   <div class="wrap">
     <p class="en" data-rise="0">06 ／ 募集要項</p>
-    <!-- 眉ラベルと同じ4字を縦に並べない -->
-    <h2 data-rise="0">正社員とアルバイト、それぞれの条件。</h2>
-    <p class="note" data-rise="0">条件は2026年9月時点のものです。</p>
 
     <h3 class="s2h" data-rise="0">正社員</h3>
     <table class="tbl" data-rise="0">
@@ -384,6 +423,9 @@
       <tr><th scope="row">集合・解散</th><td>現地集合・現地解散も可能です</td></tr>
     </table>
     <p class="note" data-rise="0">※勤務時間・シフト・支払いの条件は、時期によって変わることがあります。</p>
+    <!-- 🚨 更新日を書く場所はサイト内でここ1か所だけ。募集要項の条件を1文字でも変えたら、必ずこの日付も直す。
+         （2026-09-09 おでん指示「いつ更新されてるか分かった方がいい。目立たない形で目につくところに」） -->
+    <p class="s2upd" data-rise="0">最終更新 <time datetime="2026-09-09">2026年9月9日</time></p>
   </div>
 </section>
 
@@ -394,15 +436,15 @@
 <section class="s2close" id="entry">
   <div class="in">
     <div data-rise="0">
-      <h3>まず、話を聞くだけでも。</h3>
-      <p>「正社員の条件を聞きたい」「アルバイトに単発で入りたい」「エアコン工事に興味がある」――どれでも、お気軽に。応募を決める前のご連絡も受け付けています。</p>
+      <!-- 2026-09-09 おでん指示（59）「マジでフランクに、カジュアルな感じを出して」。
+           🚨 本人が例に挙げた「社長とファミレスで」は、実際にそうしているかが未確認なので書いていない。
+              社長に確認が取れたらこの h3 を差し替える（社長に聞くこと_20260908.md に追記済み）。
+           指示（62,63）「応募の流れもいらない。消して」＝矢印の1行を削除した。
+           このページで一番大事なのは「決める前に、一度来てもらう」こと。手順は見せずに、その芯だけ残す -->
+      <h3>まずは、話だけしに来ませんか。</h3>
+      <p>「正社員の条件だけ聞きたい」「単発でアルバイトに入りたい」「エアコン工事って何をするの」――どれでも大丈夫です。応募するかどうかは、話を聞いてから決めてください。1日だけ現場を体験してから決めることもできます。</p>
       <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="close">LINEで話を聞いてみる</a>
       <p class="note2">LINEはいつでも受け付けています。土日祝でもどうぞ。</p>
-      <!-- 🚨 案1（recruit.html）と同じ並びにそろえる。
-           旧採用サイトは「書類選考→面接→会社見学→選考→入社決定」だったが、
-           選考が2回あるように読めるうえ、このページのCTAは全部「LINEで話を聞いてみる」なので
-           1番目が書類選考だと入口と食い違う -->
-      <p class="note2">応募の流れ：LINEでご連絡 → 面接（会社見学だけでも構いません） → 入社・勤務開始</p>
     </div>
   </div>
 </section>

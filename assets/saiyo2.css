@@ -78,7 +78,7 @@
 .s2sec h2,.s2career h2,.s2sec h3,.s2career h3,.s2close h3,.s2sec h4,.s2career h4{letter-spacing:0}
 /* 本文は17px（16pxは合格帯 14/17/18 の下限割れ） */
 .s2lead,.s2jobs p:not(.k),.s2day p,.s2scene p,.s2real li,.s2fit li,.s2faq .a p,
-.s2close>.in>p,.s2said p,.s2career .s2todo{font-size:17px}
+.s2close .in p,.s2said p,.s2career .s2todo{font-size:17px}
 
 /* 確定の待遇札（チェック付きpill。確定した事実だけを入れる） */
 .s2chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;margin-top:24px}
@@ -170,6 +170,8 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 /* ---- 本人の言葉が届くまでの箱（作った文を実在の人に付けないための枠） ---- */
 .s2band-in{margin-top:40px;border-radius:16px;overflow:hidden}
 .s2band-in img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;object-position:50% 38%}
+/* 写真の下の一言（2026-09-09 指示39,40）。写真の説明であって本文ではないので、本文より1段小さく */
+.s2band-cap{margin-top:16px;font-size:15px;line-height:1.8;color:var(--sub)}
 .s2todo-box{margin-top:24px;padding:24px;background:var(--white);border:1px dashed var(--line);
   border-radius:16px}
 .s2todo-box p{font-size:17px;line-height:1.9;color:var(--ink)}
@@ -197,11 +199,21 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2nums dd.sm b{font-size:28px}
 .s2nums dd small{font-size:14px;font-weight:700}
 .s2nums .d{display:block;margin-top:8px;font-size:14px;font-weight:400;line-height:1.7;color:var(--sub)}
+/* アルバイトは正社員の後ろに、小さく置く（2026-09-09 おでん指示45「アルバイトを大きく目立たせるのは違う」）。
+   数字の級数を落として、正社員の箱と見分けがつくようにする */
+.s2nums-sub{margin-top:24px}
+.s2nums-sub>div{background:var(--paper);box-shadow:none}
+.s2nums-sub dd b{font-size:26px}
+.s2nums-sub dd.sm b{font-size:26px}
 .s2wel{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
 .s2wel span{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--brand);
   box-shadow:inset 0 0 0 1px var(--line);font-size:14px;padding:6px 16px;border-radius:999px}
 .s2wel span::before{content:"";width:14px;height:11px;flex:none;background:var(--accent);
   -webkit-mask:var(--check) no-repeat center/contain;mask:var(--check) no-repeat center/contain}
+/* 募集要項の更新日（2026-09-09 指示58「目立たない形で目につくところに」）。
+   🚨 薄い色にすると明暗比の下限（4.5:1）を割る。--sub(#586877) は白地で 5.74 ＝ 基準内。
+   これより薄くしない */
+.s2upd{margin-top:24px;font-size:13px;line-height:1.7;color:var(--sub);letter-spacing:.04em}
 /* 給与モデル（全部仮） */
 .s2model{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
 .s2model>div{background:var(--paper);border-radius:16px;padding:24px 16px}
@@ -296,28 +308,27 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2band img{width:100%;height:auto;display:block;max-width:1440px;margin:0 auto}
 
 /* ---- 締めのCTA ---- */
-.s2close{background:var(--accent);color:#FFF7EA}
+/* 🚨 2026-09-09 おでん指示「そこのオレンジっていうのはセンスないから、全体と合わせて白でいい」。
+   地をオレンジ→白に変えた。文字色 #FFF7EA をそのままにすると白地に白＝1画素も見えなくなるので、
+   この節で色を持っていた宣言（h3・本文・ボタン・注記）を全部たどって同時に直している
+   （2026-09-08 に .bv-k でまったく同じ事故を起こしている）。
+   🚨 色で目立たせていた場所を白にすると「ここが応募」の目印が消える。
+   代わりに、内側を紙色のカードにして上辺に橙の線を引き、ボタンを橙にして位置を保つ。 */
+.s2close{background:var(--white);color:var(--ink)}
 .s2close .in{max-width:var(--max);margin:0 auto;padding:64px 24px;text-align:left}
-.s2close h3{font-size:28px;line-height:1.5;color:#FFF7EA}
-.s2close>.in>p{margin:16px 0 0;font-size:16px;line-height:1.9;max-width:36em;text-align:left}
-.s2close .s2cta{margin:24px 0 0;max-width:480px;background:var(--white);color:var(--ink);
-  box-shadow:0 8px 20px rgba(31,35,40,.2)}
+.s2close .in>div{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--accent);
+  border-radius:20px;padding:40px 24px;box-shadow:0 10px 30px rgba(13,54,105,.07)}
+.s2close h3{font-size:28px;line-height:1.5;color:var(--ink)}
+.s2close .in p{margin:16px 0 0;font-size:16px;line-height:1.9;max-width:36em;text-align:left;color:var(--ink)}
+.s2close .s2cta{margin:24px 0 0;max-width:480px;background:var(--accent);color:#FFF7EA;
+  box-shadow:0 8px 20px rgba(143,60,22,.24)}
 .s2close .s2cta:active{transform:scale(.97)}
-.s2close .tel-row{margin-top:24px;font-size:16px;line-height:2}
-.s2close .tel-row span{display:block}
-/* 🚨 2026-09-05 Web検品：179x22px＝押し所44px未満、しかも :active の変化が0で
-   「押しても何も起きない」画面だった。インライン要素の当たり判定は line-height を含まない。 */
-.s2close .tel-row a{display:inline-block;padding:11px 8px;margin:-11px -8px;
-  color:#FFF7EA;font-weight:700;font-size:22px;text-decoration:none;
-  white-space:nowrap;font-variant-numeric:tabular-nums;border-radius:8px}
-.s2close .tel-row a:active{opacity:.8;transform:translate(1px,1px);background:rgba(255,255,255,.12)}
-.s2close .tel-row a:focus-visible{outline:3px solid #FFF7EA;outline-offset:2px}
 
 /* 共通ヘッダーの2つは style.css の :active 一覧に入っておらず、押しても無反応だった。
    style.css は触れないので、案2のページに限って足す（ロゴはスマホで唯一のトップへ戻る口） */
 body.saiyo2 .logo:active{transform:scale(.97);opacity:.85}
 body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
-.s2close .note2{margin-top:16px;font-size:14px;color:#FFEFE2}
+.s2close .note2{margin-top:16px;font-size:14px;color:var(--sub)}
 
 /* ---- スマホ下部の固定CTA（固定バーはこの1本だけ・主60px） ---- */
 .s2bar{position:fixed;left:0;right:0;bottom:0;z-index:95;display:none;
@@ -369,8 +380,13 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   /* 🚨 PC1440では左右140px・上下12pxの「帯」になっていて、レターボックスに見えていなかった。
      全幅にして上下だけ墨を残す＝本物の横長。あわせて背が縮むので、
      PCの初期画面（折り＝900px）にCTAが入る（実測ではCTAが折りの496px下にあった） */
-  .s2frame{max-width:none}
-  .s2frame img,.s2frame video{aspect-ratio:auto;height:min(38vh,420px);object-position:50% 40%}
+  /* 🚨 2026-09-09 おでん指示「求職者ページの大見出しの写真。顔が見切れないように作って」。
+     Vision実測：動画(1600x900)の顔は A[y201-463] B[y354-492]＝上下に291px必要。
+     40% で切ると左の人の頭が上に最大53px出ていた（1024〜2560の25通りで欠け）。31%に下げた。
+     幅2000px超では元が1600pxしかなく引き伸ばしにもなるので、枠の幅を1920pxで止める
+     （はみ出した分は .s2film の墨色。もともと映画の1カットに見せる作りなので画が締まる） */
+  .s2frame{max-width:1920px}
+  .s2frame img,.s2frame video{aspect-ratio:auto;height:min(38vh,420px);object-position:50% 31%}
   /* 🚨 PCの初期画面（折り＝900px）に応募のCTAが1つも無かった（実測でCTAは折りの496px下）。
      PCには固定バーが無いので、ここに入らないと押す物が画面から消える。
      題字を2段組にして、右側に「日給」と「電話で話を聞いてみる」を上げる */
@@ -405,7 +421,7 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   .s2fit{grid-template-columns:1fr 1fr;gap:40px}
   .s2close .in{padding:96px 40px}
   .s2close h3{font-size:32px}
-  .s2close>.in>p{text-align:left}
+  .s2close .in>div{padding:56px 48px}
 }
 
 @media (min-width:1024px){
@@ -445,8 +461,8 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 }
 
 /* 🚨 ※要確認 は地の色ごとに変える。
-   締め（accent地）で --sub を載せたら明暗比 1.04 ＝ 完全に消えていた */
-.s2close .tmp{color:#FFE6D6}
+   （締めの節は 2026-09-09 に白地へ変えたので、accent地むけの .s2close .tmp は消した。
+     いま .tmp を使っているのは s2career だけ） */
 .s2career .tmp,.s2career .s2todo .tmp{color:#F4F9FE;background:none;box-shadow:none}
 
 /* 副リンクの下線が列幅いっぱい（400px＝文字の3.5倍）に伸びて区切り線に見えていた */
@@ -486,7 +502,9 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
   background-size:120px 120px;mix-blend-mode:multiply;opacity:.05}
-.s2career::after,.s2close::after{mix-blend-mode:screen;opacity:.035}
+/* 白地になった .s2close は screen 合成だと何も乗らない（白のまま）。
+   他の白い節と同じ multiply の粒に戻すため、ここの上書きから外した */
+.s2career::after{mix-blend-mode:screen;opacity:.035}
 
 /* PCの縦700pxのノートでも初期画面にCTAを入れる（1440x700 で18px切れていた） */
 @media (min-width:721px){
@@ -502,7 +520,9 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
    1440x568・2560x1300・3440x1440 で顔が2個→1個。枠の縦横比が約5.8:1を超えると切れる。
    高さの下限を「幅÷5.6」で持たせて、どの窓でも 5.6:1 より横長にしない */
 @media (min-width:721px){
-  .s2frame img,.s2frame video{min-height:calc(100vw / 5.6);max-height:70vh}
+  /* 顔2つ（291px）＋ズーム(scale1.06)ぶんを残すには、枠が 4.8:1 より横長になってはいけない。
+     ただし背の低い窓で画面を埋め尽くさないよう 70vh で頭打ちにする */
+  .s2frame img,.s2frame video{min-height:min(calc(100vw / 4.8),70vh);max-height:70vh}
 }
 /* 記録4：スマホの SCENE 01 は 16:9 に切るので、左の作業者の額から上が消えていた */
 .s2scene .ph img.pos-l{object-position:0% 25%}
@@ -587,16 +607,18 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 .s2alt-links{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center}
 
 /* 長い採用ページの入口で、仕事内容・条件・応募の位置を先に見せる */
-.s2jump{position:sticky;top:var(--head);z-index:40;display:grid;grid-template-columns:repeat(4,1fr);
+/* 🚨 2026-09-09 おでん指示「応募質問のところは青くしなくていい。同じ白でいい」。
+   :last-child の青地・白文字と、その hover・span の色指定をまとめて外した（残すと死にコードになる）。
+   節が4つ→7つになったので、PCは7列、スマホは横スクロールで全部に触れるようにする */
+.s2jump{position:sticky;top:var(--head);z-index:40;display:grid;grid-template-columns:repeat(7,1fr);
   max-width:1160px;margin:0 auto;background:rgba(255,255,255,.96);border:1px solid var(--line);
   box-shadow:0 10px 30px rgba(13,54,105,.10);backdrop-filter:blur(10px)}
-.s2jump a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;padding:10px 14px;
-  color:var(--ink);font-size:15px;font-weight:700;text-decoration:none;border-right:1px solid var(--line)}
-.s2jump a:last-child{border-right:0;background:var(--brand);color:#fff}
+.s2jump a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;padding:10px 10px;
+  color:var(--ink);font-size:15px;font-weight:700;text-decoration:none;border-right:1px solid var(--line);
+  white-space:nowrap}
+.s2jump a:last-child{border-right:0}
 .s2jump span{color:var(--accent);font-size:11px;letter-spacing:.12em}
-.s2jump a:last-child span{color:#F4F9FE}
 .s2jump a:hover{background:var(--paper)}
-.s2jump a:last-child:hover{background:var(--deep)}
 .s2jump a:active{transform:scale(.98)}
 .s2jump a:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
 body.saiyo2 section[id]{scroll-margin-top:70px}
@@ -611,8 +633,16 @@ body.saiyo2 section[id]{scroll-margin-top:70px}
 .s2scene .ph-role{aspect-ratio:16/9}
 .s2nums dt{letter-spacing:.08em}
 @media(max-width:720px){
-  .s2jump{grid-template-columns:repeat(4,minmax(0,1fr));border-left:0;border-right:0}
-  .s2jump a{min-height:54px;padding:7px 3px;gap:3px;flex-direction:column;font-size:11px;line-height:1.2}
+  /* 7つを1画面に押し込むと1つ45pxになって字が読めない。横スクロールにして、
+     指1本で端まで送れるようにする（scroll-snap で1つずつ止まる） */
+  /* 右端をぼかして「まだ先がある」を出す。ぼかしが無いと、5つで終わりだと思われる */
+  .s2jump{display:flex;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;border-left:0;border-right:0;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);
+    mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+  .s2jump::-webkit-scrollbar{display:none}
+  .s2jump a{flex:0 0 auto;min-width:84px;min-height:54px;padding:7px 12px;gap:3px;
+    flex-direction:column;font-size:12px;line-height:1.2;scroll-snap-align:start}
   .s2jump span{font-size:9px}
 }
 @media(max-width:359px){
@@ -641,7 +671,5 @@ body.saiyo2 section[id]{scroll-margin-top:70px}
   .s2scene .ph-role{height:100%;aspect-ratio:auto;min-height:240px}
 }
 
-/* 2026-09-07 応募節の電話2本が縦に22px重なり、浦安の下15%を押すと埼玉にかかっていた。
-   44px確保の負マージンが2行で食い合っていたので、行を箱にして重なりを断つ */
-.s2close .tel-row span{display:flex;align-items:center;min-height:48px;gap:calc(.4em + 8px)}
-.s2close .tel-row a{margin:0 -8px;padding:8px}
+/* 2026-09-08 に電話の案内を全ページから消して LINE 一本化したので、
+   応募節の電話行（.tel-row）むけの指定はすべて削除した（このCSSを読むのは recruit.html だけ） */
