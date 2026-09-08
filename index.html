@@ -242,10 +242,13 @@
       <!-- 🚨 .three（3列用）は外した。待遇の枠が3つ→4つになり、素の4列指定で足りるため。
            CSS側の .rnp-grid.three の定義も一緒に削除した（class だけ外して CSS を残さない） -->
       <dl class="rnp-grid" aria-label="待遇">
-        <div><dt>正社員</dt><dd>月給<b>34</b>万円〜</dd></div>
-        <div><dt>賞与</dt><dd>年<b>3</b>回</dd></div>
-        <div><dt>離職率</dt><dd><b>5</b>%以下</dd></div>
-        <div><dt>働き方</dt><dd>残業なし<span class="sl">／</span>週休<b>2</b>日</dd></div>
+        <!-- 🚨 値の途中で折れないよう .nw を掛ける（CSSで一律 nowrap にすると、
+             幅によっては折り返せずに板から字が出る。実際に2つの幅帯で「日」が欠けた）。
+             「働き方」だけは値が2つあるので、その境目（／の前後）でだけ折れてよい -->
+        <div><dt>正社員</dt><dd><span class="nw">月給<b>34</b>万円〜</span></dd></div>
+        <div><dt>賞与</dt><dd><span class="nw">年<b>3</b>回</span></dd></div>
+        <div><dt>離職率</dt><dd><span class="nw"><b>5</b>%以下</span></dd></div>
+        <div><dt>働き方</dt><dd><span class="nw">残業なし</span><span class="sl">／</span><span class="nw">週休<b>2</b>日</span></dd></div>
       </dl>
 
       <!-- 🚨 昇給の46万円・離職率5%以下・年収500万円は、いずれも社長の確認が取れていない

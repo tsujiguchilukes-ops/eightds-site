@@ -2069,8 +2069,13 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .rnp-grid>div{padding:26px 32px 28px;border-left:1px solid var(--line)}
 .rnp-grid>div:first-child{border-left:0}
 .rnp-grid dt{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--sub)}
+/* 🚨 2026-09-09 ここに一律 `white-space:nowrap` を書いていたのが、板の字が欠ける原因だった。
+   幅で3回（361〜427px／521〜543px）別々の穴が開いたので、作りを変えた。
+   折ってはいけないのは「月給34万円〜」のような値そのものだけなので、
+   HTML側で `<span class="nw">` を掛け、CSSでは一切折らせない指定をしない。
+   （サイトの他の場所と同じ作法。記憶 fix-the-cause-not-the-symptom） */
 .rnp-grid dd{margin:12px 0 0;font-size:22px;font-weight:700;line-height:1.2;color:var(--ink);
-  font-variant-numeric:tabular-nums;white-space:nowrap}
+  font-variant-numeric:tabular-nums}
 .rnp-grid dd b{font-size:36px;font-weight:800;line-height:1;color:var(--brand)}
 
 /* 数字の但し書き：46万円と年収500万円が「誰の・いつの額か」を、板の中で言い切る。
@@ -2133,10 +2138,7 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   .rnp-lead{padding:18px 16px 16px}
   .rnp-grid>div{padding:16px 16px 18px}
   .rnp-cta{padding:0 16px}
-  /* 🚨 2026-09-09 列を minmax(0,1fr) にしても字が板から出続けていた。真犯人は
-     .rnp-grid dd の `white-space:nowrap`（2069行）で、そもそも折り返せなかった。
-     狭い幅だけ解除する（「残業なし ／ 週休2日」が2行になるが枠には収まる） */
-  .rnp-grid dd{font-size:15px;white-space:normal}.rnp-grid dd b{font-size:24px}
+  .rnp-grid dd{font-size:15px}.rnp-grid dd b{font-size:24px}
   .rnp-val{font-size:15px}.rnp-val b{font-size:24px}
 }
 
