@@ -2058,8 +2058,11 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   background:var(--rnp-cream);border-bottom:1px solid var(--line)}
 .rnp-leadtx{min-width:0}
 .rnp-lab{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:#6B5F4C}
+/* 🚨 2026-09-09 ここにも一律 `white-space:nowrap` を書いていた（.rnp-grid dd と同じ形）。
+   同じ書き方で3回、別々の幅帯で字が欠けているので、爆発する前に .nw 方式へそろえた。
+   折ってはいけないのは値そのものだけ。矢印の前後では折れてよい */
 .rnp-val{margin:8px 0 0;font-size:22px;font-weight:700;line-height:1.15;color:var(--ink);
-  font-variant-numeric:tabular-nums;white-space:nowrap}
+  font-variant-numeric:tabular-nums}
 .rnp-val b{font-size:36px;font-weight:800;line-height:1;color:var(--brand)}
 /* 2026-09-08 .rnp-bar（人型を24個＋2個並べる帯）は削除した（おでん「未経験入社の横の人、マークいらないな」）。
    同じことを左の数字（26人中24人）が言っているので、情報は減っていない */
