@@ -199,6 +199,9 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2nums dd.sm b{font-size:28px}
 .s2nums dd small{font-size:14px;font-weight:700}
 .s2nums .d{display:block;margin-top:8px;font-size:14px;font-weight:400;line-height:1.7;color:var(--sub)}
+/* 時間の「〜」。<small>(14px) で挟むと 28pxの数字の間で潰れて「8:30ˇ17:30」に見えるので、
+   単位ではなく区切り記号として、数字に近い大きさで置く */
+.s2nums dd .rng{font-style:normal;font-size:20px;font-weight:700;padding:0 2px}
 /* アルバイトは正社員の後ろに、小さく置く（2026-09-09 おでん指示45「アルバイトを大きく目立たせるのは違う」）。
    数字の級数を落として、正社員の箱と見分けがつくようにする */
 .s2nums-sub{margin-top:24px}
@@ -313,22 +316,27 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
    この節で色を持っていた宣言（h3・本文・ボタン・注記）を全部たどって同時に直している
    （2026-09-08 に .bv-k でまったく同じ事故を起こしている）。
    🚨 色で目立たせていた場所を白にすると「ここが応募」の目印が消える。
-   代わりに、内側を紙色のカードにして上辺に橙の線を引き、ボタンを橙にして位置を保つ。 */
+   代わりに、内側を紙色のカードにして上辺に橙の線を引き、位置を保つ。
+   ボタンの色はここで決めない：style.css:1780 の `.is-line{background:var(--brand)!important}` が
+   勝ってLINEの青になる。ここに橙を書くと、出ている物と食い違う死にコードになる。 */
 .s2close{background:var(--white);color:var(--ink)}
 .s2close .in{max-width:var(--max);margin:0 auto;padding:64px 24px;text-align:left}
 .s2close .in>div{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--accent);
   border-radius:20px;padding:40px 24px;box-shadow:0 10px 30px rgba(13,54,105,.07)}
-.s2close h3{font-size:28px;line-height:1.5;color:var(--ink)}
+/* 眉ラベルも <p> なので、`.s2close .in p`(0-2-1) に負けないところまで上げる（16pxで出てしまう） */
+.s2close .in p.en{margin:0;font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.s2close h3{margin-top:12px;font-size:28px;line-height:1.5;color:var(--ink)}
 .s2close .in p{margin:16px 0 0;font-size:16px;line-height:1.9;max-width:36em;text-align:left;color:var(--ink)}
-.s2close .s2cta{margin:24px 0 0;max-width:480px;background:var(--accent);color:#FFF7EA;
-  box-shadow:0 8px 20px rgba(143,60,22,.24)}
+.s2close .s2cta{margin:24px 0 0;max-width:480px}
 .s2close .s2cta:active{transform:scale(.97)}
 
 /* 共通ヘッダーの2つは style.css の :active 一覧に入っておらず、押しても無反応だった。
    style.css は触れないので、案2のページに限って足す（ロゴはスマホで唯一のトップへ戻る口） */
 body.saiyo2 .logo:active{transform:scale(.97);opacity:.85}
 body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
-.s2close .note2{margin-top:16px;font-size:14px;color:var(--sub)}
+/* 🚨 `.s2close .note2`(0-2-0) は `.s2close .in p`(0-2-1) に負けて丸ごと効いていなかった。
+   添え書きのつもりが本文と同じ 17px・同じ濃さで出ていたので、同じ強さまで上げる */
+.s2close .in p.note2{margin-top:16px;font-size:14px;color:var(--sub)}
 
 /* ---- スマホ下部の固定CTA（固定バーはこの1本だけ・主60px） ---- */
 .s2bar{position:fixed;left:0;right:0;bottom:0;z-index:95;display:none;
@@ -621,7 +629,17 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 .s2jump a:hover{background:var(--paper)}
 .s2jump a:active{transform:scale(.98)}
 .s2jump a:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
-body.saiyo2 section[id]{scroll-margin-top:70px}
+/* 🚨 下へ送っている間、motion.js が .head に tucked を付けてヘッダーを画面外へ逃がす。
+   その時この帯の top が var(--head) のままだと、空いた64px（PCは76px）の穴から本文が覗き、
+   タブだけが宙に浮いた短冊になる。ヘッダーが引っ込んでいる間は上端に貼り付ける */
+body.saiyo2:has(.head.tucked) .s2jump{top:0}
+/* 章送りタブの現在地。31画面ぶんあるページを帯だけで移動するので、
+   いまどの章にいるかが分からないと迷子になる（印は saiyo2.js が付ける） */
+.s2jump a[aria-current="true"]{background:var(--paper);box-shadow:inset 0 -3px 0 var(--accent)}
+.s2jump a[aria-current="true"] span{color:var(--ink)}
+/* 🚨 見出しのidにも効かせる。section[id] だけだと、外から #ichinichi のような
+   見出しのURLを共有された時に、ヘッダーと帯（120〜142px）の下へ潜る */
+body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2bar.has-line{grid-template-columns:1.25fr .75fr}
 .s2jobs .ph img,.s2scene .ph img,.s2band-in img,.s2band img{filter:saturate(.98) contrast(1.02) brightness(1.01)}
 /* 2026-09-09：SCENE 03 に写真（img/AC1_室内機.webp）が入り、文字だけの青板 .ph-role は
@@ -630,11 +648,12 @@ body.saiyo2 section[id]{scroll-margin-top:70px}
 @media(max-width:720px){
   /* 7つを1画面に押し込むと1つ45pxになって字が読めない。横スクロールにして、
      指1本で端まで送れるようにする（scroll-snap で1つずつ止まる） */
-  /* 右端をぼかして「まだ先がある」を出す。ぼかしが無いと、5つで終わりだと思われる */
+  /* 🚨 右端のぼかし（mask-image）は入れて外した。ぼかしは容器の枠に対して固定なので、
+     最後まで送っても最後のタブの右1/3が薄いままになり、そこにフォーカスが当たっても薄い。
+     幅590〜720pxでは7つ全部入りきってスクロールできないのにぼかしだけ残る。
+     「まだ先がある」は、5つ目が端で切れて見えること自体で足りる */
   .s2jump{display:flex;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
-    -webkit-overflow-scrolling:touch;border-left:0;border-right:0;scrollbar-width:none;
-    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);
-    mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+    -webkit-overflow-scrolling:touch;border-left:0;border-right:0;scrollbar-width:none}
   .s2jump::-webkit-scrollbar{display:none}
   .s2jump a{flex:0 0 auto;min-width:84px;min-height:54px;padding:7px 12px;gap:3px;
     flex-direction:column;font-size:12px;line-height:1.2;scroll-snap-align:start}
@@ -650,8 +669,12 @@ body.saiyo2 section[id]{scroll-margin-top:70px}
 
 /* 2026-09-07 語中改行の抑止（日本語チェック君の実測：320pxで8か所・390pxで2か所を解消） */
 @supports (word-break:auto-phrase){
+  /* 2026-09-09 追加：新しく足した2つ（.s2band-cap／.s2upd）と、実測で割れていた
+     本音の箇条書き・募集要項の表を対象に入れる。ここに入れ忘れると同じ節の中で
+     1つの文だけ防波堤が無い状態になる */
   .s2lead,.note,.note2,.s2faq summary,h1,h2,h3,
-  .s2jobs p,.s2scene p,.s2day p{word-break:auto-phrase;overflow-wrap:normal}
+  .s2jobs p,.s2scene p,.s2day p,
+  .s2band-cap,.s2upd,.s2real li,.s2fit li,.tbl td{word-break:auto-phrase;overflow-wrap:normal}
 }
 
 /* 2026-09-07 固定バー撤去の後始末。style.css の @media(max-width:900px){body{padding-bottom:96px}}

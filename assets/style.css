@@ -1745,8 +1745,10 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 }
 
 /* ===== 2026-09-07 実機指摘まとめ（おでん・深夜レビュー） ===== */
-/* 見出しの語中改行を防ぐ（「つ／なぐ」切れ。対応外ブラウザでは無視される） */
-h1,h2,h3,.bh-lead{word-break:auto-phrase}
+/* 見出しの語中改行を防ぐ（「つ／なぐ」切れ。対応外ブラウザでは無視される）
+   2026-09-09：代表の挨拶の本文（.msg .body p）が対象から漏れていて、3幅すべてで
+   「お引き／受け」と割れていた。このページで一番読まれる文なので足す */
+h1,h2,h3,.bh-lead,.msg .body p{word-break:auto-phrase}
 
 /* ヒーロー：白いチップ廃止→ひとことメッセージ */
 .bh-msg{margin-top:28px;color:#fff;font-size:21px;font-weight:700;letter-spacing:.1em;

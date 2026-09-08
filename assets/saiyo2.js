@@ -126,3 +126,58 @@
     t = setTimeout(function () { t = null; showInView(); }, 120);
   }, { passive: true });
 })();
+
+/* -----------------------------------------------------
+   6) 章送りタブの現在地（2026-09-09）
+      このページはスマホで31画面ぶんある。帯のタブ7つが全部同じ見た目だと、
+      いまどの章を読んでいるのかを確かめる手がかりが1つも無い。
+      隠れ線（帯の下端）を越えた最後の節を「いま」とみなして印を付ける。
+      🚨 印は見た目だけでなく aria-current で持たせる（読み上げにも同じことが伝わる）。
+   ----------------------------------------------------- */
+(function () {
+  var nav = document.querySelector('.s2jump');
+  if (!nav) return;
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+  if (links.length < 2) return;
+  var targets = links.map(function (a) {
+    try { return document.querySelector(a.getAttribute('href')); } catch (e) { return null; }
+  });
+  var now = -2;
+
+  var mark = function (i) {
+    if (i === now) return;
+    now = i;
+    links.forEach(function (a, n) {
+      if (n === i) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+    /* 横スクロールの帯では、印を付けた札が画面の外にいることがある。その時だけ寄せる */
+    if (i >= 0 && nav.scrollWidth > nav.clientWidth) {
+      var a = links[i];
+      var l = a.offsetLeft, r = l + a.offsetWidth;
+      if (l < nav.scrollLeft || r > nav.scrollLeft + nav.clientWidth) {
+        nav.scrollTo({ left: Math.max(0, l - 12), behavior: 'smooth' });
+      }
+    }
+  };
+
+  var pick = function () {
+    var line = nav.getBoundingClientRect().bottom + 8;
+    var cur = -1;
+    for (var n = 0; n < targets.length; n++) {
+      var el = targets[n];
+      if (!el) continue;
+      if (el.getBoundingClientRect().top <= line) cur = n;
+    }
+    mark(cur);
+  };
+
+  var q = false;
+  window.addEventListener('scroll', function () {
+    if (q) return;
+    q = true;
+    requestAnimationFrame(function () { q = false; pick(); });
+  }, { passive: true });
+  window.addEventListener('resize', pick, { passive: true });
+  pick();
+})();
