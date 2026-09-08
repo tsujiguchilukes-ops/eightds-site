@@ -137,7 +137,7 @@
     <button class="mtoggle" type="button" aria-expanded="false" aria-controls="indexGnav">メニュー</button>
     <div class="r2" id="indexGnav"><div class="in">
     <ul class="gnav">
-      <li><a href="about.html" aria-haspopup="true">私たちのこと</a>
+      <li><a href="about.html" aria-haspopup="true">会社概要</a>
         <ul class="drop">
           <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
           <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
@@ -184,9 +184,23 @@
   <button class="bh-vtoggle" type="button" aria-pressed="false">一時停止</button>
   <div class="bh-in">
     <p class="bh-en"><span class="nw">正社員｜配送スタッフ</span> ／ <span class="nw">浦安本社・埼玉営業所</span></p>
-    <h1 class="bh-h1"><span class="hl is-on"><span class="ln"><span>ふたりで、</span></span><span class="ln"><span>行くしごと。</span></span><span class="ln"><span>はじめよう</span></span></span><span class="hl"><span class="ln"><span>もちかたから、</span></span><span class="ln"><span>おぼえる。</span></span><span class="ln"><span>先輩の隣で。</span></span></span><span class="hl"><span class="ln"><span>まちまで、</span></span><span class="ln"><span>はこぶ。</span></span><span class="ln"><span>ふたりで。</span></span></span><span class="hl"><span class="ln"><span>つけて、</span></span><span class="ln"><span>つないで、</span></span><span class="ln"><span>わたす。</span></span></span></h1>
+    <h1 class="bh-h1"><span class="ln"><span>未経験から、</span></span><span class="ln"><span>手に職を。</span></span></h1>
+    <!-- 2026-09-08 おでん指示で「映像に合わせて4本切り替え」を廃止し、1本固定にした。
+         理由：おでんの端末は「動きを減らす」設定なので、本人には1本目しか出ていない＝切り替えは見えていない。
+         文言は同業39社の実測から：見出しに「未経験」を置く会社 0/37社・「手に職」も 0/37社（空き席）。
+         11字・漢字比率55.6%（家電配送・設置カテゴリ9社の中央値57.1%とほぼ同じ）。
+         🚨 旧4本は全部ひらがな書き下しで漢字比率0〜7.1%＝37社の最下位帯だった（おでん「センスなさすぎる」）。
+         🚨 .ln は1行＝1マスク。2行なので .ln は2つ。3つ目を足すと空行が出る -->
     <!-- 2026-09-07 h1を具体語へ（旧「動かすのは、人の暮らしと、もっといい未来。」21字・具体語0・価値形容詞1） -->
-    <p class="bh-lead">冷蔵庫、洗濯機、テレビ、エアコン。<br class="sponly">家電量販店からお預かりした家電を、東京・千葉・埼玉のご自宅へ。<span class="nw">社員26人のうち、24人が未経験で入りました。</span></p>
+    <!-- 2026-09-08 おでん指示：「冷蔵庫、洗濯機、テレビ、エアコン。／家電量販店からお預かりした家電を、
+         東京・千葉・埼玉のご自宅へ。」は削除（おでん「ここは書かずに」）。採用特化にする。
+         🚨 削除した2文は「何の会社か」を言う唯一のヒーロー内の説明だったので、
+            2人1組と家電はこのリードの2文目で回収し、地域と荷主は 01／業務内容 側で受ける。
+         🚨 「離職率は5%以下」は社長未確認（おでんの口頭・2026-09-08 に2回）。
+            社長に聞くこと_20260908.md に確認欄あり。NG が出たらこの1節だけ落とす -->
+    <!-- 🚨 おでんの言い方は「社員26人が未経験から。」だったが、実際は26人中24人（経験者が2人いる）。
+         言い回しだけ採って、数字は事実のままにした → [[dont-guess-counts-verify-them]] -->
+    <p class="bh-lead"><span class="nw">社員26人のうち、24人が未経験から。</span><br class="sponly">2人1組で家電を運び、取り付ける仕事で、<span class="nw">離職率は5%以下です。</span></p>
     <div class="bh-acts">
       <a class="bh-btn main" href="recruit.html">採用情報を見る<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
       <a class="bh-btn ghost" href="business.html">法人のお客様へ<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
@@ -203,23 +217,41 @@
   <div class="wrap">
     <div class="rnp">
 
-      <p class="rnp-h"><span class="k">採用条件</span></p>
+      <!-- 2026-09-08 おでん指示：「言い切って、目につくような形でタイトル」。
+           帯の小さな眉ラベル（13px・字間.28em）では主張にならないので、見出しの大きさに上げた。
+           🚨 「！」は付けていない。おでんは「ビックリマークじゃなくても、言い切って目につけばいい」と言っており、
+              同業39社の実測でも見出しの「！」は0社。大きさと言い切りで主張を作る。
+           🚨 離職率5%以下は下の枠に数字で出るので、見出しでは繰り返さない -->
+      <p class="rnp-h"><span class="k">未経験から入って、辞めない会社です。</span></p>
 
+      <!-- 2026-09-08 おでん指示：人型のマーク（.rnp-bar）を削除し、空いた所に昇給を置いた。
+           🚨 マークが持っていた「24 対 2」の情報は数字（26人中24人）が同じことを言っているので、
+              消しても伝わる内容は減らない。role="img" と aria-label も一緒に消えるが、
+              読み上げは左の数字がそのまま読まれるので欠落しない -->
       <div class="rnp-lead">
         <div class="rnp-leadtx">
           <p class="rnp-lab">未経験入社</p>
           <p class="rnp-val"><b>26</b>人中<b>24</b>人</p>
         </div>
-        <span class="rnp-bar" role="img" aria-label="26人のうち24人が未経験入社">
-          <b style="--n:24"></b><i style="--n:2"></i>
-        </span>
+        <div class="rnp-leadtx">
+          <p class="rnp-lab">昇給</p>
+          <p class="rnp-val">月給<b>34</b>万円 → <b>46</b>万円</p>
+        </div>
       </div>
 
-      <dl class="rnp-grid three" aria-label="待遇">
+      <!-- 🚨 .three（3列用）は外した。待遇の枠が3つ→4つになり、素の4列指定で足りるため。
+           CSS側の .rnp-grid.three の定義も一緒に削除した（class だけ外して CSS を残さない） -->
+      <dl class="rnp-grid" aria-label="待遇">
         <div><dt>正社員</dt><dd>月給<b>34</b>万円〜</dd></div>
         <div><dt>賞与</dt><dd>年<b>3</b>回</dd></div>
+        <div><dt>離職率</dt><dd><b>5</b>%以下</dd></div>
         <div><dt>働き方</dt><dd>残業なし<span class="sl">／</span>週休<b>2</b>日</dd></div>
       </dl>
+
+      <!-- 🚨 昇給の46万円・離職率5%以下・年収500万円は、いずれも社長の確認が取れていない
+           （おでんの口頭・2026-09-08）。社長に聞くこと_20260908.md に確認欄あり。
+           NGが出たら、この注記と離職率の枠、昇給の46万円を落とす -->
+      <p class="rnp-note">昇給の額は、アルバイトから入社して7年目の社員の実額です。<span class="nw">いまの社員に年収500万円以下はいません。</span></p>
 
       <p class="rnp-foot"><a class="rnp-cta" href="recruit.html#youkou">募集要項を見る<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M1 5h11M8.5 1.5 12 5l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a></p>
 
@@ -228,7 +260,11 @@
 </div>
 
 <!-- 入口カードの直後に実際の現場を見せ、文字だけの区間を続けない -->
-<div class="band face is-people band-first">
+<!-- 2026-09-08 おでん指示：「その下の写真、結構アップになっちゃってるんだけど、もうちょっと小さくして、
+     二人の顔がちゃんと写る形で配置できないかな」→ 全幅の帯（高さ380px・切り取り表示）をやめ、
+     写真を丸ごと・中央に・小さく置く形にした（.is-fit）。
+     🚨 about.html の同じ .band.face.is-people は触っていない（おでんが指したのはトップのこの1枚） -->
+<div class="band face is-people band-first is-fit">
   <img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" width="1800" height="1200" loading="lazy">
 </div>
 
@@ -248,32 +284,37 @@
 <section class="sec">
   <div class="wrap">
     <p class="en" data-rise="0">01 ／ 業務内容</p>
-    <h2 data-rise="0">配送から、設置・取付、お引き取りまで。</h2>
-    <p class="note" data-rise="0">お預かりした商品を、<span class="nw">使えるところまで。</span></p>
+    <!-- 2026-09-08 おでん指示：3枚の役割を「搬入／設置／回収」に切り直した。
+         旧構成は 01 が「運ぶ」と「設置・接続」の両方を言っていて、02 の設置と中身が重なっていた
+         （おでん「ここ1と2が混ざっちゃってる」）。見出しと注記も3枚に合わせて引き直している -->
+    <h2 data-rise="0">搬入から、設置、回収まで。</h2>
+    <p class="note" data-rise="0">お預かりした商品は、<span class="nw">設置後の動作確認まで行います。</span></p>
     <div class="svc3" data-rise="0" role="list">
       <article class="svc3i" role="listitem">
         <div class="svc3ic" aria-hidden="true">
           <svg viewBox="0 0 64 64"><path d="M10 18h33v33H10zM43 29h7l6 9v13H43M19 51a5 5 0 1 0 10 0M45 51a5 5 0 1 0 10 0M17 26h19M17 34h19"/></svg>
         </div>
         <p class="svc3n">SERVICE 01</p>
-        <h3>家電の配送・設置</h3>
-        <p>冷蔵庫・洗濯機・テレビなどを2人1組で運び、開梱・設置・接続まで行います。</p>
+        <h3>家電の搬入</h3>
+        <!-- 🚨 「2人1組」だけ nw で括る。実測で「2人／1組」と語の途中で割れていた。
+             長い句を nw にすると grid の min-content が伸びて幅320pxで47pxはみ出す（今日1度やった）ので、短く括る -->
+        <p>冷蔵庫・洗濯機・テレビなどを<span class="nw">2人1組</span>で運び、お部屋まで搬入します。</p>
       </article>
       <article class="svc3i" role="listitem">
         <div class="svc3ic" aria-hidden="true">
           <svg viewBox="0 0 64 64"><rect x="9" y="12" width="46" height="22" rx="2"/><path d="M17 23h30M20 43c4-6 20-6 24 0M24 51c3-4 13-4 16 0"/></svg>
         </div>
         <p class="svc3n">SERVICE 02</p>
-        <h3>電気工事</h3>
-        <p>エアコン・アンテナ・<span class="nw">温水洗浄便座</span>を取り付けます。入れ替えのときの取り外しも承ります。</p>
+        <h3>設置・取付</h3>
+        <p>主にエアコン・冷蔵庫・洗濯機・テレビを設置し、動作を確認します。入れ替えのときの取り外しも承ります。</p>
       </article>
       <article class="svc3i" role="listitem">
         <div class="svc3ic" aria-hidden="true">
           <svg viewBox="0 0 64 64"><path d="M18 19h28l-2 35H20zM14 19h36M25 19v-7h14v7M27 28v17M37 28v17"/></svg>
         </div>
         <p class="svc3n">SERVICE 03</p>
-        <h3>古い家電のお引き取り</h3>
-        <p>新しい家電の設置に合わせて、古い家電を同じトラックで<span class="nw">お引き取りします。</span></p>
+        <h3>使わなくなった家電の回収</h3>
+        <p>新しい家電の設置に合わせて、古い家電のお引き取りまで行います。</p>
       </article>
     </div>
     <p class="next" data-rise="0"><a href="service.html">サービスの詳細を見る</a></p>
@@ -285,7 +326,7 @@
   <div class="wrap">
     <figure class="wph">
       <img src="img/L1_積込.webp" alt="大型の洗濯機の箱をトラックへ積み込むところ" width="1800" height="1200" loading="lazy" decoding="async">
-      <figcaption><span>積み込む</span>その日のルートを確かめて、荷台へ。</figcaption>
+      <figcaption><span>積み込む</span>その日のルートを確かめて、<span class="nw">荷台へ積み込みます。</span></figcaption>
     </figure>
     <figure class="wph">
       <img src="img/V5_搬出.webp" alt="住宅街のお客様のご自宅の前で荷を降ろすところ" width="1800" height="1200" loading="lazy" decoding="async">
@@ -295,11 +336,15 @@
 </div>
 
 <!-- エリア -->
-<section class="sec" id="area">
+<!-- 2026-09-08 おでん指示：「大見出しとかの分は全部いらない。そのままダイレクトに地図で2拠点ってわかるようにすればいい」
+     → h2「浦安本社と、埼玉営業所。」と note「東京をはさんで東と西。2つの事務所から現場へ向かいます。」を削除。
+     🚨 h2 が無くなると section に見出しが1つも無くなるので aria-label を付けた（読み上げで区画名が消えないように）。
+     🚨 眉ラベル「02 ／ 拠点」は残した。理由＝これは大見出しではなく節の通し番号で、
+        ここだけ消すと 01 → 03 と番号が飛んで「壊れている」ように見えるため。
+     🚨 地図の svg には role="img" と aria-label が入っているので、文を消しても内容は欠落しない -->
+<section class="sec" id="area" aria-label="拠点">
   <div class="wrap">
     <p class="en" data-rise="0">02 ／ 拠点</p>
-    <h2 data-rise="0">浦安本社と、埼玉営業所。</h2>
-    <p class="note" data-rise="0">東京をはさんで東と西。2つの事務所から<span class="nw">現場へ向かいます。</span></p>
     <div class="area">
       <div data-rise="0">
 <svg class="jmap" viewBox="0 0 1000 1014" role="img" aria-label="拠点の地図。浦安本社と埼玉営業所の位置。">
@@ -320,12 +365,15 @@
         <div class="ocard" data-rise="0">
           <p class="k">HEAD OFFICE</p>
           <h3>浦安本社</h3>
-          <address>〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室</address>
+          <!-- 2026-09-08 おでん指示「住所、改行見やすいようにして」。
+               🚨 1行のベタ書きだと幅によって「舞浜ガーデン／ヒルズ」と建物名の途中で割れる。
+                  〒／町名番地／建物名の3つに分けて、割れてよい所でだけ改行させる -->
+          <address><span class="nw">〒279-0043</span> <span class="nw">千葉県浦安市富士見3-11-1</span> <span class="nw">舞浜ガーデンヒルズ207号室</span></address>
         </div>
         <div class="ocard" data-rise="0">
           <p class="k">SAITAMA</p>
           <h3>埼玉営業所</h3>
-          <address>〒352-0011 埼玉県新座市野火止2-11-25</address>
+          <address><span class="nw">〒352-0011</span> <span class="nw">埼玉県新座市野火止2-11-25</span></address>
         </div>
       </div>
     </div>
@@ -337,9 +385,13 @@
      （消したのは V2_手元。同じ「荷を降ろす」絵が上の現場3枚と重なっていた） -->
 <figure class="bandcap">
   <div class="band">
-    <img src="img/L2_トラック列.webp" alt="積み終えたトラックの前に並ぶ配送の四人" width="1800" height="1200" loading="lazy">
+    <!-- 🚨 キャプションを消したぶん、alt に「どこで・何をしている所か」まで入れる。
+         読み上げで文脈が落ちないようにする（Codex指摘） -->
+    <img src="img/L2_トラック列.webp" alt="浦安本社の車庫で、積み終えたトラックの前に並び、これから現場へ出る配送スタッフ四人" width="1800" height="1200" loading="lazy">
   </div>
-  <figcaption><span>現場へ出る</span>浦安本社と埼玉営業所の2拠点から、その日の担当先へ。</figcaption>
+  <!-- 2026-09-08 おでん指示でキャプションだけ削除（「ここの言葉いらない」。写真は残す）。
+       🚨 説明は img の alt が担う。alt「積み終えたトラックの前に並ぶ配送の四人」で中身は伝わる -->
+
 </figure>
 
 <!-- 事実 -->
@@ -348,9 +400,9 @@
     <p class="en" data-rise="0">03 ／ 会社概要</p>
     <!-- 🚨 「拠点」「対応エリア」は 02 の地図＋拠点カード（住所・電話つき）で既に出している。
          ここで繰り返すと、読み手は「さっき読んだ」と感じて以降を流す（2026-09-03 フェイブル指摘） -->
-    <h2 data-rise="0">1986年創業。家電の配送・設置ひとすじ。</h2>
+    <h2 data-rise="0">1986年創業。家電の配送・設置一筋。</h2>
     <dl class="facts two" data-rise="0">
-      <div><dt>この道</dt><dd>40<small>年</small><span class="d">1986年創業。家電の配送・設置ひとすじ</span></dd></div>
+      <div><dt>この道</dt><dd>40<small>年</small><span class="d">1986年創業。家電の配送・設置一筋</span></dd></div>
       <div><dt>許認可</dt><dd>5<small>件</small><span class="d">電気工事業登録／産業廃棄物収集運搬業（4都県）</span></dd></div>
     </dl>
 
@@ -375,7 +427,11 @@
     <img src="img/P2_二人.webp" alt="2人1組で現場へ向かうところ" loading="lazy" width="1800" height="1200">    <div class="g">
       <p class="k">RECRUIT</p>
       <h3>仕事をお探しの方へ</h3>
-      <p>未経験から始めた社員が、26人のうち24人。<span class="nw">手に職がつく仕事です。</span></p>
+      <!-- 2026-09-08 おでん指示：「ここ 未経験でも手に職を みたいな言葉が欲しいな。追加でね」
+           🚨 本文の末尾にあった「手に職がつく仕事です。」は、この1行と同じことを言うので外した。
+              残すとヒーローの大見出しと合わせて1画面に「手に職」が3回出る -->
+      <p class="gsub">未経験でも、手に職を。</p>
+      <p>未経験から始めた社員が、<span class="nw">26人のうち24人。</span></p>
       <span class="go">採用情報を見る →</span>
     </div>
   </a>
@@ -406,7 +462,7 @@
       </div>
       <ul class="fnav">
         <li class="t">会社について</li>
-        <li><a href="about.html">私たちのこと</a></li>
+        <li><a href="about.html">会社概要</a></li>
         <li><a href="about.html#outline">会社概要・沿革</a></li>
         <li><a href="about.html#license">許認可</a></li>
       </ul>

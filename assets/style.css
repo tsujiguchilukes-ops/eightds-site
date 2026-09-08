@@ -176,11 +176,18 @@ a{color:inherit}
 }
 
 /* ========== 右端の固定クイックアクセス ========== */
-.quick{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column}
-.quick a{width:88px;padding:16px 8px;background:var(--deep);color:#fff;text-decoration:none;text-align:center;
-  font-size:14px;font-weight:700;line-height:1.5;border-bottom:1px solid rgba(255,255,255,.18);
+/* 2026-09-08 おでん指示：右端に貼り付いて見切れていたので、右に余白を取って浮かせる。
+   🚨 right:0 だと角丸も影も画面の外で切れて「見切れている」ように見える */
+.quick{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:80;
+  display:flex;flex-direction:column;gap:10px}
+.quick a{width:104px;min-height:78px;padding:14px 8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--deep);color:#fff;text-decoration:none;text-align:center;
+  font-size:14px;font-weight:700;line-height:1.5;
   transition:background-color .16s var(--ease)}
-.quick a:last-child{border-bottom:0}
+/* 🚨 2026-09-08 .quick a:last-child{border-bottom:0} を削除した。
+   1枚の板だった頃に「最後の仕切り線」を消すためのものだったが、
+   4つの独立した角丸ボタンにしたので、最後のボタン（法人の電話相談）だけ下辺が消えていた（実測 枠下0px） */
 .quick a:hover{background:var(--accent)}
 .quick .ico{display:block;width:22px;height:22px;margin:0 auto 4px;stroke:currentColor;fill:none;
   stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -758,7 +765,11 @@ a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):not(.bar a):not(
   text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 /* 余白は上の :not() で既に付かないので、ここで padding を書かない。
    書くと .bar a / .quick a 自身の余白まで消して、電話だけ背が低くなる（実測 47px vs 80px） */
-.bar a[href^="tel:"],.quick a[href^="tel:"]{margin:0;border-bottom:0}
+/* 🚨 2026-09-08 ここから border-bottom:0 を外した。
+   属性セレクタのぶん詳細度が高く、後ろで .quick a / .bar a に付けた枠線の「下辺だけ」を消してしまう。
+   電話のボタンだけ下の線が無い状態になっていた（角丸ボタンにしたことで見えるようになった）。
+   下線を消す目的は、上の :not(.bar a):not(.quick a) で既に果たしている */
+.bar a[href^="tel:"],.quick a[href^="tel:"]{margin:0}
 /* ボタンは .btn の見た目のまま。押し所も .btn の padding で44pxを満たす */
 .btn[href^="tel:"]{margin:0;border-bottom:0}
 /* フッターの番号は白い太字で既に押せると分かる。下線は負のマージンで次の行に重なり、
@@ -945,8 +956,8 @@ h2{letter-spacing:.05em}
 /* クイックアクセス（右端）：インクの箱＋紙文字。
    88pxだと内側72pxに「倉庫・拠点」（14px×5字＋字間≒71.5px）が入らず2行に割れていた。
    96px（8の倍数）で内側80px。indexの章目盛り .chap2（right:112px）との間は24→16pxに縮むが重ならない */
-.quick a{width:96px;background:var(--deep);border-left:2px solid var(--ink-deep);
-  border-bottom:1px solid rgba(251,246,233,.2)}
+/* 2026-09-08 1枚の板を4つの独立したボタンに分けたので、板を繋いでいた罫（border-left / border-bottom）は消した。
+   幅は下の層（角丸ボタン）で 104px に決めている */
 .quick a:hover{background:var(--accent)}
 
 /* ボタン：紙の板＋インクの縁＋右下ずらし影。押した瞬間に沈む */
@@ -1098,6 +1109,19 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
 /* 🚨 15%だと1920px幅でアゴが切れる（2026-09-04 実測）。21%は320〜1920の全幅で顔が丸ごと入る */
 .band.face img{object-position:center 21%}
 
+/* 2026-09-08 「丸ごと見せる帯」。全幅＋高さ380pxの切り取りだと、PCでは元画像の縦39.6%しか映らない。
+   L4_台車 は2人の顔が縦4〜25%にあるので、21%起点の窓では頭が切れ、しかも人が大きく写りすぎる。
+   → 切り取りをやめて写真を丸ごと出し、幅を760pxに抑えて人を小さくする。
+   🚨 顔切れは構造的に起きない（画像を1画素も切らないため）。object-position の%調整は使わない
+      （幅によって必要な値が変わり、解が無いことを2026-09-04に実測済み） */
+.band.is-fit{height:auto;background:none;overflow:visible;padding:0 24px}
+/* 🚨 !important は付けない。このセレクタは .band>img より詳細度が高いので、素の animation:none で勝てる
+   （Codex指摘で確認）。!important にすると、将来この写真だけに動きを足したいときに効かなくなる */
+.band.is-fit>img{position:static;display:block;width:min(760px,100%);height:auto;
+  margin:0 auto;border-radius:16px;transform:none;animation:none}
+.band.is-fit::before,.band.is-fit::after{display:none}
+.band.is-fit:hover>img{transform:none}
+
 /* === 見出しを文節で折り返す（2026-09-03）=========================
    日本語はブラウザが単語の区切りを知らないので、「協力会社を募／集しています」
    「お届けしたあとま／でが」のように語の真ん中で割れる。CSSだけでは直せない。
@@ -1198,13 +1222,18 @@ h1,h2,h3,.logo,.phead h1,.entries b,.gate h3{font-weight:700;letter-spacing:.02e
 .gate{border:1px solid var(--line);border-radius:16px}
 .bar a,.bbar a,.s2bar a{border-radius:12px;border:1px solid var(--line)}
 .ptop{border-radius:999px;border:1px solid var(--line);box-shadow:0 10px 24px var(--shadow-soft)}
-.quick{border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(13,54,105,.18);
-  border:1px solid var(--line)}
-.quick a{background:rgba(255,255,255,.94);color:var(--deep);border-bottom:1px solid var(--line)}
-.quick a:last-child{border-bottom:0}
+/* 2026-09-08 おでん指示で作り直し：
+   ①「見切れてる」→ 板をやめて右に16px浮かせた（上の層）
+   ②「ちょっと丸みを帯びた四角いボタン」→ 4つを独立した角丸ボタンに分けた
+   ③「クリーム色っていうの、微妙だよ」→ 半透明の白(.94)をやめて不透明の白にした。
+      半透明だと下のクリーム地（#FBF6E9 など）が透けて、ボタン自体がクリーム色に見えていた */
+.quick{border-radius:0;overflow:visible;box-shadow:none;border:0;background:none}
+.quick a{background:var(--white);color:var(--deep);
+  border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 6px 18px rgba(13,54,105,.14)}
 .quick a:hover{background:var(--paper)}
-.quick a:first-child{background:var(--brand);color:#fff}
-.quick a:first-child:hover{background:var(--deep)}
+.quick a:first-child{background:var(--brand);color:#fff;border-color:var(--brand)}
+.quick a:first-child:hover{background:var(--deep);border-color:var(--deep)}
 .quick .ico{stroke:currentColor}
 .tbl,.bnums>div,.bwel span,.bjobs article,.breal>div,.bfit>div,.bfaq details,
 .bday>div,.bmodel>div,.bstaff article,.bint,.bsns>div,.bchips span,.bfv-fact,
@@ -1288,7 +1317,9 @@ thead th{background:var(--deep);border-color:var(--deep)}
   box-shadow:0 16px 40px rgba(13,54,105,.14);border:1px solid var(--line)}
 
 /* 声の3枚 */
-.bluevoice{padding:76px 0 8px;background:var(--white)}
+/* 2026-09-08 おでん指示：上76px・下8px＝9.5倍の差があり、カードが節の下端に貼り付いていた。
+   「もうちょっと上にずらして、上下の間隔を均等に」→ 上を減らし下を増やして同じ値にする */
+.bluevoice{padding:56px 0 56px;background:var(--white)}
 .bv-k{font-size:13px;letter-spacing:.22em;font-weight:700;color:var(--brand);margin-bottom:22px}
 .bv-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .bv-note{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 24px 18px;position:relative}
@@ -1395,8 +1426,10 @@ thead th{background:var(--deep);border-color:var(--deep)}
 .fnav .t{color:#BFDCF9}
 .fnav a{color:#F4F9FE}
 .copy,.copy span,.copy a{color:#BFDCF9}
-/* #4: quickレールの2px墨枠 */
-.quick a{border-left:0}
+/* #4: quickレールの2px墨枠を消す指定だったが、2026-09-08 にレールを
+   「4つの独立した角丸ボタン」に作り替えたので用済み。
+   🚨 残すと、後ろで付けた border:1px の**左辺だけ**を後勝ちで消してしまう（Codex指摘で実測）。
+   ボタンの左だけ線が無い状態になっていた */
 /* #5: recruitヒーローのボタン＝角0・墨枠・旧インクのベタ影 → ピル＋ぼかし影 */
 .hact{border-radius:999px !important;border:0 !important;
   box-shadow:0 10px 26px rgba(8,48,100,.35) !important;color:#fff !important}
@@ -1485,10 +1518,20 @@ h2{font-size:36px}
 /* ---- B-8: 旧テラコッタ期の取り残し（実測90箇所超）と検索レールの当たり ---- */
 .cta .en,.phead .en{color:#F0F7FE}
 .gate p{color:#F4F9FE}
-/* クイックレール：1440pxで採用ゲート本文に57px食い込んでいた。中間幅は下部バー・ヘッダーCTAで足りる */
+/* 入口カードの一言（2026-09-08 追加）：見出しと本文のあいだに、太く短く1行。
+   🚨 色は #fff。この面は写真＋暗幕の上なので、淡い青は明暗比が届かない（2026-09-08 の実測） */
+.gate .gsub{margin:12px 0 0;font-size:17px;font-weight:700;color:#fff;letter-spacing:.01em}
+/* クイックレール：1440pxで採用ゲート本文に57px食い込んでいた。中間幅は下部バー・ヘッダーCTAで足りる。
+   🚨 2026-09-08 おでん指示で「右下」から「右端の上下中央」へ戻した
+   （「右下のメニュー見切れてるし、上下の幅が均等の中央の右端に、丸みを帯びた四角いボタンで」）。
+   食い込みは幅を92pxに抑えて避ける（.wrap の右端との差を実測して決めた） */
 @media (min-width:1401px){
-  .quick{top:auto;bottom:24px;transform:none;right:16px;border-radius:16px;overflow:hidden}
-  .quick a{width:76px;padding:12px 6px;font-size:11px}
+  .quick{top:50%;bottom:auto;transform:translateY(-50%);right:14px;
+    border-radius:0;overflow:visible}
+  /* 🚨 幅100pxは「法人の電話相談」7字×12px＝84pxが1行に収まる最小値（内側86px）。
+     これより狭いと、そこだけ2行になって4つの高さが揃わない（実測 74px vs 87px）。
+     100+14=114px で、本文（.wrap 幅1160px）の右端との差120pxに6px残して収まる */
+  .quick a{width:100px;min-height:74px;padding:12px 6px;font-size:12px}
 }
 @media (max-width:1400px){ .quick{display:none} }
 
@@ -1614,10 +1657,14 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 }
 .band>img{will-change:auto}
 /* 指摘5: クイックレールを1200pxまで残す（タブレット横の導線） */
+/* 🚨 2026-09-08 1201〜1400px でレールを出す指定を取り下げた（display:none に戻した）。
+   理由＝おでん指示で「右下」から「右端の上下中央」に移したため、この幅では本文に重なる。
+   実測：1201pxで本文（.wrap 幅1160px）に **52px** 食い込む。1300pxでも重なりが残る。
+   下に置いていた頃は本文の切れ目に重なるので目立たなかったが、中央では文字の上に乗る。
+   この幅の導線は、ヘッダーの「公式LINEで相談」とヘッダーナビが担う。
+   🚨 1401px以上では食い込み0を実測済み（1401pxで6px余る）。おでんの画面はここに入る */
 @media (min-width:1201px) and (max-width:1400px){
-  .quick{display:block;top:auto;bottom:24px;transform:none;right:12px;
-    border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(13,54,105,.18);border:1px solid var(--line)}
-  .quick a{width:68px;padding:10px 4px;font-size:10.5px}
+  .quick{display:none}
 }
 
 /* =========================================================================
@@ -1639,7 +1686,11 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 .bh-en{color:#fff}
 .bh-btn.ghost{background:rgba(7,36,78,.55);border-color:rgba(255,255,255,.7)}
 .bh-btn.ghost:hover{background:rgba(7,36,78,.75)}
-.bh-scroll{bottom:180px}                  /* クイックレールとの被り解消 */
+/* 🚨 2026-09-08 クイックレールを「右下」から「右端の上下中央」へ移したので、
+   下へ逃がす旧方式（bottom:180px）では被りが消えない。実測で縦30〜65px・横21px 重なっていた。
+   レールが出る1401px以上だけ、横にずらして避ける（レールは右14px＋幅100px＝右端から114px） */
+.bh-scroll{bottom:110px}
+@media (min-width:1401px){ .bh-scroll{right:130px} }
 @media (max-width:720px){
   .bluehero{min-height:100svh}
   .bh-photo{position:absolute;inset:0;width:auto;margin:0;order:0}
@@ -1686,7 +1737,7 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
   :root{ --s-sm:40px; --s-md:56px; --s-lg:80px; }
   .sec{padding:var(--s-md) 0}
   .vision{padding:72px 0}
-  .bluevoice{padding:48px 0 8px}
+  .bluevoice{padding:40px 0 40px}
   .news{margin:16px 16px 0}
 }
 @media (min-width:721px) and (max-width:1000px){
@@ -1831,7 +1882,12 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .bh-vtoggle:hover{background:rgba(4,30,64,.82)}
 .bh-vtoggle:active{transform:scale(.96)}
 .bh-vtoggle:focus-visible{outline:3px solid #fff;outline-offset:3px}
-@media(max-width:720px){.bh-vtoggle{right:14px;top:14px;padding:0 14px}}
+/* 🚨 2026-09-08 実測で見つけた不具合：スマホ幅で top:14px にしていたため、
+   映像の「一時停止」がヘッダーの「メニュー」に**縦42px・横88px 重なっていた**（幅320〜390で再現）。
+   ボタンの中心を押せばメニューに当たるが、右寄りを押すと一時停止が取る。
+   → PCと同じく、ヘッダーの下に置く。ヘッダーの高さぶん下げるだけで重なりは0になる。
+   → [[tap-target-must-be-hit-tested]] */
+@media(max-width:720px){.bh-vtoggle{right:14px;top:calc(var(--head) + 12px);padding:0 14px}}
 
 /* ── 業務内容の3カード（別案「実写主義」から移植：SERVICE 01/02/03） 2026-09-07 ── */
 .svc3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
@@ -1958,8 +2014,8 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 /* ══ 採用条件の板（案B・伝票）══ 旧 .rnum ブロックは丸ごと差し替える ══ */
 .rnum{
   /* 人の形。24人ぶんと2人ぶんで色だけ違う同じ絵 */
-  --fig-on:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 24'><circle cx='9' cy='5.6' r='5' fill='%231671CE'/><path d='M9 13c4.7 0 8.4 4.6 8.4 11H.6C.6 17.6 4.3 13 9 13z' fill='%231671CE'/></svg>");
-  --fig-off:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 24'><circle cx='9' cy='5.6' r='5' fill='%23BFCBD6'/><path d='M9 13c4.7 0 8.4 4.6 8.4 11H.6C.6 17.6 4.3 13 9 13z' fill='%23BFCBD6'/></svg>");
+  /* 2026-09-08 --fig-on / --fig-off（人型のマーク）は .rnp-bar でしか使っていなかったので、
+     マークの削除（おでん指示）と一緒に消した。使う所が0の変数を残さない */
   --rnp-cream:#FBF6E9;
   background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   padding:72px 0;
@@ -1973,24 +2029,26 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 }
 
 /* 見出し帯：節に名前を与える＋彩度の高い面積をここで1つだけ作る */
-.rnp-h{margin:0;display:flex;align-items:center;height:54px;padding:0 32px;
+.rnp-h{margin:0;display:flex;align-items:center;min-height:54px;padding:16px 32px;
   background:linear-gradient(135deg,#1671CE,#0E4F9E);color:#fff}
-.rnp-h .k{font-size:13px;font-weight:700;letter-spacing:.28em}
+/* 2026-09-08 おでん指示で「眉ラベル」から「言い切る見出し」に格上げ（13px→20px・字間を詰める）。
+   🚨 高さは固定54pxをやめて min-height に。幅320pxで2行になったとき、固定だと文字が帯からはみ出す */
+.rnp-h .k{font-size:20px;font-weight:700;letter-spacing:.02em;line-height:1.45;word-break:auto-phrase}
 
-/* 見せ場：26人を並べて24人を青で塗る。地は暖色（ヒーローの陽の色と同じ系） */
-.rnp-lead{display:flex;align-items:center;gap:44px;padding:26px 32px 24px;
+/* 見せ場：地は暖色（ヒーローの陽の色と同じ系）。
+   2026-09-08 人型のマークを外し、「未経験入社」と「昇給」の2つを等幅で並べる形にした。
+   🚨 flex＋gap のままだと、マークが無くなったぶん右半分が空いて板が歪んで見える。
+      2列のグリッドにして帯の幅を使い切る */
+.rnp-lead{display:grid;grid-template-columns:repeat(2,1fr);align-items:center;gap:24px;
+  padding:26px 32px 24px;
   background:var(--rnp-cream);border-bottom:1px solid var(--line)}
-.rnp-leadtx{flex:0 0 auto}
+.rnp-leadtx{min-width:0}
 .rnp-lab{margin:0;font-size:13px;font-weight:700;letter-spacing:.22em;color:#6B5F4C}
 .rnp-val{margin:8px 0 0;font-size:22px;font-weight:700;line-height:1.15;color:var(--ink);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .rnp-val b{font-size:36px;font-weight:800;line-height:1;color:var(--brand)}
-/* 24:2 を flex の比で持つ。1コマの幅は自分の幅÷自分の人数なので、両側で必ず同じピッチになる */
-.rnp-bar{flex:1 1 auto;display:flex;gap:16px;align-items:center;height:34px;min-width:0}
-.rnp-bar>b,.rnp-bar>i{height:100%;flex:var(--n) 1 0;background-repeat:repeat-x;
-  background-position:left center;background-size:calc(100% / var(--n)) 100%}
-.rnp-bar>b{background-image:var(--fig-on)}
-.rnp-bar>i{background-image:var(--fig-off)}
+/* 2026-09-08 .rnp-bar（人型を24個＋2個並べる帯）は削除した（おでん「未経験入社の横の人、マークいらないな」）。
+   同じことを左の数字（26人中24人）が言っているので、情報は減っていない */
 
 /* 4つの待遇：ラベル1行＋値1行に形をそろえる（2段の項目を作らない） */
 .rnp-grid{display:grid;grid-template-columns:repeat(4,auto);margin:0}
@@ -2000,6 +2058,11 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .rnp-grid dd{margin:12px 0 0;font-size:22px;font-weight:700;line-height:1.2;color:var(--ink);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .rnp-grid dd b{font-size:36px;font-weight:800;line-height:1;color:var(--brand)}
+
+/* 数字の但し書き：46万円と年収500万円が「誰の・いつの額か」を、板の中で言い切る。
+   🚨 別ページや小さい注記に逃がさない。金額だけ大きく出して条件を書かないのが一番危ない */
+.rnp-note{margin:0;padding:18px 32px 20px;border-top:1px solid var(--line);
+  background:var(--white);font-size:13px;line-height:1.8;color:var(--sub)}
 
 /* 足元：空いていた行を「板の底の1行」にして、行ごと押せるようにする */
 .rnp-foot{margin:0;border-top:1px solid var(--line);background:var(--white)}
@@ -2018,10 +2081,11 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 /* 左の入り（32→26→20px）は4つの帯すべてで同じ値にする。1つでもズレると板が歪む */
 @media(max-width:900px){
   .rnum{padding:56px 0}
-  .rnp-h{padding:0 26px}
+  .rnp-h{padding:14px 26px}
+  .rnp-h .k{font-size:18px}
   .rnp-cta{padding:0 26px}
-  .rnp-lead{flex-direction:column;align-items:flex-start;gap:18px;padding:24px 26px 22px}
-  .rnp-bar{width:100%;height:30px}
+  .rnp-lead{grid-template-columns:1fr;align-items:flex-start;gap:18px;padding:24px 26px 22px}
+  .rnp-note{padding:16px 26px 18px}
   .rnp-grid{grid-template-columns:1fr 1fr}
   .rnp-grid>div{padding:22px 26px 24px}
   .rnp-grid>div:nth-child(odd){border-left:0}
@@ -2029,10 +2093,10 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 }
 @media(max-width:520px){
   .rnum{padding:40px 0}
-  .rnp-h{height:46px;padding:0 20px}
-  .rnp-h .k{letter-spacing:.22em}
+  .rnp-h{min-height:46px;padding:12px 20px}
+  .rnp-h .k{font-size:16px;letter-spacing:.02em}
   .rnp-lead{padding:20px 20px 18px;gap:14px}
-  .rnp-bar{height:26px;gap:12px}
+  .rnp-note{padding:14px 20px 16px;font-size:12px}
   .rnp-val{font-size:17px}.rnp-val b{font-size:28px}
   .rnp-grid>div{padding:18px 20px 20px}
   .rnp-grid dt{font-size:12px;letter-spacing:.12em}
@@ -2045,7 +2109,8 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 }
 /* 320〜360px：2列のまま入れるため、値を1段落とし、左の入りも16pxで4帯そろえる */
 @media(max-width:360px){
-  .rnp-h{padding:0 16px}
+  .rnp-h{padding:12px 16px}
+  .rnp-h .k{font-size:15px}
   .rnp-lead{padding:18px 16px 16px}
   .rnp-grid>div{padding:16px 16px 18px}
   .rnp-cta{padding:0 16px}
@@ -2053,13 +2118,9 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   .rnp-val{font-size:15px}.rnp-val b{font-size:24px}
 }
 
-/* ── B2：ラベルを1つも変えない版（働き方を1行に畳んで3列） ── */
-.rnp-grid.three{grid-template-columns:auto auto auto}
+/* 2026-09-08 待遇の枠を3つ→4つ（離職率を追加）にしたので、3列用の .three は使わなくなった。
+   🚨 定義ごと削除する。HTMLから class だけ外して CSS を残すと、到達しない指定が積み上がる */
 .rnp-grid .sl{margin:0 10px;font-size:17px;font-weight:400;color:#B9CADC;vertical-align:2px}
-@media(max-width:900px){
-  .rnp-grid.three{grid-template-columns:1fr 1fr}
-  .rnp-grid.three>div:last-child{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}
-}
 @media(max-width:520px){.rnp-grid .sl{margin:0 6px;font-size:14px}}
 
 /* 2026-09-08 改行の全体対応。見出しだけでなく本文・表・リストにも文節での改行を効かせる
@@ -2287,18 +2348,14 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .mCover{fill:#C7D8E6} /* L87.4 C.027 H242.8 */
 
 /* =========================================================================
-   2026-09-08 ヒーローの見出しが映像に合わせて切り替わる
-   🚨 「動きを減らす」設定では切り替えず、1本目だけを出す（おでんの画面がこれ）
+   ヒーローの大見出し（2026-09-08 に「映像へ同期して4本切り替え」を廃止し、1本固定にした）
    ========================================================================= */
 .bh-h1{position:relative}
-.bh-h1 .hl{display:none}
-.bh-h1 .hl.is-on{display:block}
-@media(prefers-reduced-motion:no-preference){
-  .bh-h1 .hl.is-on{animation:hlIn .5s var(--ease) both}
-  @keyframes hlIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-}
-/* 切り替えで高さが動くと下の文が跳ねるので、一番高い行数ぶんを確保する */
-.bh-h1{min-height:calc(1.3em * 3)}
+/* 2026-09-08 見出しの4本切り替えを廃止（おでん指示で1本固定）。
+   🚨 .hl の表示切替（display:none / is-on）と min-height:calc(1.3em*3) はここで削除した。
+      切り替えが無くなった以上、この2つは「当たらないCSS」になる。
+      残しておくと、後から .hl を書いた人が意図せず消える／高さが1行ぶん余る。
+   🚨 高さの確保も不要になった：中身が常に2行で固定なので、h1 自身の高さで決まる */
 
 /* =========================================================================
    2026-09-08 明暗比の是正（Web検品35件・デザイン検品39件。原因は共通）
