@@ -60,7 +60,8 @@
 }
 
 /* 取引先の一覧。4つなので2列2行。3列にすると1マス空いて「書くことがない」に見える */
-.clients{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+/* 2026-09-08 荷主が家電量販店だけになり項目が1件なので、2列をやめて1列にする（空きマスを作らない） */
+.clients{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);
   border:1px solid var(--line);margin-top:64px}
 .clients li{list-style:none;position:relative;background:var(--white);padding:40px 40px 40px 100px;
   display:flex;flex-direction:column;justify-content:center;min-height:168px;
@@ -175,7 +176,8 @@
   <a href="recruit.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 21c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4"/></svg>採用情報</a>
   <a href="https://lin.ee/YRmILrV" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14"/><path d="M2 6l10 7 10-7"/></svg>LINEで相談</a>
   <a href="about.html#urayasu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg>倉庫・拠点</a>
-  <a href="tel:0473810142"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>法人の電話相談</a>
+  <!-- 2026-09-08 おでん指示「電話は全部消す・LINEに一本化」。4つ目を電話から法人の入口に差し替えた（4つは維持） -->
+  <a href="business.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18v12H3zM8 8V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V8M3 13h18"/></svg>法人のお客様へ</a>
 </nav>
 
 <div class="phead">
@@ -204,7 +206,7 @@
       <details><summary>古い家電の引き取りもお願いできますか。</summary>
         <div class="a">できます。東京都・千葉県・埼玉県で承っています（産業廃棄物収集運搬業の許可は神奈川県を含む4都県で取得しています）。新しい商品の設置にあわせて、その場で持ち帰ります。<a href="about.html#license">許認可を見る</a></div></details>
       <details><summary>急ぎの案件にも<span class="nw">対応できますか。</span></summary>
-        <div class="a">日程によります。まずはお電話ください。受付は 8:00〜17:00 です。</div></details>
+        <div class="a">日程によります。公式LINEからご相談ください。折り返しご連絡します。</div></details>
     </div>
   </div>
 </section>
@@ -232,10 +234,10 @@
     <h2 data-rise="0">お取引について</h2>
     
 
+    <!-- 2026-09-08 おでん指示：荷主は家電量販店。「ホームセンター」「メーカー系サービス会社」は削除した。
+         🚨 「家電量販店のみ」とは書かない（おでん「のみって言い切らなくていい」） -->
     <ul class="clients" data-rise="0">
-      <li data-n="01"><span class="nm">家電量販店</span><span class="sub">店頭で購入された冷蔵庫・洗濯機・テレビを、お客様のご自宅へ運び、設置します</span></li>
-      <li data-n="02"><span class="nm">ホームセンター</span><span class="sub">家電の配送と、その場での設置・取付まで</span></li>
-      <li data-n="03"><span class="nm">メーカー系サービス会社</span><span class="sub">エアコン・アンテナ・洗浄便座の取付工事</span></li>
+      <li data-n="01"><span class="nm">家電量販店</span><span class="sub">店頭でご購入された冷蔵庫・洗濯機・テレビ・エアコンを、お客様のご自宅へ搬入し、設置・取付を行い、古い家電をお引き取りします。1986年から続けている仕事です。</span></li>
     </ul>
     <p class="note" data-rise="0">具体的な社名は、先方の許諾をいただいたうえで掲載します。お取引の実績はお問い合わせいただければ個別にご説明します。</p>
   </div>
@@ -267,7 +269,9 @@
       <article data-rise="0">
         <p class="k">03</p>
         <h3>帰るのは、使い方を説明してから</h3>
-        <p>運び入れる前に通り道を確かめ、養生を敷いてから上がります。設置して電源を入れ、使い方をご説明してから帰ります。玄関で応対するのは、伺った2人です。</p>
+        <!-- 2026-09-08 おでん指示「ここはいらない。この文全部消して」で本文を削除。
+             🚨 下の「三原則を見る」は残す。about.html#rules へはヘッダーの引き出しからも行けるので
+                唯一の入口ではないが、この見出しの続きを読む導線がここで切れてしまうため -->
         <p class="next" style="margin-top:24px"><a href="about.html#rules">三原則を見る</a></p>
       </article>
     </div>
