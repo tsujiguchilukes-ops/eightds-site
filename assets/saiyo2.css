@@ -624,13 +624,8 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 body.saiyo2 section[id]{scroll-margin-top:70px}
 .s2bar.has-line{grid-template-columns:1.25fr .75fr}
 .s2jobs .ph img,.s2scene .ph img,.s2band-in img,.s2band img{filter:saturate(.98) contrast(1.02) brightness(1.01)}
-.ph-role{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;aspect-ratio:3/2;
-  color:#fff;background:linear-gradient(145deg,#0A356B,#1671CE);overflow:hidden;position:relative}
-.ph-role::before{content:"";position:absolute;width:72%;aspect-ratio:1;border:1px solid rgba(255,255,255,.18);
-  border-radius:50%;transform:translate(38%,-26%)}
-.ph-role span{font-size:clamp(52px,7vw,92px);font-weight:800;line-height:1;letter-spacing:-.06em}
-.ph-role small{font-size:10px;font-weight:700;letter-spacing:.18em}
-.s2scene .ph-role{aspect-ratio:16/9}
+/* 2026-09-09：SCENE 03 に写真（img/AC1_室内機.webp）が入り、文字だけの青板 .ph-role は
+   どのページからも呼ばれなくなったので、関連する指定をまとめて削除した */
 .s2nums dt{letter-spacing:.08em}
 @media(max-width:720px){
   /* 7つを1画面に押し込むと1つ45pxになって字が読めない。横スクロールにして、
@@ -665,10 +660,6 @@ body.saiyo2 section[id]{scroll-margin-top:70px}
 @media (max-width:900px){
   body.saiyo2{padding-bottom:env(safe-area-inset-bottom)}
   body.saiyo2 footer{padding-bottom:40px}
-}
-/* 721〜1024px で AC の青板が伸びきって本文を覆っていた（768pxでは文字が100%隠れていた） */
-@media (min-width:721px){
-  .s2scene .ph-role{height:100%;aspect-ratio:auto;min-height:240px}
 }
 
 /* 2026-09-08 に電話の案内を全ページから消して LINE 一本化したので、
