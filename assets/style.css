@@ -1695,10 +1695,7 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
    下へ逃がす旧方式（bottom:180px）では被りが消えない。実測で縦30〜65px・横21px 重なっていた。
    レールが出る1401px以上だけ、横にずらして避ける（レールは右14px＋幅100px＝右端から114px） */
 .bh-scroll{bottom:110px}
-/* 🚨 2026-09-09 画面が低い（高さ568〜585px）と .quick が上へ伸びて「一時停止」を覆い、
-   ボタンの中心を押すと採用情報へ飛んでいた。.quick は6ページ共通なので触らず、
-   .bh-scroll と同じ作法で映像の釦を左へ逃がす（.quick は right:16px＋幅104px＝右端から120px） */
-@media (min-width:1401px){ .bh-scroll{right:130px} .bh-vtoggle{right:130px} }
+@media (min-width:1401px){ .bh-scroll{right:130px} }
 @media (max-width:720px){
   .bluehero{min-height:100svh}
   .bh-photo{position:absolute;inset:0;width:auto;margin:0;order:0}
@@ -1898,6 +1895,13 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
    → PCと同じく、ヘッダーの下に置く。ヘッダーの高さぶん下げるだけで重なりは0になる。
    → [[tap-target-must-be-hit-tested]] */
 @media(max-width:720px){.bh-vtoggle{right:14px;top:calc(var(--head) + 12px);padding:0 14px}}
+/* 🚨 2026-09-09 画面が低い（高さ568〜585px）と .quick が上へ伸びて「一時停止」を覆い、
+   ボタンの中心を押すと採用情報へ飛んでいた（実測で1,978px²の重なり）。
+   .quick は6ページ共通なので触らず、.bh-scroll と同じ作法で映像の釦を左へ逃がす
+   （.quick は right:16px＋幅104px＝右端から120px）。
+   🚨 この1行は必ず .bh-vtoggle の素の定義（上の1889行）より後ろに置く。
+      前に置くと詳細度が同じで負け、right:28px のまま1文字も動かない（2026-09-09に踏んだ） */
+@media (min-width:1401px){ .bh-vtoggle{right:130px} }
 
 /* ── 業務内容の3カード（別案「実写主義」から移植：SERVICE 01/02/03） 2026-09-07 ── */
 .svc3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
@@ -2129,7 +2133,10 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   .rnp-lead{padding:18px 16px 16px}
   .rnp-grid>div{padding:16px 16px 18px}
   .rnp-cta{padding:0 16px}
-  .rnp-grid dd{font-size:15px}.rnp-grid dd b{font-size:24px}
+  /* 🚨 2026-09-09 列を minmax(0,1fr) にしても字が板から出続けていた。真犯人は
+     .rnp-grid dd の `white-space:nowrap`（2069行）で、そもそも折り返せなかった。
+     狭い幅だけ解除する（「残業なし ／ 週休2日」が2行になるが枠には収まる） */
+  .rnp-grid dd{font-size:15px;white-space:normal}.rnp-grid dd b{font-size:24px}
   .rnp-val{font-size:15px}.rnp-val b{font-size:24px}
 }
 
