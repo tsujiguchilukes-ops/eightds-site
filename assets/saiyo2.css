@@ -894,10 +894,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
    PCは文字が左・顔が中央にあり、見出しが顔に22〜29%かぶっていた。
    映像の見せる位置を右へずらして、左の文字帯と顔を分ける */
 @media (min-width:1000px){
-  .s2hero .s2frame video{object-position:74% 34%}
+  .s2hero .s2frame video{object-position:74% 26%}
 }
 @media (min-width:1600px){
-  .s2hero .s2frame video{object-position:78% 34%}
+  .s2hero .s2frame video{object-position:78% 26%}
 }
 
 /* 🚨 2026-09-09 顔と文字の重なり検査：PCで見出し(y320-380)が左の人の顔(y201-404)に29%かぶっていた。
