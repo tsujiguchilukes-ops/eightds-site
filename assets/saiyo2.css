@@ -932,7 +932,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 }
 /* 幅360で字幕が顔に7.2%かかっていた（文字ブロックが上に来るため）。この幅だけ下げる */
 @media (max-width:379px){
+  /* 見出しが長くなると文字ブロックが上に伸びて字幕が顔にかかる。この幅だけ字幕を詰める */
   .s2hero .s2title{padding-top:238px}
+  .s2hero .s2subtitle{font-size:12px;padding:4px 11px;margin-bottom:6px}
+  .s2hero .s2title h1{font-size:30px;line-height:1.2}
 }
 
 /* 2026-09-09 デザイン検品の残り2件 */
