@@ -144,7 +144,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2sec .s2h+.note{margin-top:16px}
 
 /* ---- 01 仕事を知る：職種カード ---- */
-.s2jobs{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.s2jobs{display:grid;grid-template-columns:1fr;gap:24px;margin-top:24px}
 .s2jobs article{background:var(--white);border:1px solid var(--line);border-radius:16px;
   overflow:hidden;box-shadow:0 8px 24px rgba(13,54,105,.07)}
 .s2jobs .ph img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block}
@@ -159,7 +159,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2jobs p:not(.k){margin-top:8px;font-size:16px;line-height:1.9;color:var(--ink)}
 
 /* ---- 1日の流れ（縦タイムライン。時刻は仮） ---- */
-.s2day{margin-top:40px;border-left:2px solid var(--brand);padding-left:24px;max-width:640px}
+.s2day{margin-top:24px;border-left:2px solid var(--brand);padding-left:24px;max-width:640px}
 .s2day>div{position:relative;padding:0 0 32px}
 .s2day>div:last-child{padding-bottom:0}
 .s2day>div::before{content:"";position:absolute;left:-31px;top:8px;width:12px;height:12px;
@@ -191,7 +191,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2sns b{font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
 
 /* ---- 03 給料と待遇：数字カード（数字は本文の2.5倍・単位は別要素） ---- */
-.s2nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
+.s2nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
 /* 影の色は青系に統一（rgba(31,35,40,..) は旧スキンの残りで、この案件の影と一族が違う） */
 .s2nums>div{background:var(--white);border:1px solid var(--line);border-radius:16px;
   padding:24px 16px;box-shadow:0 8px 24px rgba(13,54,105,.07)}
@@ -255,7 +255,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2career .en{color:#fff}
 .s2career h2{color:#FBF6E9}
 .s2career .note{color:#F4F9FE}
-.s2scenes{margin-top:48px;display:grid;gap:24px}
+.s2scenes{margin-top:32px;display:grid;gap:16px}
 .s2scene{background:rgba(251,246,233,.06);border:1px solid rgba(251,246,233,.16);
   border-radius:16px;overflow:hidden}
 .s2scene .ph img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
@@ -267,7 +267,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2scene .ph-todo{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;
   border-bottom:1px dashed rgba(251,246,233,.24);color:#F4F9FE;font-size:14px;line-height:1.8;
   text-align:center}
-.s2scene .tx{padding:24px}
+.s2scene .tx{padding:20px 20px 24px}
 .s2scene .n{font-size:14px;font-weight:700;letter-spacing:.24em;color:var(--hot)}
 .s2scene h3{font-size:22px;font-weight:700;line-height:1.5;margin-top:8px}
 .s2scene p{margin-top:8px;font-size:16px;line-height:1.9;color:#F4F9FE}
@@ -278,7 +278,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2career .s2todo .tmp{background:transparent;color:var(--hot);box-shadow:inset 0 0 0 1px var(--hot)}
 
 /* ---- 05 正直なところ ---- */
-.s2real{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.s2real{display:grid;grid-template-columns:1fr;gap:24px;margin-top:24px}
 .s2real>div{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px}
 .s2real>div.yes{border:2px solid var(--accent)}
 .s2real h3{font-size:18px;font-weight:700}
@@ -294,7 +294,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2said p{font-size:16px;line-height:2;font-weight:700}
 .s2said cite{display:block;margin-top:8px;font-style:normal;font-size:14px;color:var(--sub)}
 /* 向いている人／向いていないかも */
-.s2fit{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.s2fit{display:grid;grid-template-columns:1fr;gap:24px;margin-top:24px}
 .s2fit h3{font-size:18px;font-weight:700}
 .s2fit ul{list-style:none;margin-top:8px;border-top:2px solid var(--brand)}
 .s2fit li{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);
@@ -306,7 +306,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2fit .no li{font-weight:400;color:var(--ink)}
 
 /* ---- FAQ ---- */
-.s2faq{margin-top:40px;border-top:2px solid var(--brand)}
+.s2faq{margin-top:24px;border-top:2px solid var(--brand)}
 .s2faq details{border-bottom:1px solid var(--line)}
 .s2faq summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:16px;
   padding:16px 32px 16px 0;font-size:16px;font-weight:700;line-height:1.7;position:relative;min-height:44px}
@@ -334,7 +334,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
    ボタンの色はここで決めない：style.css:1780 の `.is-line{background:var(--brand)!important}` が
    勝ってLINEの青になる。ここに橙を書くと、出ている物と食い違う死にコードになる。 */
 .s2close{background:var(--white);color:var(--ink)}
-.s2close .in{max-width:var(--max);margin:0 auto;padding:64px 24px;text-align:left}
+.s2close .in{max-width:var(--max);margin:0 auto;padding:48px 24px;text-align:left}
 /* 🚨 白地にしただけだと、この節の誘目（面積×白との色差）が橙地の頃の 1/14 まで落ちた（実測）。
    面を薄い青(--paper／白との色差4.05)から**暖色紙**(--paper-warm／同8前後)に替える。
    ページの中で暖色の面はここと02だけなので、色を足さずに「面の温度」で応募の位置が立つ。
@@ -393,15 +393,15 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   /* 🚨 応募のカードを足したぶん、節の余白24pxと合わせて片側48pxになり、
      本文の幅が342→292px（−14.6%）・行数が4→6行に増えて読みにくくなっていた。
      スマホではカードの内側を詰める */
-  .s2close .in>div{padding:28px 16px}
-  .s2sec.sec{padding:64px 0}
+  .s2close .in>div{padding:24px 16px}
+  .s2sec.sec{padding:56px 0}
   .s2career{padding:64px 0}
   .s2film{padding:12px 0}
   .s2scenehead{top:12px;left:12px}
   .s2subtitle{bottom:10px;font-size:14px;letter-spacing:.2em;text-indent:.2em}
   .s2title{padding:32px 24px 40px}
   .s2title h1{font-size:36px}
-  .s2sec h3.s2h{margin-top:48px}
+  .s2sec h3.s2h{margin-top:32px}
 }
 @media (max-width:375px){
   .s2title h1{font-size:28px}
@@ -413,6 +413,9 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   .s2sec h2,.s2career h2{font-size:22px}
 }
 @media (min-width:721px){
+  /* 🚨 2026-09-09 PCの節の上下が112px（共通の --s-md）で、7節あると節境界だけで画面が伸びる。
+     共通変数は他の7ページに効くので触らず、この採用ページの節だけ96pxに詰める */
+  .s2sec.sec{padding:96px 0}
   .s2title{padding:48px 40px 56px}
   /* 🚨 56px（本文の3.5倍）→ 40px（2.35倍）。字間は0。中央揃えをやめる */
   .s2title h1{font-size:36px;letter-spacing:0}
@@ -454,17 +457,17 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
     overflow-x:visible;scroll-snap-type:none;max-width:720px;gap:24px}
   .s2nums{gap:24px}
   .s2model{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-  .s2scenes{gap:32px}
+  .s2scenes{gap:24px}
   .s2scene{display:grid;grid-template-columns:minmax(280px,480px) 1fr;align-items:stretch}
   .s2scene .ph img{height:100%;aspect-ratio:auto;min-height:240px}
   .s2scene .ph-todo{height:100%;aspect-ratio:auto;border-bottom:0;
     border-right:1px dashed rgba(251,246,233,.24)}
-  .s2scene .tx{padding:32px 40px;align-self:center}
+  .s2scene .tx{padding:28px 32px;align-self:center}
   .s2real{grid-template-columns:1fr 1fr}
   .s2fit{grid-template-columns:1fr 1fr;gap:40px}
-  .s2close .in{padding:96px 40px}
+  .s2close .in{padding:72px 40px}
   .s2close h3{font-size:36px}
-  .s2close .in>div{padding:56px 48px}
+  .s2close .in>div{padding:40px 40px}
 }
 
 @media (min-width:1024px){
@@ -524,7 +527,7 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 /* 節の上下余白を120pxにそろえる（96pxが2か所だけ浅かった） */
 @media (min-width:721px){
   .s2career{padding:120px 0}
-  .s2close .in{padding:120px 40px}
+  .s2close .in{padding:80px 40px}
 }
 
 /* 小さいラベルの字間を .24em にそろえる（98件中14件しか揃っていなかった） */

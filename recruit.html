@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#1671CE">
 <title>採用情報｜助手席から、始めよう。｜有限会社エイト流通サービス</title>
-<!-- 🚨 内部の呼び名（提案版・案2）をここに書かない。noindex でも、URLをLINEやDMで
-     送った瞬間にプレビューへ出る。文は本文と同じ言い方にそろえる（別々に育てると必ずズレる） -->
 <meta name="description" content="家電の配送・設置・エアコン工事のスタッフ募集。最初の仕事は、先輩の隣に座ること。2人1組・未経験歓迎・エアコン工事の指導は当社。千葉県浦安市・埼玉県新座市。">
 <link rel="canonical" href="https://tsujiguchilukes-ops.github.io/eightds-site/recruit.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -19,7 +17,6 @@
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/saiyo2.css">
-<!-- 🚨 JSON-LD（JobPosting）は入れない：案1にあり、このページは提案版。仮の値を検索に出さない -->
 </head>
 <body class="saiyo2">
 <a class="skip" href="#s2main">本文へ移動</a>
@@ -88,7 +85,33 @@
     <h1><span class="nw">助手席から、</span><span class="nw">始めよう。</span></h1>
     <!-- 🚨 ここに「こんどは自分が誰かを隣に乗せる番へ」を置かない。
          それは4章 SCENE 05 の締めの言葉で、1画面目で言うと5場面を読む理由が消える -->
+    <!-- 🚨 2026-09-09 並び順を「見出し → 相談の入口 → 説明 → 条件 → 特徴」に変えた。
+         スマホ幅390pxで、CTAが1画面目に1つも入っていなかった（実測）。
+         見出しに共感した瞬間に押せる物が無いと、そこで離脱する。
+         PCは .s2title が grid で、各要素の列と行を明示しているので見た目は変わらない -->
+    <div class="s2acts">
+      <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="hero">LINEで話を聞いてみる</a>
+      <div class="s2alt-links">
+        <a class="s2sub-link" href="#youkou" data-ga="req_click" data-ga-place="hero">募集要項を見る</a>
+        <p class="s2note-ext">上のボタンを押すとLINEが開きます</p>
+      </div>
+    </div>
     <p class="s2lead">最初の仕事は、先輩の隣に座ること。浦安本社と埼玉営業所から、東京・千葉・埼玉のご家庭へ家電を届けて、取り付けている、1986年創業の会社です。</p>
+    <!-- 🚨 2026-09-09 この枠は2列（saiyo2.css .s2facts）なのに1枚しか入っておらず、
+         右半分が空いていた。裏の取れている一番強い事実（26人中24人が未経験）は
+         このページで16pxの注記にしか出ていなかったので、2枚目としてここへ上げた -->
+    <div class="s2facts" aria-label="採用条件の要点">
+      <dl class="s2fact">
+        <dt>正社員の月給</dt>
+        <dd><b>34</b><small>万円〜</small>
+        <span class="d">未経験で入る方のスタート額です／賞与年3回</span></dd>
+      </dl>
+      <dl class="s2fact">
+        <dt>未経験からの入社</dt>
+        <dd><b>24</b><small>人／26人</small>
+        <span class="d">今の社員26人のうち24人が、未経験で入りました</span></dd>
+      </dl>
+    </div>
     <ul class="s2chips">
       <li>未経験歓迎</li>
       <li>2人1組</li>
@@ -96,21 +119,6 @@
       <li>社会保険完備</li>
       <li>制服貸与</li>
     </ul>
-    <div class="s2acts">
-      <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="hero">LINEで話を聞いてみる</a>
-      <div class="s2alt-links">
-        <a class="s2sub-link" href="#youkou" data-ga="req_click" data-ga-place="hero">募集要項を見る</a>
-        <p class="s2note-ext">上のボタンを押すとLINEが開きます</p>
-        
-      </div>
-    <div class="s2facts" aria-label="採用条件の要点">
-      <dl class="s2fact">
-        <dt>正社員の月給</dt>
-        <dd><b>34</b><small>万円〜</small>
-        <span class="d">未経験で入る方のスタート額です／賞与年3回</span></dd>
-      </dl>
-    </div>
-    </div>
   </div>
 </section>
 
@@ -149,10 +157,6 @@
     </div>
 
     <h3 class="s2h" id="ichinichi" data-rise="0">正社員の1日</h3>
-    <!-- 2026-09-09 おでん指示「ある程度の時間も振ってあげて」。
-         時刻は募集要項の勤務時間（8:00〜17:00・休憩1時間・残業なし）に合わせた目安。
-         🚨 勤務時間そのものが旧サイト由来で社長未確認（社長に聞くこと C-4）。
-            そちらが変わったら、この5つの時刻も一緒に直す -->
     <p class="note" data-rise="0">ここからは正社員の1日の流れです。時刻はおおよそで、現場や担当業務によって変わります。</p>
     <div class="s2day" data-rise="0">
       <div><span class="t">8:00</span><b>出社・積み込み</b><p>その日のルートを確かめて、2人1組でトラックに商品を積み込みます。</p></div>
@@ -183,11 +187,6 @@
     <div class="s2band-in" data-rise="0">
       <img src="img/L5_受付.webp" alt="トラックの荷台の前で笑い合う2人" loading="lazy" decoding="async" width="1800" height="1200">
     </div>
-    <!-- 2026-09-09 おでん指示「写真の下に、和気あいあいとしてる雰囲気が伝わる一言を入れて」。
-         「アットホームな職場」は書かない（同業20社の実測で1社だけ。使わなくても外れない）。
-         「仲が良い」と書かずに、仲が良くなる理由になっている事実（1日じゅう2人1組）で書く。
-         🚨 この写真の右側の人は他社（量販店）のジャンパーを着ている。
-            「写真は配送の合間のひとコマ」と書くと当社の相棒どうしに読めるので、写真の説明はしない -->
     <p class="s2band-cap" data-rise="0">朝から夕方まで、ずっと<span class="nw">2人1組</span>です。</p>
   </div>
 </section>
@@ -195,15 +194,11 @@
 <!-- 03 給与 -->
 <section class="sec s2sec" id="kyuyo">
   <div class="wrap">
-    <!-- 2026-09-09 に組み替えた節。並べ方の決まりごと（正社員が先で大きい／日給を見出し級にしない／
-         この節では「手に職」を使わない）と、数字を直す時の手順は、社外に出さない案件メモに置いてある。
-         🚨 このファイルはソース表示で誰でも読める。社内の検討や、まだ確かめていないことを書かない。
-            置き場所＝ ~/開発/エイト流通サービスHP/_計画_20260908夜_トップ改修.md の7章 -->
     <p class="en" data-rise="0">03 ／ 給与</p>
     <h2 data-rise="0">アルバイトから、正社員へ。</h2>
     <!-- 断り書きは、額を名指しできる範囲だけを囲む（下の板には性質の違う数字が並ぶため） -->
     <p class="note" data-rise="0">未経験で<span class="nw">月給34万円</span>から始めて、7年目で<span class="nw">46万円</span>になった社員がいます。</p>
-    <p class="note" data-rise="0">月給・賞与・日給の額は、2026年9月に渡邉社長から直接確認したものです。</p>
+    <p class="note" data-rise="0"><span class="nw">月給34万円</span>・<span class="nw">賞与年3回</span>・<span class="nw">日給11,980円</span>は、2026年9月に渡邉社長から直接確認したものです。</p>
 
     <h3 class="s2h" data-rise="0">正社員</h3>
     <dl class="s2nums" data-rise="0">
@@ -228,7 +223,7 @@
         <dt>社員の年収</dt>
         <!-- 「全員」を数字の前に置くと390pxで3行に割れる（全員／500万円／超）。説明文の方に回す -->
         <dd class="sm"><b>500</b><small>万円超</small>
-        <span class="d">今の社員は全員、年収500万円を超えています</span></dd>
+        <span class="d">2026年9月時点で、年収500万円以下の社員はいません</span></dd>
       </div>
       <div>
         <dt>体制</dt>
@@ -386,9 +381,6 @@
         <summary>給与はいくらですか？</summary>
         <div class="a"><p>アルバイトは<strong>日給11,980円</strong>（別途、交通費1,000円）。正社員は<strong>月給34万円〜</strong>。賞与は年3回（7月・12月・3月）です。在籍している社員では、入社4年目・5年目で月給40万円、入社7年目で月給46万円になっています。いずれも未経験で入った社員です。</p></div>
       </details>
-      <!-- 🚨 答えの無い質問はFAQに出さない（FAQは答えを見に来る場所）。
-           「面接では何を聞かれますか？」は、先方の回答が届いたらここに戻す。
-           聞く項目＝_案2_採用/08_日曜に聞くこと.md §4 の18 -->
       <details>
         <summary>応募の前に、話を聞くだけでもいいですか？</summary>
         <div class="a"><p>もちろんです。「条件を聞きたいだけ」のご連絡も歓迎です。LINEからお気軽にどうぞ。</p></div>
