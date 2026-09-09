@@ -979,3 +979,27 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 @media (max-width:379px){
   .s2hero .s2title{padding-top:112px}
 }
+
+/* 🚨🚨 2026-09-09 おでん実機で3回差し戻し。
+   縦長の画面に「顔のアップの横長映像」を全面で入れると、どう調整しても
+   ①顔が拡大される ②暗幕で顔が半分隠れる ③中途半端な位置で切れる のどれかになる。
+   スマホは全面をやめ、映像を横長のまま上に置いて、文字はその下に置く。
+   （映像の中の2人が両方入る＝顔が小さく、表情も見える） */
+@media (max-width:720px){
+  .s2hero{min-height:0;display:block;padding-top:var(--head);background:var(--white)}
+  .s2hero .s2film{position:static;padding:0}
+  .s2hero .s2frame{width:100%;max-width:none;height:auto}
+  .s2hero .s2frame video{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;
+    object-position:50% 34%;filter:saturate(.98) contrast(1.03) brightness(1.02)}
+  .s2hero::before{display:none}
+  .s2hero .s2title{position:static;padding:22px 24px 34px;color:var(--ink);margin:0;display:block}
+  .s2hero .s2title::before{display:none}
+  .s2hero .s2title .s2en{color:var(--accent);font-size:11px;letter-spacing:.24em;text-shadow:none}
+  .s2hero .s2title h1{color:var(--ink);text-shadow:none;font-size:clamp(30px,8.2vw,36px);line-height:1.24;margin-top:10px}
+  .s2hero .s2acts{margin-top:20px;max-width:none}
+  .s2hero .s2facts{margin-top:18px}
+  .s2hero .s2facts .s2fact{background:var(--white);box-shadow:0 6px 18px rgba(13,54,105,.10)}
+  .s2hero .s2sub-link{color:var(--brand);border-color:var(--brand)}
+  .s2hero .s2note-ext{color:var(--sub);text-shadow:none}
+  .s2hero .s2chips li{background:var(--white)}
+}
