@@ -2469,3 +2469,9 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
    ※ 影 text-shadow(1661行) を地に数えると service@390 は 5.31。0.12 は最悪の見積もり。
    ========================================================================= */
 .phead>img{filter:grayscale(var(--ph-gray)) contrast(1.12) brightness(.72)}
+
+/* 2026-09-09 おでん指示「ここ、かぎかっこつけるとか、ずっとを主張するような形に」。
+   🚨 最初 #F2C594（既存の橙）にしたが、青地 rgb(18,96,182) で明暗比 3.94:1 と基準割れだった
+      （style.css:15 に「この色は4.0:1で足りない」と自分で書いてある）。
+      色ではなく、字の大きさと太さで主張させる（白のままなら 6.36:1 で基準内） */
+.rnp-h .em-zutto,.em-zutto{font-weight:800;font-size:1.12em;letter-spacing:.02em}
