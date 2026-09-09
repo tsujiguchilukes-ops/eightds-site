@@ -154,7 +154,7 @@
       </li>
       <li><a href="recruit.html">採用情報</a></li>
     </ul>
-    <a class="hbtn" href="https://lin.ee/YRmILrV" target="_blank" rel="noopener">公式LINEで相談</a>
+    <a class="hbtn" href="https://lin.ee/YRmILrV" target="_blank" rel="noopener">お問い合わせ<span class="vh">（LINEが開きます）</span></a>
   </div></div>
   </div>
 </header>
@@ -179,7 +179,6 @@
     <video data-src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="720"
       muted loop playsinline preload="none" disablepictureinpicture></video>
   </div>
-  <button class="bh-vtoggle" type="button" aria-pressed="false">一時停止</button>
   <div class="bh-in">
     <p class="bh-en"><span class="nw">正社員｜配送スタッフ</span> ／ <span class="nw">浦安本社・埼玉営業所</span></p>
     <h1 class="bh-h1"><span class="ln"><span>未経験から、</span></span><span class="ln"><span>手に職を。</span></span></h1>
@@ -428,20 +427,24 @@
   if(!v) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var save=navigator.connection && navigator.connection.saveData;
-  var b=document.querySelector('.bh-vtoggle');
-  if(reduce || save){ if(b) b.hidden=true; return; }
+  if(reduce || save){ return; }
   v.src=v.getAttribute('data-src');
   v.autoplay=true;
   v.load();
   var p=v.play(); if(p && p.catch) p.catch(function(){});
-  if(b) b.addEventListener('click',function(){
-    if(v.paused){
-      var play=v.play(); if(play && play.catch) play.catch(function(){});
-      b.textContent='一時停止'; b.setAttribute('aria-pressed','false');
-    }else{
-      v.pause(); b.textContent='再生する'; b.setAttribute('aria-pressed','true');
-    }
-  });
+  /* 2026-09-09 おでん指示で一時停止ボタンを廃止。ただし自動再生の映像には止める手段が必要なので
+     （アクセシビリティの必須項目）、映像そのものを押すと止まる／もう一度押すと動く形にした */
+  v.style.cursor='pointer';
+  v.setAttribute('role','button');
+  v.setAttribute('tabindex','0');
+  v.setAttribute('aria-label','ヒーローの映像。押すと一時停止します');
+  var toggle=function(){
+    if(v.paused){ var play=v.play(); if(play&&play.catch) play.catch(function(){});
+      v.setAttribute('aria-label','ヒーローの映像。押すと一時停止します'); }
+    else { v.pause(); v.setAttribute('aria-label','ヒーローの映像。停止中。押すと再生します'); }
+  };
+  v.addEventListener('click',toggle);
+  v.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
 })();
 </script>
 <script src="assets/motion.js"></script>

@@ -57,23 +57,23 @@
     if (reduce.matches) stop();
     if (reduce.addEventListener) reduce.addEventListener('change', function (e) { if (e.matches) stop(); });
 
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 's2vtoggle';
+    /* 2026-09-09 おでん指示で一時停止ボタンを廃止。ただし自動再生の映像には止める手段が要る
+       （アクセシビリティの必須項目）ので、映像そのものを押すと止まる形にした */
     var label = function () {
-      var p = hero.paused;
-      btn.textContent = p ? '再生' : '一時停止';
-      btn.dataset.state = p ? 'paused' : 'playing';
-      btn.setAttribute('aria-label', p ? '映像を再生する' : '映像を一時停止する');
+      hero.setAttribute('aria-label', hero.paused
+        ? '2tトラックの運転席と助手席に座る2人の社員。映像は停止中。押すと再生します'
+        : '2tトラックの運転席と助手席に座る2人の社員。押すと一時停止します');
     };
-    btn.addEventListener('click', function () {
-      if (hero.paused) { hero.play(); } else { hero.pause(); }
-      label();
+    hero.style.cursor = 'pointer';
+    hero.setAttribute('role', 'button');
+    hero.setAttribute('tabindex', '0');
+    hero.addEventListener('click', function () { if (hero.paused) { hero.play(); } else { hero.pause(); } });
+    hero.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (hero.paused) { hero.play(); } else { hero.pause(); } }
     });
     hero.addEventListener('play', label);
     hero.addEventListener('pause', label);
     label();
-    hero.parentNode.appendChild(btn);
   }
 
   /* -----------------------------------------------------

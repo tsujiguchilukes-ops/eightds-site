@@ -943,3 +943,23 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2faq{columns:2;column-gap:40px}
   .s2faq>details{break-inside:avoid;margin-bottom:0}
 }
+
+/* 🚨 2026-09-09 おでん指示「顔とかぶらない位置までグラデーションの背景を下げて、横に広げて、その分」。
+   PCは文字を縦に積んでいたため面が高く、左の人の顔の下半分を隠していた。
+   文字を左右2列に組み替えて面の高さを下げ、面は画面の全幅に敷く（顔は上に残る） */
+@media (min-width:1000px){
+  .s2hero .s2title{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);
+    gap:0 48px;align-items:end;padding-bottom:56px}
+  /* 🚨 行を明示しないと自動配置で順序が崩れる（実際に眉ラベルと副リンクが重なった）。
+     左列は 字幕→眉→見出し→CTA の順で固定する */
+  .s2hero .s2title{grid-template-rows:auto auto auto auto}
+  .s2hero .s2subtitle{grid-column:1;grid-row:1;justify-self:start;align-self:end}
+  .s2hero .s2title .s2en{grid-column:1;grid-row:2;align-self:end}
+  .s2hero .s2title h1{grid-column:1;grid-row:3;margin-top:12px;align-self:end}
+  .s2hero .s2acts{grid-column:1;grid-row:4;margin-top:22px;max-width:420px;align-self:end}
+  .s2hero .s2facts{grid-column:2;grid-row:1/5;align-self:end;margin:0;max-width:none;
+    grid-template-columns:1fr;gap:12px}
+  /* 面は下からせり上がる形にして、顔が写る上半分は写真のまま残す */
+  .s2hero .s2title::before{background:linear-gradient(180deg,
+    rgba(3,18,38,0) 0%,rgba(3,18,38,.22) 14%,rgba(3,18,38,.80) 34%,rgba(3,18,38,.93) 56%,rgba(3,18,38,.95) 100%)}
+}
