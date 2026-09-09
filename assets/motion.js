@@ -208,6 +208,10 @@
   var lastY = window.pageYOffset, t = false;
   function frame() {
     var y = window.pageYOffset;
+    /* 🚨 2026-09-09 「動きを減らす」設定でも、ここで .tucked が付いてヘッダーが
+       translateY(-104%) で消えていた（末尾の remove は初回1回きりで、次のスクロールで元に戻る）。
+       この設定の人にはヘッダーを動かさない */
+    if (reduce) { if (head) head.classList.remove('tucked'); lastY = y; t = false; return; }
     var h = document.documentElement.scrollHeight - window.innerHeight;
     if (prog) prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, y / h) : 0).toFixed(4) + ')';
     if (head) {

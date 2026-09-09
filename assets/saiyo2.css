@@ -57,8 +57,11 @@
 /* 🚨 var(--hot-hi) は使わない。style.css:813 のPXスキンが --hot-hi を --hot と同値
    （#F2C594）に上書きしていて、style.css:15 が自分で「4.0:1で足りない」と書いた色になる。
    ＝安全用に作った変数が無効化されていた（[[css-written-is-not-css-working]]）。色は直書きする。 */
+/* 🚨 2026-09-09 影だけでは足りず、明るいコマで明暗比 2.87〜2.98（要4.5）だった。
+   字幕と同じ帯を敷く（映像の明るさに左右されない足場を作る） */
 .s2scenehead{position:absolute;top:16px;left:16px;z-index:1;
   font-size:14px;font-weight:700;letter-spacing:.24em;color:#FFF7EA;
+  padding:5px 14px;border-radius:999px;background:rgba(16,20,24,.82);backdrop-filter:blur(2px);
   text-shadow:0 1px 8px rgba(16,20,24,.9)}
 .s2scenehead b{font-weight:700;margin-right:16px;color:#FFF7EA}
 .s2subtitle{position:absolute;left:16px;right:16px;bottom:16px;z-index:1;text-align:center;
@@ -138,7 +141,9 @@
    案2は角丸999pxの滑らかな作法なので、滑らかなチェックに戻す（このページの中だけ） */
 body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M1.2 5.6 5 9.4 12.8 1.6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
 
-.s2sec h3.s2h{font-size:22px;font-weight:700;margin-top:64px;padding-left:16px;
+/* 🚨 2026-09-09 padding-left:16px のせいで、同じ階層の見出しの左端が 140/160/165px の3種に
+   割れていた（施主の「配置のバランスがよく分からない」の実体の1つ）。h2 と同じ左端にそろえる */
+.s2sec h3.s2h{font-size:22px;font-weight:700;margin-top:64px;padding-left:0;
   border-left:4px solid var(--accent)}
 .s2sec h3.s2h:first-of-type{margin-top:48px}
 .s2sec .s2h+.note{margin-top:16px}
@@ -159,7 +164,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2jobs p:not(.k){margin-top:8px;font-size:16px;line-height:1.9;color:var(--ink)}
 
 /* ---- 1日の流れ（縦タイムライン。時刻は仮） ---- */
-.s2day{margin-top:24px;border-left:2px solid var(--brand);padding-left:24px;max-width:640px}
+.s2day{margin-top:24px;border-left:2px solid var(--brand);padding-left:24px;max-width:860px}
 .s2day>div{position:relative;padding:0 0 32px}
 .s2day>div:last-child{padding-bottom:0}
 .s2day>div::before{content:"";position:absolute;left:-31px;top:8px;width:12px;height:12px;
@@ -213,7 +218,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
       ③2枚しかないので2列に固定する（3列だと空きマスが出る） */
 /* 幅も止める：PCで4列ぶん（1160px）に2枚だけ置くと、568pxの箱に中身が250pxしか入らず
    スカスカに見える。600pxに収めて箱を本文と同じ密度にする */
-.s2nums-sub{margin-top:24px;grid-template-columns:repeat(2,minmax(0,1fr));max-width:600px}
+.s2nums-sub{margin-top:24px;grid-template-columns:repeat(2,minmax(0,1fr));max-width:820px}
 .s2nums-sub>div{background:var(--white);box-shadow:none}
 /* 🚨 スマホでは主の2番手が28pxなので、従が24pxだと差が14%しかなく、
    桁数の多い「11,980」が字の面積で主の2番手を32%上回ってしまう。19pxまで落とす
@@ -343,7 +348,9 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
    上帯は眉ラベルと同じ #9C4219 に（4px隣で #8F3C16 と2種の橙が並んでいた）。
    板の幅は 760px で止める：1160pxのままだと中身が左612pxに収まって右55%が空になり、
    面積は稼げても「作りかけのバナー」に見える */
-.s2close .in>div{position:relative;overflow:hidden;max-width:760px;margin-inline:auto;
+/* 🚨 2026-09-09 この板だけ中央寄せで、左端が他6章（x=140）から249pxずれていた。
+   ページで唯一ここだけ揃っていないので、他の章と同じ左揃えにする */
+.s2close .in>div{position:relative;overflow:hidden;max-width:760px;margin-inline:0;
   background:var(--paper-warm);border:1px solid #E6DCC4;border-top:4px solid #9C4219;
   border-radius:16px;padding:40px 24px;box-shadow:0 14px 34px rgba(13,54,105,.16)}
 /* カードは節の粒（::after）より上に乗るので、粒が1画素も掛かっていなかった。カードにも同じ粒を掛ける */
@@ -466,7 +473,7 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
   .s2real{grid-template-columns:1fr 1fr}
   .s2fit{grid-template-columns:1fr 1fr;gap:40px}
   .s2close .in{padding:72px 40px}
-  .s2close h3{font-size:36px}
+  .s2close h3{font-size:30px}
   .s2close .in>div{padding:40px 40px}
 }
 
@@ -507,7 +514,7 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 
 /* 見出しの上限（40pxは本文の2.4倍。合格帯は28〜36px） */
 @media (min-width:1024px){
-  .s2sec h2,.s2career h2{font-size:36px}
+  .s2sec h2,.s2career h2{font-size:32px}
   /* 応募の見出しは章見出しと同じ36px。ここが一番大事な行なので、章見出しより小さくしない */
   .s2close h3{font-size:36px}
 }
@@ -587,7 +594,9 @@ body.saiyo2 .hbtn:active{transform:scale(.97);opacity:.85}
 .s2subtitle{display:block;width:fit-content;max-width:calc(100% - 32px);
   margin-left:auto;margin-right:auto;
   padding:6px 16px;border-radius:999px;
-  background:rgba(16,20,24,.6);backdrop-filter:blur(2px)}
+  /* 🚨 2026-09-09 .6 だと映像の明るいコマで明暗比 3.69〜4.23（要4.5）。
+     背景は動画なのでコマごとに変わる。どのコマでも足りる濃さにする */
+  background:rgba(16,20,24,.82);backdrop-filter:blur(2px)}
 
 /* 記録5：2段組の左列が721pxで185pxしかなく、h1が列からはみ出していた */
 @media (min-width:721px) and (max-width:999px){
@@ -645,7 +654,10 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 
 /* 2026-09-07 review pass2: s2facts導入後のPCグリッドを再指定。右カードだけ上、本文は上から始める */
 @media (min-width:1000px){
-  .s2title>.s2facts{grid-column:2;grid-row:1/4;align-self:start;margin-top:0;max-width:none}
+  /* 🚨 2026-09-09 2枚目のカードを足したら、右列400pxを2分割して1枚193px＝7行に折れ、
+     「24人／」で行末になっていた（スマホ342pxよりPCが狭いという逆転）。PCでは縦に積む */
+  .s2title>.s2facts{grid-column:2;grid-row:1/4;align-self:start;margin-top:0;max-width:none;
+    grid-template-columns:1fr}
   .s2title>.s2acts{grid-column:2;grid-row:4;align-self:start;margin-top:18px}
   .s2title>.s2en{grid-column:1;grid-row:1}
   .s2title>h1{grid-column:1;grid-row:2;margin-top:18px}

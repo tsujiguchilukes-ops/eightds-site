@@ -51,23 +51,11 @@
   </div>
 </header>
 
-<!-- ============================================================
-  ヒーロー（H-1）＝映画のワンシーン。
-  1カットの中に「いまの自分（助手席）」と「少し先の自分（運転席）」が同居している
-  実写（P2_二人：運転席と助手席の二人。背景に自社トラックの社名）を、
-  レターボックス＋SCENE表記＋字幕の型で「映画の1カット」として見せる。
-  H-2（実写を動かす場合）：下の <img> を <video muted autoplay loop playsinline
-  poster="img/P2_二人.webp"> に差し替えるだけの枠にしてある。
-  
-  ============================================================ -->
 <main id="s2main" tabindex="-1">
 <section class="s2hero">
   <div class="s2film">
     <div class="s2frame">
-      <!-- H-2：実写を動かした10秒ループ（Higgsfield kling3_0 pro／元＝img/P2_二人.webp）。
-           カメラは固定で、動くのは二人の呼吸とまばたきだけ。看板「(有)エイト流通サービス」は
-           先頭・末尾とも元画像と同じ字形であることを実測ずみ。
-           動画が読めない環境では poster（mp4の1コマ目そのもの）が出る -->
+      
       <video poster="img/hero_p2.poster.jpg" width="1600" height="900"
              muted playsinline autoplay loop preload="metadata"
              aria-label="2tトラックの運転席と助手席に座る2人の社員">
@@ -75,20 +63,14 @@
         <source src="img/hero_p2.mp4" type="video/mp4">
       </video>
       <p class="s2scenehead"><b>SCENE 01</b>助手席と、運転席。</p>
-      <!-- 2026-09-09 おでん指示：「二人一組だから安心っていう風にしよう」。
-           表記はサイト内で統一している「2人1組」に合わせる（口頭は「二人一組」だった） -->
+      
       <p class="s2subtitle"><span class="nw">2人1組だから、</span><span class="nw">安心。</span></p>
     </div>
   </div>
   <div class="s2title">
     <p class="s2en">エイト流通サービスの採用 ／ 家電配送・エアコン工事</p>
     <h1><span class="nw">助手席から、</span><span class="nw">始めよう。</span></h1>
-    <!-- 🚨 ここに「こんどは自分が誰かを隣に乗せる番へ」を置かない。
-         それは4章 SCENE 05 の締めの言葉で、1画面目で言うと5場面を読む理由が消える -->
-    <!-- 🚨 2026-09-09 並び順を「見出し → 相談の入口 → 説明 → 条件 → 特徴」に変えた。
-         スマホ幅390pxで、CTAが1画面目に1つも入っていなかった（実測）。
-         見出しに共感した瞬間に押せる物が無いと、そこで離脱する。
-         PCは .s2title が grid で、各要素の列と行を明示しているので見た目は変わらない -->
+
     <div class="s2acts">
       <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="hero">LINEで話を聞いてみる</a>
       <div class="s2alt-links">
@@ -97,9 +79,7 @@
       </div>
     </div>
     <p class="s2lead">最初の仕事は、先輩の隣に座ること。浦安本社と埼玉営業所から、東京・千葉・埼玉のご家庭へ家電を届けて、取り付けている、1986年創業の会社です。</p>
-    <!-- 🚨 2026-09-09 この枠は2列（saiyo2.css .s2facts）なのに1枚しか入っておらず、
-         右半分が空いていた。裏の取れている一番強い事実（26人中24人が未経験）は
-         このページで16pxの注記にしか出ていなかったので、2枚目としてここへ上げた -->
+    
     <div class="s2facts" aria-label="採用条件の要点">
       <dl class="s2fact">
         <dt>正社員の月給</dt>
@@ -124,10 +104,6 @@
 
 <nav class="crumb" aria-label="現在の場所"><div class="in"><a href="index.html">トップ</a><span aria-hidden="true">＞</span>採用情報</div></nav>
 
-<!-- 2026-09-09 おでん指示「応募質問のところは青くしなくていい。同じ白でいい」＝07の青地を外した。
-     あわせて、指示外の不具合を1件直した：番号が 01→03→06→07 と飛んでいて「02・04・05が壊れている」
-     ように見えていた。節は7つあるのにタブは4つしか載せていなかったのが原因なので、全7節を載せた。
-     🚨 タブの文字は各節の眉ラベル（01 ／ 仕事 など）と1字一句そろえる。別々に育てると必ずズレる -->
 <nav class="s2jump" aria-label="採用情報のページ内メニュー">
   <a href="#shigoto"><span>01</span>仕事</a>
   <a href="#hito"><span>02</span>仲間</a>
@@ -138,7 +114,6 @@
   <a href="#entry"><span>07</span>応募</a>
 </nav>
 
-<!-- 01 仕事を知る（職種＋1日の流れ） -->
 <section class="sec s2sec" id="shigoto">
   <div class="wrap">
     <p class="en" data-rise="0">01 ／ 仕事</p>
@@ -168,22 +143,13 @@
   </div>
 </section>
 
-<!-- 02 人を知る（社員＋SNS枠） -->
 <section class="sec sec-paper s2sec" id="hito">
   <div class="wrap">
     <p class="en" data-rise="0">02 ／ 仲間</p>
     <h2 data-rise="0">現場に立っている人たち。</h2>
-    <!-- 🚨 裏の取れている一番強い数字（26人中24人が未経験）が、この採用ページに1つも無かった。
-         トップには載っているのに、求職者が条件を読みに来るこのページに無いのは逆。ここに置く -->
+    
     <p class="note" data-rise="0">社員26人のうち、<span class="nw">24人が未経験</span>で入りました。</p>
 
-    <!-- 🚨 社員インタビューは、本人の言葉が届くまで出さない。
-         こちらで書いたセリフや経歴のタグを、実在の社員の顔写真に付けない
-         （断り書きは免罪符にならない。2026-09-03 に月給の推定値を撤去したのと同じ形）。
-         切り出しの staff_1〜3.webp は鮮鋭度が他の実写の1/10〜1/20（実測119〜283 対 1825〜2593）で、
-         両端に他の人の肩と腕が切れて写り込んでいるため、ここでは使わない。
-         → 日曜のヒアリングで3人ぶんが届いたら、この枠をカード3枚に置き換える。
- -->
     <div class="s2band-in" data-rise="0">
       <img src="img/L5_受付.webp" alt="トラックの荷台の前で笑い合う2人" loading="lazy" decoding="async" width="1800" height="1200">
     </div>
@@ -191,12 +157,11 @@
   </div>
 </section>
 
-<!-- 03 給与 -->
 <section class="sec s2sec" id="kyuyo">
   <div class="wrap">
     <p class="en" data-rise="0">03 ／ 給与</p>
     <h2 data-rise="0">アルバイトから、正社員へ。</h2>
-    <!-- 断り書きは、額を名指しできる範囲だけを囲む（下の板には性質の違う数字が並ぶため） -->
+    
     <p class="note" data-rise="0">未経験で<span class="nw">月給34万円</span>から始めて、7年目で<span class="nw">46万円</span>になった社員がいます。</p>
     <p class="note" data-rise="0"><span class="nw">月給34万円</span>・<span class="nw">賞与年3回</span>・<span class="nw">日給11,980円</span>は、2026年9月に渡邉社長から直接確認したものです。</p>
 
@@ -214,14 +179,13 @@
       </div>
       <div>
         <dt>昇給</dt>
-        <!-- 🚨 矢印を <small> で挟むと 40px の数字の間で 14px に潰れ、「34.46万円」に見えていた。
-             数字は1つだけ大きく出し、いくらから上がったかは説明文に置く -->
+        
         <dd class="sm"><b>46</b><small>万円</small>
         <span class="d">アルバイトで入社した7年目の社員の実額です。入社時は34万円、4年目・5年目は40万円</span></dd>
       </div>
       <div>
         <dt>社員の年収</dt>
-        <!-- 「全員」を数字の前に置くと390pxで3行に割れる（全員／500万円／超）。説明文の方に回す -->
+        
         <dd class="sm"><b>500</b><small>万円超</small>
         <span class="d">2026年9月時点で、年収500万円以下の社員はいません</span></dd>
       </div>
@@ -242,12 +206,12 @@
       <div>
         <dt>アルバイトの日給</dt>
         <dd class="sm"><b>11,980</b><small>円</small>
-        <!-- 支払いは日払いだけ書く（案件メモ 04 の決まり） -->
+        
         <span class="d">別途、交通費1,000円／日払い対応／現地集合・現地解散も可</span></dd>
       </div>
       <div>
         <dt><span class="nw">アルバイト</span> <span class="nw">勤務時間</span></dt>
-        <!-- 書けるのは日給保障まで。終わる時刻の話に踏み込まない -->
+        
         <dd class="sm"><b>8:30</b><span class="rng">〜</span><b>17:30</b>
         <span class="d">日給保障付き。早く終わった日も日給は満額です</span></dd>
       </div>
@@ -255,7 +219,6 @@
   </div>
 </section>
 
-<!-- 04 入社してからの道すじ＝映画の章立て -->
 <section class="s2career" id="michi">
   <div class="wrap">
     <p class="en" data-rise="0">04 ／ 道すじ</p>
@@ -278,12 +241,7 @@
           <p>車両は2tショートトラックです。</p>
         </div>
       </article>
-      <!-- 2026-09-09 おでん指示47〜50「シーン03の写真はフリー素材で。顔が映ってないやつを」。
-           出典＝ぱくたそ https://www.pakutaso.com/20220549126post-40200.html
-           「白い壁に取り付けられた室内のエアコン室内機ユニット」／撮影 kotetsu
-           ライセンス＝ぱくたそ利用規約（商用利用可・クレジット表記不要・会員登録不要）
-           🚨 これは当社の現場ではない。alt にも「当社の」と書かない。人物は写っていない。
-           色は他の実写に合わせて彩度1.16・ガンマ1.04・コントラスト1.04＋軽い先鋭化をかけてある -->
+      
       <article class="s2scene" data-rise="0">
         <div class="ph"><img src="img/AC1_室内機.webp" alt="室内の壁に取り付けられたエアコンの室内機" loading="lazy" decoding="async" width="1800" height="1200"></div>
         <div class="tx">
@@ -297,7 +255,7 @@
         <div class="tx">
           <p class="n">SCENE 04</p>
           <h3>工事も覚える。</h3>
-          <!-- 「指導は当社で行います」は直前の SCENE 03 と同じ文なので落とした（ページ内で8回出ていた） -->
+          
           <p>配送に加えて、エアコン工事も覚えていきます。</p>
         </div>
       </article>
@@ -313,13 +271,10 @@
   </div>
 </section>
 
-<!-- 05 正直なところ（リアル＋向き不向き＋FAQ） -->
 <section class="sec sec-paper s2sec" id="real">
   <div class="wrap">
     <p class="en" data-rise="0">05 ／ 本音</p>
-    <!-- 2026-09-09 おでん指示「大変なところも先に って言葉おかしいよ、直して」。
-         「先に」が何より先なのかを言っておらず、体言止めで主語も述語も無かった。
-         この節の役目（＝良いことより先に、都合の悪いことを言う）が一読で伝わる形に直した -->
+    
     <h2 data-rise="0">先にお伝えする、大変なところ。</h2>
     <div class="s2real" data-rise="0">
       <div>
@@ -339,8 +294,7 @@
         </ul>
       </div>
     </div>
-    <!-- 🚨 代表の発言。実名で本人の言葉として出すので、先方から届いた原文を1字も変えない。
-         （2026-09-05 検品で、語尾と「これからの」が足されていたのを原文に戻した） -->
+    
     <div class="s2said" data-rise="0">
       <p>配送業務でマッチョになりたい方歓迎。<br>AI時代には必ず手に職が有利。</p>
       <cite>代表 渡邉より</cite>
@@ -361,7 +315,7 @@
         <ul>
           <li><span class="n">－</span>ずっと一人で黙々と作業したい方（2人1組で動きます）</li>
           <li><span class="n">－</span>体を動かしたくない方（家電を運ぶ体力仕事です）</li>
-          <!-- 2026-09-09 おでん指示：「毎日同じ場所で働きたい方」はやめて「車酔いをする人」に差し替え -->
+          
           <li><span class="n">－</span>車に酔いやすい方（1日中、トラックで移動します）</li>
         </ul>
       </div>
@@ -397,10 +351,6 @@
   </div>
 </section>
 
-<!-- 06 募集要項 -->
-<!-- 2026-09-09 おでん指示「これは書かなくていいかな」＝h2「正社員とアルバイト、それぞれの条件。」と
-     note「条件は2026年9月時点のものです。」を削除し、眉ラベルから表へ直行する形にした。
-     🚨 h2 が無くなると、この区画が何かを読み上げる物が消えるので section に aria-label を付ける -->
 <section class="sec s2sec" id="youkou" aria-label="募集要項">
   <div class="wrap">
     <p class="en" data-rise="0">06 ／ 募集要項</p>
@@ -426,35 +376,28 @@
       <tr><th scope="row">職種</th><td>配送アシスタント（家電配送の助手）</td></tr>
       <tr><th scope="row">仕事内容</th><td>ドライバーの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。</td></tr>
       <tr><th scope="row">対象</th><td>未経験の方も歓迎です。運転はしないので、助手席から始められます。</td></tr>
-      <!-- 聞いた言葉のまま「近くの駅まで」。駅名・時間・回数を作らない（案件メモ 04 の決まり） -->
+      
       <tr><th scope="row">送迎</th><td><strong>近くの駅まで送迎します</strong></td></tr>
       <tr><th scope="row">勤務地</th><td>埼玉県新座市<span class="nw">野火止2-11-25</span></td></tr>
       <tr><th scope="row">勤務時間</th><td>8:30〜17:30<br>日給保障付きのため、早く終わっても日給は変わりません</td></tr>
-      <!-- シフトの決め方は、聞けている範囲の言い方にとどめる（案件メモ 04 の決まり） -->
+      
       <tr><th scope="row">シフト</th><td>ご都合を伺って決めます</td></tr>
       <tr><th scope="row">集合・解散</th><td>現地集合・現地解散も可能です</td></tr>
     </table>
     <p class="note" data-rise="0">※勤務時間・シフト・支払いの条件は、時期によって変わることがあります。</p>
-    <!-- 🚨 更新日を書く場所はサイト内でここ1か所だけ。募集要項の条件を1文字でも変えたら、必ずこの日付も直す。
-         （2026-09-09 おでん指示「いつ更新されてるか分かった方がいい。目立たない形で目につくところに」） -->
+    
     <p class="s2upd" data-rise="0">最終更新 <time datetime="2026-09-09">2026年9月9日</time></p>
   </div>
 </section>
 
-<!-- 写真の帯：横写真を素の縦横比のまま使う（トリミング0＝顔が切れない） -->
 <div class="s2band"><img src="img/P1_全員.webp" alt="トラックの前に並ぶ4人のスタッフ" loading="lazy" decoding="async" width="1800" height="1200"></div>
 
-<!-- 07 相談・応募 -->
 <section class="s2close" id="entry" aria-label="応募">
   <div class="in">
     <div data-rise="0">
-      <!-- 🚨 タブ「07 応募」から飛んでくる。他の6節は着地点に眉ラベル（0N ／ ◯◯）があるのに
-           ここだけ無く、押した先が合っているか確かめられなかった。1字一句そろえて置く -->
+      
       <p class="en">07 ／ 応募</p>
-      <!-- このページで一番大事な区画。応募の手順は見せず、「決める前に一度来てもらう」ことだけを言う。
-           言い回しを変える時の決まりごとは、社外に出さない案件メモの方に書いてある -->
-      <!-- 🚨 「いきなり応募じゃなくて、大丈夫です。」は390pxで「…じゃなく／て、」と語中で割れた。
-           1行に収まる長さの塊に分けて、割れてよい所でだけ改行させる -->
+
       <h3><span class="nw">応募じゃなくても、</span>大丈夫です。</h3>
       <p>「正社員の条件だけ聞きたい」「アルバイトの働き方を知りたい」「エアコン工事ってどんな仕事？」――どれでも大丈夫です。<span class="nw">応募するかどうかは</span>、話を聞いてから決めてください。</p>
       <a class="s2cta is-line" data-cta href="https://lin.ee/YRmILrV" target="_blank" rel="noopener" data-ga="line_click" data-ga-place="close">LINEで話を聞いてみる</a>
@@ -463,8 +406,6 @@
   </div>
 </section>
 
-<!-- 🚨 このページはスマホで31画面ぶんある。浮く「上へ戻る」ボタンは全ページで止めてあるので、
-     読み終わりに先頭へ戻る口をここに置く（章送りタブの1つ目は #shigoto＝先頭ではない） -->
 <div class="backrow"><div class="in"><a href="#s2main">ページの先頭へ戻る</a><a href="index.html">トップページへ戻る</a></div></div>
 </main>
 
