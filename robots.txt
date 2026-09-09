@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 提案用の転送ページは検索に出さない
+Disallow: /saiyo.html
+Disallow: /saiyo2.html
+
+Sitemap: https://tsujiguchilukes-ops.github.io/eightds-site/sitemap.xml

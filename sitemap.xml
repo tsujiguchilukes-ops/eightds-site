@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 🚨 独自ドメイン（eight-ds.co.jp）に切り替えたら、この中のURLを全部書き替える。
+     切替の手順は ../_公開とドメイン_20260910.md -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/</loc><lastmod>2026-09-10</lastmod><priority>1.0</priority></url>
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/recruit.html</loc><lastmod>2026-09-10</lastmod><priority>0.9</priority></url>
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/service.html</loc><lastmod>2026-09-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/business.html</loc><lastmod>2026-09-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/about.html</loc><lastmod>2026-09-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/contact.html</loc><lastmod>2026-09-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://tsujiguchilukes-ops.github.io/eightds-site/privacy.html</loc><lastmod>2026-09-10</lastmod><priority>0.3</priority></url>
+</urlset>
