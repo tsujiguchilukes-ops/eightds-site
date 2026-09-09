@@ -1,3 +1,10 @@
+/* 2026-09-09 おでん指示：リンクを開いたら必ずヒーローから見せる。
+   ブラウザが前回のスクロール位置を覚えていて、途中から出ることがある */
+(function(){ if('scrollRestoration' in history) history.scrollRestoration='manual';
+  if(location.hash) return;
+  var t=function(){window.scrollTo(0,0)};
+  t(); window.addEventListener('load',t); document.addEventListener('DOMContentLoaded',t);
+})();
 /* =========================================================
    動き — ライブラリ無し。transform と opacity だけを動かす。
    1. スクロールで下から出す（一度だけ・一斉に）

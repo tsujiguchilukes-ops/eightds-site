@@ -4,6 +4,20 @@
 (function () {
   'use strict';
 
+/* -----------------------------------------------------
+   0) 開いたときは必ずヒーローから見せる（2026-09-09 おでん指示）
+   ブラウザはスクロール位置を覚えていて、戻ったときに途中から出ることがある。
+   ただし #kyuyo のようにアンカー付きで開いたときは、その場所へ飛ばす
+   ----------------------------------------------------- */
+(function () {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) return;               // アンカー付きは触らない
+  var top = function () { window.scrollTo(0, 0); };
+  top();
+  window.addEventListener('load', top);
+  document.addEventListener('DOMContentLoaded', top);
+})();
+
   /* LINEの導線は assets/line.js に一本化した（URLを入れる場所は1か所だけ） */
 
 
