@@ -906,3 +906,13 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2hero{align-items:flex-end}
   .s2hero .s2title{margin:0 auto;padding-top:0;padding-bottom:72px}
 }
+
+/* 2026-09-09 おでん指示「もっとぎゅっと」。実測（同業37社の中央値8.3画面）に寄せるため、
+   本音の節の「向いている／向いていない」を畳んだ。中身は消していない */
+.s2foldfit{margin-top:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.s2foldfit>summary{cursor:pointer;list-style:none;padding:18px 4px;font-size:17px;font-weight:700;
+  display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.s2foldfit>summary::-webkit-details-marker{display:none}
+.s2foldfit>summary::after{content:"＋";font-size:19px;color:var(--accent)}
+.s2foldfit[open]>summary::after{content:"−"}
+.s2foldfit .s2fit{margin-top:4px;padding-bottom:20px}
