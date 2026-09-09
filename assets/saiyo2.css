@@ -934,3 +934,12 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 @media (max-width:379px){
   .s2hero .s2title{padding-top:238px}
 }
+
+/* 2026-09-09 デザイン検品の残り2件 */
+@media (min-width:721px){
+  /* 節の上下は合格帯100〜120pxへ（96pxは安く見える側） */
+  .s2sec.sec{padding:104px 0}
+  /* PCの全長がトップの1.8倍だったので、縦に積んでいたものを2列にする */
+  .s2faq{columns:2;column-gap:40px}
+  .s2faq>details{break-inside:avoid;margin-bottom:0}
+}
