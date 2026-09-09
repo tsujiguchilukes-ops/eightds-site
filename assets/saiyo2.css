@@ -768,3 +768,115 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 
 /* 2026-09-08 に電話の案内を全ページから消して LINE 一本化したので、
    応募節の電話行（.tel-row）むけの指定はすべて削除した（このCSSを読むのは recruit.html だけ） */
+
+.s2hero{position:relative;isolation:isolate;min-height:100svh;padding-top:var(--head);display:flex;align-items:stretch;overflow:hidden;background:#0c315e}
+.s2hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,22,45,.9) 0%,rgba(4,22,45,.72) 46%,rgba(4,22,45,.26) 74%,rgba(4,22,45,.12) 100%)}
+.s2hero .s2film{position:absolute;inset:0;z-index:0;padding:0;background:#0c315e}
+.s2hero .s2frame{width:100%;max-width:none;height:100%}
+.s2hero .s2frame video{width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;object-position:50% 37%;filter:saturate(.92) contrast(1.05) brightness(.93)}
+.s2hero .s2frame::after{background:linear-gradient(180deg,rgba(3,17,36,.22),transparent 30%,rgba(3,17,36,.42))}
+.s2hero .s2scenehead,.s2hero .s2subtitle{display:none}
+/* 🚨 2026-09-09 眉・見出し・リードに別々の帯を敷くと「紙を4枚貼った」ように見えた。
+   かといって帯を全部外すと明暗比が 1.61:1 まで落ちる（実測）。
+   文字ブロック全体に1枚だけ面を敷いて、写真は面の外側で見せる */
+.s2hero .s2title{position:relative;z-index:2;display:block;width:100%;max-width:1160px;margin:auto;padding:64px 40px 80px;color:#fff}
+.s2hero .s2title::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(3,18,38,.90) 0%,rgba(3,18,38,.86) 46%,rgba(3,18,38,.62) 72%,rgba(3,18,38,.30) 100%)}
+.s2hero .s2title .s2en{color:#fff;font-size:13px;letter-spacing:.18em}
+.s2hero .s2title h1{max-width:11em;margin-top:16px;font-size:clamp(42px,5vw,64px);line-height:1.14;color:#fff;text-shadow:0 3px 24px rgba(0,12,28,.54)}
+.s2hero .s2lead{max-width:35em;margin-top:22px;color:#fff;font-size:17px;line-height:1.85;text-shadow:0 2px 16px rgba(0,12,28,.6)}
+.s2hero .s2chips{max-width:680px;margin-top:20px}.s2hero .s2chips li{background:rgba(255,255,255,.96);box-shadow:0 7px 20px rgba(0,14,34,.24)}
+.s2hero .s2facts{max-width:640px;margin-top:22px}.s2hero .s2facts .s2fact{background:rgba(255,255,255,.96);box-shadow:0 10px 26px rgba(0,14,34,.2)}
+.s2hero .s2acts{max-width:420px;margin-top:24px}.s2hero .s2cta{box-shadow:0 12px 30px rgba(0,14,34,.3)}
+.s2hero .s2sub-link{color:#fff;border-color:rgba(255,255,255,.75)}.s2hero .s2note-ext{color:#fff;text-shadow:0 1px 10px #00152f}
+.s2interlude{position:relative;max-width:none;margin:0;overflow:hidden;background:var(--deep)}
+.s2interlude::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,28,58,.24),transparent 55%,rgba(6,28,58,.14))}
+.s2interlude img{display:block;width:100%;height:clamp(270px,31vw,500px);object-fit:cover;object-position:center 48%;filter:saturate(.92) contrast(1.04)}
+@media (min-width:721px){
+  .s2hero{min-height:max(760px,100svh)}
+  .s2hero .s2title{padding-top:clamp(100px,14vh,160px);padding-bottom:96px}
+  .s2hero .s2facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .s2hero .s2acts{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+  .s2hero .s2acts .s2cta{width:100%;min-width:0}
+}
+@media (max-width:720px){
+  .s2hero{min-height:100svh}
+  .s2hero::before{background:linear-gradient(180deg,rgba(4,22,45,.34),rgba(4,22,45,.76) 52%,rgba(4,22,45,.94))}
+  .s2hero .s2title{padding:calc(var(--head) + 34px) 24px 54px;margin:0;align-self:flex-end}
+  .s2hero .s2title h1{font-size:clamp(39px,11vw,48px);line-height:1.16}
+  .s2hero .s2lead{font-size:15px;line-height:1.7;margin-top:16px}
+  .s2hero .s2chips{display:none}
+  .s2hero .s2facts{margin-top:18px;gap:8px}.s2hero .s2facts .s2fact{padding:12px 16px}
+  .s2hero .s2facts .s2fact dd b{font-size:34px}.s2hero .s2facts .s2fact .d{font-size:13px}
+  .s2hero .s2acts{margin-top:18px}.s2hero .s2cta{min-height:56px}
+  .s2interlude img{height:270px;object-position:center}
+}
+@media (max-width:359px){.s2hero .s2title{padding-left:18px;padding-right:18px}.s2hero .s2title h1{font-size:37px}.s2hero .s2lead{font-size:14px}.s2hero .s2facts .s2fact{padding:10px 14px}.s2hero .s2facts .s2fact .d{display:none}}
+
+@media (min-width:721px){
+  .s2sec .note,.s2career .note{max-width:none;display:grid;grid-template-columns:minmax(0,42em) minmax(12rem,1fr);gap:48px;align-items:center}
+  .s2sec .note::after,.s2career .note::after{content:"EIGHT  /  DELIVERY & INSTALLATION";display:block;padding:18px 0;border-top:1px solid currentColor;border-bottom:1px solid currentColor;font-size:11px;font-weight:700;letter-spacing:.16em;line-height:1.5;opacity:.62}
+  .s2day{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 32px;border-left:0;padding-left:0}
+  .s2day>div{min-height:132px;padding:18px 20px 20px 24px;border-left:2px solid var(--brand);background:linear-gradient(90deg,rgba(11,82,157,.065),transparent)}
+  .s2day>div::before{left:-7px;top:23px}.s2day>div:last-child{padding-bottom:20px}
+  .s2nums-sub{max-width:none}.s2nums-sub>div{min-height:178px}
+  .s2sec h3.s2h{margin-left:0}.s2sec h2,.s2career h2{font-size:clamp(34px,3.1vw,42px);line-height:1.28}
+}
+@media (max-width:720px){.s2sec .note::after,.s2career .note::after{display:none}}
+.s2real+.s2interlude{width:100vw;margin:40px calc(50% - 50vw);}
+@media (min-width:721px){.s2real+.s2interlude{margin-top:56px;margin-bottom:56px}}
+
+.s2hero::before{background:linear-gradient(90deg,rgba(4,22,45,.30) 0%,rgba(4,22,45,.18) 42%,rgba(4,22,45,.08) 78%,rgba(4,22,45,.04) 100%)}
+.s2hero .s2frame video{filter:saturate(.98) contrast(1.01) brightness(1.05)}
+.s2hero .s2scenehead,.s2hero .s2subtitle{display:block;z-index:3;background:rgba(4,22,45,.84);backdrop-filter:blur(2px)}
+.s2hero .s2scenehead{top:18px;left:24px}.s2hero .s2subtitle{top:62px;bottom:auto;left:24px;right:auto;margin:0;width:auto;max-width:calc(100% - 48px);padding:6px 14px}
+/* 🚨 2026-09-09 眉・見出し・リードに帯を敷いたら、写真の上に紙を4枚貼ったように見えた。
+   帯はやめ、下側を濃くしたグラデを足場にする（トップの .bluehero と同じ考え方）。
+   文字は下半分に集めて、顔が写る上半分は写真のまま残す */
+.s2hero .s2title .s2en,.s2hero .s2title h1,.s2hero .s2lead{width:fit-content;max-width:min(100%,35em);padding:0;background:rgba(4,22,45,0);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s2hero .s2title h1{padding:0}.s2hero .s2lead{padding:0}
+@media (max-width:720px){
+  .s2hero::before{background:linear-gradient(180deg,rgba(4,22,45,.06) 0%,rgba(4,22,45,.10) 40%,rgba(4,22,45,.18) 100%)}
+  .s2hero .s2frame video{filter:saturate(1) contrast(1) brightness(1.08)}
+  .s2hero .s2scenehead{top:12px;left:12px}.s2hero .s2subtitle{top:56px;left:12px;max-width:calc(100% - 24px);font-size:13px}
+  .s2hero .s2title{padding-top:104px;padding-bottom:34px}
+  /* スマホは上から下へ。上3割は写真のまま（顔が見える）、下は文字の足場 */
+  .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.62) 12%,rgba(3,18,38,.90) 30%,rgba(3,18,38,.94) 100%)}
+  .s2hero .s2title .s2en{font-size:11px;padding:0}.s2hero .s2title h1{font-size:clamp(36px,10vw,44px);padding:0}.s2hero .s2lead{font-size:14px;line-height:1.62;padding:7px 9px}
+  .s2hero .s2chips{display:flex;gap:6px;margin-top:12px}.s2hero .s2chips li{font-size:11px;line-height:1.35;padding:5px 9px}.s2hero .s2chips li::before{width:11px;height:9px}
+  .s2hero .s2facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}.s2hero .s2facts .s2fact{padding:9px 10px}.s2hero .s2facts .s2fact dt{font-size:11px;letter-spacing:.08em}.s2hero .s2facts .s2fact dd{font-size:13px}.s2hero .s2facts .s2fact dd b{font-size:28px}.s2hero .s2facts .s2fact .d{display:none}
+  .s2hero .s2acts{margin-top:12px}.s2hero .s2cta{min-height:50px;font-size:15px}.s2hero .s2note-ext{font-size:11px}
+  .s2sec.sec{padding:52px 0}.s2career{padding:56px 0}.s2close .in{padding:52px 24px}
+  .s2sec h3.s2h{margin-top:40px}.s2sec h3.s2h:first-of-type{margin-top:32px}
+  .s2day{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border-left:0;padding-left:0}.s2day>div{padding:12px 10px 12px 14px;background:var(--white);border:1px solid var(--line);border-left:2px solid var(--brand);border-radius:8px}.s2day>div::before{display:none}.s2day>div:last-child{padding-bottom:12px}.s2day .t{font-size:15px}.s2day b{font-size:14px}.s2day p{font-size:13px;line-height:1.55}
+  .s2scenes{display:grid;grid-auto-flow:column;grid-auto-columns:84%;grid-template-columns:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:8px}.s2scene{scroll-snap-align:start}.s2scene .ph img{aspect-ratio:16/8}.s2scene .tx{padding:16px 18px 18px}.s2scene h3{font-size:20px}.s2scene p{font-size:15px;line-height:1.72}
+  .s2real+.s2interlude{margin-top:28px;margin-bottom:28px}.s2interlude img{height:210px}
+}
+
+.s2sec .note::after,.s2career .note::after{content:none}
+.s2req{margin-top:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.s2req summary{position:relative;display:flex;align-items:center;min-height:64px;padding:14px 48px 14px 4px;cursor:pointer;color:var(--brand);font-size:17px;font-weight:700;list-style:none}.s2req summary::-webkit-details-marker{display:none}.s2req summary::after{content:"＋";position:absolute;right:8px;font-size:26px;font-weight:400}.s2req[open] summary::after{content:"−"}.s2req .tbl{margin-top:0;border-top:1px solid var(--line)}
+@media (max-width:720px){.s2req{margin-top:16px}.s2req summary{min-height:56px;font-size:15px}.s2req .tbl{font-size:14px}}
+
+/* 🚨 2026-09-09 ヒーローに文字を全部入れると、写真を出す面積が残らず「人が見えない」状態になる。
+   実測：文字ブロックの面が画面の7割を覆っていた。リードとチップは1画面目から外に出し、
+   ヒーローには「眉・見出し・CTA・数字2枚」だけを残す（写真が主役に戻る） */
+.s2intro{padding:32px 0 8px;background:var(--white)}
+.s2intro .s2lead{margin:0;max-width:36em;color:var(--ink);text-shadow:none;font-size:17px;line-height:1.95}
+.s2intro .s2chips{margin-top:20px}
+.s2intro .s2chips li{background:var(--white);box-shadow:0 2px 8px rgba(13,54,105,.08)}
+@media (min-width:721px){ .s2intro{padding:44px 0 12px} .s2intro .s2lead{font-size:18px} }
+@media (max-width:720px){ .s2intro{padding:26px 0 6px} .s2intro .s2lead{font-size:16px;line-height:1.85} }
+/* ヒーロー側は文字が減るので、面を下1/3だけに絞って写真を大きく見せる */
+@media (max-width:720px){
+  /* 実測：文字は上から49%（眉）・53%（見出し）に来る。写真の白飛び（車内の窓）が明るく、
+     45%地点で .58 では明暗比 1.88:1 だった。文字が始まる45%以降を濃くする（顔は上40%に残す） */
+  /* 🚨 グラデの % は .s2title の高さ基準（ヒーロー基準ではない）。padding-top:150px があるので、
+     眉は .s2title の27%・見出しは34%の位置に来る。前は30%まで透明にしていて、眉が素の写真の上にいた
+     （実測 1.86:1）。濃くする位置を上へ持ち上げる */
+  .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.30) 10%,rgba(3,18,38,.86) 22%,rgba(3,18,38,.95) 34%,rgba(3,18,38,.96) 100%)}
+  .s2hero .s2title{padding-top:150px}
+}
+@media (min-width:721px){
+  .s2hero .s2title::before{background:linear-gradient(90deg,rgba(3,18,38,.88) 0%,rgba(3,18,38,.80) 38%,rgba(3,18,38,.40) 66%,rgba(3,18,38,0) 92%)}
+}
