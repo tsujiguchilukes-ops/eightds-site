@@ -143,7 +143,9 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 
 /* 🚨 2026-09-09 padding-left:16px のせいで、同じ階層の見出しの左端が 140/160/165px の3種に
    割れていた（施主の「配置のバランスがよく分からない」の実体の1つ）。h2 と同じ左端にそろえる */
-.s2sec h3.s2h{font-size:22px;font-weight:700;margin-top:64px;padding-left:0;
+/* 🚨 2026-09-09 左端をそろえるために padding-left を0にしたら、棒と文字がくっついて見栄えが悪くなった。
+   棒だけを左へ出して、文字の左端は h2 とそろえたまま隙間を空ける */
+.s2sec h3.s2h{font-size:22px;font-weight:700;margin-top:64px;margin-left:-18px;padding-left:18px;
   border-left:4px solid var(--accent)}
 .s2sec h3.s2h:first-of-type{margin-top:48px}
 .s2sec .s2h+.note{margin-top:16px}
@@ -783,7 +785,7 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2hero .s2title::before{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(90deg,rgba(3,18,38,.90) 0%,rgba(3,18,38,.86) 46%,rgba(3,18,38,.62) 72%,rgba(3,18,38,.30) 100%)}
 .s2hero .s2title .s2en{color:#fff;font-size:13px;letter-spacing:.18em}
-.s2hero .s2title h1{max-width:11em;margin-top:16px;font-size:clamp(42px,5vw,64px);line-height:1.14;color:#fff;text-shadow:0 3px 24px rgba(0,12,28,.54)}
+.s2hero .s2title h1{max-width:11em;margin-top:16px;font-size:clamp(38px,4.2vw,52px);line-height:1.14;color:#fff;text-shadow:0 3px 24px rgba(0,12,28,.54)}
 .s2hero .s2lead{max-width:35em;margin-top:22px;color:#fff;font-size:17px;line-height:1.85;text-shadow:0 2px 16px rgba(0,12,28,.6)}
 .s2hero .s2chips{max-width:680px;margin-top:20px}.s2hero .s2chips li{background:rgba(255,255,255,.96);box-shadow:0 7px 20px rgba(0,14,34,.24)}
 .s2hero .s2facts{max-width:640px;margin-top:22px}.s2hero .s2facts .s2fact{background:rgba(255,255,255,.96);box-shadow:0 10px 26px rgba(0,14,34,.2)}
@@ -842,7 +844,7 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2hero .s2title{padding-top:104px;padding-bottom:34px}
   /* スマホは上から下へ。上3割は写真のまま（顔が見える）、下は文字の足場 */
   .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.62) 12%,rgba(3,18,38,.90) 30%,rgba(3,18,38,.94) 100%)}
-  .s2hero .s2title .s2en{font-size:11px;padding:0}.s2hero .s2title h1{font-size:clamp(36px,10vw,44px);padding:0}.s2hero .s2lead{font-size:14px;line-height:1.62;padding:7px 9px}
+  .s2hero .s2title .s2en{font-size:10.5px;letter-spacing:.14em;padding:0}.s2hero .s2title h1{font-size:clamp(28px,7.6vw,34px);line-height:1.24;padding:0}.s2hero .s2lead{font-size:14px;line-height:1.62;padding:7px 9px}
   .s2hero .s2chips{display:flex;gap:6px;margin-top:12px}.s2hero .s2chips li{font-size:11px;line-height:1.35;padding:5px 9px}.s2hero .s2chips li::before{width:11px;height:9px}
   .s2hero .s2facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}.s2hero .s2facts .s2fact{padding:9px 10px}.s2hero .s2facts .s2fact dt{font-size:11px;letter-spacing:.08em}.s2hero .s2facts .s2fact dd{font-size:13px}.s2hero .s2facts .s2fact dd b{font-size:28px}.s2hero .s2facts .s2fact .d{display:none}
   .s2hero .s2acts{margin-top:12px}.s2hero .s2cta{min-height:50px;font-size:15px}.s2hero .s2note-ext{font-size:11px}
@@ -874,9 +876,33 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   /* 🚨 グラデの % は .s2title の高さ基準（ヒーロー基準ではない）。padding-top:150px があるので、
      眉は .s2title の27%・見出しは34%の位置に来る。前は30%まで透明にしていて、眉が素の写真の上にいた
      （実測 1.86:1）。濃くする位置を上へ持ち上げる */
-  .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.30) 10%,rgba(3,18,38,.86) 22%,rgba(3,18,38,.95) 34%,rgba(3,18,38,.96) 100%)}
-  .s2hero .s2title{padding-top:150px}
+  .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.18) 22%,rgba(3,18,38,.84) 36%,rgba(3,18,38,.95) 46%,rgba(3,18,38,.96) 100%)}
+  .s2hero .s2title{padding-top:210px}
 }
 @media (min-width:721px){
   .s2hero .s2title::before{background:linear-gradient(90deg,rgba(3,18,38,.88) 0%,rgba(3,18,38,.80) 38%,rgba(3,18,38,.40) 66%,rgba(3,18,38,0) 92%)}
+}
+
+/* 🚨 2026-09-09 おでん指示「左上の二人組のところも被ってる」。
+   字幕を写真の上（顔の位置）から文字ブロックの中へ移した。写真の上には何も置かない */
+.s2hero .s2subtitle{position:static;display:inline-block;margin:0 0 10px;padding:6px 14px;
+  background:rgba(3,18,38,.86);border-radius:999px;font-size:13px;letter-spacing:.12em;text-indent:0;
+  color:#fff;text-align:left;width:auto;max-width:none}
+@media (min-width:721px){ .s2hero .s2subtitle{font-size:14px;margin-bottom:14px} }
+
+/* 🚨 2026-09-09 顔と文字の重なり検査（_検査スクリプト/kao-moji.cjs）で、
+   PCは文字が左・顔が中央にあり、見出しが顔に22〜29%かぶっていた。
+   映像の見せる位置を右へずらして、左の文字帯と顔を分ける */
+@media (min-width:1000px){
+  .s2hero .s2frame video{object-position:74% 34%}
+}
+@media (min-width:1600px){
+  .s2hero .s2frame video{object-position:78% 34%}
+}
+
+/* 🚨 2026-09-09 顔と文字の重なり検査：PCで見出し(y320-380)が左の人の顔(y201-404)に29%かぶっていた。
+   映像を右にずらすだけでは左の人が残るので、文字ブロックごと下へ寄せて顔の下で始める */
+@media (min-width:1000px){
+  .s2hero{align-items:flex-end}
+  .s2hero .s2title{margin:0 auto;padding-top:0;padding-bottom:72px}
 }
