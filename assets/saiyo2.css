@@ -171,7 +171,8 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2day>div:last-child{padding-bottom:0}
 .s2day>div::before{content:"";position:absolute;left:-31px;top:8px;width:12px;height:12px;
   border-radius:50%;background:var(--accent)}
-.s2day .t{font-size:18px;font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+/* 🚨 2026-09-09 4.36:1 で基準割れ（要4.5）。畳みの中にあり前回の検査では測られていなかった */
+.s2day .t{font-size:18px;font-weight:700;color:var(--deep);font-variant-numeric:tabular-nums}
 .s2day b{display:block;font-size:18px;font-weight:700;margin-top:2px}
 .s2day p{font-size:16px;color:var(--sub);line-height:1.8;margin-top:4px}
 
@@ -782,10 +783,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
    かといって帯を全部外すと明暗比が 1.61:1 まで落ちる（実測）。
    文字ブロック全体に1枚だけ面を敷いて、写真は面の外側で見せる */
 .s2hero .s2title{position:relative;z-index:2;display:block;width:100%;max-width:1160px;margin:auto;padding:64px 40px 80px;color:#fff}
-.s2hero .s2title::before{content:"";position:absolute;inset:0;z-index:-1;
+.s2hero .s2title::before{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);z-index:-1;
   background:linear-gradient(90deg,rgba(3,18,38,.90) 0%,rgba(3,18,38,.86) 46%,rgba(3,18,38,.62) 72%,rgba(3,18,38,.30) 100%)}
-.s2hero .s2title .s2en{color:#fff;font-size:13px;letter-spacing:.18em}
-.s2hero .s2title h1{max-width:11em;margin-top:16px;font-size:clamp(38px,4.2vw,52px);line-height:1.14;color:#fff;text-shadow:0 3px 24px rgba(0,12,28,.54)}
+.s2hero .s2title .s2en{color:#fff;font-size:13px;letter-spacing:.24em}
+.s2hero .s2title h1{max-width:11em;margin-top:16px;font-size:clamp(36px,3.4vw,44px);line-height:1.14;color:#fff;text-shadow:0 3px 24px rgba(0,12,28,.54)}
 .s2hero .s2lead{max-width:35em;margin-top:22px;color:#fff;font-size:17px;line-height:1.85;text-shadow:0 2px 16px rgba(0,12,28,.6)}
 .s2hero .s2chips{max-width:680px;margin-top:20px}.s2hero .s2chips li{background:rgba(255,255,255,.96);box-shadow:0 7px 20px rgba(0,14,34,.24)}
 .s2hero .s2facts{max-width:640px;margin-top:22px}.s2hero .s2facts .s2fact{background:rgba(255,255,255,.96);box-shadow:0 10px 26px rgba(0,14,34,.2)}
@@ -816,7 +817,8 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 @media (max-width:359px){.s2hero .s2title{padding-left:18px;padding-right:18px}.s2hero .s2title h1{font-size:37px}.s2hero .s2lead{font-size:14px}.s2hero .s2facts .s2fact{padding:10px 14px}.s2hero .s2facts .s2fact .d{display:none}}
 
 @media (min-width:721px){
-  .s2sec .note,.s2career .note{max-width:none;display:grid;grid-template-columns:minmax(0,42em) minmax(12rem,1fr);gap:48px;align-items:center}
+  /* 🚨 2026-09-09 ここを2段組にしたら、文が660px離れた2列に分解されて読めなくなっていた
+     （右に置くはずだった英字ラベルだけ消して、grid が生き残っていた）。素の1段に戻す */
   .s2sec .note::after,.s2career .note::after{content:"EIGHT  /  DELIVERY & INSTALLATION";display:block;padding:18px 0;border-top:1px solid currentColor;border-bottom:1px solid currentColor;font-size:11px;font-weight:700;letter-spacing:.16em;line-height:1.5;opacity:.62}
   .s2day{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 32px;border-left:0;padding-left:0}
   .s2day>div{min-height:132px;padding:18px 20px 20px 24px;border-left:2px solid var(--brand);background:linear-gradient(90deg,rgba(11,82,157,.065),transparent)}
@@ -844,7 +846,7 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2hero .s2title{padding-top:104px;padding-bottom:34px}
   /* スマホは上から下へ。上3割は写真のまま（顔が見える）、下は文字の足場 */
   .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.62) 12%,rgba(3,18,38,.90) 30%,rgba(3,18,38,.94) 100%)}
-  .s2hero .s2title .s2en{font-size:10.5px;letter-spacing:.14em;padding:0}.s2hero .s2title h1{font-size:clamp(28px,7.6vw,34px);line-height:1.24;padding:0}.s2hero .s2lead{font-size:14px;line-height:1.62;padding:7px 9px}
+  .s2hero .s2title .s2en{font-size:10.5px;letter-spacing:.24em;padding:0}.s2hero .s2title h1{font-size:clamp(32px,8.6vw,36px);line-height:1.24;padding:0}.s2hero .s2lead{font-size:14px;line-height:1.62;padding:7px 9px}
   .s2hero .s2chips{display:flex;gap:6px;margin-top:12px}.s2hero .s2chips li{font-size:11px;line-height:1.35;padding:5px 9px}.s2hero .s2chips li::before{width:11px;height:9px}
   .s2hero .s2facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}.s2hero .s2facts .s2fact{padding:9px 10px}.s2hero .s2facts .s2fact dt{font-size:11px;letter-spacing:.08em}.s2hero .s2facts .s2fact dd{font-size:13px}.s2hero .s2facts .s2fact dd b{font-size:28px}.s2hero .s2facts .s2fact .d{display:none}
   .s2hero .s2acts{margin-top:12px}.s2hero .s2cta{min-height:50px;font-size:15px}.s2hero .s2note-ext{font-size:11px}
@@ -916,3 +918,19 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2foldfit>summary::after{content:"＋";font-size:19px;color:var(--accent)}
 .s2foldfit[open]>summary::after{content:"−"}
 .s2foldfit .s2fit{margin-top:4px;padding-bottom:20px}
+
+/* 🚨 2026-09-09 幅721〜999px（タブレット）が抜けていた。
+   ここだけ「文字が下に寄らない＋映像が顔を拡大する」状態で、文字が全部顔の上に乗っていた
+   （顔が大きすぎてVisionが検出できず、検査でも見えていなかった）。
+   PCと同じ作法にそろえる：文字は下、映像の顔は右上へ逃がす */
+@media (min-width:721px) and (max-width:999px){
+  /* ヒーローを低くすると映像の切り取りが浅くなり、顔が小さく上に収まる＝文字と離れる */
+  .s2hero{align-items:flex-end;min-height:76svh}
+  .s2hero .s2title{margin:0 auto;padding-top:0;padding-bottom:40px}
+  .s2hero .s2frame video{object-position:66% 12%}
+  .s2hero .s2title::before{background:linear-gradient(180deg,rgba(3,18,38,0) 0%,rgba(3,18,38,.30) 12%,rgba(3,18,38,.88) 30%,rgba(3,18,38,.95) 100%)}
+}
+/* 幅360で字幕が顔に7.2%かかっていた（文字ブロックが上に来るため）。この幅だけ下げる */
+@media (max-width:379px){
+  .s2hero .s2title{padding-top:238px}
+}
