@@ -37,6 +37,8 @@ body{background:var(--white);color:var(--ink);
   font-family:"Hiragino Kaku Gothic ProN","Yu Gothic Medium","游ゴシック Medium","Meiryo",sans-serif;
   font-size:18px;line-height:1.9;letter-spacing:.02em}
 img{display:block;max-width:100%;height:auto}
+/* 2026-09-09 押しても見た目が変わらなかった（採用ページだけ直っていて共通側が漏れていた） */
+.logo:active{transform:scale(.98);opacity:.86}
 a{color:inherit}
 /* 2026-09-09 地図の iframe はキーボードで入れるのに輪郭が出ていなかった（about の2枚） */
 iframe:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
@@ -789,6 +791,8 @@ footer address a[href^="tel:"]:not(.btn):not(.tel):not(.ctel a):not(.phones a):n
 
 /* パンくずと「トップページへ戻る」 */
 .crumb a,.backrow a{display:inline-block;padding:12px 4px;margin:-12px -4px}
+/* 2026-09-09 privacy の本文中のリンクだけ、この当たり判定の一覧から漏れていて 70×16px だった */
+.wrap.pv p a,.pv p a{display:inline-block;padding:11px 3px;margin:-11px -3px}
 
 /* 本文中の「◯◯を見る」の細いリンク */
 .next a{display:inline-flex;align-items:center;min-height:44px}

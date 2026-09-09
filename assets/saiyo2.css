@@ -656,9 +656,12 @@ body.saiyo2 .skip:active{transform:scale(.97);opacity:.85}
 @media (min-width:1000px){
   /* 🚨 2026-09-09 2枚目のカードを足したら、右列400pxを2分割して1枚193px＝7行に折れ、
      「24人／」で行末になっていた（スマホ342pxよりPCが狭いという逆転）。PCでは縦に積む */
-  .s2title>.s2facts{grid-column:2;grid-row:1/4;align-self:start;margin-top:0;max-width:none;
+  /* 🚨 2026-09-09 カードを2枚にしたら右列が250→410pxに伸び、行4に置いていたCTAが
+     1000〜1512pxで1画面目から落ちた（カードの高さがCTAの位置を縛る作りだった）。
+     CTAを行1に上げて、カードの高さに左右されないようにする */
+  .s2title>.s2acts{grid-column:2;grid-row:1;align-self:start;margin-top:0}
+  .s2title>.s2facts{grid-column:2;grid-row:2/5;align-self:start;margin-top:18px;max-width:none;
     grid-template-columns:1fr}
-  .s2title>.s2acts{grid-column:2;grid-row:4;align-self:start;margin-top:18px}
   .s2title>.s2en{grid-column:1;grid-row:1}
   .s2title>h1{grid-column:1;grid-row:2;margin-top:18px}
   .s2title>.s2lead{grid-column:1;grid-row:3}
