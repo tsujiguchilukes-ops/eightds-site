@@ -1,22 +1,21 @@
+(function(){
+  /* 2026-09-09 おでん指示「ヒーローから始まらないと。会社の顔だから」。
+     ①履歴の復元を止める ②読み込み時に先頭へ ③アプリ内ブラウザの復帰（bfcache）でも先頭へ
+     ④画像や動画で高さが変わった後にも1回だけ先頭へ。#付きで開いたときは触らない */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) return;
+  var top = function(){ window.scrollTo(0,0); };
+  top();
+  document.addEventListener('DOMContentLoaded', top);
+  window.addEventListener('load', function(){ top(); setTimeout(top, 60); setTimeout(top, 300); });
+  window.addEventListener('pageshow', function(e){ if (e.persisted) top(); });
+})();
 /* =====================================================
    採用ページ 案2（saiyo2.html だけが読む）
    ===================================================== */
 (function () {
   'use strict';
 
-/* -----------------------------------------------------
-   0) 開いたときは必ずヒーローから見せる（2026-09-09 おでん指示）
-   ブラウザはスクロール位置を覚えていて、戻ったときに途中から出ることがある。
-   ただし #kyuyo のようにアンカー付きで開いたときは、その場所へ飛ばす
-   ----------------------------------------------------- */
-(function () {
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (location.hash) return;               // アンカー付きは触らない
-  var top = function () { window.scrollTo(0, 0); };
-  top();
-  window.addEventListener('load', top);
-  document.addEventListener('DOMContentLoaded', top);
-})();
 
   /* LINEの導線は assets/line.js に一本化した（URLを入れる場所は1か所だけ） */
 
