@@ -202,11 +202,31 @@
   var TONES = ['#FFFFFF', '#F4F9FE', '#EFF5FB', '#F7FBFF', '#F2F7FD'];
   var secs = [].slice.call(document.querySelectorAll('section, .band, .gates, .pband'));
   if (env && secs.length && 'IntersectionObserver' in window) {
+    /* 🚨 2026-09-10 モーション検品：ここが index の塗り直しの89%だった（実測 510回→58回）。
+       background-color は合成に乗らないので、全画面 fixed の .env を1.2秒かけて毎コマ塗り直す。
+       しかも同じ色でも書き直していた。
+       見た目を1ミリも変えずに直すため、5トーンを板として重ねておき opacity だけ入れ替える
+       （opacity は合成だけで済む＝ペイント0）。色は上の TONES と同じ値をそのまま使う。 */
+    var tones = TONES.map(function (c) {
+      var i = document.createElement('i');
+      i.style.cssText = 'position:absolute;inset:0;opacity:0;background:' + c +
+        ';transition:opacity 1.2s var(--ease)';
+      /* will-change は付けない。全画面の板5枚を常時レイヤー化すると
+         DPR3のスマホで数十MBを抱える。opacity の遷移中はブラウザが自分でレイヤーを作る。 */
+      env.appendChild(i);
+      return i;
+    });
+    var cur = -1;
+    tones[0].style.opacity = '1';
+    cur = 0;
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
-        var i = secs.indexOf(e.target);
-        env.style.backgroundColor = TONES[i % TONES.length];
+        var i = secs.indexOf(e.target) % TONES.length;
+        if (i === cur) return;          /* 同じトーンなら何もしない（重複書き込みを止める） */
+        tones[cur].style.opacity = '0';
+        tones[i].style.opacity = '1';
+        cur = i;
       });
     }, { rootMargin: '-45% 0px -45% 0px' });
     secs.forEach(function (s) { io.observe(s); });
@@ -241,7 +261,7 @@
   if (!el) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (matchMedia('(pointer: coarse)').matches) return;   // スマホはOSの再読み込みと衝突する
-  var bar = el.querySelector('.bar');
+  var bar = el.querySelector('.pbline');
   var pull = 0, NEED = 420, going = false, t = null, steps = 0;
 
   function reset() { pull = 0; steps = 0; el.classList.remove('on'); bar.style.width = '0'; }

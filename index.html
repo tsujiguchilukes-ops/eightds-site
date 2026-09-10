@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 🚨 スマホでは一度も表示されないドロップダウンの写真4枚（実測660KB）を、
+     Chromeが先に取りに行っていた。style.css:300 の html.js-menu が付くのは motion.js:68＝
+     CSS到着後で、その20ms前に取得が始まる競争になっていた（2026-09-10 実測）。
+     ここで先に付けると最初のレイアウトから display:none が効き、要求そのものが起きない。
+     JSが無効な人にはクラスが付かない＝メニューが見えたままの逃げ道はそのまま。 -->
+<script>document.documentElement.classList.add('js-menu')</script>
 <meta name="theme-color" content="#1671CE">
 <title>未経験から、手に職を。｜配送スタッフ募集｜有限会社エイト流通サービス（千葉県浦安市）</title>
 <meta name="description" content="1986年創業、家電の配送・設置の会社です。社員26人のうち24人が未経験から入りました。2人1組で冷蔵庫・洗濯機・テレビ・エアコンを運び、取り付ける仕事です。浦安本社と埼玉営業所から東京・千葉・埼玉へ。配送スタッフを募集しています。">
@@ -15,7 +21,7 @@
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css?v=202609100120">
+<link rel="stylesheet" href="assets/style.css?v=202609101830">
 <style>
 /* 旧ドット絵ヒーローのCSS（約240行）は削除した（2026-09-06 Codex指摘18。生きている .chain 以降だけ残す） */
 /* 現場で決めていること */
@@ -36,6 +42,9 @@
 .ocard{background:var(--white);border:1px solid var(--line);padding:32px}
 .ocard .k{font-size:14px;letter-spacing:.14em;color:var(--accent);font-weight:700}
 .ocard h3{font-size:28px;color:var(--brand);margin-top:4px}
+/* 🚨 スマホは20px。h2が42→30pxに縮むのにh3は28pxのままで、段差が1.50倍→1.07倍に潰れていた
+   （2026-09-10 実測・8頁全部）。20pxでPCと同じ1.50倍に戻る。 */
+@media(max-width:720px){.ocard h3{font-size:20px}}
 /* 🚨 nowrap にすると、文字を大きくされた時に番号がカードの最小幅を押し広げて
    ページ全体が横にはみ出す（min30・320pxで実測12px）。ふだんは1行に収まる。
    入らない時だけハイフンの後で折り返す（数字の途中では折れない） */
@@ -138,18 +147,18 @@
     <ul class="gnav">
       <li><a href="about.html" aria-haspopup="true">会社概要</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
-          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
+          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
         </ul>
       </li>
       <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200" decoding="async"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
       <li><a href="recruit.html">採用情報</a></li>
@@ -174,7 +183,9 @@
     <i class="bh-sun"></i>
     <i class="bh-cloud c1"></i><i class="bh-cloud c2"></i><i class="bh-cloud c3"></i><i class="bh-cloud c4"></i>
   </div>
-  <div class="bh-photo" aria-hidden="true">
+  <!-- 🚨 aria-hidden は付けない。中の <video> に role="button" / tabindex="0" を付けるので、
+       支援技術からは見えないのにフォーカスだけ当たる状態になる（2026-09-10 Web検品）。 -->
+  <div class="bh-photo">
 
     <video data-src="img/blue_hero.mp4" poster="img/blue_hero_right.webp" width="1280" height="720"
       muted loop playsinline preload="none" disablepictureinpicture></video>
@@ -228,7 +239,7 @@
 </div>
 
 <div class="band face is-people band-first is-fit">
-  <img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" width="1800" height="1200" loading="lazy">
+  <img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" width="1800" height="1200" loading="lazy" decoding="async">
 </div>
 
 <section class="bluevoice" aria-label="お客様の声">
@@ -334,7 +345,7 @@
 <figure class="bandcap">
   <div class="band">
     
-    <img src="img/L2_トラック列.webp" alt="浦安本社の車庫で、積み終えたトラックの前に並び、これから現場へ出る配送スタッフ四人" width="1800" height="1200" loading="lazy">
+    <img src="img/L2_トラック列.webp" alt="浦安本社の車庫で、積み終えたトラックの前に並び、これから現場へ出る配送スタッフ四人" width="1800" height="1200" loading="lazy" decoding="async">
   </div>
 
 </figure>
@@ -356,7 +367,7 @@
 <div class="gates">
   <a class="gate" href="business.html">
     
-    <img src="img/L6_出発.webp" alt="洗濯機を2人で台車に載せるところ" loading="lazy" width="1800" height="1200">
+    <img src="img/L6_出発.webp" alt="洗濯機を2人で台車に載せるところ" loading="lazy" width="1800" height="1200" decoding="async">
     <div class="g">
       <p class="k">FOR BUSINESS</p>
       <h3>法人のお客様へ</h3>
@@ -365,7 +376,7 @@
     </div>
   </a>
   <a class="gate" href="recruit.html">
-    <img src="img/P2_二人.webp" alt="2人1組で現場へ向かうところ" loading="lazy" width="1800" height="1200">    <div class="g">
+    <img src="img/P2_二人.webp" alt="2人1組で現場へ向かうところ" loading="lazy" width="1800" height="1200" decoding="async">    <div class="g">
       <p class="k">RECRUIT</p>
       <h3>仕事をお探しの方へ</h3>
       
@@ -428,26 +439,52 @@
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var save=navigator.connection && navigator.connection.saveData;
   if(reduce || save){ return; }
-  v.src=v.getAttribute('data-src');
-  v.autoplay=true;
-  v.load();
-  var p=v.play(); if(p && p.catch) p.catch(function(){});
+
   /* 2026-09-09 おでん指示で一時停止ボタンを廃止。ただし自動再生の映像には止める手段が必要なので
-     （アクセシビリティの必須項目）、映像そのものを押すと止まる／もう一度押すと動く形にした */
+     （アクセシビリティの必須項目）、映像そのものを押すと止まる／もう一度押すと動く形にした。
+     🚨 2026-09-10 実測：その「押す」が最初から効いていなかった。style.css の .bh-photo に
+        pointer-events:none が入っていて、タップ座標の要素が DIV.bh-in になっていた。
+        ここで映像だけ受け取れるように戻す。 */
   v.style.cursor='pointer';
+  v.style.pointerEvents='auto';
   v.setAttribute('role','button');
   v.setAttribute('tabindex','0');
   v.setAttribute('aria-label','ヒーローの映像。押すと一時停止します');
+
+  /* 🚨 2026-09-10 速度実測：動画2.1MBがLCPとほぼ同時に走り出し、19秒まで回線を占有していた。
+     LCPは poster（blue_hero_right.webp）なので、動画は表示を1msも早めていない。
+     ページの読み込みが終わってから取りに行く。posterが出ているので見た目は変わらない。 */
+  var start=function(){
+    if(v.src) return;
+    v.src=v.getAttribute('data-src');
+    v.autoplay=true;
+    v.load();
+    var p=v.play(); if(p && p.catch) p.catch(function(){});
+  };
+  if(document.readyState==='complete') setTimeout(start,1200);
+  else addEventListener('load',function(){ setTimeout(start,1200); },{once:true});
+
+  /* 画面の外に出たら止める（電池と発熱。recruit は autoplay 属性なのでブラウザが自分で止める） */
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!v.src) return;
+        if(e.isIntersecting){ if(v.dataset.userPaused!=='1'){ var q=v.play(); if(q&&q.catch) q.catch(function(){}); } }
+        else v.pause();
+      });
+    },{threshold:0}).observe(v);
+  }
   var toggle=function(){
-    if(v.paused){ var play=v.play(); if(play&&play.catch) play.catch(function(){});
+    start();   /* まだ読み込み前に押された時のため */
+    if(v.paused){ v.dataset.userPaused='0'; var play=v.play(); if(play&&play.catch) play.catch(function(){});
       v.setAttribute('aria-label','ヒーローの映像。押すと一時停止します'); }
-    else { v.pause(); v.setAttribute('aria-label','ヒーローの映像。停止中。押すと再生します'); }
+    else { v.dataset.userPaused='1'; v.pause(); v.setAttribute('aria-label','ヒーローの映像。停止中。押すと再生します'); }
   };
   v.addEventListener('click',toggle);
   v.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
 })();
 </script>
-<script src="assets/motion.js?v=202609100120"></script>
-<script src="assets/line.js?v=202609100120"></script>
+<script src="assets/motion.js?v=202609101830"></script>
+<script src="assets/line.js?v=202609101830"></script>
 </body>
 </html>

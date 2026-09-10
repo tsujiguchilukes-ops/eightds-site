@@ -194,17 +194,33 @@
   });
   nav.addEventListener('focusout', function () { kbd = false; });
 
-  var pick = function () {
-    /* 🚨 判定線を「帯の下端」に置くと、着地位置（scroll-padding-top + scroll-margin-top）より
-       20px 上になり、押した札の**1つ前**が光る（35通り中30通りでずれていた）。
-       着地線と同じ高さで判定する。 */
+  /* 🚨 2026-09-10 モーション検品：ここが recruit の毎コマの強制レイアウトだった。
+     1往路で getBoundingClientRect 7,412回・getComputedStyle 3,696回（他7ページは0回）。
+     同じ値なのに、ループの中で nav の位置と算出スタイルを節の数だけ読み直していた。
+     判定の中身（着地線と同じ高さで判定する）は1ミリも変えていない。 */
+  var landCache = null;
+  var readLand = function () {
     var sp = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    landCache = targets.map(function (el) {
+      if (!el) return 0;
+      return sp + (parseFloat(getComputedStyle(el).scrollMarginTop) || 0) + 4;
+    });
+  };
+  /* 画面幅やフォント読み込みで変わるので、幅が変わったら測り直す */
+  var lastW = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth; landCache = null;
+  }, { passive: true });
+
+  var pick = function () {
+    if (!landCache) readLand();
+    var navBottom = nav.getBoundingClientRect().bottom + 8;   /* 1コマに1回だけ */
     var cur = -1;
     for (var n = 0; n < targets.length; n++) {
       var el = targets[n];
       if (!el) continue;
-      var land = sp + (parseFloat(getComputedStyle(el).scrollMarginTop) || 0) + 4;
-      var line = Math.max(nav.getBoundingClientRect().bottom + 8, land);
+      var line = Math.max(navBottom, landCache[n]);
       if (el.getBoundingClientRect().top <= line) cur = n;
     }
     mark(cur);

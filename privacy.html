@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 🚨 スマホでは一度も表示されないドロップダウンの写真4枚（実測660KB）を、
+     Chromeが先に取りに行っていた。style.css:300 の html.js-menu が付くのは motion.js:68＝
+     CSS到着後で、その20ms前に取得が始まる競争になっていた（2026-09-10 実測）。
+     ここで先に付けると最初のレイアウトから display:none が効き、要求そのものが起きない。
+     JSが無効な人にはクラスが付かない＝メニューが見えたままの逃げ道はそのまま。 -->
+<script>document.documentElement.classList.add('js-menu')</script>
 <meta name="theme-color" content="#1671CE">
 <title>プライバシーポリシー｜有限会社エイト流通サービス</title>
 <meta name="description" content="有限会社エイト流通サービスの個人情報の取り扱いについて。">
@@ -15,7 +21,7 @@
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/privacy.html">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css?v=202609100120">
+<link rel="stylesheet" href="assets/style.css?v=202609101830">
 <style>
 
 .pv h3{font-size:22px;color:var(--brand);margin-top:40px}
@@ -28,7 +34,7 @@
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
-<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="bar"></span></div>
+<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="pbline"></span></div>
 
 <header class="head">
   <div class="r1">
@@ -38,18 +44,18 @@
     <ul class="gnav">
       <li><a href="about.html" aria-haspopup="true">会社概要</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
-          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
+          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
         </ul>
       </li>
       <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200" decoding="async"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
       <li><a href="recruit.html">採用情報</a></li>
@@ -69,7 +75,7 @@
 </nav>
 
 <div class="phead">
-  <img src="img/V1_引き.webp" alt="" aria-hidden="true" width="1800" height="1200">
+  <img src="img/V1_引き.webp" alt="" aria-hidden="true" width="1800" height="1200" fetchpriority="high" decoding="async">
   <div class="in">
     <p class="en">PRIVACY POLICY</p>
     <h1>プライバシー<span class="nw">ポリシー</span></h1>
@@ -80,8 +86,7 @@
 
 <section class="sec">
   <div class="wrap pv" style="max-width:840px">
-    <p class="en" data-rise="0">PRIVACY POLICY</p>
-    <h2 data-rise="0">プライバシー<span class="nw">ポリシー</span></h2>
+    <!-- 🚨 見出しの複製（p.en＋h2）は 2026-09-10 に削除。写真ヘッダーの h1 と同じ文字だった。 -->
     <p data-rise="0">有限会社エイト流通サービス（以下「当社」）は、お客様からお預かりする個人情報の取り扱いについて、次のとおり定めます。</p>
 
     <h3>1. 個人情報の取得</h3>
@@ -156,8 +161,8 @@
   </div>
 </footer>
 
-<script src="assets/motion.js?v=202609100120"></script>
+<script src="assets/motion.js?v=202609101830"></script>
 
-<script src="assets/line.js?v=202609100120"></script>
+<script src="assets/line.js?v=202609101830"></script>
 </body>
 </html>

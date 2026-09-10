@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 🚨 スマホでは一度も表示されないドロップダウンの写真4枚（実測660KB）を、
+     Chromeが先に取りに行っていた。style.css:300 の html.js-menu が付くのは motion.js:68＝
+     CSS到着後で、その20ms前に取得が始まる競争になっていた（2026-09-10 実測）。
+     ここで先に付けると最初のレイアウトから display:none が効き、要求そのものが起きない。
+     JSが無効な人にはクラスが付かない＝メニューが見えたままの逃げ道はそのまま。 -->
+<script>document.documentElement.classList.add('js-menu')</script>
 <meta name="theme-color" content="#1671CE">
 <title>採用情報｜AI時代だからこそ、手に職を。｜有限会社エイト流通サービス</title>
 <meta name="description" content="家電の配送・設置・エアコン工事のスタッフ募集。最初の仕事は、先輩の隣に座ること。2人1組・未経験歓迎・エアコン工事の指導は当社。千葉県浦安市・埼玉県新座市。">
@@ -15,8 +21,8 @@
 <meta property="og:description" content="家電の配送・設置・エアコン工事のスタッフ募集。最初の仕事は、先輩の隣に座ること。2人1組・未経験歓迎・エアコン工事の指導は当社。">
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/recruit.html">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
-<link rel="stylesheet" href="assets/style.css?v=202609100120">
-<link rel="stylesheet" href="assets/saiyo2.css?v=202609100120">
+<link rel="stylesheet" href="assets/style.css?v=202609101830">
+<link rel="stylesheet" href="assets/saiyo2.css?v=202609101830">
 </head>
 <body class="saiyo2">
 <a class="skip" href="#s2main">本文へ移動</a>
@@ -56,11 +62,15 @@
   <div class="s2film">
     <div class="s2frame">
       
+      <!-- 🚨 2026-09-10 速度実測：autoplay が付いていると preload="metadata" が無効になり、
+           webm 1,064,165B を即・全量取りに行く。CSSと同時に走り出して、ポスターの到着を
+           2,154ms 遅らせていた。LCPはポスターなので、動画は表示を1msも早めていない。
+           ページの読み込みが終わってから src を入れて再生する（画質・ビットレートは据え置き）。 -->
       <video poster="img/hero_p2.poster.jpg" width="1600" height="900"
-             muted playsinline autoplay loop preload="metadata"
+             muted playsinline loop preload="none"
              aria-label="2tトラックの運転席と助手席に座る2人の社員">
-        <source src="img/hero_p2.webm" type="video/webm">
-        <source src="img/hero_p2.mp4" type="video/mp4">
+        <source data-src="img/hero_p2.webm" type="video/webm">
+        <source data-src="img/hero_p2.mp4" type="video/mp4">
       </video>
       <p class="s2scenehead"><b>SCENE 01</b>助手席と、運転席。</p>
       
@@ -147,7 +157,9 @@
 
   
     <h3 class="s2h" data-rise="0">助手席から始まる、5つの場面。</h3>
-    <div class="s2scenes">
+    <!-- 🚨 スマホでは横スワイプのカルーセルになる。tabindex を持たせないと
+         キーボードでは3〜5枚目に到達できない（2026-09-10 Web検品・Guidelines）。 -->
+    <div class="s2scenes" tabindex="0" role="group" aria-label="現場の5つの場面。横にスクロールできます">
       <article class="s2scene" data-rise="0">
         <div class="ph"><img class="pos-l" src="img/L4_台車.webp" alt="先輩と2人で洗濯機をトラックから降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"></div>
         <div class="tx">
@@ -450,8 +462,33 @@
     <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
   </div>
 </footer>
-<script src="assets/motion.js?v=202609100120"></script>
-<script src="assets/saiyo2.js?v=202609100120"></script>
-<script src="assets/line.js?v=202609100120"></script>
+<script>
+/* ヒーロー動画は読み込みが終わってから。reduced-motion・データセーバーでは1バイトも取らない */
+(function(){
+  var v=document.querySelector('.s2hero video'); if(!v) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(navigator.connection && navigator.connection.saveData) return;
+  var done=false;
+  var start=function(){
+    if(done) return; done=true;
+    [].forEach.call(v.querySelectorAll('source'),function(s){ s.src=s.getAttribute('data-src'); });
+    v.load(); var p=v.play(); if(p&&p.catch) p.catch(function(){});
+  };
+  if(document.readyState==='complete') setTimeout(start,1200);
+  else addEventListener('load',function(){ setTimeout(start,1200); },{once:true});
+  /* autoplay 属性を外したぶん、画面外での自動停止も外れる。自分で止める（電池・発熱） */
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!done) return;
+        if(e.isIntersecting){ var q=v.play(); if(q&&q.catch) q.catch(function(){}); } else v.pause();
+      });
+    },{threshold:0}).observe(v);
+  }
+})();
+</script>
+<script src="assets/motion.js?v=202609101830"></script>
+<script src="assets/saiyo2.js?v=202609101830"></script>
+<script src="assets/line.js?v=202609101830"></script>
 </body>
 </html>

@@ -264,17 +264,15 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 .copy a:hover{color:#fff}
 
 /* ========== スマホ下部バー ========== */
-.bar{position:fixed;left:0;right:0;bottom:0;display:none;z-index:95;background:var(--white);
-  border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:8px}
-.bar a{flex:1;text-align:center;min-height:46px;line-height:46px;font-size:16px;font-weight:700;
-  text-decoration:none;border-radius:4px}
-.bar .b1{background:var(--accent);color:#fff}
-.bar .b2{background:var(--brand);color:#fff}
+/* 🚨 2026-09-07におでんの指示で全ページ廃止（浮くUIは置かない）。HTMLからは消えているのに
+   CSSだけ残っていて、`.pullback` の中にある同名の3px線（:709）に position:fixed・白地・
+   1pxの上罫線・8pxのパディングが漏れて当たっていた。名前が同じなので気づきにくい。
+   復活させる時は、この場所ではなく `.pullback .bar` と名前が衝突しない形で書き直すこと。 */
 
 /* 🚨 押した瞬間の手応え。指の端末では :hover が発火しないので、
    :hover しか持たない部品は「押しても何も起きない」ように感じる（2026-08-29 UIチェックで指摘）。
    ホバーの戻り前提ではなく、単独で見て分かる量を書く → [[button-must-react-instantly]] */
-.bar a:active,.tabs button:active,.quick a:active,.ptop:active,
+.tabs button:active,.quick a:active,.ptop:active,
 .backrow a:active,.crumb a:active,.fnav a:active,.next a:active,
 .entries a:active,.ctel a:active,.pagenav a:active,.arealist a:active{
   transform:translate(1px,1px);opacity:.82}
@@ -293,7 +291,7 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
 @media(max-width:900px){ .quick{display:none} }
 @media(max-width:900px){
   :root{--head:64px}
-  body{font-size:16px;padding-bottom:96px}
+  body{font-size:16px}
   .wrap{padding:0 24px}
   .head .r1{height:64px;padding:0 16px 0 24px;gap:16px}
   .mtoggle{display:block}
@@ -336,14 +334,16 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
   .tbl th,.tbl td{display:block;width:auto;padding:8px 16px}
   .tbl th{border-bottom:0}
   .fgrid{grid-template-columns:1fr;gap:24px}
-  /* 実機のiPhoneでは下部バーに safe-area（約34px）とブラウザの帯が乗り、
-     フッタ最後のリンクの余裕が22pxまで縮む（aboutで実測53px隠れの報告 2026-08-25）。
-     余白は暗いフッタの内側に足す（bodyの下パディングだと紙色の帯が伸びて見える） */
-  footer{padding-bottom:104px}
-  .bar{display:flex}
+  /* 🚨 下部固定バーは2026-09-07に全ページ廃止（浮くUIは置かない）。
+     そのバーのための席（body 96px＋footer 104px＝188px＝画面の22%）だけが残り、
+     スマホの全ページ末尾に白い空白として出ていた（2026-09-10 実測・8頁中7頁で188px）。
+     実機のiPhoneの safe-area とブラウザの帯ぶんだけを、暗いフッタの内側に残す
+     （bodyの下パディングだと紙色の帯が伸びて見える） */
+  footer{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
   .btn{width:100%;text-align:center}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}
+}
 
 /* ========== 印刷 ========== */
 @media print{
@@ -458,7 +458,7 @@ footer{background:var(--deep);color:#fff;padding:64px 0 40px;margin-top:0}
      （2026-08-26 実測・中身878pxに対し見える幅390px）。折り返して全部見せる。
      文字の左端は本文と同じ24px（.in の16px ＋ a の8px）に揃える */
   .subnav .in{padding:8px 16px;flex-wrap:wrap;overflow-x:visible}
-  .subnav a{padding:10px 8px;white-space:nowrap;font-size:14px}
+  .subnav a{padding:10px 8px;white-space:nowrap;font-size:16px}  /* 14px→16px（PCと同じ。2026-09-10） */
   .subnav a:first-child{padding-left:8px}
   .vision .in{padding:72px 24px}
   .vcopy{font-size:28px;line-height:2;margin-top:24px}
@@ -705,7 +705,7 @@ html.js-rise [data-in].is-in{opacity:1;transform:none}
 .pullback::before{content:"";width:26px;height:11px;background:currentColor;
   -webkit-mask:var(--arrow) no-repeat center/contain;mask:var(--arrow) no-repeat center/contain;
   transform:rotate(-90deg)}
-.pullback .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--accent);
+.pullback .pbline{position:absolute;left:0;bottom:0;height:3px;background:var(--accent);
   width:0}
 @media(prefers-reduced-motion:reduce){ .pullback{display:none} }
 
@@ -1619,7 +1619,11 @@ address,.fgrid address,.ocard address{word-break:auto-phrase}
 .js-rise [data-rise]{transform:translateY(12px);
   transition:opacity .55s var(--ease),transform .55s var(--ease)}
 .js-rise :where(.sec h2,.vcopy)[data-rise]{transform:translateY(22px);
-  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  /* 🚨 .8s だと、見出しが立ち上がる場面を誰も見ていない（2026-09-10 モーション検品・実測）。
+     発火は top≈717〜737px（画面844の下端）、出終わるまで833〜855ms。実機の1フリック
+     （1200px/s）では約1000px流れるので、終わる瞬間には top=-80〜-316＝画面の外。
+     8ページで132個中17個が画面外で終了していた。.45s なら終了時 top≈180 で画面の中に収まる。 */
+  transition:opacity .45s var(--ease),transform .45s var(--ease)}
 .js-rise .route .cell:nth-child(2),.js-rise .bv-note:nth-child(2),
 .js-rise .ocard:nth-child(2),.js-rise .entries a:nth-child(2){transition-delay:.07s}
 .js-rise .route .cell:nth-child(3),.js-rise .bv-note:nth-child(3),
@@ -1777,9 +1781,13 @@ h1,h2,h3,.bh-lead,.msg .body p{word-break:auto-phrase}
 .head .r2.open .hbtn{border-radius:14px;margin:8px 16px 16px}
 
 /* 三原則の書は、携帯でもPCでも3枚横並び */
-.shodo{grid-template-columns:repeat(3,1fr)}
+/* 🚨 1fr は minmax(auto,1fr)＝min-content より縮まない。キャプションの文字量で列幅が
+   不揃いになり、スマホで書が 113/128/80px とバラバラだった（PCは3枚とも230px）。
+   さらに幅361〜374pxでは文書幅が画面より最大16px広くなり、about が横に振れていた
+   （逃げ道の1列化が :2169 の max-width:360px にあり、壊れる帯の1px手前で切れていた）。 */
+.shodo{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:900px){
-  .shodo{grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .shodo{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
   .shodo img{max-width:100%}
 }
 
@@ -1999,7 +2007,8 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 }
 /* ---- 動く物を名指しする（all をやめる。手本に all は皆無） ---- */
 .hbtn,.btn,.bh-btn,.next a,.rnp-cta{
-  transition:background-color .16s ease,box-shadow .16s ease,color .16s ease,transform .12s ease
+  /* transform は .08s。押してから見た目が変わるまで120ms→80ms（合格線100ms・2026-09-10 実測） */
+  transition:background-color .16s ease,box-shadow .16s ease,color .16s ease,transform .08s ease
 }
 
 /* ---- hover：主は地を1段暗く、副は淡塗り ---- */
@@ -2166,7 +2175,10 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 
 /* 2026-09-08 320px の溢れ。三原則の書が3列のまま、採用条件の表が2列のままで
    画面幅を超えていた（about で57px・トップで11px）。狭い幅では1列に畳む */
-@media(max-width:360px){
+/* 🚨 2026-09-10：3列を保つ幅（361〜600px）で説明文が1行6字・9行になり、
+   320/360の1列（1行17〜19字）より読みにくいという逆転が起きていた。
+   1列に畳む境目を 360px → 600px へ。書の大きさは列幅でなく max-width で決める。 */
+@media(max-width:600px){
   .shodo{grid-template-columns:1fr!important;gap:28px}
   .shodo img{max-width:150px}
   .rnp-grid{grid-template-columns:1fr!important}
@@ -2475,3 +2487,85 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
       （style.css:15 に「この色は4.0:1で足りない」と自分で書いてある）。
       色ではなく、字の大きさと太さで主張させる（白のままなら 6.36:1 で基準内） */
 .rnp-h .em-zutto,.em-zutto{font-weight:800;font-size:1.12em;letter-spacing:.02em}
+
+/* =========================================================================
+   2026-09-10 おでん「携帯のUIを完璧にして／パソコンで見るのと同じようなクオリティで見やすい形に」
+   ヒーローをスマホでだけ「全面カバー」→「16:10の帯＋文字は下」へ。
+
+   🚨 なぜ変えるか（実測）：元動画は 1280x720。スマホの器は 390x844（縦長）なので
+      object-fit:cover は横を大きく切る。見えている横幅は PC 1440 で 97.8%、SP 390 で 24.4%。
+      車体の社名ロゴ「8 Ryūtsū Service」は元画の x820〜1250（430px幅）にあり、
+      SPの窓（横312px相当）には物理的に入らない。object-position では直らない。
+      高さを 560px にしても 39%、470px でも 47%（「8」しか入らない）。
+      16:10 の帯にすると 90% が見え、ロゴ・トラック・空・2人が全部入る＝PCと同じ絵になる。
+   🚨 同じ手を採用ページで先に採っている（saiyo2.css:988〜1002「スマホは全面をやめ、
+      映像を横長のまま上に置いて、文字はその下に置く」）。トップもそこに揃える。
+   🚨 文字は写真の上でなく無地の青地に乗るので、左の濃いスクリム（::before）は不要。
+      白 on #0E4F9E ＝ 7.98:1（基準4.5の1.8倍）。明暗比0件を落とさない。
+   ========================================================================= */
+@media(max-width:720px){
+  .bluehero{min-height:0;display:block;padding-bottom:0;background:#0E4F9E}
+  /* 帯。inset:0 の全面指定（1691行）と 100svh（1711行・1849行）をここで解除する */
+  .bh-photo{position:relative;inset:auto;width:100%;aspect-ratio:16/10;
+    margin:0;order:0;overflow:hidden;z-index:0}
+  .bh-photo video,.bh-photo img{width:100%;height:100%;object-fit:cover;
+    object-position:center center}
+  /* 写真の上に文字が乗らなくなったので、幕は両方とも外す */
+  .bluehero::before,.bluehero::after{display:none}
+  .bluehero .bh-in{position:relative;z-index:2;display:block;min-height:0;
+    padding:30px 24px 40px}
+  .bluehero h1{text-shadow:none}
+  .bh-lead,.bh-en{text-shadow:none}
+  .bh-scroll{display:none}
+}
+@media(max-width:360px){
+  .bluehero .bh-in{padding:26px 20px 34px}
+}
+
+/* ---- スマホで字が小さすぎた所（PCとの比を戻す。2026-09-10 実測） ---- */
+@media(max-width:720px){
+  /* 眉 10px→12px（PC 13.5px）。求人の肩書き行が10pxだった */
+  .bluehero .bh-en{font-size:12px;letter-spacing:.14em}
+  /* 導入 14px→16px（PC 18px）。本文が読める最小に戻す */
+  .bluehero .bh-lead{font-size:16px;line-height:1.75;max-width:26em}
+}
+@media(max-width:360px){
+  .bluehero .bh-lead{font-size:15px;line-height:1.7}
+}
+
+/* =========================================================================
+   2026-09-10 スマホUI再検品の差し戻し
+   ========================================================================= */
+/* 🚨 私が壊した件：眉を10→12pxに上げたら、幅320〜338pxで
+   「浦安本社・埼玉営業所」が右へ19px出て「所」が切れた（実測・器280pxに対し必要319px）。
+   .bh-en は display:flex なので既定で1行に固定され、どこでも折り返せなかったのが本当の原因。
+   字を小さく戻すのではなく、部品の間（「／」の所）で折り返せるようにする。 */
+.bluehero .bh-en{flex-wrap:wrap;row-gap:4px}
+
+/* 🚨 狭い端末の逃げ道が 360px で切れているのに、壊れる帯は 383px まで続いていた
+   （2026-09-10 実測）。iPhone SE3・SE2・12mini・13mini はちょうど 375px。
+   ・ヘッダーの副題が「創業1986年 ／ 家電の配送・…」と三点リーダで切れる（362〜382）
+   ・メニュー釦が「メニ...」になる（362〜380）
+   ・.btn の min-width:300px が .formprep の最小幅を342pxに固定し、
+     contact の相談カードの右枠が画面外に出る（361〜365）／右余白が24→9pxに潰れる（366〜379）
+   360pxの塊ごと広げると、いちばん台数の多い390pxまで字が小さくなるので、
+   ここは「切れる3つ」だけを 383px まで延ばす。 */
+@media(min-width:361px) and (max-width:383px){
+  .logo span{display:none}
+  .mtoggle{padding:0 8px;font-size:13px}
+  .btn{min-width:0}
+}
+
+/* 🚨 動きを減らす設定のとき、transition が消えるので motion.js の transitionend が
+   永久に発火せず、will-change が付きっぱなしになる（実測 index15／about30／business21／service13）。
+   一度この打ち消しを 349行のブロックに書いたが、**同じ詳細度で後ろにある 369行・657行に負けて
+   実測が1個も減らなかった**（メディアクエリは詳細度を上げない）。だから末尾に置く。
+   saiyo2.css:500-502 が効いているのも、saiyo2.css が style.css の後に読まれるから。 */
+@media(prefers-reduced-motion:reduce){
+  .js-rise [data-rise],html.js-rise [data-in]{will-change:auto}
+}
+
+/* PC のヒーロー「SCROLL」が動画の明るい所に乗って明暗比 2.40（基準4.5）だった。
+   位置を動かすとクイックレールと当たるので、字の後ろに薄い足場を敷く。 */
+.bh-scroll{padding:8px 10px;border-radius:999px;background:rgba(5,24,52,.42);
+  text-shadow:0 1px 10px rgba(3,20,44,.9)}

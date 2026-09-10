@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 🚨 スマホでは一度も表示されないドロップダウンの写真4枚（実測660KB）を、
+     Chromeが先に取りに行っていた。style.css:300 の html.js-menu が付くのは motion.js:68＝
+     CSS到着後で、その20ms前に取得が始まる競争になっていた（2026-09-10 実測）。
+     ここで先に付けると最初のレイアウトから display:none が効き、要求そのものが起きない。
+     JSが無効な人にはクラスが付かない＝メニューが見えたままの逃げ道はそのまま。 -->
+<script>document.documentElement.classList.add('js-menu')</script>
 <meta name="theme-color" content="#1671CE">
 <title>法人のお客様へ｜お取引について・協力会社募集｜エイト流通サービス</title>
 <meta name="description" content="家電量販店様へ。お見積りは無料です。よくあるご質問と、協力会社の募集について。">
@@ -15,7 +21,7 @@
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/business.html">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css?v=202609100120">
+<link rel="stylesheet" href="assets/style.css?v=202609101830">
 <style>
 
 .flow{counter-reset:f;margin-top:64px;border-top:1px solid var(--line)}
@@ -89,6 +95,7 @@
 .why article{background:var(--white);border:1px solid var(--line);padding:40px}
 .why .k{font-size:14px;letter-spacing:.14em;color:var(--accent);font-weight:700}
 .why h3{font-size:28px;color:var(--brand);margin-top:8px}
+@media(max-width:720px){.why h3{font-size:20px}}  /* 段差1.07倍→1.50倍（PCと同じ） */
 .why p{font-size:16px;margin-top:16px}
 .why ul{list-style:none;margin-top:16px;font-size:16px}
 .why li{padding:8px 0 8px 24px;position:relative;border-bottom:1px solid var(--line)}
@@ -117,9 +124,11 @@
   .clients{grid-template-columns:1fr}
   /* 🚨 左パディングだけ100px→24pxに縮めると、絶対配置の番号(::before)と罫(::after)が
      見出しにめり込む。番号の置き所も一緒に動かす（2026-09-03 実測で差し戻し） */
-  .clients li{min-height:0;padding:24px 24px 24px 64px}
-  .clients li::before{left:24px;top:26px}
-  .clients li::after{left:24px;top:50px}
+  /* 🚨 左64pxは画面390pxの16.4%（PCは100/1160＝8.6%）。本文の幅が252pxしか残らず
+     3行で済む文が7行になっていた（2026-09-10 実測）。番号は本文の上に置いて幅を返す。 */
+  .clients li{min-height:0;padding:44px 24px 24px 24px}
+  .clients li::before{left:24px;top:22px}
+  .clients li::after{left:24px;top:46px}
   .nums{grid-template-columns:1fr 1fr;gap:24px}
   .nums dd{font-size:40px}
   .nums .d{overflow-wrap:anywhere}
@@ -140,7 +149,7 @@
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
-<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="bar"></span></div>
+<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="pbline"></span></div>
 
 <header class="head">
   <div class="r1">
@@ -150,18 +159,18 @@
     <ul class="gnav">
       <li><a href="about.html" aria-haspopup="true">会社概要</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
-          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
+          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
         </ul>
       </li>
       <li aria-current="page"><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200" decoding="async"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
       <li><a href="recruit.html">採用情報</a></li>
@@ -181,7 +190,7 @@
 </nav>
 
 <div class="phead">
-  <img src="img/L1_積込.webp" alt="" aria-hidden="true" width="1800" height="1200">
+  <img src="img/L1_積込.webp" alt="" aria-hidden="true" width="1800" height="1200" fetchpriority="high" decoding="async">
   <div class="in">
     <p class="en">FOR BUSINESS</p>
     <h1>法人のお客様へ</h1>
@@ -340,8 +349,8 @@
   </div>
 </footer>
 
-<script src="assets/motion.js?v=202609100120"></script>
+<script src="assets/motion.js?v=202609101830"></script>
 
-<script src="assets/line.js?v=202609100120"></script>
+<script src="assets/line.js?v=202609101830"></script>
 </body>
 </html>

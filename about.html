@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://maps.google.com">
+<link rel="preconnect" href="https://maps.gstatic.com" crossorigin>
+<!-- 🚨 スマホでは一度も表示されないドロップダウンの写真4枚（実測660KB）を、
+     Chromeが先に取りに行っていた。style.css:300 の html.js-menu が付くのは motion.js:68＝
+     CSS到着後で、その20ms前に取得が始まる競争になっていた（2026-09-10 実測）。
+     ここで先に付けると最初のレイアウトから display:none が効き、要求そのものが起きない。
+     JSが無効な人にはクラスが付かない＝メニューが見えたままの逃げ道はそのまま。 -->
+<script>document.documentElement.classList.add('js-menu')</script>
 <meta name="theme-color" content="#1671CE">
 <title>会社概要・拠点・許認可｜有限会社エイト流通サービス</title>
 <meta name="description" content="1986年創業。家電を運び、取り付け、古い品物を引き取るまでを一社で行います。三原則と代表の挨拶。">
@@ -15,7 +23,7 @@
 <meta property="og:url" content="https://tsujiguchilukes-ops.github.io/eightds-site/about.html">
 <meta property="og:image" content="https://tsujiguchilukes-ops.github.io/eightds-site/img/og2.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css?v=202609100120">
+<link rel="stylesheet" href="assets/style.css?v=202609101830">
 <style>
 
 .rules{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:64px;background:var(--line)}
@@ -68,6 +76,11 @@
 .ofc .pic{aspect-ratio:4/3;overflow:hidden;background:var(--paper)}
 .ofc .pic img{width:100%;height:100%;object-fit:cover}
 /* 実在の地図を埋め込む（住所がその場所にあることを、見た人が自分で確かめられる） */
+/* 🚨 about は8頁で最重（塗り直し1,022回・main 832ms・犯人は地図の iframe 2枚）。
+   2026-09-10 に `content-visibility:auto; contain-intrinsic-size:390px 244px` を当てたが、
+   **画面外で size containment が効いて幅が390px固定になり、幅320〜390で右に26pxはみ出した**
+   （器は左右24pxの余白ぶん342px）。地図の幅は親から決まるので、この形は使えない。
+   やるなら iframe 側に当てて幅を親から取り直す作りにすること。今回は速度より崩れを優先して見送り。 */
 .gmap{margin-top:24px;aspect-ratio:16/10;border:1px solid var(--line);overflow:hidden;background:var(--paper)}
 .gmap iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.85)}
 @media(max-width:900px){ .ofc .mapcol .gmap{aspect-ratio:4/3} }
@@ -137,7 +150,7 @@
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
-<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="bar"></span></div>
+<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="pbline"></span></div>
 
 <header class="head">
   <div class="r1">
@@ -147,18 +160,18 @@
     <ul class="gnav">
       <li aria-current="page"><a href="about.html" aria-haspopup="true">会社概要</a>
         <ul class="drop">
-          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
-          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
+          <li><a href="about.html#outline"><span class="im"><img src="img/L5_受付.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/V1_引き.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
         </ul>
       </li>
       <li><a href="service.html" aria-haspopup="true">サービス</a>
         <ul class="drop">
-          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
+          <li><a href="service.html"><span class="im"><img src="img/V2_手元.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
         </ul>
       </li>
       <li><a href="business.html" aria-haspopup="true">法人のお客様へ</a>
         <ul class="drop">
-          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+          <li><a href="business.html#partner"><span class="im"><img src="img/L4_台車.webp" alt="洗濯機を2人でトラックから降ろすところ" loading="lazy" width="1800" height="1200" decoding="async"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
         </ul>
       </li>
       <li><a href="recruit.html">採用情報</a></li>
@@ -178,7 +191,7 @@
 </nav>
 
 <div class="phead">
-  <img src="img/L1_積込.webp" alt="" aria-hidden="true" width="1800" height="1200">
+  <img src="img/L1_積込.webp" alt="" aria-hidden="true" width="1800" height="1200" fetchpriority="high" decoding="async">
   <div class="in">
     <p class="en">ABOUT US</p>
     <h1>会社概要</h1>
@@ -196,7 +209,7 @@
   </div>
 </section>
 
-<div class="band face is-people"><img src="img/P1_全員.webp" alt="浦安の車庫でトラックの前に並んだ配送スタッフ" width="1800" height="1200" loading="lazy"></div>
+<div class="band face is-people"><img src="img/P1_全員.webp" alt="浦安の車庫でトラックの前に並んだ配送スタッフ" width="1800" height="1200" loading="lazy" decoding="async"></div>
 
 <section class="sec sec-paper" id="rules">
   <div class="wrap">
@@ -205,15 +218,15 @@
     <p class="note" data-rise="0">お客様のご自宅へ上がって作業する仕事です。身だしなみを整え、車両もきれいにしてから伺います。<span class="nw">その上で、3つを守っています。</span></p>
     <div class="shodo">
       <figure data-rise="0">
-        <img src="img/筆_安全.png" alt="安全" width="700" height="700" loading="lazy">
+        <img src="img/筆_安全.webp" alt="安全" width="700" height="700" loading="lazy" decoding="async">
         <figcaption><b>安全</b>搬入経路を先に確かめ、難しい時はその場でご提案します。</figcaption>
       </figure>
       <figure data-rise="0">
-        <img src="img/筆_確実.png" alt="確実" width="700" height="700" loading="lazy">
+        <img src="img/筆_確実.webp" alt="確実" width="700" height="700" loading="lazy" decoding="async">
         <figcaption><b>確実</b>取付部材を揃え、新しい機種の要点を全員で共有しています。</figcaption>
       </figure>
       <figure data-rise="0">
-        <img src="img/筆_迅速.png" alt="迅速" width="700" height="700" loading="lazy">
+        <img src="img/筆_迅速.webp" alt="迅速" width="700" height="700" loading="lazy" decoding="async">
         <figcaption><b>迅速</b>2人1組で伺い、配送から設置・接続まで一度で終えます。</figcaption>
       </figure>
     </div>
@@ -395,8 +408,8 @@
   </div>
 </footer>
 
-<script src="assets/motion.js?v=202609100120"></script>
+<script src="assets/motion.js?v=202609101830"></script>
 
-<script src="assets/line.js?v=202609100120"></script>
+<script src="assets/line.js?v=202609101830"></script>
 </body>
 </html>
