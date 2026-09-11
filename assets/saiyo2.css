@@ -1021,3 +1021,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2hero .s2note-ext{color:var(--sub);text-shadow:none}
   .s2hero .s2chips li{background:var(--white)}
 }
+
+/* ===== 代表からの一言（ヒーロー直下・会社概要リードの上）2026-09-11 おでん指示で下部から移設 ===== */
+.s2voice{padding:28px 0 0;background:var(--white)}
+.s2voice .s2said{margin-top:0}
+.s2said p.s2said-lab{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.08em;line-height:1.4;color:var(--accent)}
+@media (min-width:721px){ .s2voice{padding:40px 0 0} }
+@media (max-width:720px){ .s2voice{padding:22px 0 0} .s2said p.s2said-lab{font-size:12px} }
