@@ -5,4 +5,4 @@ Allow: /
 Disallow: /saiyo.html
 Disallow: /saiyo2.html
 
-Sitemap: https://tsujiguchilukes-ops.github.io/eightds-site/sitemap.xml
+Sitemap: https://eight-ds.com/sitemap.xml
