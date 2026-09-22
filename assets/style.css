@@ -1131,6 +1131,16 @@ html.js-rise [data-in="flip"],html.js-rise [data-in="flipx"]{transition-duration
 .band.is-fit::before,.band.is-fit::after{display:none}
 .band.is-fit:hover>img{transform:none}
 
+/* ---- 社員全員の集合写真の帯（2026-09-22）----
+   🚨 .band 系を使わない。理由は3つあって、どれも「この写真だけ」の事情:
+   1) .band.is-fit>img の width:min(760px,100%) だと、15人の顔が半分の大きさになる
+   2) .band.is-people>img の grayscale(.34) が当たって、作業着の紺と床の緑が抜ける
+   3) .band{height:380px} 系の固定高は object-fit:cover を呼び、前列の脚か後列の頭が切れる
+   採用ページの .s2band（assets/saiyo2.css:335）と同じ「全幅・比例表示・トリミング0」で揃える。
+   🚨 暗幕（::before/::after）も filter も足さない。顔を見せるための写真なので、乗せた分だけ目的から遠ざかる */
+.crewband{background:var(--ink)}
+.crewband img{width:100%;height:auto;display:block;max-width:1440px;margin:0 auto}
+
 /* === 見出しを文節で折り返す（2026-09-03）=========================
    日本語はブラウザが単語の区切りを知らないので、「協力会社を募／集しています」
    「お届けしたあとま／でが」のように語の真ん中で割れる。CSSだけでは直せない。
