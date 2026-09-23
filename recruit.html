@@ -26,38 +26,14 @@
 <!-- 🚨 Googleしごと検索（JobPosting）。中身はこのページの募集要項の実値だけを書いている。
      募集を止めたら、この下のJSON-LDを2つとも丸ごと消すこと
      （出したままだと検索結果に募集が出続ける）。要項を変えたらここも合わせて直す。 -->
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"JobPosting",
-"title":"配送スタッフ（家電の配送・設置・エアコン工事）",
-"description":"<p>家電量販店で購入された冷蔵庫・洗濯機・テレビ・エアコンを、お客様のご自宅へ搬入し、設置します。エアコンの取付工事も行います。</p><p>工事の指導は当社で行います。配送を続けながら、エアコン工事も覚えていけます。2人1組で伺うので、先輩と一緒に覚えていけます。未経験の方も歓迎です。</p><p>待遇：社会保険完備／生命保険／家族手当／交通費支給（規定内）／制服貸与／エアコン（AC）工事の指導あり。昇給は随時。賞与は年3回（7月・12月・3月）。</p>",
-"datePosted":"2026-09-09",
-"employmentType":"FULL_TIME",
-"industry":"家電の配送・設置・電気工事",
-"hiringOrganization":{"@type":"Organization","name":"有限会社エイト流通サービス","sameAs":"https://eight-ds.com/","logo":"https://eight-ds.com/img/og2.webp"},
-"jobLocation":[
- {"@type":"Place","address":{"@type":"PostalAddress","postalCode":"279-0043","addressRegion":"千葉県","addressLocality":"浦安市","streetAddress":"富士見3-11-1 舞浜ガーデンヒルズ207号室","addressCountry":"JP"}},
- {"@type":"Place","address":{"@type":"PostalAddress","postalCode":"352-0011","addressRegion":"埼玉県","addressLocality":"新座市","streetAddress":"野火止2-11-25","addressCountry":"JP"}}],
-"baseSalary":{"@type":"MonetaryAmount","currency":"JPY","value":{"@type":"QuantitativeValue","minValue":340000,"unitText":"MONTH"}},
-"workHours":"8:30〜17:30（休憩1時間）／残業なし",
-"url":"https://eight-ds.com/recruit.html#youkou"}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"JobPosting",
-"title":"配送アシスタント（家電配送の助手）",
-"description":"<p>ドライバーの助手です。運転はドライバーにお任せです。助手席に座って現場へ向かい、2人1組で作業します。</p><p>未経験の方も歓迎です。運転はしないので、助手席から始められます。近くの駅まで送迎します。日給保障付きで、早く終わっても日給は変わりません。日払いにも対応しています。</p><p>シフトはご都合を伺って決めます。現地集合・現地解散も可能です。</p>",
-"datePosted":"2026-09-09",
-"employmentType":"PART_TIME",
-"industry":"家電の配送・設置・電気工事",
-"hiringOrganization":{"@type":"Organization","name":"有限会社エイト流通サービス","sameAs":"https://eight-ds.com/","logo":"https://eight-ds.com/img/og2.webp"},
-"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","postalCode":"352-0011","addressRegion":"埼玉県","addressLocality":"新座市","streetAddress":"野火止2-11-25","addressCountry":"JP"}},
-"baseSalary":{"@type":"MonetaryAmount","currency":"JPY","value":{"@type":"QuantitativeValue","value":11980,"unitText":"DAY"}},
-"workHours":"8:30〜17:30",
-"url":"https://eight-ds.com/recruit.html#youkou"}
-</script>
 <!-- ページ上の「よくある質問」7問をそのまま機械可読にしたもの。
      🚨 Googleは2026-05-07にFAQの検索結果表示を廃止した。ここに出す目的はGoogleではなく、
      Bing と AI検索（Perplexity・ChatGPT等）のクローラーに答えを拾わせること。
      質問と答えを画面側で直したら、ここも同じ内容に直す。 -->
+<!-- 🚨 2026-09-23 JobPosting の構造化データ2件は、ここから
+     recruit-seishain.html / recruit-baito.html へ移した。
+     Googleは「1ページ＝1求人」を要件にしていて、求人一覧ページへのマークアップを禁じている。
+     ここに戻すと、しごと検索に出なくなる。 -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"未経験でも本当に大丈夫ですか？","acceptedAnswer":{"@type":"Answer","text":"大丈夫です。2人1組で伺うので、最初は先輩と一緒に現場で覚えていきます。エアコン工事の指導も当社で行います。"}},{"@type":"Question","name":"体力に自信がないのですが。","acceptedAnswer":{"@type":"Answer","text":"冷蔵庫や洗濯機は、いつも2人がかりで運びます。体は仕事の中で慣れていきます。"}},{"@type":"Question","name":"体は鍛えられますか？","acceptedAnswer":{"@type":"Answer","text":"鍛えられます。冷蔵庫は大きいもので100kg近く、それを毎日2人で運びます。ジムに通わなくても、体は自然とできてきます。"}},{"@type":"Question","name":"給与はいくらですか？","acceptedAnswer":{"@type":"Answer","text":"アルバイトは日給11,980円（別途、交通費1,000円）。正社員は月給34万円〜。賞与は年3回（7月・12月・3月）です。在籍している社員では、入社4年目・5年目で月給40万円、入社7年目で月給46万円になっています。いずれも未経験で入った社員です。"}},{"@type":"Question","name":"応募の前に、話を聞くだけでもいいですか？","acceptedAnswer":{"@type":"Answer","text":"もちろんです。「条件を聞きたいだけ」のご連絡も歓迎です。LINEからお気軽にどうぞ。"}},{"@type":"Question","name":"資格や技術は身につきますか？","acceptedAnswer":{"@type":"Answer","text":"エアコン（AC）工事の指導は当社で行うので、未経験から工事の技術を習得できます。"}},{"@type":"Question","name":"勤務地はどこですか？","acceptedAnswer":{"@type":"Answer","text":"浦安本社（千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室）と埼玉営業所（埼玉県新座市野火止2-11-25）です。配送で伺う範囲は東京・千葉・埼玉です。"}}]}
 </script>
@@ -428,6 +404,7 @@
     <p class="en" data-rise="0">05 ／ 募集要項</p>
 
     <h3 class="s2h" data-rise="0">正社員</h3>
+    <p class="note" data-rise="0"><a href="recruit-seishain.html">正社員の募集要項のページを開く（印刷・共有できます）</a></p>
     <details class="s2req" data-rise="0">
       <summary>正社員の募集要項を開く</summary>
     <table class="tbl">
@@ -445,6 +422,7 @@
     </details>
 
     <h3 class="s2h" data-rise="0">アルバイト</h3>
+    <p class="note" data-rise="0"><a href="recruit-baito.html">アルバイトの募集要項のページを開く（印刷・共有できます）</a></p>
     <details class="s2req" data-rise="0">
       <summary>アルバイトの募集要項を開く</summary>
     <table class="tbl">
