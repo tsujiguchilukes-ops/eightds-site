@@ -1065,7 +1065,9 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2hero .s2frame img{aspect-ratio:auto;height:auto;min-height:0;max-height:none;object-fit:contain}
   /* 🚨 上の @media(max-width:720px) が .s2fact に padding:12px 16px を戻していて、
      カードを外したのに箱の形だけ残っていた（2026-09-23 実機で確認）。文字と数字だけにする */
-  .s2hero .s2facts .s2fact{padding:0}
+  /* 🚨 saiyo2.css:1044 が「スマホは写真の下＝白い紙」用に白カードを戻していた。
+     おでん「文字と数字だけ」なので、地と影も消す（padding だけ0にしても箱の形が残る） */
+  .s2hero .s2facts .s2fact{padding:0;background:none;box-shadow:none}
   .s2hero .s2facts{gap:20px 40px}
   /* 🚨 s2zoom は scale(1.06) から始まる。スマホは object-fit:contain なので、
      開いた直後だけ左右が3%ずつ .s2frame(overflow:hidden) に切られ、両端の人が欠ける。
