@@ -786,6 +786,12 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   content-visibility:auto;contain-intrinsic-size:100vw 100svh}
 .s2hero .s2frame{width:100%;max-width:none;height:100%}
 .s2hero .s2frame video{width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;object-position:50% 37%;filter:saturate(.92) contrast(1.05) brightness(.93)}
+/* 2026-09-23 ヒーローを集合写真（静止画）に。video と同じ敷き方にする。
+   🚨 object-position は 50% 50%。動画の 37% は運転席の2人に合わせた値で、
+   集合写真に当てると後列の頭が上に出る（元画像は上下の余白をすでに削ってある）。
+   🚨 filter の brightness は動画より上げる（.93→.98）。曇天の写真なので、動画と同じだけ落とすと顔が沈む。 */
+.s2hero .s2frame img{width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;
+  object-fit:cover;object-position:50% 0%;filter:saturate(.96) contrast(1.03) brightness(.98)}
 .s2hero .s2frame::after{background:linear-gradient(180deg,rgba(3,17,36,.22),transparent 30%,rgba(3,17,36,.42))}
 .s2hero .s2scenehead,.s2hero .s2subtitle{display:none}
 /* 🚨 2026-09-09 眉・見出し・リードに別々の帯を敷くと「紙を4枚貼った」ように見えた。
@@ -798,7 +804,26 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2hero .s2title h1{max-width:11em;margin-top:16px;font-size:clamp(36px,3.4vw,44px);line-height:1.14;color:#fff;text-shadow:0 3px 24px rgba(0,12,28,.54)}
 .s2hero .s2lead{max-width:35em;margin-top:22px;color:#fff;font-size:17px;line-height:1.85;text-shadow:0 2px 16px rgba(0,12,28,.6)}
 .s2hero .s2chips{max-width:680px;margin-top:20px}.s2hero .s2chips li{background:rgba(255,255,255,.96);box-shadow:0 7px 20px rgba(0,14,34,.24)}
-.s2hero .s2facts{max-width:640px;margin-top:22px}.s2hero .s2facts .s2fact{background:rgba(255,255,255,.96);box-shadow:0 10px 26px rgba(0,14,34,.2)}
+/* 2026-09-23 おでん「採用の条件を文字と数字だけにしてみるデザインはどう？」。
+   白いカードをやめて、写真の上に直接置く。カードで隠れていた社員が見えるようになる。
+   🚨 カードは「白地＋墨字」で明暗比を稼いでいた足場だった。外した分は
+   ①.s2title::before の右側を濃くする ②数字と説明に影を付ける、の2つで埋める。
+   （実測は後段の検査で。ここを触ったら必ず測り直す） */
+.s2hero .s2facts{max-width:none;margin-top:26px;display:flex;flex-wrap:wrap;gap:24px 56px}
+.s2hero .s2facts .s2fact{margin:0;padding:0;max-width:none;height:auto;
+  background:none;box-shadow:none;border:0;border-radius:0}
+.s2hero .s2fact dt{font-size:13px;letter-spacing:.24em}
+.s2hero .s2fact dd b{font-size:clamp(40px,4.2vw,56px);line-height:1.05}
+.s2hero .s2fact .d{font-size:14px}
+/* 🚨 色は「地が何色か」で分ける。ここを一括で白にしたら、
+   スマホで白地に白文字＝明暗比 1.01:1 になった（2026-09-23 実測。1文字も見えていない）。
+   PC(721px〜)＝ヒーローが全面表示で写真の上に文字が乗る → 白＋影
+   スマホ(〜720px)＝写真の下に白い紙が続く作り → 既定の墨色のまま触らない */
+@media (min-width:721px){
+  .s2hero .s2fact dt{color:#FFE2CE;text-shadow:0 2px 12px rgba(0,12,28,.8)}
+  .s2hero .s2fact dd{color:#fff;text-shadow:0 2px 18px rgba(0,12,28,.8)}
+  .s2hero .s2fact .d{color:#F1F6FB;text-shadow:0 1px 10px rgba(0,12,28,.9)}
+}
 .s2hero .s2acts{max-width:420px;margin-top:24px}.s2hero .s2cta{box-shadow:0 12px 30px rgba(0,14,34,.3)}
 .s2hero .s2sub-link{color:#fff;border-color:rgba(255,255,255,.75)}.s2hero .s2note-ext{color:#fff;text-shadow:0 1px 10px #00152f}
 .s2interlude{position:relative;max-width:none;margin:0;overflow:hidden;background:var(--deep)}
@@ -1028,3 +1053,22 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2said p.s2said-lab{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.08em;line-height:1.4;color:var(--accent)}
 @media (min-width:721px){ .s2voice{padding:40px 0 0} }
 @media (max-width:720px){ .s2voice{padding:22px 0 0} .s2said p.s2said-lab{font-size:12px} }
+
+/* ---- 2026-09-23 ヒーローを集合写真にした後始末（スマホ） ----
+   🚨 スマホのヒーローは「写真＋下に文字」の作りで、写真は 16:9 に object-fit:cover で入る
+      （.s2frame img の aspect-ratio:16/9 と max-height:70vh）。
+      集合写真をそのまま入れると横が切られ、幅390pxでは両端の人が画面から消える（実測）。
+   → スマホだけ素の比（1.49）で出す。全員が必ず入る。
+   🚨 .s2hero を付けて詳細度で勝たせている。ファイル末尾に置くのは、
+      上の .s2hero .s2frame img（同じ詳細度）に後勝ちさせるため。 */
+@media (max-width:720px){
+  .s2hero .s2frame img{aspect-ratio:auto;height:auto;min-height:0;max-height:none;object-fit:contain}
+  /* 🚨 上の @media(max-width:720px) が .s2fact に padding:12px 16px を戻していて、
+     カードを外したのに箱の形だけ残っていた（2026-09-23 実機で確認）。文字と数字だけにする */
+  .s2hero .s2facts .s2fact{padding:0}
+  .s2hero .s2facts{gap:20px 40px}
+  /* 🚨 s2zoom は scale(1.06) から始まる。スマホは object-fit:contain なので、
+     開いた直後だけ左右が3%ずつ .s2frame(overflow:hidden) に切られ、両端の人が欠ける。
+     集合写真は「全員写っていること」が中身なので、スマホでは動かさない（PCは cover なので影響なし）。 */
+  .s2hero .s2frame img{animation:none}
+}

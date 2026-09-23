@@ -105,13 +105,19 @@
            webm 1,064,165B を即・全量取りに行く。CSSと同時に走り出して、ポスターの到着を
            2,154ms 遅らせていた。LCPはポスターなので、動画は表示を1msも早めていない。
            ページの読み込みが終わってから src を入れて再生する（画質・ビットレートは据え置き）。 -->
-      <video poster="img/hero_p2.poster.jpg" width="1600" height="900"
-             muted playsinline loop preload="none"
-             aria-label="2tトラックの運転席と助手席に座る2人の社員">
-        <source data-src="img/hero_p2.webm" type="video/webm">
-        <source data-src="img/hero_p2.mp4" type="video/mp4">
-      </video>
-      <p class="s2scenehead"><b>SCENE 01</b>助手席と、運転席。</p>
+      <!-- 🚨 2026-09-23 おでん「ここのヒーローに集合写真入れて」。動画から社員全員の写真へ。
+           🚨 画角は 2340x1571（比1.49）。**上の暗い天井をわざと残している**。
+           PCではヒーローが 100svh の全面表示で、白いヘッダーがこの帯の上に重なる。
+           天井を削ると後列の頭がヘッダーの裏に隠れる（2026-09-23 実測）。
+           🚨 スマホは「写真＋下に文字」の作りなので、そのまま素の比で出す（下の @media 参照）。
+           🚨 これはLCPの絵。lazy と preload="none" は付けない。 -->
+      <img src="img/hero_crew.webp" width="1920" height="1289" fetchpriority="high" decoding="async"
+           alt="浦安の倉庫の前に集まった社員たち">
+      <!-- 🚨 2026-09-23 おでん判断で削除。ここには
+           <p class="s2scenehead"><b>SCENE 01</b>助手席と、運転席。</p> があった。
+           動画（運転席と助手席の2人）を説明する言葉で、集合写真には合わない。
+           ページ下部の「仕事の流れ」にも SCENE 01 があり、番号が重複していた。
+           🚨 戻すときは、写真に合う言葉をおでんに決めてもらうこと。こちらで書かない。 -->
       
     </div>
   </div>
