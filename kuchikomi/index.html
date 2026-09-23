@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>クチコミのご協力のお願い｜有限会社エイト流通サービス</title>
+<!-- 🚨 このページは「印刷したQRの行き先」を1か所で持つための中継です。
+     カードを刷り直さずに行き先を変えられるように、Googleへ直接リンクせずここを挟んでいます。
+     行き先を変えるときは下の GO だけ書き換えること。 -->
+<style>
+:root{--brand:#1671CE;--ink:#1a2430;--ink2:#4a5a6a;--bg:#F4F9FE}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;min-height:100svh;padding:24px;line-height:1.8}
+.box{max-width:420px;width:100%;background:#fff;border-radius:14px;padding:32px 26px;
+  box-shadow:0 2px 14px rgba(20,40,70,.10);text-align:center}
+h1{font-size:19px;margin:0 0 14px;line-height:1.6}
+p{font-size:15px;color:var(--ink2);margin:0 0 20px}
+a.btn{display:block;background:var(--brand);color:#fff;text-decoration:none;
+  padding:15px 18px;border-radius:10px;font-size:16px;font-weight:700}
+small{display:block;margin-top:18px;font-size:12px;color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Googleに移動しています</h1>
+  <p>星を押すだけで終わります。文章は書かなくて大丈夫です。</p>
+  <a class="btn" id="go" href="https://www.google.com/maps?cid=12463860167452414097">開かない場合はこちら</a>
+  <small>有限会社エイト流通サービス／047-381-0142</small>
+</div>
+<script>
+/* 行き先はここ1か所。カードのQRは https://eight-ds.com/kuchikomi を指している */
+var GO = 'https://www.google.com/maps?cid=12463860167452414097';
+document.getElementById('go').href = GO;
+setTimeout(function(){ location.replace(GO); }, 600);
+</script>
+</body>
+</html>
