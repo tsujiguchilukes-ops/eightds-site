@@ -36,7 +36,7 @@
   var url = (LINE_URL || '').trim();
   if (!url) return;                       // 空なら何もしない＝いまの見た目のまま
 
-  var LABEL = 'LINEで話を聞いてみる';
+  var LABEL = 'LINEで質問する';
   var SHORT = 'LINEで相談';
 
   function make(cls, label) {
