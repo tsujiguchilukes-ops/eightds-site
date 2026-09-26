@@ -1082,13 +1082,13 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2close .s2qs li{position:relative;padding:14px 16px 14px 48px;background:#fff;border:1px solid var(--line);
   border-radius:12px;font-size:17px;font-weight:700;line-height:1.5;color:var(--ink)}
 .s2close .s2qs li::before{content:"";position:absolute;left:16px;top:50%;width:20px;height:20px;margin-top:-10px;
-  border-radius:50%;background:#06C755}
+  border-radius:50%;background:#03803A}
 .s2close .s2qs li::after{content:"";position:absolute;left:23px;top:50%;width:6px;height:10px;margin-top:-7px;
   border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
 .s2close .s2qafter{margin-top:16px}
 .s2close .s2cta{margin-top:16px !important}
-.s2close .s2qlead{font-size:20px;color:#05A046}
-.s2close .in p.s2qlead{font-size:21px;color:#05A046;font-weight:700}
+.s2close .s2qlead{font-size:20px;color:#03803A}
+.s2close .in p.s2qlead{font-size:21px;color:#03803A;font-weight:700}
 
 /* 2026-09-26 おでん「ここ縦に4つ並べて 2人1組・年収・昇給・賞与の順」→ スマホは1列（PCは1024px以上で4列のまま） */
 @media (max-width:1023px){
@@ -1109,3 +1109,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
   .s2hero .s2en,.s2title .s2en{font-size:16px !important;letter-spacing:.12em !important}
   .s2hero .s2fact dt{font-size:13px !important;letter-spacing:.12em !important}
 }
+
+/* デザイン検品（2026-09-26）：緑を1色（#03803A）に統一／3行は太字をやめる／説明文を16pxへ／カードは左揃え */
+.s2close .s2qs li{font-weight:400}
+.s2close .s2qs li::before{background:#03803A}
+.s2close .in p.s2qlead{color:#03803A}
+.s2nums .d,.s2fact .d{font-size:16px}
+@media (max-width:1023px){ .s2nums>div.wide{text-align:left} }

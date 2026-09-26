@@ -55,7 +55,7 @@
   .cta .in{ max-width:680px; margin:0 auto; display:flex; gap:10px; }
   .btn{ flex:1; display:flex; align-items:center; justify-content:center; min-height:52px;
         border-radius:8px; text-decoration:none; font-weight:700; font-size:15.5px; }
-  .btn.line{ background:#05A046; color:#fff; font-weight:700; }
+  .btn.line{ background:#03803A; color:#fff; font-weight:700; }
   .btn.tel{ background:#fff; color:var(--ao-d); border:1.5px solid var(--ao); }
   footer{ font-size:13px; color:var(--gray); line-height:1.9; padding:34px 0 0;
           border-top:1px solid var(--rule); margin-top:44px; }
@@ -86,7 +86,7 @@
   .tb-menu nav a{display:flex;align-items:center;min-height:48px;padding:0 20px;font-size:16px;font-weight:700;color:var(--sumi);text-decoration:none}
   .tb-menu nav a.sub{padding-left:36px;font-weight:400;color:var(--sumi2)}
   .tb-menu nav a[aria-current]{color:var(--ao)}
-  .tb-menu nav a.line{margin:6px 12px 6px;justify-content:center;border-radius:999px;background:#05A046;color:#fff}
+  .tb-menu nav a.line{margin:6px 12px 6px;justify-content:center;border-radius:999px;background:#03803A;color:#fff}
   .btn:active{ transform:scale(.97); }
   /* 検品（2026-09-26）：幅320で項目名の列が40pxに潰れて1文字ずつ縦に並んだ → 狭い画面は縦積み */
   @media (max-width:480px){
@@ -100,6 +100,9 @@
   .back a{display:inline-block;padding:12px 2px}
   footer a{display:inline-block;padding:12px 0}
   .lab{font-size:13px !important}
+  /* デザイン検品（2026-09-26）：表の見出しの白い帯をなくす・太さを700に統一・本文16px */
+  table.req th{ background:transparent !important; font-weight:700 !important; }
+  table.req{ font-size:16px; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"JobPosting",
 "title":"配送アシスタント（家電配送の助手）",
