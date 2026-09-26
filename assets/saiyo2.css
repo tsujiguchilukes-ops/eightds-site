@@ -1104,3 +1104,8 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2close .s2qs li::before{left:0}
 .s2close .s2qs li::after{left:7px}
 .s2close .in p.s2qlead{color:#048A3B}
+/* ユーザー目線レビュー（2026-09-26）：スマホで「正社員大募集！！」と数字の見出しが11pxだった → 40〜50代でも読める大きさに */
+@media (max-width:720px){
+  .s2hero .s2en,.s2title .s2en{font-size:16px !important;letter-spacing:.12em !important}
+  .s2hero .s2fact dt{font-size:13px !important;letter-spacing:.12em !important}
+}

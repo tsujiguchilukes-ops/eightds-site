@@ -2603,3 +2603,12 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
     font-size:16px;font-weight:700;color:var(--ink);text-decoration:none}
   .head .r2.open .msub a::after{content:"›";font-size:22px;color:var(--sub);line-height:1}
 }
+
+/* ユーザー目線レビュー（2026-09-26）：.msub を足して中身が画面より高くなると、縦flexで上の3項目が高さ1pxにつぶれた
+   → 低い画面ではつぶさず、盆（.r2.open）ごとスクロールさせる */
+@media(max-width:900px){
+  html.js-menu .head .r2.open .in,html.js-menu .head .r2.open .gnav{flex:0 0 auto}
+  html.js-menu .head .r2.open .gnav>li{flex-shrink:0}
+  html.js-menu .head .r2.open .gnav>li:nth-child(4){flex:0 0 190px}
+  html.js-menu .head .r2.open .msub{flex-shrink:0}
+}
