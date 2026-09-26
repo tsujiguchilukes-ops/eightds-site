@@ -1116,3 +1116,8 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2close .in p.s2qlead{color:#03803A}
 .s2nums .d,.s2fact .d{font-size:16px}
 @media (max-width:1023px){ .s2nums>div.wide{text-align:left} }
+/* 大画面検品（2026-09-26）：集合写真は元画像の幅（1920px）まで広げる／途中の帯は1800pxで止めてボケを防ぐ */
+.s2band img{max-width:1920px}
+@media (min-width:1600px){
+  .s2interlude img{max-width:1800px;margin-inline:auto;height:min(28vw,560px)}
+}
