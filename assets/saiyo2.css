@@ -1089,3 +1089,11 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 .s2close .s2cta{margin-top:16px !important}
 .s2close .s2qlead{font-size:20px;color:#05A046}
 .s2close .in p.s2qlead{font-size:21px;color:#05A046;font-weight:700}
+
+/* 2026-09-26 おでん「ここ縦に4つ並べて 2人1組・年収・昇給・賞与の順」→ スマホは1列（PCは1024px以上で4列のまま） */
+@media (max-width:1023px){
+  .s2nums{grid-template-columns:minmax(0,1fr)}
+}
+/* 強調（おでん「強調するところは強調」）：説明文の中の要点だけ墨・太字 */
+.s2nums .d strong{color:var(--ink);font-weight:700}
+.s2fact .d strong{color:inherit;font-weight:700}
