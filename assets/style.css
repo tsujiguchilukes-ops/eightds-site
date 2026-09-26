@@ -2622,3 +2622,5 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
   .phead img{left:50%;right:auto;width:min(100%,1800px);transform:translateX(-50%);
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 }
+/* PC検品（2026-09-26）：「三原則を見る」の矢印が文字にくっついて下にずれた（.why a:not(.btn) が inline-block で .next a の横並びを上書き） */
+.why .next a{display:inline-flex;align-items:center;gap:16px}

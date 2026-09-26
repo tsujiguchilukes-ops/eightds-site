@@ -103,6 +103,11 @@
   /* デザイン検品（2026-09-26）：表の見出しの白い帯をなくす・太さを700に統一・本文16px */
   table.req th{ background:transparent !important; font-weight:700 !important; }
   table.req{ font-size:16px; }
+  /* PC検品（2026-09-26）：青い帯の文字と本文の左端を揃える／上の帯（ロゴ・メニュー）も本文の幅に揃える／表と帯の間をあける／1〜2文字だけの改行を防ぐ */
+  header .in{ max-width:640px; }
+  .tb{ padding-inline:max(16px, calc((100vw - 640px) / 2)); }
+  .wrap > :first-child{ margin-top:32px; }
+  p, td, li, summary{ text-wrap:pretty; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"JobPosting",
 "title":"配送アシスタント（家電配送の助手）",
