@@ -1074,3 +1074,18 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
      集合写真は「全員写っていること」が中身なので、スマホでは動かさない（PCは cover なので影響なし）。 */
   .s2hero .s2frame img{animation:none}
 }
+
+/* 2026-09-26 おでん「質問事項、箇条書きにして、LINEまでの誘導率をあげてみやすく」
+   質問を1行ずつのチェック付きカードに。右端の矢印でボタンへ目を流す */
+.s2close .s2qlead{margin-top:16px;font-weight:700}
+.s2close .s2qs{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px;position:relative;z-index:1}
+.s2close .s2qs li{position:relative;padding:14px 16px 14px 48px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;font-size:17px;font-weight:700;line-height:1.5;color:var(--ink)}
+.s2close .s2qs li::before{content:"";position:absolute;left:16px;top:50%;width:20px;height:20px;margin-top:-10px;
+  border-radius:50%;background:#06C755}
+.s2close .s2qs li::after{content:"";position:absolute;left:23px;top:50%;width:6px;height:10px;margin-top:-7px;
+  border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.s2close .s2qafter{margin-top:16px}
+.s2close .s2cta{margin-top:16px !important}
+.s2close .s2qlead{font-size:20px;color:#05A046}
+.s2close .in p.s2qlead{font-size:21px;color:#05A046;font-weight:700}
