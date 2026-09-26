@@ -76,11 +76,31 @@
           border-top:1px solid var(--rule); margin-top:44px; }
   footer a{ color:var(--ao-d); }
   @media (max-width:360px){ h1{ font-size:24px; } .btn{ font-size:14.5px; } }
+
+  /* 2026-09-26 右上メニュー（おでん「どのページにも飛べるか」「4〜50代でも使えるシンプルな動線」）
+     JSなしで開く <details>。文字だけの縦並び */
+  .tb{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:8px 16px;background:#fff;border-bottom:1px solid #D8E3EE}
+  .tb-logo{font-weight:700;font-size:17px;color:var(--ao);text-decoration:none;line-height:1.2}
+  .tb-menu{position:relative;border:0 !important;padding:0 !important;margin:0 !important;background:none !important}
+  .tb-menu>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:44px;min-width:88px;
+    padding:0 16px;border:2px solid #D8E3EE;border-radius:999px;font-weight:700;font-size:15px;color:var(--sumi)}
+  .tb-menu>summary::-webkit-details-marker{display:none}
+  .tb-menu>summary::after,.tb-menu>summary::before{content:none !important;display:none !important}
+  .tb-menu>summary{border-bottom-width:2px !important;margin:0 !important;background:#fff}
+  .tb-menu[open]>summary{border-color:var(--ao);color:var(--ao)}
+  .tb-menu nav{position:absolute;right:0;top:calc(100% + 8px);width:min(300px,calc(100vw - 32px));background:#fff;
+    border:1px solid #D8E3EE;border-radius:12px;box-shadow:0 12px 32px rgba(0,20,50,.14);padding:6px 0}
+  .tb-menu nav a{display:flex;align-items:center;min-height:48px;padding:0 20px;font-size:16px;font-weight:700;color:var(--sumi);text-decoration:none}
+  .tb-menu nav a.sub{padding-left:36px;font-weight:400;color:var(--sumi2)}
+  .tb-menu nav a[aria-current]{color:var(--ao)}
+  .tb-menu nav a.line{margin:6px 12px 6px;justify-content:center;border-radius:999px;background:#06C755;color:#fff}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://eight-ds.com/"},{"@type":"ListItem","position":2,"name":"採用情報","item":"https://eight-ds.com/recruit.html"},{"@type":"ListItem","position":3,"name":"よくあるご質問","item":"https://eight-ds.com/shitsumon.html"}]}</script>
 </head>
 <body>
 
+<div class="tb"><a class="tb-logo" href="index.html">エイト流通サービス</a><details class="tb-menu"><summary>メニュー</summary><nav aria-label="サイト内のページ"><a href="index.html">トップページ</a><a href="about.html">会社概要</a><a href="service.html">サービス</a><a href="business.html">法人のお客様へ</a><a href="recruit.html">採用情報</a><a href="recruit-seishain.html" class="sub">正社員の募集要項</a><a href="recruit-baito.html" class="sub">アルバイトの募集要項</a><a href="shitsumon.html" class="sub" aria-current="page">よくある質問</a><a class="line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener">LINEで質問する</a></nav></details></div>
 <header>
   <div class="in">
     <p class="lab">採用について</p>

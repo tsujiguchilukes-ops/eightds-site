@@ -2589,3 +2589,16 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .is-line:hover{background:#05B34C !important;border-color:#05B34C !important}
 .s2cta.is-line,.btn.is-line{display:flex !important;align-items:center !important;justify-content:center !important;text-align:center}
 .bar .is-line,.bbar .is-line,.s2bar .is-line,.s2bar .s2cta.is-line{display:inline-flex !important;box-shadow:none !important}
+
+/* 2026-09-26 おでん「右上メニューからしっかりどのページにも飛べるか」「4〜50代でも使えるようにシンプルな動線で」
+   元のメニュー（並び順でデザインが決まっている・nth-child）には手を入れず、
+   スマホで開いた時だけ、その下に文字だけのリンクを縦に並べる（.msub）。PCでは出さない */
+.msub{display:none}
+@media(max-width:900px){
+  html.js-menu .head .r2.open .msub,.head .r2.open .msub{display:block;list-style:none;margin:8px 0 0;padding:0;
+    border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+  .head .r2.open .msub li+li{border-top:1px solid var(--line)}
+  .head .r2.open .msub a{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 20px;
+    font-size:16px;font-weight:700;color:var(--ink);text-decoration:none}
+  .head .r2.open .msub a::after{content:"›";font-size:22px;color:var(--sub);line-height:1}
+}
