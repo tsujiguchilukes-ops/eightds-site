@@ -2649,3 +2649,34 @@ p,li,dd,td{text-wrap:pretty}
   /* メニューを開いている間は固定バーを隠す（メニューの下の項目に被るため） */
   body.has-mbar:has(.head .r2.open) .mbar{display:none}
 }
+
+/* =========================================================================
+   2026-09-26 おでん「動画を全面にできないの？」「絶妙に配置気になる」
+   PCだけ：①ヒーローを画面の高さいっぱいに（旧 min(92vh,860px) は1080の画面で下に220pxの帯が出ていた）
+   ②動画はヘッダーの下から敷く（白いヘッダーの裏に76px隠れていた分、頭が切れにくくなる）
+   ③文字を左下に寄せる（上下中央だと見出しが2人の顔の上に乗っていた）。見出し横の線は顔を指すので消す
+   スマホ（720px以下）は触っていない。
+   ========================================================================= */
+@media (min-width:721px){
+  .bluehero{min-height:100vh;min-height:100svh;align-items:flex-end}
+  .bh-photo{top:var(--head)}
+  .bluehero .bh-in{padding-top:40px;padding-bottom:clamp(56px,9vh,104px)}
+  .bh-en::after{display:none}
+  .bh-scroll{bottom:clamp(56px,9vh,104px)}
+}
+/* 2026-09-26 デザイン検品の差し戻し対応
+   A：高さの低いPC画面（〜820px）は動画を下寄せ・文字をさらに下げる（ラベルが左の人の口元にかかっていた）
+   B：左下に暗幕を1枚足し、下からの暗幕を強める（リード文が白いトラックの前で明暗比2.4〜4.2だった） */
+@media (min-width:721px){
+  .bluehero::after{background:
+    radial-gradient(90% 75% at 0% 100%,rgba(6,28,58,.5) 0%,rgba(6,28,58,.3) 45%,rgba(6,28,58,0) 100%),
+    linear-gradient(180deg,rgba(6,28,58,.18) 0%,rgba(6,28,58,0) 28%,rgba(6,28,58,0) 40%,rgba(6,28,58,.72) 100%)}
+}
+@media (min-width:721px) and (max-height:820px){
+  .bh-photo video,.bh-photo img{object-position:50% 100%}
+  .bluehero .bh-in{padding-bottom:44px}
+  .bh-scroll{bottom:44px}
+  .bluehero .bh-en{margin-bottom:14px}
+  .bluehero .bh-lead{margin-top:18px}
+  .bluehero .bh-acts{margin-top:24px}
+}
