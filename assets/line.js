@@ -22,6 +22,15 @@
 
   var LINE_URL = "https://lin.ee/YRmILrV";
 
+  /* 友だち追加経路（2026-09-26）：どこから応募が来たかをLINEの[分析]＞[友だち]＞[追加経路]で数える。
+     採用ページと、それ以外のページで別のURLにする。どちらも行き先は同じ公式LINE。
+     🚨 経路はLINE側で編集・削除できない。媒体ごとのURLは _LINE_20260923/友だち追加経路.md */
+  var ROUTE_RECRUIT = "https://lin.ee/pOsuIHw";   // ホームページ／採用ページ
+  var ROUTE_OTHER   = "https://lin.ee/7hRlFn1";   // ホームページ／採用以外のページ
+  if ((LINE_URL || '').trim()) {
+    LINE_URL = /(recruit|saiyo|shitsumon)[^/]*$/.test(location.pathname) ? ROUTE_RECRUIT : ROUTE_OTHER;
+  }
+
   /* ------------------------------------------------------------------ */
 
   var url = (LINE_URL || '').trim();
