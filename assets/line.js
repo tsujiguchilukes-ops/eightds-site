@@ -113,4 +113,19 @@
     t.setAttribute('data-ga-place', 'fixed_bar');
   });
 
+  /* 2026-09-26 おでん「（トップ等にもスマホ下のLINE・電話ボタンを）出そう」
+     採用ページ（.s2bar）と募集要項（.cta）以外のページに、スマホだけ下に固定のバーを出す */
+  if (!document.querySelector('.s2bar,.bbar,.cta,.mbar')) {
+    var mb = document.createElement('nav');
+    mb.className = 'mbar';
+    mb.setAttribute('aria-label', 'LINEと電話');
+    var ml = make('mbar-line', 'LINEで質問する');
+    ml.setAttribute('data-ga-place', 'mobile_bar');
+    var mt = document.createElement('a');
+    mt.className = 'mbar-tel'; mt.href = 'tel:0473810142'; mt.textContent = '電話する';
+    mb.appendChild(ml); mb.appendChild(mt);
+    document.body.appendChild(mb);
+    document.body.classList.add('has-mbar');
+  }
+
 })();

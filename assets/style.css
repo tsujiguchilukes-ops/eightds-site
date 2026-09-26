@@ -2626,3 +2626,26 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 .why .next a{display:inline-flex;align-items:center;gap:16px}
 /* iPhone検品（2026-09-26）：文の最後の1〜2文字だけが次の行に落ちるのを防ぐ */
 p,li,dd,td{text-wrap:pretty}
+
+/* スマホ下の固定バー（line.js が採用ページ以外に差し込む・2026-09-26） */
+.mbar{display:none}
+@media (max-width:900px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:90;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);
+    border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(9,42,88,.08)}
+  .mbar a{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:12px;
+    font-size:17px;font-weight:700;text-decoration:none;border-bottom:0 !important}
+  .mbar .mbar-line{background:#03803A;color:#fff}
+  .mbar .mbar-line:active,.mbar .mbar-tel:active{transform:scale(.97)}
+  .mbar .mbar-tel{background:#fff;color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
+  body.has-mbar{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  body.has-mbar .head .r2.open{z-index:120}
+}
+@media (max-width:900px){
+  /* 電話リンク共通の下線・余白（a[href^="tel:"]…）に負けていたので、固定バーの中だけ強く打ち消す */
+  .mbar a.mbar-tel,.mbar a.mbar-line{display:flex !important;align-items:center !important;justify-content:center !important;
+    height:52px !important;min-height:52px !important;padding:0 8px !important;margin:0 !important;
+    text-decoration:none !important;border:0 !important;line-height:1.2 !important;font-size:17px !important}
+  /* メニューを開いている間は固定バーを隠す（メニューの下の項目に被るため） */
+  body.has-mbar:has(.head .r2.open) .mbar{display:none}
+}
