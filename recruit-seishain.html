@@ -88,6 +88,13 @@
   .tb-menu nav a[aria-current]{color:var(--ao)}
   .tb-menu nav a.line{margin:6px 12px 6px;justify-content:center;border-radius:999px;background:#05A046;color:#fff}
   .btn:active{ transform:scale(.97); }
+  /* 検品（2026-09-26）：幅320で項目名の列が40pxに潰れて1文字ずつ縦に並んだ → 狭い画面は縦積み */
+  @media (max-width:480px){
+    table.req, table.req tbody, table.req tr, table.req th, table.req td{ display:block; width:auto; }
+    table.req th{ padding-bottom:0; border-bottom:0; font-weight:700; }
+    table.req td{ padding-top:4px; }
+    table.req caption{ display:block; width:auto; }
+  }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"JobPosting",
 "title":"配送スタッフ（家電の配送・設置・エアコン工事）",
@@ -128,6 +135,11 @@
       <tr><th scope="row">休日</th><td>週休2日制（年間休日85〜90日）</td></tr>
       <tr><th scope="row">昇給</th><td>随時（決まった時期はありません）<br>1年に2回上がる社員もいます</td></tr>
       <tr><th scope="row">待遇</th><td>社会保険完備／生命保険／家族手当／交通費支給（規定内）／制服貸与／エアコン（AC）工事の指導あり</td></tr>
+      <tr><th scope="row">契約期間</th><td>期間の定めなし（正社員）</td></tr>
+      <tr><th scope="row">試用期間</th><td>なし</td></tr>
+      <tr><th scope="row">変更の範囲</th><td>就業場所：変更なし（浦安本社・埼玉営業所の間の異動はありません）</td></tr>
+      <tr><th scope="row">加入保険</th><td>健康保険・厚生年金・雇用保険・労災保険</td></tr>
+      <tr><th scope="row">受動喫煙対策</th><td>事務所・トラックの車内ともに禁煙</td></tr>
   </table>
 
   <p class="note">※勤務時間・シフト・支払いの条件は、時期によって変わることがあります。</p>
