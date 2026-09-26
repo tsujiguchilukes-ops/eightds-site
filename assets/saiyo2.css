@@ -1097,3 +1097,10 @@ body.saiyo2 section[id],body.saiyo2 [id]{scroll-margin-top:70px}
 /* 強調（おでん「強調するところは強調」）：説明文の中の要点だけ墨・太字 */
 .s2nums .d strong{color:var(--ink);font-weight:700}
 .s2fact .d strong{color:inherit;font-weight:700}
+
+/* 検品（2026-09-26）：チェック付き3行が押せるカードに見えた → 枠と地を外して、ただの箇条書きに */
+.s2close .s2qs{gap:4px}
+.s2close .s2qs li{background:none;border:0;border-radius:0;padding:8px 0 8px 32px}
+.s2close .s2qs li::before{left:0}
+.s2close .s2qs li::after{left:7px}
+.s2close .in p.s2qlead{color:#048A3B}

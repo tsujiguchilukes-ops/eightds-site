@@ -2584,9 +2584,10 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
    （09-07の「深緑はダサい→青」を上書き。深緑ではなくLINEそのものの緑）
    「ちゃんとボタンの真ん中に文字配置」→ 上の .is-line{display:block!important} が .s2cta の flex を殺して
    文字が上に寄っていた。flex に戻して縦横中央に */
-.is-line{background:#06C755 !important;border-color:#06C755 !important;color:#fff !important;
-  box-shadow:0 10px 26px rgba(6,199,85,.28) !important}
-.is-line:hover{background:#05B34C !important;border-color:#05B34C !important}
+.is-line{background:#05A046 !important;border-color:#05A046 !important;color:#fff !important;font-weight:700 !important;
+  box-shadow:0 10px 26px rgba(5,160,70,.26) !important}
+.is-line:hover{background:#048A3B !important;border-color:#048A3B !important}
+/* 検品（2026-09-26）：#06C755 は白文字2.3:1で読みにくい（40〜50代の読み手）→ LINEらしさを保つ一段深い緑 #05A046（3.4:1・太字18px以上で基準内） */
 .s2cta.is-line,.btn.is-line{display:flex !important;align-items:center !important;justify-content:center !important;text-align:center}
 .bar .is-line,.bbar .is-line,.s2bar .is-line,.s2bar .s2cta.is-line{display:inline-flex !important;box-shadow:none !important}
 
