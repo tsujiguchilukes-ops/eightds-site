@@ -2624,3 +2624,5 @@ summary,.bv-note .q,.bh-msg,.rhero .sub{text-wrap:balance}
 }
 /* PC検品（2026-09-26）：「三原則を見る」の矢印が文字にくっついて下にずれた（.why a:not(.btn) が inline-block で .next a の横並びを上書き） */
 .why .next a{display:inline-flex;align-items:center;gap:16px}
+/* iPhone検品（2026-09-26）：文の最後の1〜2文字だけが次の行に落ちるのを防ぐ */
+p,li,dd,td{text-wrap:pretty}
