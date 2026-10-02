@@ -129,14 +129,16 @@
 
     /* 2026-10-03 トップの最初の画面で、帯がヒーローのボタンに被っていた。
        ボタンが帯の高さに入っている間だけ帯を下へ逃がす（押せないボタンを作らない） */
-    var acts = document.querySelector('.bh-acts');
+    /* 採用情報は最初の画面に同じ「LINEで質問する」があるので、それが見えている間は帯を出さない（2つ並べない） */
+    var dup = document.querySelector('.s2cta[data-cta]');
+    var acts = document.querySelector('.bh-acts') || dup;
     if (acts) {
       var tick = false;
       var check = function () {
         tick = false;
         var r = acts.getBoundingClientRect();
         var top = window.innerHeight - mb.offsetHeight;
-        mb.classList.toggle('is-away', r.bottom > top && r.top < window.innerHeight);
+        mb.classList.toggle('is-away', acts === dup ? (r.bottom > 0 && r.top < window.innerHeight) : (r.bottom > top && r.top < window.innerHeight));
       };
       var ask = function () { if (!tick) { tick = true; requestAnimationFrame(check); } };
       window.addEventListener('scroll', ask, { passive: true });

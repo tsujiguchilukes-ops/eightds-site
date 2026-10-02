@@ -116,13 +116,22 @@
   :where(a,summary,button):focus-visible{ outline:3px solid #FFB000; outline-offset:2px; border-radius:4px; }
   .lab{ opacity:1 !important; }
   .skip{ position:absolute; left:-9999px; top:0; } .skip:focus{ left:8px; top:8px; z-index:200; background:#fff; padding:8px 12px; }
+  /* 2026-10-03 使い勝手：パンくず・語の途中で折らない・フッターの文字・メニューを開いている間は下の帯を隠す */
+  .crumb{ font-size:14px; color:var(--gray); margin:18px 0 0; }
+  .crumb a{ color:var(--ao-d); }
+  .crumb span[aria-hidden]{ margin:0 .4em; }
+  .nw{ white-space:nowrap; }
+  footer{ font-size:14px !important; color:#55524C !important; }
+  body:has(.tb-menu[open]) .cta{ display:none; }
+  .totop{ text-align:center; margin:28px 0 0; font-size:15px; }
+  .totop a{ display:inline-block; padding:12px 8px; color:var(--ao-d); }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://eight-ds.com/"},{"@type":"ListItem","position":2,"name":"採用情報","item":"https://eight-ds.com/recruit.html"},{"@type":"ListItem","position":3,"name":"よくあるご質問","item":"https://eight-ds.com/shitsumon.html"}]}</script>
 </head>
 <body>
 
 <a class="skip" href="#main">本文へ移動</a>
-<div class="tb"><a class="tb-logo" href="index.html">エイト流通サービス</a><details class="tb-menu"><summary>メニュー</summary><nav aria-label="サイト内のページ"><a href="index.html">トップページ</a><a href="about.html">会社概要</a><a href="service.html">サービス</a><a href="business.html">法人のお客様へ</a><a href="recruit.html">採用情報</a><a href="recruit-seishain.html" class="sub">正社員の募集要項</a><a href="recruit-baito.html" class="sub">アルバイトの募集要項</a><a href="shitsumon.html" class="sub" aria-current="page">よくある質問</a><a href="contact.html">ご依頼・ご相談</a><a href="privacy.html">プライバシーポリシー</a><a class="line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener" aria-label="LINEで質問する（LINEが開きます）">LINEで質問する</a></nav></details></div>
+<div class="tb"><a class="tb-logo" href="index.html">エイト流通サービス</a><details class="tb-menu"><summary>メニュー</summary><nav aria-label="サイト内のページ"><a href="index.html">トップページ</a><a href="about.html">会社概要</a><a href="service.html">サービス</a><a href="business.html">法人のお客様へ</a><a href="recruit.html">採用情報</a><a href="recruit-seishain.html" class="sub">正社員の募集要項</a><a href="recruit-baito.html" class="sub"><span class="nw">アルバイト</span>の募集要項</a><a href="shitsumon.html" class="sub" aria-current="page">よくある質問</a><a href="contact.html">ご依頼・ご相談</a><a href="privacy.html">プライバシーポリシー</a><a class="line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener" aria-label="LINEで質問する（LINEが開きます）">LINEで質問する</a></nav></details></div>
 <header>
   <div class="in">
     <p class="lab">採用について</p>
@@ -132,6 +141,8 @@
 </header>
 
 <main id="main" class="wrap" tabindex="-1">
+  <nav class="crumb" aria-label="現在の場所"><a href="index.html">トップ</a><span aria-hidden="true">＞</span><a href="recruit.html">採用情報</a><span aria-hidden="true">＞</span><span aria-current="page" class="nw">よくある質問</span></nav>
+
 
   <h2>仕事のこと</h2>
 
@@ -149,7 +160,7 @@
 
   <details>
     <summary>一人で作業しますか？　チームですか？</summary>
-    <div class="a"><p><strong>常に2人1組です。</strong>冷蔵庫も洗濯機も、いつも2人で運びます。</p>
+    <div class="a"><p><strong>常に<span class="nw">2人1組</span>です。</strong>冷蔵庫も洗濯機も、いつも2人で運びます。</p>
     <p>重いものを一人で持つことはありません。人力でのつり上げ作業も行いません。</p></div>
   </details>
 
@@ -160,14 +171,14 @@
 
   <details>
     <summary>運転免許は必要ですか？</summary>
-    <div class="a"><p><strong>アルバイト（配送アシスタント）は運転しません。</strong>ドライバーが運転し、助手席に座って現場へ向かいます。</p>
+    <div class="a"><p><strong><span class="nw">アルバイト</span>（配送アシスタント）は運転しません。</strong>ドライバーが運転し、助手席に座って現場へ向かいます。</p>
     <p><strong>正社員も、入社前は免許がなくても大丈夫です。</strong></p></div>
   </details>
 
   <details>
     <summary>早く終わる日はありますか？</summary>
     <div class="a"><p>現場の約半分は昼過ぎに終わります。</p>
-    <p>アルバイトは<strong>日給保障</strong>がついているので、早く終わっても日給は変わりません。</p></div>
+    <p><span class="nw">アルバイト</span>は<strong>日給保障</strong>がついているので、早く終わっても日給は変わりません。</p></div>
   </details>
 
   <h2>お金のこと</h2>
@@ -176,15 +187,15 @@
     <summary>給与はいくらですか？</summary>
     <div class="a">
       <p><strong>正社員</strong>／月給 340,000円〜（未経験で入る方のスタート額です）<br>
-      賞与 年3回（7月・12月・3月）／昇給は随時／20日締め・当月末払い</p>
-      <p><strong>アルバイト</strong>／日給 11,980円 ＋ 交通費 1,000円<br>（日給には固定残業代1時間分1,619円を含みます。超えた分は別に支給します）</p>
+      賞与 年3回（7月・12月・3月）／昇給は随時／<span class="nw">20日締め</span>・当月末払い</p>
+      <p><strong><span class="nw">アルバイト</span></strong>／日給 11,980円 ＋ 交通費 1,000円<br>（日給には固定残業代1時間分1,619円を含みます。超えた分は別に支給します）</p>
       <p>いま働いている社員の実際の額は、入社4年目・5年目で月給400,000円、入社7年目で月給460,000円です。3人とも未経験で入社しています。</p>
     </div>
   </details>
 
   <details>
     <summary>日払いはできますか？</summary>
-    <div class="a"><p>アルバイトは<strong>日払いに対応しています。</strong>20日締め・当月末払いを選ぶこともできます。</p></div>
+    <div class="a"><p><span class="nw">アルバイト</span>は<strong>日払いに対応しています。</strong><span class="nw">20日締め</span>・当月末払いを選ぶこともできます。</p></div>
   </details>
 
   <h2>働き方のこと</h2>
@@ -192,20 +203,20 @@
   <details>
     <summary>勤務時間と休みを教えてください。</summary>
     <div class="a"><p><strong>正社員</strong>／8:30〜17:30（休憩1時間）。<strong>残業はありません。</strong><br>休みは週休2日制です。</p>
-    <p><strong>アルバイト</strong>／7:00〜17:00（休憩1時間）。現地集合の日は8:00からです。<br>シフトは<strong>何日からでも</strong>相談できます。現地集合・現地解散もできます。</p></div>
+    <p><strong><span class="nw">アルバイト</span></strong>／7:00〜17:00（休憩1時間）。現地集合の日は8:00からです。<br>シフトは<strong>何日からでも</strong>相談できます。現地集合・現地解散もできます。</p></div>
   </details>
 
   <details>
     <summary>駅から遠いのですが。</summary>
-    <div class="a"><p>アルバイトは<strong>最寄り駅まで送迎します。</strong></p>
-    <p>勤務地は、<strong>正社員</strong>が浦安本社（千葉県浦安市）と埼玉営業所（埼玉県新座市）、<strong>アルバイト</strong>は浦安本社です。</p></div>
+    <div class="a"><p><span class="nw">アルバイト</span>は<strong>最寄り駅まで送迎します。</strong></p>
+    <p>勤務地は、<strong>正社員</strong>が浦安本社（千葉県浦安市）と埼玉営業所（埼玉県新座市）、<strong><span class="nw">アルバイト</span></strong>は浦安本社です。</p></div>
   </details>
 
   <h2>応募のこと</h2>
 
   <details>
     <summary>年齢の制限はありますか？</summary>
-    <div class="a"><p><strong>年齢の制限はありません。</strong>未経験の方も、2人1組で先輩と一緒に覚えていけます。</p></div>
+    <div class="a"><p><strong>年齢の制限はありません。</strong>未経験の方も、<span class="nw">2人1組</span>で先輩と一緒に覚えていけます。</p></div>
   </details>
 
   <details>
@@ -230,10 +241,12 @@
     <strong>ここに無いことは、公式LINEでそのまま聞いてください。</strong>
   </div>
 
+  <p class="totop"><a href="#main">ページの先頭へ戻る</a></p>
+
   <footer>
     <strong>有限会社エイト流通サービス</strong><br>
-    〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
-    埼玉営業所／〒352-0011 埼玉県新座市野火止2-11-25<br>
+    〒279-0043 千葉県浦安市富士見3-11-1 <span class="nw">舞浜ガーデンヒルズ207号室</span><br>
+    埼玉営業所／〒352-0011 埼玉県新座市<span class="nw">野火止2-11-25</span><br>
     TEL <a href="tel:0473810142">047-381-0142</a><br>
     <a href="https://eight-ds.com/">ホームページ</a>　／　<a href="recruit.html">採用情報</a>
   </footer>
@@ -247,5 +260,15 @@
 </div>
 
 <script src="https://hp-dashboard-seven.vercel.app/e.js" data-site="eightds" defer></script>
+<script>
+/* 2026-10-03 使い勝手：メニューを、外を押す・Escで閉じる。開いている間は「閉じる」と出す */
+(function(){
+  var d=document.querySelector('.tb-menu'); if(!d) return;
+  var s=d.querySelector('summary'), label=s.textContent;
+  d.addEventListener('toggle',function(){ s.textContent=d.open?'閉じる':label; });
+  document.addEventListener('click',function(e){ if(d.open && !d.contains(e.target)) d.removeAttribute('open'); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && d.open){ d.removeAttribute('open'); s.focus(); } });
+})();
+</script>
 </body>
 </html>

@@ -113,6 +113,15 @@
   :where(a,summary,button):focus-visible{ outline:3px solid #FFB000; outline-offset:2px; border-radius:4px; }
   .lab{ opacity:1 !important; }
   .skip{ position:absolute; left:-9999px; top:0; } .skip:focus{ left:8px; top:8px; z-index:200; background:#fff; padding:8px 12px; }
+  /* 2026-10-03 使い勝手：パンくず・語の途中で折らない・フッターの文字・メニューを開いている間は下の帯を隠す */
+  .crumb{ font-size:14px; color:var(--gray); margin:18px 0 0; }
+  .crumb a{ color:var(--ao-d); }
+  .crumb span[aria-hidden]{ margin:0 .4em; }
+  .nw{ white-space:nowrap; }
+  footer{ font-size:14px !important; color:#55524C !important; }
+  body:has(.tb-menu[open]) .cta{ display:none; }
+  .totop{ text-align:center; margin:28px 0 0; font-size:15px; }
+  .totop a{ display:inline-block; padding:12px 8px; color:var(--ao-d); }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"JobPosting","title":"配送アシスタント（家電配送の助手）","description":"<p>ドライバーの助手です。運転はドライバーにお任せです。助手席に座って現場へ向かい、2人1組で作業します。</p><p>未経験の方も歓迎です。運転はしないので、助手席から始められます。近くの駅まで送迎します。日給保障付きで、早く終わっても日給は変わりません。日払いにも対応しています。</p><p>シフトはご都合を伺って決めます。現地集合・現地解散も可能です。</p><p>給与：日給11,980円、別途交通費1,000円（内訳：基本日給10,361円＋固定残業代1,619円／1日1時間分。1時間を超えた残業代は別途支給）。日給保障付き。日払いに対応（20日締め・当月末払いも選べます）。</p><p>現場の約半分は昼過ぎに終わります。早く終わった日も、日給は満額です。</p><p>勤務地：浦安本社（千葉県浦安市）。応募は公式LINEまたは電話（047-381-0142）。履歴書はいりません。</p>","datePosted":"2026-09-09","validThrough":"2026-12-31T23:59:59+09:00","directApply":false,"experienceRequirements":"no requirements","employmentType":"PART_TIME","industry":"家電の配送・設置・電気工事","hiringOrganization":{"@type":"Organization","name":"有限会社エイト流通サービス","sameAs":"https://eight-ds.com/","logo":"https://eight-ds.com/img/og2.webp"},"jobLocation":[{"@type":"Place","address":{"@type":"PostalAddress","postalCode":"279-0043","addressRegion":"千葉県","addressLocality":"浦安市","streetAddress":"富士見3-11-1 舞浜ガーデンヒルズ207号室","addressCountry":"JP"}}],"baseSalary":{"@type":"MonetaryAmount","currency":"JPY","value":{"@type":"QuantitativeValue","value":11980,"unitText":"DAY"}},"workHours":"7:00〜17:00（休憩1時間）。現地集合の日は8:00から","url":"https://eight-ds.com/recruit-baito.html"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://eight-ds.com/"},{"@type":"ListItem","position":2,"name":"採用情報","item":"https://eight-ds.com/recruit.html"},{"@type":"ListItem","position":3,"name":"アルバイトの募集要項","item":"https://eight-ds.com/recruit-baito.html"}]}</script>
@@ -130,16 +139,18 @@
 </header>
 
 <main id="main" class="wrap" tabindex="-1">
+  <nav class="crumb" aria-label="現在の場所"><a href="index.html">トップ</a><span aria-hidden="true">＞</span><a href="recruit.html">採用情報</a><span aria-hidden="true">＞</span><span aria-current="page" class="nw">アルバイトの募集要項</span></nav>
+
 
   <table class="req">
     <caption>アルバイト（配送アシスタント）の募集要項</caption>
-      <tr><th scope="row">給与</th><td><strong>日給11,980円</strong>　別途、交通費1,000円を支給します<br>（内訳：基本日給10,361円＋固定残業代1,619円／1日1時間分。1時間を超えた残業代は別途支給します）<br>日給保障付き／<strong>日払いに対応しています</strong>（20日締め・当月末払いも選べます）</td></tr>
+      <tr><th scope="row">給与</th><td><strong>日給11,980円</strong>　別途、交通費1,000円を支給します<br>（内訳：基本日給10,361円＋固定残業代1,619円／1日<span class="nw">1時間</span>分。<span class="nw">1時間</span>を超えた残業代は別途支給します）<br>日給保障付き／<strong>日払いに対応しています</strong>（20日締め・当月末払いも選べます）</td></tr>
       <tr><th scope="row">職種</th><td>配送アシスタント（家電配送の助手）</td></tr>
-      <tr><th scope="row">仕事内容</th><td>ドライバーの助手です。<strong>運転はドライバーにお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。</td></tr>
+      <tr><th scope="row">仕事内容</th><td><span class="nw">ドライバー</span>の助手です。<strong>運転は<span class="nw">ドライバー</span>にお任せです。</strong>助手席に座って現場へ向かい、2人1組で作業します。</td></tr>
       <tr><th scope="row">対象</th><td>未経験の方も歓迎です。運転はしないので、助手席から始められます。</td></tr>
       <tr><th scope="row">送迎</th><td><strong>近くの駅まで送迎します</strong></td></tr>
       <tr><th scope="row">勤務地</th><td>浦安本社（千葉県浦安市富士見<span class="nw">3-11-1</span> <span class="nw">舞浜ガーデンヒルズ207号室</span>）</td></tr>
-      <tr><th scope="row">勤務時間</th><td>7:00〜17:00（休憩1時間）<br>日給保障付きのため、早く終わっても日給は変わりません</td></tr>
+      <tr><th scope="row">勤務時間</th><td>7:00〜17:00（休憩<span class="nw">1時間</span>）<br>日給保障付きのため、早く終わっても日給は変わりません</td></tr>
       <tr><th scope="row">シフト</th><td>ご都合を伺って決めます</td></tr>
       <tr><th scope="row">集合・解散</th><td>現地集合・現地解散も可能です（現地集合の場合は8:00集合）</td></tr>
       <tr><th scope="row">休日</th><td>シフト制（何日からでも相談できます）</td></tr>
@@ -158,10 +169,12 @@
 
   <p class="back"><a href="recruit.html">← 採用情報にもどる</a>　／　<a href="shitsumon.html">よくあるご質問</a></p>
 
+  <p class="totop"><a href="#main">ページの先頭へ戻る</a></p>
+
   <footer>
     <strong>有限会社エイト流通サービス</strong><br>
-    〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br>
-    埼玉営業所／〒352-0011 埼玉県新座市野火止2-11-25<br>
+    〒279-0043 千葉県浦安市富士見3-11-1 <span class="nw">舞浜ガーデンヒルズ207号室</span><br>
+    埼玉営業所／〒352-0011 埼玉県新座市<span class="nw">野火止2-11-25</span><br>
     TEL <a href="tel:0473810142">047-381-0142</a><br>
     <a href="https://eight-ds.com/">ホームページ</a>　／　<a href="recruit.html">採用情報</a>
   </footer>
@@ -175,5 +188,15 @@
 </div>
 
 <script src="https://hp-dashboard-seven.vercel.app/e.js" data-site="eightds" defer></script>
+<script>
+/* 2026-10-03 使い勝手：メニューを、外を押す・Escで閉じる。開いている間は「閉じる」と出す */
+(function(){
+  var d=document.querySelector('.tb-menu'); if(!d) return;
+  var s=d.querySelector('summary'), label=s.textContent;
+  d.addEventListener('toggle',function(){ s.textContent=d.open?'閉じる':label; });
+  document.addEventListener('click',function(e){ if(d.open && !d.contains(e.target)) d.removeAttribute('open'); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && d.open){ d.removeAttribute('open'); s.focus(); } });
+})();
+</script>
 </body>
 </html>

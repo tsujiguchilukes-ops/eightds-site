@@ -2654,6 +2654,10 @@ p,li,dd,td{text-wrap:pretty}
   /* メニューを開いている間は固定バーを隠す（メニューの下の項目に被るため） */
   body.has-mbar:has(.head .r2.open) .mbar{display:none}
 }
+/* 2026-10-03 幅320で「LINEで質問す／る」と折れていた（上の17px !important に360以下の指定が負けていた） */
+@media (max-width:360px){.mbar a.mbar-line,.mbar a.mbar-tel{font-size:15px !important;white-space:nowrap;letter-spacing:0}}
+/* 2026-10-03 幅320でフッターの並びが枠から10pxはみ出していた */
+@media (max-width:360px){ul.fnav{min-width:0;max-width:100%;flex-wrap:wrap}}
 
 /* =========================================================================
    2026-09-26 おでん「動画を全面にできないの？」「絶妙に配置気になる」
@@ -2690,3 +2694,13 @@ p,li,dd,td{text-wrap:pretty}
 :where(a,summary,button,[tabindex="0"],video):focus-visible{outline:3px solid #FFB000;outline-offset:2px;border-radius:4px}
 /* 2026-10-03 PCのトップ、明るいトラックの前で小さな文字が読みにくかった */
 @media (min-width:721px){ .bluehero .bh-en{ text-shadow:0 1px 8px rgba(6,28,58,.85) } }
+/* 2026-10-03 長いページの「ページの先頭へ戻る」（矢印は上向き・右端へ） */
+.backrow a.totop{margin-left:auto}
+.backrow a.totop::before{transform:rotate(-90deg)}
+/* 2026-10-03 50代でも読める大きさに：スマホで12px前後だった日本語の小見出し・注記を13〜14pxへ */
+@media (max-width:720px){
+  .bluehero .bh-en{font-size:13px}
+  .rnp-grid dt{font-size:13px}
+  .rnp-note{font-size:13px}
+  p.who{font-size:13.5px}
+}
