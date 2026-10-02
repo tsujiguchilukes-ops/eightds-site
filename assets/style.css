@@ -2639,6 +2639,10 @@ p,li,dd,td{text-wrap:pretty}
   .mbar .mbar-line:active,.mbar .mbar-tel:active{transform:scale(.97)}
   .mbar .mbar-tel{background:#fff;color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
   body.has-mbar{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  .mbar{transition:transform .25s ease}
+  .mbar.is-away{transform:translateY(110%)}
+  @media (prefers-reduced-motion:reduce){.mbar{transition:none}}
+  @media (max-width:360px){.mbar a{font-size:14px;padding:0 6px}}
   body.has-mbar .head .r2.open{z-index:120}
 }
 @media (max-width:900px){

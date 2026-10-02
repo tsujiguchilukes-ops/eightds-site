@@ -126,6 +126,23 @@
     mb.appendChild(ml); mb.appendChild(mt);
     document.body.appendChild(mb);
     document.body.classList.add('has-mbar');
+
+    /* 2026-10-03 トップの最初の画面で、帯がヒーローのボタンに被っていた。
+       ボタンが帯の高さに入っている間だけ帯を下へ逃がす（押せないボタンを作らない） */
+    var acts = document.querySelector('.bh-acts');
+    if (acts) {
+      var tick = false;
+      var check = function () {
+        tick = false;
+        var r = acts.getBoundingClientRect();
+        var top = window.innerHeight - mb.offsetHeight;
+        mb.classList.toggle('is-away', r.bottom > top && r.top < window.innerHeight);
+      };
+      var ask = function () { if (!tick) { tick = true; requestAnimationFrame(check); } };
+      window.addEventListener('scroll', ask, { passive: true });
+      window.addEventListener('resize', ask);
+      check();
+    }
   }
 
 })();
