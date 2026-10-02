@@ -2639,6 +2639,7 @@ p,li,dd,td{text-wrap:pretty}
   .mbar .mbar-line:active,.mbar .mbar-tel:active{transform:scale(.97)}
   .mbar .mbar-tel{background:#fff;color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
   body.has-mbar{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  html:has(body.has-mbar){scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom))}
   .mbar{transition:transform .25s ease}
   .mbar.is-away{transform:translateY(110%)}
   @media (prefers-reduced-motion:reduce){.mbar{transition:none}}
@@ -2684,3 +2685,8 @@ p,li,dd,td{text-wrap:pretty}
   .bluehero .bh-lead{margin-top:18px}
   .bluehero .bh-acts{margin-top:24px}
 }
+
+/* 2026-10-03 キーボードで選んだ場所が、青や紺の背景の上で見えなかった */
+:where(a,summary,button,[tabindex="0"],video):focus-visible{outline:3px solid #FFB000;outline-offset:2px;border-radius:4px}
+/* 2026-10-03 PCのトップ、明るいトラックの前で小さな文字が読みにくかった */
+@media (min-width:721px){ .bluehero .bh-en{ text-shadow:0 1px 8px rgba(6,28,58,.85) } }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#1671CE">
+<meta name="theme-color" content="#ffffff">
 <title>よくあるご質問｜採用｜有限会社エイト流通サービス</title>
 <meta name="description" content="家電の配送・設置スタッフ募集のよくあるご質問。年齢・未経験・免許・体力・給与・休み・服装・見学について、会社からそのままお答えしています。千葉県浦安市／埼玉県新座市。">
 <link rel="canonical" href="https://eight-ds.com/shitsumon.html">
@@ -111,12 +111,18 @@
   .wrap > :first-child{ margin-top:32px; }
   p, td, li, summary{ text-wrap:pretty; }
   .nw{ white-space:nowrap; }
+  /* 2026-10-03 使い勝手：下の固定ボタンの裏に選んだ場所が隠れない／選んだ場所を見える枠で／小見出しの濃さ */
+  html{ scroll-padding-bottom:calc(90px + env(safe-area-inset-bottom)); }
+  :where(a,summary,button):focus-visible{ outline:3px solid #FFB000; outline-offset:2px; border-radius:4px; }
+  .lab{ opacity:1 !important; }
+  .skip{ position:absolute; left:-9999px; top:0; } .skip:focus{ left:8px; top:8px; z-index:200; background:#fff; padding:8px 12px; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://eight-ds.com/"},{"@type":"ListItem","position":2,"name":"採用情報","item":"https://eight-ds.com/recruit.html"},{"@type":"ListItem","position":3,"name":"よくあるご質問","item":"https://eight-ds.com/shitsumon.html"}]}</script>
 </head>
 <body>
 
-<div class="tb"><a class="tb-logo" href="index.html">エイト流通サービス</a><details class="tb-menu"><summary>メニュー</summary><nav aria-label="サイト内のページ"><a href="index.html">トップページ</a><a href="about.html">会社概要</a><a href="service.html">サービス</a><a href="business.html">法人のお客様へ</a><a href="recruit.html">採用情報</a><a href="recruit-seishain.html" class="sub">正社員の募集要項</a><a href="recruit-baito.html" class="sub">アルバイトの募集要項</a><a href="shitsumon.html" class="sub" aria-current="page">よくある質問</a><a href="contact.html">ご依頼・ご相談</a><a href="privacy.html">プライバシーポリシー</a><a class="line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener">LINEで質問する</a></nav></details></div>
+<a class="skip" href="#main">本文へ移動</a>
+<div class="tb"><a class="tb-logo" href="index.html">エイト流通サービス</a><details class="tb-menu"><summary>メニュー</summary><nav aria-label="サイト内のページ"><a href="index.html">トップページ</a><a href="about.html">会社概要</a><a href="service.html">サービス</a><a href="business.html">法人のお客様へ</a><a href="recruit.html">採用情報</a><a href="recruit-seishain.html" class="sub">正社員の募集要項</a><a href="recruit-baito.html" class="sub">アルバイトの募集要項</a><a href="shitsumon.html" class="sub" aria-current="page">よくある質問</a><a href="contact.html">ご依頼・ご相談</a><a href="privacy.html">プライバシーポリシー</a><a class="line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener" aria-label="LINEで質問する（LINEが開きます）">LINEで質問する</a></nav></details></div>
 <header>
   <div class="in">
     <p class="lab">採用について</p>
@@ -125,7 +131,7 @@
   </div>
 </header>
 
-<div class="wrap">
+<main id="main" class="wrap" tabindex="-1">
 
   <h2>仕事のこと</h2>
 
@@ -231,11 +237,11 @@
     TEL <a href="tel:0473810142">047-381-0142</a><br>
     <a href="https://eight-ds.com/">ホームページ</a>　／　<a href="recruit.html">採用情報</a>
   </footer>
-</div>
+</main>
 
 <div class="cta">
   <div class="in">
-    <a class="btn line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener">LINEで質問する</a>
+    <a class="btn line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener" aria-label="LINEで質問する（LINEが開きます）">LINEで質問する</a>
     <a class="btn tel" href="tel:0473810142">電話する</a>
   </div>
 </div>

@@ -279,7 +279,18 @@
       location.href = 'index.html';
     }
   }
-  window.addEventListener('wheel', function (e) { if (e.deltaY < 0) add(-e.deltaY); }, { passive: true });
+  /* 2026-10-03 読みながら上へ戻した勢い（慣性）のまま、トップへ飛ばされていた。
+     上端に着いてから0.8秒たち、いったん手を止めた後の操作だけを数える */
+  var arrivedAt = 0, lastWheel = 0;
+  window.addEventListener('wheel', function (e) {
+    var now = performance.now();
+    if (window.pageYOffset > 2) { arrivedAt = 0; reset(); lastWheel = now; return; }
+    if (!arrivedAt) arrivedAt = now;
+    var fresh = now - lastWheel > 300;
+    lastWheel = now;
+    if (now - arrivedAt < 800 || (!fresh && pull === 0)) return;
+    if (e.deltaY < 0) add(-e.deltaY);
+  }, { passive: true });
 })();
 
 /* 2026-09-08 ヒーローの見出しの「映像に合わせて4本切り替え」は削除した（おでん指示で1本固定）。
