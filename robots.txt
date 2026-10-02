@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
 
-# 提案用の転送ページは検索に出さない
-Disallow: /saiyo.html
-Disallow: /saiyo2.html
+# 提案用の転送ページ（saiyo.html / saiyo2.html）はページ側の noindex で検索に出さない
 
 Sitemap: https://eight-ds.com/sitemap.xml
