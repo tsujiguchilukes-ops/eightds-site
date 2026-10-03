@@ -291,7 +291,7 @@ body.saiyo2{--check:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://w
 .s2real{display:grid;grid-template-columns:1fr;gap:24px;margin-top:24px}
 .s2real>div{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px}
 .s2real>div.yes{border:2px solid var(--accent)}
-.s2real h3{font-size:18px;font-weight:700}
+.s2real h3,.s2real h4{font-size:18px;font-weight:700;line-height:1.5}
 .s2real .yes h3{color:var(--ink)}
 .s2real ul{list-style:none;margin-top:16px}
 .s2real li{position:relative;padding:8px 0 8px 24px;font-size:16px;line-height:1.8;
