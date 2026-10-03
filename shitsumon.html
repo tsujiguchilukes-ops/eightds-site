@@ -112,13 +112,13 @@
   p, td, li, summary{ text-wrap:pretty; }
   .nw{ white-space:nowrap; }
   /* 2026-10-03 使い勝手：下の固定ボタンの裏に選んだ場所が隠れない／選んだ場所を見える枠で／小見出しの濃さ */
-  html{ scroll-padding-bottom:calc(90px + env(safe-area-inset-bottom)); }
+  html{ scroll-padding-bottom:calc(90px + env(safe-area-inset-bottom)); scroll-padding-top:72px; } /* 2026-10-03 固定の .tb（61px）の下に見出しが隠れないように */
   :where(a,summary,button):focus-visible{ outline:3px solid #FFB000; outline-offset:2px; border-radius:4px; }
   .lab{ opacity:1 !important; }
   .skip{ position:absolute; left:-9999px; top:0; } .skip:focus{ left:8px; top:8px; z-index:200; background:#fff; padding:8px 12px; }
   /* 2026-10-03 使い勝手：パンくず・語の途中で折らない・フッターの文字・メニューを開いている間は下の帯を隠す */
   .crumb{ font-size:14px; color:var(--gray); margin:18px 0 0; }
-  .crumb a{ color:var(--ao-d); }
+  .crumb a{ color:var(--ao-d); display:inline-block; padding:12px 2px; margin:-12px 0; } /* 押せる高さ44px以上・見た目の位置は変えない */
   .crumb span[aria-hidden]{ margin:0 .4em; }
   .nw{ white-space:nowrap; }
   footer{ font-size:14px !important; color:#55524C !important; }

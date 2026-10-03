@@ -942,6 +942,16 @@ h2{letter-spacing:.05em}
 .gnav .drop:has(>li:nth-child(3)) .im{width:100%;aspect-ratio:3/2}
 .gnav .drop:has(>li:nth-child(3)) .tx{padding-right:30px}
 .gnav .drop:has(>li:nth-child(3)) a::after{position:absolute;right:12px;bottom:18px}
+/* 2026-10-03 Web検品の差し戻し：920〜1035pxでは2枚の盆（会社概要）も文字幅が86pxしかなく「1986年創/業」と語の途中で切れた。
+   ナビが狭い幅（〜1100px）だけ、2枚の盆も縦組みにする。1280/1440 の見た目は変えない */
+@media(min-width:901px) and (max-width:1100px){
+  .gnav .drop:has(>li:nth-child(2)) a{flex-direction:column;align-items:stretch;width:100%;gap:10px;padding:10px 10px 12px}
+  .gnav .drop:has(>li:nth-child(2)) .im{width:100%;aspect-ratio:3/2}
+  .gnav .drop:has(>li:nth-child(2)) .tx{padding-right:30px}
+  .gnav .drop:has(>li:nth-child(2)) a::after{position:absolute;right:12px;bottom:18px}
+}
+/* 拠点の「採用」行のリンク：押せる高さを44px以上に（見た目の位置は変えない） */
+.ofc dd a{display:inline-block;padding:12px 0;margin:-12px 0}
 
 /* お問い合わせ：ヘッダー唯一の塗り。藍が左から4コマで塗り替わり、矢印が2コマで一歩進む */
 .hbtn,.head.on-hero .hbtn{background:var(--accent);color:#FFF7EA;border-left:2px solid var(--ink);
