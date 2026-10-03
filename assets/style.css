@@ -935,11 +935,13 @@ h2{letter-spacing:.05em}
 /* 2026-10-03 PC（1035〜1440px）で「採用情報」の盆のカード3枚が重なり、「よくある質問」が1〜2字ずつ縦に折れていた。
    原因＝盆はナビ幅（約560〜660px）で1枚約200px、写真104px＋矢印22px＋余白で文字の幅が40px台しか残らず、
    カード（a）が min-width:auto のまま li から右へはみ出して隣に重なっていた。
-   → カードを「写真が上・文字が下」の縦組みにし、a に min-width:0。矢印は右下に置く（動きは今までどおり） */
-.gnav .drop a{flex-direction:column;align-items:stretch;min-width:0;width:100%;gap:10px;padding:10px 10px 12px}
-.gnav .drop .im{width:100%;aspect-ratio:16/9}
-.gnav .drop .tx{padding-right:30px}
-.gnav .drop a::after{position:absolute;right:12px;bottom:18px}
+   → a に min-width:0（全部の盆）。縦組み（写真が上・文字が下・矢印は右下）は カード3枚以上の盆だけ。
+   🚨 全部の盆を縦組みにすると1枚の盆が3.4倍・2枚の盆が2倍の高さに膨らみ、写真も元(300px)より拡大されてぼけた（デザイン検品の差し戻し） */
+.gnav .drop a{min-width:0}
+.gnav .drop:has(>li:nth-child(3)) a{flex-direction:column;align-items:stretch;width:100%;gap:10px;padding:10px 10px 12px}
+.gnav .drop:has(>li:nth-child(3)) .im{width:100%;aspect-ratio:3/2}
+.gnav .drop:has(>li:nth-child(3)) .tx{padding-right:30px}
+.gnav .drop:has(>li:nth-child(3)) a::after{position:absolute;right:12px;bottom:18px}
 
 /* お問い合わせ：ヘッダー唯一の塗り。藍が左から4コマで塗り替わり、矢印が2コマで一歩進む */
 .hbtn,.head.on-hero .hbtn{background:var(--accent);color:#FFF7EA;border-left:2px solid var(--ink);
