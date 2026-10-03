@@ -136,9 +136,16 @@
       var tick = false;
       var check = function () {
         tick = false;
-        var r = acts.getBoundingClientRect();
         var top = window.innerHeight - mb.offsetHeight;
-        mb.classList.toggle('is-away', acts === dup ? (r.bottom > 0 && r.top < window.innerHeight) : (r.bottom > top && r.top < window.innerHeight));
+        /* 採用情報：ページ内の「LINEで質問する」（最初の画面と応募の節）のどれかが見えている間は帯を出さない */
+        if (dup) {
+          var seen = [].some.call(document.querySelectorAll('.s2cta[data-cta]'), function (el) {
+            var q = el.getBoundingClientRect(); return q.bottom > 0 && q.top < window.innerHeight;
+          });
+          mb.classList.toggle('is-away', seen); return;
+        }
+        var r = acts.getBoundingClientRect();
+        mb.classList.toggle('is-away', r.bottom > top && r.top < window.innerHeight);
       };
       var ask = function () { if (!tick) { tick = true; requestAnimationFrame(check); } };
       window.addEventListener('scroll', ask, { passive: true });
