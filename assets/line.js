@@ -1,12 +1,5 @@
 /* =========================================================================
-   応募の導線（全ページ共通）
-
-   🚨 2026-10-07 LINE → 応募フォーム（oubo.html）に切り替えた。
-      おでん「流れちゃった原因はラインの入りがめんどくさすぎるから」「すぐ電話する形で動線作り直して」。
-      名前と電話番号だけ送ってもらい、おでんのLINEに通知 → こちらから電話する（hp-dashboard /api/oubo）。
-      クラス名（is-line 等）は配置のCSSが掛かっているので据え置き。色は style.css 末尾で応募色に上書き。
-      LINEに戻すとき：下の FORM_URL を "" にすると、以前のLINEのボタンに戻る。
-   --- 以下は切り替え前の説明（LINEに戻すとき用） ---
+   公式LINEの導線（全ページ共通）
 
    ★★★ 直すのは、下の LINE_URL の1行だけです。★★★
 
@@ -40,24 +33,20 @@
 
   /* ------------------------------------------------------------------ */
 
-  var FORM_URL = "oubo.html";
-  var isForm = !!FORM_URL;
-  var url = FORM_URL || (LINE_URL || '').trim();
+  var url = (LINE_URL || '').trim();
   if (!url) return;                       // 空なら何もしない＝いまの見た目のまま
 
-  var LABEL = isForm ? '応募する（名前と電話番号だけ）' : 'LINEで質問する';
-  var SHORT = isForm ? '応募する' : 'LINEで相談';
-  var GA = isForm ? 'oubo_click' : 'line_click';
-  /* 新しいタブはLINEの時だけ（フォームは同じタブで開く） */
-  function tab(a) { if (isForm) { a.removeAttribute('target'); a.removeAttribute('rel'); } else { a.target = '_blank'; a.rel = 'noopener'; } }
+  var LABEL = 'LINEで質問する';
+  var SHORT = 'LINEで相談';
 
   function make(cls, label) {
     var a = document.createElement('a');
     a.className = cls;
     a.href = url;
     a.textContent = label;
-    tab(a);
-    a.setAttribute('data-ga', GA);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.setAttribute('data-ga', 'line_click');
     return a;
   }
 
@@ -87,10 +76,11 @@
     /* 通常の主CTAは増やさず、1つのボタンをLINEへ差し替える。
        2つ並ぶと「どっちを押すのか」が分からなくなるため。電話は固定バーと電話番号欄に残す。 */
     a.href = url;
-    a.textContent = isForm ? SHORT : LABEL;
-    tab(a);
+    a.textContent = LABEL;
+    a.target = '_blank';
+    a.rel = 'noopener';
     a.classList.add('is-line');
-    a.setAttribute('data-ga', GA);
+    a.setAttribute('data-ga', 'line_click');
     var acts = a.closest('.bfv-acts'); if (acts) acts.classList.add('has-line');
   });
 
@@ -116,9 +106,10 @@
     t.dataset.lineDone = '1';
     t.href = url;
     t.textContent = SHORT;
-    tab(t);
+    t.target = '_blank';
+    t.rel = 'noopener';
     t.classList.add('is-line');
-    t.setAttribute('data-ga', GA);
+    t.setAttribute('data-ga', 'line_click');
     t.setAttribute('data-ga-place', 'fixed_bar');
   });
 
@@ -127,8 +118,8 @@
   if (!document.querySelector('.s2bar,.bbar,.cta,.mbar')) {
     var mb = document.createElement('nav');
     mb.className = 'mbar';
-    mb.setAttribute('aria-label', isForm ? '応募と電話' : 'LINEと電話');
-    var ml = make('mbar-line', isForm ? '応募する' : 'LINEで質問する');
+    mb.setAttribute('aria-label', 'LINEと電話');
+    var ml = make('mbar-line', 'LINEで質問する');
     ml.setAttribute('data-ga-place', 'mobile_bar');
     var mt = document.createElement('a');
     mt.className = 'mbar-tel'; mt.href = 'tel:0473810142'; mt.textContent = '電話する';

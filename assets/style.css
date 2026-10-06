@@ -2724,12 +2724,3 @@ p,li,dd,td{text-wrap:pretty}
   .rnp-note{font-size:13px}
   p.who{font-size:13.5px}
 }
-
-/* 2026-10-07 採用の入口を LINE → 応募フォーム（oubo.html）に切り替え。
-   is-line / mbar-line は配置のCSSが掛かっているのでクラス名は据え置き、色だけLINEの緑から応募色へ。
-   #A94418 は白文字で 5.9:1（AA）。LINEに戻すときはこの塊を消す */
-.is-line{background:#A94418 !important;border-color:#A94418 !important}
-.is-line:hover{background:#8F3A14 !important;border-color:#8F3A14 !important}
-.is-line{box-shadow:0 8px 20px rgba(169,68,24,.22) !important}
-.bar .is-line,.bbar .is-line,.s2bar .is-line{box-shadow:none !important}
-.mbar .mbar-line{background:#A94418}

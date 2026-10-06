@@ -7,18 +7,18 @@
 <script>document.documentElement.classList.add('js-menu')</script>
 <meta name="theme-color" content="#ffffff">
 <title>応募フォーム｜有限会社エイト流通サービス</title>
-<meta name="description" content="エイト流通サービスの採用応募フォーム。お名前と電話番号を送るだけで、担当者からお電話します。正社員・アルバイト、浦安本社・埼玉営業所。">
+<meta name="description" content="エイト流通サービスの採用応募フォーム。1分ほどで送れて、担当者からお電話します。正社員・アルバイト、浦安本社・埼玉営業所。">
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://eight-ds.com/oubo.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="有限会社エイト流通サービス">
 <meta property="og:title" content="応募フォーム｜有限会社エイト流通サービス">
-<meta property="og:description" content="お名前と電話番号を送るだけ。担当者からお電話します。">
+<meta property="og:description" content="1分ほどで送れます。担当者からお電話します。">
 <meta property="og:url" content="https://eight-ds.com/oubo.html">
 <meta property="og:image" content="https://eight-ds.com/img/og2.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/style.css?v=202610071500">
+<link rel="stylesheet" href="assets/style.css?v=202610071800">
 <style>
 /* 2026-10-07 採用の入口を「LINEの友だち追加」から「名前と電話番号だけのフォーム」に変えた。
    おでん「流れちゃった原因はラインの入りがめんどくさすぎるから」「すぐ電話する形で動線作り直して」。
@@ -35,7 +35,11 @@
 .ob-f .opt{font-size:14px;font-weight:400;color:var(--sub);margin-left:8px}
 .ob-f input[type=text],.ob-f input[type=tel]{width:100%;margin-top:8px;padding:16px;font-size:18px;font-family:inherit;color:var(--ink);
   background:var(--white);border:1px solid var(--line);border-radius:2px;transition:border-color .16s var(--ease),box-shadow .16s var(--ease)}
-.ob-f input:focus{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);outline:0}
+.ob-f textarea{width:100%;margin-top:8px;padding:14px 16px;font-size:17px;line-height:1.8;font-family:inherit;color:var(--ink);
+  background:var(--white);border:1px solid var(--line);border-radius:2px;resize:vertical;min-height:120px}
+.ob-half input[type=text]{width:7em}
+.ob-unit{margin-left:8px;font-size:17px}
+.ob-f textarea:focus,.ob-f input:focus{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);outline:0}
 .ob-f .err{display:none;font-size:15px;color:#B23B15;margin-top:6px}
 .ob-f.bad input{border-color:#B23B15}
 .ob-f.bad .err{display:block}
@@ -53,7 +57,7 @@ fieldset.ob-f .chips{clear:both}
 .ob-send{display:block;width:100%;min-height:60px;border:0;border-radius:2px;background:var(--accent);color:#fff;font-size:19px;font-weight:700;
   font-family:inherit;cursor:pointer;transition:filter .16s var(--ease),transform .08s var(--ease)}
 .ob-send:hover{filter:brightness(1.06)}
-.ob-send:active{transform:translateY(1px)}
+.ob-send:active{transform:translateY(1px);background:#7E3311;filter:none}
 .ob-send[disabled]{opacity:.6;cursor:default}
 .ob-note{font-size:14px;color:var(--sub);line-height:1.8;margin-top:12px}
 .ob-note a{color:var(--brand)}
@@ -118,7 +122,7 @@ fieldset.ob-f .chips{clear:both}
       <li><a href="privacy.html">プライバシーポリシー</a></li>
       <li><a href="index.html">トップページ</a></li>
     </ul>
-    <a class="hbtn" href="https://lin.ee/7hRlFn1" target="_blank" rel="noopener" aria-label="お問い合わせ（LINEが開きます）">お問い合わせ</a>
+    <a class="hbtn" href="tel:0473810142">電話する</a>
   </div></div>
   </div>
 </header>
@@ -137,7 +141,7 @@ fieldset.ob-f .chips{clear:both}
 <section class="sec">
   <div class="wrap ob">
     <div id="ob-in">
-      <p class="ob-lead"><b>お名前と電話番号だけ</b>で応募できます。<br>送っていただいたら、担当者から<span class="nw">お電話します。</span></p>
+      <p class="ob-lead"><b>1分ほど</b>で応募できます。<span class="nw">必須は<b>お名前・電話番号・最寄り駅</b>の</span><span class="nw">3つだけです。</span><br>送っていただいたら、担当者から<span class="nw">お電話します。</span></p>
       <ol class="ob-steps" aria-label="応募の流れ">
         <li>この画面で送る</li>
         <li>担当者から電話</li>
@@ -150,10 +154,23 @@ fieldset.ob-f .chips{clear:both}
           <input type="text" id="name" name="name" autocomplete="name" maxlength="40" required aria-describedby="e-name">
           <p class="err" id="e-name">お名前を入れてください</p>
         </div>
+        <div class="ob-f">
+          <label class="t" for="kana">ふりがな<span class="opt">任意</span></label>
+          <input type="text" id="kana" name="kana" maxlength="40" placeholder="例）やまだ たろう">
+        </div>
         <div class="ob-f" id="f-tel">
           <label class="t" for="tel">電話番号<span class="req">必須</span></label>
           <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel" maxlength="16" placeholder="例）090-1234-5678" required aria-describedby="e-tel">
           <p class="err" id="e-tel">電話番号を確かめてください（例：090-1234-5678）</p>
+        </div>
+        <div class="ob-f" id="f-eki">
+          <label class="t" for="eki">家の最寄り駅<span class="req">必須</span></label>
+          <input type="text" id="eki" name="eki" maxlength="40" placeholder="例）新浦安駅、JR京葉線 舞浜駅" required aria-describedby="e-eki">
+          <p class="err" id="e-eki">最寄り駅を入れてください</p>
+        </div>
+        <div class="ob-f ob-half">
+          <label class="t" for="age">年齢<span class="opt">任意</span></label>
+          <input type="text" id="age" name="age" inputmode="numeric" maxlength="3" placeholder="例）35"><span class="ob-unit">歳</span>
         </div>
         <fieldset class="ob-f">
           <legend class="t">希望<span class="opt">任意</span></legend>
@@ -180,10 +197,61 @@ fieldset.ob-f .chips{clear:both}
             <label><input type="radio" name="jikan" value="夕方以降"><span>夕方以降</span></label>
           </div>
         </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">運転免許<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="menkyo" value="普通（AT限定）"><span>普通（AT限定）</span></label>
+            <label><input type="radio" name="menkyo" value="普通（MT）"><span>普通（MT）</span></label>
+            <label><input type="radio" name="menkyo" value="準中型・中型以上"><span>準中型・中型以上</span></label>
+            <label><input type="radio" name="menkyo" value="なし"><span>なし</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">経験<span class="opt">任意・いくつでも</span></legend>
+          <div class="chips">
+            <label><input type="checkbox" name="keiken" value="家電の配送・設置"><span>家電の配送・設置</span></label>
+            <label><input type="checkbox" name="keiken" value="ドライバー・引越し"><span>ドライバー・引越し</span></label>
+            <label><input type="checkbox" name="keiken" value="エアコン・電気工事"><span>エアコン・電気工事</span></label>
+            <label><input type="checkbox" name="keiken" value="未経験"><span>未経験</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">働き始められる時期<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="jiki" value="すぐ"><span>すぐ</span></label>
+            <label><input type="radio" name="jiki" value="1か月以内"><span>1か月以内</span></label>
+            <label><input type="radio" name="jiki" value="2〜3か月後"><span>2〜3か月後</span></label>
+            <label><input type="radio" name="jiki" value="まだ決めていない"><span>まだ決めていない</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">今の状況<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="joukyou" value="働いている"><span>働いている</span></label>
+            <label><input type="radio" name="joukyou" value="働いていない"><span>働いていない</span></label>
+            <label><input type="radio" name="joukyou" value="学生"><span>学生</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">どこで知りましたか<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="shitta" value="求人サイト"><span>求人サイト</span></label>
+            <label><input type="radio" name="shitta" value="ハローワーク"><span>ハローワーク</span></label>
+            <label><input type="radio" name="shitta" value="知人・社員の紹介"><span>知人・社員の紹介</span></label>
+            <label><input type="radio" name="shitta" value="SNS"><span>SNS</span></label>
+            <label><input type="radio" name="shitta" value="検索・地図"><span>検索・地図</span></label>
+            <label><input type="radio" name="shitta" value="その他"><span>その他</span></label>
+          </div>
+        </fieldset>
+        <div class="ob-f">
+          <label class="t" for="memo">聞きたいこと・伝えたいこと<span class="opt">任意</span></label>
+          <textarea id="memo" name="memo" maxlength="400" rows="4" placeholder="例）土日は休めますか？"></textarea>
+        </div>
+        <input type="hidden" name="u" id="ob-u"><input type="hidden" name="s" id="ob-s">
         <div class="ob-hp" aria-hidden="true"><label>空欄のまま<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div>
           <button class="ob-send" type="submit" id="ob-send" data-ga="oubo_submit">送信する</button>
-          <p class="ob-fail" id="ob-fail" role="alert">送れませんでした。お手数ですが、下の番号へお電話ください。</p>
+          <p class="ob-fail" id="ob-fail" role="alert" tabindex="-1">送れませんでした。お手数ですが、下の番号へお電話ください。</p>
           <p class="ob-note">入力いただいた内容は、採用のご連絡にだけ使います（<a href="privacy.html">プライバシーポリシー</a>）。</p>
         </div>
       </form>
@@ -194,7 +262,8 @@ fieldset.ob-f .chips{clear:both}
     <div class="ob-done" id="ob-done" hidden tabindex="-1">
       <h2>受け付けました。</h2>
       <p>担当者から、入力いただいた番号へ<span class="nw">お電話します。</span><br>知らない番号からの着信は、エイト流通サービスからです。</p>
-      <p class="next"><a href="recruit.html">採用情報に戻る</a></p>
+      <p id="ob-line-done" hidden>LINEのトークにも、受付のご連絡をお送りしました。この画面は閉じて大丈夫です。</p>
+      <p class="next"><a href="shitsumon.html">電話を待つ間に、よくある質問を読む</a></p>
     </div>
   </div>
 </section>
@@ -245,27 +314,34 @@ fieldset.ob-f .chips{clear:both}
   try { ref = new URL(document.referrer).pathname.split('/').pop(); } catch (e) {}
   var pre = new URLSearchParams(location.search).get('k') || (/baito/.test(ref) ? 'アルバイト' : /seishain/.test(ref) ? '正社員' : '');
   if (pre) { var r = f.querySelector('input[name=kibou][value="' + pre + '"]'); if (r) r.checked = true; }
+  /* LINEの友だち追加の返信から開いた時は、本人の印（u・s）を一緒に送る＝LINEの名前と応募が結びつく */
+  var qs = new URLSearchParams(location.search), fromLine = /^U[0-9a-f]{32}$/.test(qs.get('u') || '');
+  if (fromLine) { document.getElementById('ob-u').value = qs.get('u'); document.getElementById('ob-s').value = qs.get('s') || ''; }
   if (/saitama/.test(ref)) { var s = f.querySelector('input[name=kyoten][value="埼玉"]'); if (s) s.checked = true; }
 
   function mark(id, bad) { document.getElementById(id).classList.toggle('bad', bad); document.getElementById(id).querySelector('input').setAttribute('aria-invalid', bad ? 'true' : 'false'); }
   f.addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var inName = f.elements.namedItem('name'), inTel = f.elements.namedItem('tel');
-    var name = inName.value.trim(), tel = digits(inTel.value);
-    var badName = !name, badTel = !/^0\d{9,10}$/.test(tel);
-    mark('f-name', badName); mark('f-tel', badTel);
-    if (badName || badTel) { (badName ? inName : inTel).focus(); return; }
+    var inName = f.elements.namedItem('name'), inTel = f.elements.namedItem('tel'), inEki = f.elements.namedItem('eki');
+    var badName = !inName.value.trim(), badTel = !/^0\d{9,10}$/.test(digits(inTel.value)), badEki = !inEki.value.trim();
+    mark('f-name', badName); mark('f-tel', badTel); mark('f-eki', badEki);
+    if (badName || badTel || badEki) { (badName ? inName : badTel ? inTel : inEki).focus(); return; }
     btn.disabled = true; btn.textContent = '送信しています…'; fail.classList.remove('on');
-    var body = new URLSearchParams(new FormData(f));
+    var fd = new FormData(f), keiken = fd.getAll('keiken').join('、');
+    fd.delete('keiken');
+    var body = new URLSearchParams(fd);
+    body.set('keiken', keiken);
     body.set('page', ref || 'direct');
-    fetch(API, { method: 'POST', body: body })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); })
+    var ac = window.AbortController ? new AbortController() : null, timer = ac && setTimeout(function () { ac.abort(); }, 15000);
+    fetch(API, { method: 'POST', body: body, signal: ac ? ac.signal : undefined })
+      .then(function (r) { clearTimeout(timer); if (!r.ok) throw new Error(r.status); })
       .then(function () {
         document.getElementById('ob-in').hidden = true;
         var d = document.getElementById('ob-done'); d.hidden = false;
+        if (fromLine) document.getElementById('ob-line-done').hidden = false;
         window.scrollTo(0, d.getBoundingClientRect().top + window.pageYOffset - 120); d.focus({ preventScroll: true });
       })
-      .catch(function () { btn.disabled = false; btn.textContent = '送信する'; fail.classList.add('on'); });
+      .catch(function () { clearTimeout(timer); btn.disabled = false; btn.textContent = '送信する'; fail.classList.add('on'); fail.focus(); });
   });
 })();
 </script>
