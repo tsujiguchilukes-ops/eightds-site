@@ -59,6 +59,8 @@ fieldset.ob-f .chips{clear:both}
 .ob-send:hover{filter:brightness(1.06)}
 .ob-send:active{transform:translateY(1px);background:#7E3311;filter:none}
 .ob-send[disabled]{opacity:.6;cursor:default}
+.ob-sep{margin-top:8px;padding-top:24px;border-top:1px dashed var(--line);font-size:16px;color:var(--sub);line-height:1.8}
+.ob-sep b{color:var(--brand)}
 .ob-note{font-size:14px;color:var(--sub);line-height:1.8;margin-top:12px}
 .ob-note a{color:var(--brand)}
 .ob-fail{display:none;font-size:15px;color:#B23B15;line-height:1.8;margin-top:12px}
@@ -161,13 +163,17 @@ fieldset.ob-f .chips{clear:both}
         <div class="ob-f" id="f-tel">
           <label class="t" for="tel">電話番号<span class="req">必須</span></label>
           <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel" maxlength="16" placeholder="例）090-1234-5678" required aria-describedby="e-tel">
-          <p class="err" id="e-tel">電話番号を確かめてください（例：090-1234-5678）</p>
+          <p class="err" id="e-tel">電話番号を確かめてください（例：<span class="nw">090-1234-5678</span>）</p>
         </div>
         <div class="ob-f" id="f-eki">
           <label class="t" for="eki">家の最寄り駅<span class="req">必須</span></label>
-          <input type="text" id="eki" name="eki" maxlength="40" placeholder="例）新浦安駅、JR京葉線 舞浜駅" required aria-describedby="e-eki">
+          <input type="text" id="eki" name="eki" maxlength="40" placeholder="例）新浦安駅" required aria-describedby="e-eki">
           <p class="err" id="e-eki">最寄り駅を入れてください</p>
         </div>
+        <div class="ob-quick">
+          <button class="ob-send" type="submit" data-ga="oubo_submit_quick">このまま送信する</button>
+        </div>
+        <p class="ob-sep">ここから下は<b>任意</b>です。<span class="nw">飛ばしてそのまま送れます。</span></p>
         <div class="ob-f ob-half">
           <label class="t" for="age">年齢<span class="opt">任意</span></label>
           <input type="text" id="age" name="age" inputmode="numeric" maxlength="3" placeholder="例）35"><span class="ob-unit">歳</span>
@@ -256,12 +262,12 @@ fieldset.ob-f .chips{clear:both}
         </div>
       </form>
 
-      <div class="ob-tel">今すぐ話したい方は、お電話でもどうぞ。<br><a href="tel:0473810142" data-ga="tel_click" data-ga-place="oubo">047-381-0142</a></div>
+      <div class="ob-tel">今すぐ話したい方は、<span class="nw">お電話でもどうぞ。</span><br><a href="tel:0473810142" data-ga="tel_click" data-ga-place="oubo">047-381-0142</a></div>
     </div>
 
     <div class="ob-done" id="ob-done" hidden tabindex="-1">
       <h2>受け付けました。</h2>
-      <p>担当者から、入力いただいた番号へ<span class="nw">お電話します。</span><br>知らない番号からの着信は、エイト流通サービスからです。</p>
+      <p>担当者から、入力いただいた番号へ<span class="nw">お電話します。</span><br>知らない番号からの着信は、<span class="nw">エイト流通サービスからです。</span></p>
       <p id="ob-line-done" hidden>LINEのトークにも、受付のご連絡をお送りしました。この画面は閉じて大丈夫です。</p>
       <p class="next"><a href="shitsumon.html">電話を待つ間に、よくある質問を読む</a></p>
     </div>
@@ -307,7 +313,7 @@ fieldset.ob-f .chips{clear:both}
 <script>
 (function () {
   var API = 'https://hp-dashboard-seven.vercel.app/api/oubo';
-  var f = document.getElementById('ob-form'), btn = document.getElementById('ob-send'), fail = document.getElementById('ob-fail');
+  var f = document.getElementById('ob-form'), btn = document.getElementById('ob-send'), btns = [].slice.call(document.querySelectorAll('.ob-send')), fail = document.getElementById('ob-fail');
   var digits = function (v) { return (v || '').normalize('NFKC').replace(/[^0-9]/g, ''); };
   /* 募集要項・採用情報から来たら、希望を先に選んでおく（押す回数を減らす） */
   var ref = '';
@@ -319,6 +325,11 @@ fieldset.ob-f .chips{clear:both}
   if (fromLine) { document.getElementById('ob-u').value = qs.get('u'); document.getElementById('ob-s').value = qs.get('s') || ''; }
   if (/saitama/.test(ref)) { var s = f.querySelector('input[name=kyoten][value="埼玉"]'); if (s) s.checked = true; }
 
+  /* 「未経験」と経験は同時に選べないようにする */
+  f.addEventListener('change', function (e) {
+    var t = e.target; if (t.name !== 'keiken' || !t.checked) return;
+    [].forEach.call(f.querySelectorAll('input[name=keiken]'), function (x) { if (x !== t && ((t.value === '未経験') !== (x.value === '未経験'))) x.checked = false; });
+  });
   function mark(id, bad) { document.getElementById(id).classList.toggle('bad', bad); document.getElementById(id).querySelector('input').setAttribute('aria-invalid', bad ? 'true' : 'false'); }
   f.addEventListener('submit', function (ev) {
     ev.preventDefault();
@@ -326,7 +337,7 @@ fieldset.ob-f .chips{clear:both}
     var badName = !inName.value.trim(), badTel = !/^0\d{9,10}$/.test(digits(inTel.value)), badEki = !inEki.value.trim();
     mark('f-name', badName); mark('f-tel', badTel); mark('f-eki', badEki);
     if (badName || badTel || badEki) { (badName ? inName : badTel ? inTel : inEki).focus(); return; }
-    btn.disabled = true; btn.textContent = '送信しています…'; fail.classList.remove('on');
+    btns.forEach(function (b) { b.disabled = true; b.dataset.t = b.textContent; b.textContent = '送信しています…'; }); fail.classList.remove('on');
     var fd = new FormData(f), keiken = fd.getAll('keiken').join('、');
     fd.delete('keiken');
     var body = new URLSearchParams(fd);
@@ -341,7 +352,7 @@ fieldset.ob-f .chips{clear:both}
         if (fromLine) document.getElementById('ob-line-done').hidden = false;
         window.scrollTo(0, d.getBoundingClientRect().top + window.pageYOffset - 120); d.focus({ preventScroll: true });
       })
-      .catch(function () { clearTimeout(timer); btn.disabled = false; btn.textContent = '送信する'; fail.classList.add('on'); fail.focus(); });
+      .catch(function () { clearTimeout(timer); btns.forEach(function (b) { b.disabled = false; b.textContent = b.dataset.t; }); fail.classList.add('on'); fail.focus(); });
   });
 })();
 </script>
