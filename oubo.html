@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://hp-dashboard-seven.vercel.app">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>document.documentElement.classList.add('js-menu')</script>
+<meta name="theme-color" content="#ffffff">
+<title>応募フォーム｜有限会社エイト流通サービス</title>
+<meta name="description" content="エイト流通サービスの採用応募フォーム。お名前と電話番号を送るだけで、担当者からお電話します。正社員・アルバイト、浦安本社・埼玉営業所。">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://eight-ds.com/oubo.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="有限会社エイト流通サービス">
+<meta property="og:title" content="応募フォーム｜有限会社エイト流通サービス">
+<meta property="og:description" content="お名前と電話番号を送るだけ。担当者からお電話します。">
+<meta property="og:url" content="https://eight-ds.com/oubo.html">
+<meta property="og:image" content="https://eight-ds.com/img/og2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css?v=202610071500">
+<style>
+/* 2026-10-07 採用の入口を「LINEの友だち追加」から「名前と電話番号だけのフォーム」に変えた。
+   おでん「流れちゃった原因はラインの入りがめんどくさすぎるから」「すぐ電話する形で動線作り直して」。
+   送信 → hp-dashboard の /api/oubo → おでんのLINEに通知 → こちらから電話する。 */
+.ob{max-width:640px;margin:0 auto}
+.ob-lead{font-size:18px;line-height:1.9;color:var(--ink)}
+.ob-lead b{color:var(--brand)}
+.ob-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px;counter-reset:s}
+.ob-steps li{counter-increment:s;background:var(--paper);border:1px solid var(--line);padding:14px 12px;font-size:15px;line-height:1.6;text-align:center}
+.ob-steps li::before{content:counter(s);display:block;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.1em}
+.ob-form{display:grid;gap:28px;margin-top:40px}
+.ob-f label.t,.ob-f .t{display:block;font-size:17px;font-weight:700;color:var(--brand)}
+.ob-f .req{font-size:14px;font-weight:400;color:var(--accent);margin-left:8px}
+.ob-f .opt{font-size:14px;font-weight:400;color:var(--sub);margin-left:8px}
+.ob-f input[type=text],.ob-f input[type=tel]{width:100%;margin-top:8px;padding:16px;font-size:18px;font-family:inherit;color:var(--ink);
+  background:var(--white);border:1px solid var(--line);border-radius:2px;transition:border-color .16s var(--ease),box-shadow .16s var(--ease)}
+.ob-f input:focus{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);outline:0}
+.ob-f .err{display:none;font-size:15px;color:#B23B15;margin-top:6px}
+.ob-f.bad input{border-color:#B23B15}
+.ob-f.bad .err{display:block}
+fieldset.ob-f{border:0;padding:0;margin:0;min-width:0}
+fieldset.ob-f legend{padding:0;float:left;width:100%}
+fieldset.ob-f .chips{clear:both}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chips label{position:relative}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips span{display:flex;align-items:center;min-height:48px;padding:0 20px;border:1px solid var(--line);border-radius:2px;background:var(--white);
+  font-size:16px;cursor:pointer;transition:border-color .16s var(--ease),background-color .16s var(--ease),color .16s var(--ease)}
+.chips input:checked+span{border-color:var(--brand);background:var(--brand);color:#fff}
+.chips input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.ob-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ob-send{display:block;width:100%;min-height:60px;border:0;border-radius:2px;background:var(--accent);color:#fff;font-size:19px;font-weight:700;
+  font-family:inherit;cursor:pointer;transition:filter .16s var(--ease),transform .08s var(--ease)}
+.ob-send:hover{filter:brightness(1.06)}
+.ob-send:active{transform:translateY(1px)}
+.ob-send[disabled]{opacity:.6;cursor:default}
+.ob-note{font-size:14px;color:var(--sub);line-height:1.8;margin-top:12px}
+.ob-note a{color:var(--brand)}
+.ob-fail{display:none;font-size:15px;color:#B23B15;line-height:1.8;margin-top:12px}
+.ob-fail.on{display:block}
+.ob-tel{margin-top:40px;border-top:1px solid var(--line);padding-top:24px;font-size:15px;color:var(--sub);line-height:1.8}
+.ob-tel a{display:inline-block;margin-top:4px;font-size:24px;font-weight:700;color:var(--brand);text-decoration:none;font-variant-numeric:tabular-nums}
+.ob-done{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--accent);padding:40px 32px}
+.ob-done h2{font-size:24px;color:var(--brand);line-height:1.6}
+.ob-done p{font-size:17px;line-height:1.9;margin-top:12px}
+.ob-done .next{margin-top:24px}
+.ob-done .next a{color:var(--brand);font-weight:700}
+@media(max-width:600px){
+  .ob-lead{font-size:17px}
+  .ob-steps{grid-template-columns:1fr;gap:6px}
+  .ob-steps li{display:flex;gap:12px;align-items:baseline;text-align:left;padding:12px 16px}
+  .ob-steps li::before{display:inline}
+  .ob-done{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<div class="env" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="prog" aria-hidden="true"></div>
+<div class="pullback" aria-hidden="true">もう一度上へ引くと、トップに戻ります<span class="pbline"></span></div>
+
+<header class="head">
+  <div class="r1">
+    <a class="logo" href="index.html">エイト流通サービス<span>創業1986年 ／ 家電の配送・設置</span></a>
+    <button class="mtoggle" type="button" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <div class="r2" id="gnav"><div class="in">
+    <ul class="gnav">
+      <li><a href="about.html">会社概要</a>
+        <ul class="drop">
+          <li><a href="about.html#outline"><span class="im"><img src="img/th/L5_受付.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>会社概要</b><span>1986年創業。家電の配送・設置</span></span></a></li>
+          <li><a href="about.html#rules"><span class="im"><img src="img/th/V1_引き.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>三原則</b><span>ご自宅へ上がる前に決めていること</span></span></a></li>
+        </ul>
+      </li>
+      <li><a href="service.html">サービス</a>
+        <ul class="drop">
+          <li><a href="service.html"><span class="im"><img src="img/th/V2_手元.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>事業内容</b><span>配送から取付・お引き取りまで</span></span></a></li>
+        </ul>
+      </li>
+      <li><a href="business.html">法人のお客様へ</a>
+        <ul class="drop">
+          <li><a href="business.html#partner"><span class="im"><img src="img/th/L4_台車.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>協力会社募集</b><span>2t車をお持ちの事業者様へ</span></span></a></li>
+        </ul>
+      </li>
+      <li><a href="recruit.html">採用情報</a>
+        <ul class="drop">
+          <li><a href="recruit-seishain.html"><span class="im"><img src="img/th/hero_crew.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>正社員の募集要項</b><span>月給34万円〜・未経験歓迎</span></span></a></li>
+          <li><a href="recruit-baito.html"><span class="im"><img src="img/th/L1_積込.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>アルバイトの募集要項</b><span>日給11,980円・運転なし</span></span></a></li>
+          <li><a href="shitsumon.html"><span class="im"><img src="img/th/P3_全員.webp" alt="" loading="lazy" width="160" height="160" decoding="async"></span><span class="tx"><b>よくある質問</b><span>応募の前に読める14問</span></span></a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="msub" aria-label="採用とほかのページ">
+      <li><a href="recruit-seishain.html">正社員の募集要項</a></li>
+      <li><a href="recruit-baito.html">アルバイトの募集要項</a></li>
+      <li><a href="shitsumon.html">よくある質問</a></li>
+      <li><a href="contact.html">ご依頼・ご相談</a></li>
+      <li><a href="privacy.html">プライバシーポリシー</a></li>
+      <li><a href="index.html">トップページ</a></li>
+    </ul>
+    <a class="hbtn" href="https://lin.ee/7hRlFn1" target="_blank" rel="noopener" aria-label="お問い合わせ（LINEが開きます）">お問い合わせ</a>
+  </div></div>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+
+<div class="phead">
+  <img src="img/w800/hero_crew.webp" srcset="img/w800/hero_crew.webp 800w, img/w1200/hero_crew.webp 1200w, img/hero_crew.webp 1920w" sizes="100vw" alt="" aria-hidden="true" width="1920" height="1289" fetchpriority="high" decoding="async">
+  <div class="in">
+    <p class="en">ENTRY</p>
+    <h1>応募フォーム</h1>
+  </div>
+</div>
+
+<nav class="crumb" aria-label="現在の場所"><div class="in"><a href="index.html">トップ</a><span aria-hidden="true">＞</span><a href="recruit.html">採用情報</a><span aria-hidden="true">＞</span>応募フォーム</div></nav>
+
+<section class="sec">
+  <div class="wrap ob">
+    <div id="ob-in">
+      <p class="ob-lead"><b>お名前と電話番号だけ</b>で応募できます。<br>送っていただいたら、担当者から<span class="nw">お電話します。</span></p>
+      <ol class="ob-steps" aria-label="応募の流れ">
+        <li>この画面で送る</li>
+        <li>担当者から電話</li>
+        <li>会って話す（30分ほど）</li>
+      </ol>
+
+      <form class="ob-form" id="ob-form" novalidate>
+        <div class="ob-f" id="f-name">
+          <label class="t" for="name">お名前<span class="req">必須</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" maxlength="40" required aria-describedby="e-name">
+          <p class="err" id="e-name">お名前を入れてください</p>
+        </div>
+        <div class="ob-f" id="f-tel">
+          <label class="t" for="tel">電話番号<span class="req">必須</span></label>
+          <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel" maxlength="16" placeholder="例）090-1234-5678" required aria-describedby="e-tel">
+          <p class="err" id="e-tel">電話番号を確かめてください（例：090-1234-5678）</p>
+        </div>
+        <fieldset class="ob-f">
+          <legend class="t">希望<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="kibou" value="正社員"><span>正社員</span></label>
+            <label><input type="radio" name="kibou" value="アルバイト"><span>アルバイト</span></label>
+            <label><input type="radio" name="kibou" value="まずは話を聞きたい"><span>まずは話を聞きたい</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">働きたい場所<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="kyoten" value="浦安"><span>浦安本社</span></label>
+            <label><input type="radio" name="kyoten" value="埼玉"><span>埼玉営業所（新座）</span></label>
+            <label><input type="radio" name="kyoten" value="どちらでも"><span>どちらでも</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="ob-f">
+          <legend class="t">電話に出やすい時間<span class="opt">任意</span></legend>
+          <div class="chips">
+            <label><input type="radio" name="jikan" value="いつでも"><span>いつでも</span></label>
+            <label><input type="radio" name="jikan" value="午前"><span>午前</span></label>
+            <label><input type="radio" name="jikan" value="午後"><span>午後</span></label>
+            <label><input type="radio" name="jikan" value="夕方以降"><span>夕方以降</span></label>
+          </div>
+        </fieldset>
+        <div class="ob-hp" aria-hidden="true"><label>空欄のまま<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div>
+          <button class="ob-send" type="submit" id="ob-send" data-ga="oubo_submit">送信する</button>
+          <p class="ob-fail" id="ob-fail" role="alert">送れませんでした。お手数ですが、下の番号へお電話ください。</p>
+          <p class="ob-note">入力いただいた内容は、採用のご連絡にだけ使います（<a href="privacy.html">プライバシーポリシー</a>）。</p>
+        </div>
+      </form>
+
+      <div class="ob-tel">今すぐ話したい方は、お電話でもどうぞ。<br><a href="tel:0473810142" data-ga="tel_click" data-ga-place="oubo">047-381-0142</a></div>
+    </div>
+
+    <div class="ob-done" id="ob-done" hidden tabindex="-1">
+      <h2>受け付けました。</h2>
+      <p>担当者から、入力いただいた番号へ<span class="nw">お電話します。</span><br>知らない番号からの着信は、エイト流通サービスからです。</p>
+      <p class="next"><a href="recruit.html">採用情報に戻る</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="backrow"><div class="in"><a href="recruit.html">採用情報へ戻る</a></div></div>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h3><span class="nw">有限会社</span><span class="nw">エイト流通サービス</span></h3>
+        <address>
+          <strong>浦安本社</strong>　〒279-0043 千葉県浦安市富士見3-11-1 舞浜ガーデンヒルズ207号室<br><br>
+          <strong>埼玉営業所</strong>　〒352-0011 埼玉県新座市野火止2-11-25<br><br>
+</address>
+        
+      </div>
+      <ul class="fnav">
+        <li class="t">会社について</li>
+        <li><a href="about.html">会社概要</a></li>
+        <li><a href="about.html#outline">会社概要・沿革</a></li>
+        <li><a href="about.html#license">許認可</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">サービス</li>
+        <li><a href="service.html#delivery">家電の配送・設置</a></li>
+        <li><a href="service.html#electrical">電気工事</a></li>
+      </ul>
+      <ul class="fnav">
+        <li class="t">採用・ご依頼</li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="business.html">法人のお客様へ</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <p class="copy"><span>Copyright © 有限会社エイト流通サービス</span><a href="privacy.html">プライバシーポリシー</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var API = 'https://hp-dashboard-seven.vercel.app/api/oubo';
+  var f = document.getElementById('ob-form'), btn = document.getElementById('ob-send'), fail = document.getElementById('ob-fail');
+  var digits = function (v) { return (v || '').normalize('NFKC').replace(/[^0-9]/g, ''); };
+  /* 募集要項・採用情報から来たら、希望を先に選んでおく（押す回数を減らす） */
+  var ref = '';
+  try { ref = new URL(document.referrer).pathname.split('/').pop(); } catch (e) {}
+  var pre = new URLSearchParams(location.search).get('k') || (/baito/.test(ref) ? 'アルバイト' : /seishain/.test(ref) ? '正社員' : '');
+  if (pre) { var r = f.querySelector('input[name=kibou][value="' + pre + '"]'); if (r) r.checked = true; }
+  if (/saitama/.test(ref)) { var s = f.querySelector('input[name=kyoten][value="埼玉"]'); if (s) s.checked = true; }
+
+  function mark(id, bad) { document.getElementById(id).classList.toggle('bad', bad); document.getElementById(id).querySelector('input').setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+  f.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var inName = f.elements.namedItem('name'), inTel = f.elements.namedItem('tel');
+    var name = inName.value.trim(), tel = digits(inTel.value);
+    var badName = !name, badTel = !/^0\d{9,10}$/.test(tel);
+    mark('f-name', badName); mark('f-tel', badTel);
+    if (badName || badTel) { (badName ? inName : inTel).focus(); return; }
+    btn.disabled = true; btn.textContent = '送信しています…'; fail.classList.remove('on');
+    var body = new URLSearchParams(new FormData(f));
+    body.set('page', ref || 'direct');
+    fetch(API, { method: 'POST', body: body })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); })
+      .then(function () {
+        document.getElementById('ob-in').hidden = true;
+        var d = document.getElementById('ob-done'); d.hidden = false;
+        window.scrollTo(0, d.getBoundingClientRect().top + window.pageYOffset - 120); d.focus({ preventScroll: true });
+      })
+      .catch(function () { btn.disabled = false; btn.textContent = '送信する'; fail.classList.add('on'); });
+  });
+})();
+</script>
+<script src="assets/motion.js?v=202610031930"></script>
+<script src="https://hp-dashboard-seven.vercel.app/e.js" data-site="eightds" defer></script>
+</body>
+</html>
