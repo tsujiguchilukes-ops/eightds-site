@@ -54,6 +54,7 @@
   .a strong{ color:var(--sumi); }
   .note{ background:#fff; border:1px solid var(--rule); border-left:3px solid var(--ao);
          padding:16px 18px; margin:26px 0; font-size:14.5px; line-height:1.8; }
+  .note a{ display:inline-block; padding:10px 0; color:var(--ao-d); } /* 2026-10-08 あわせて読む：押せる高さ */
   .cta{ position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
         border-top:1px solid var(--rule); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); }
   .cta .in{ max-width:680px; margin:0 auto; display:flex; gap:10px; }
@@ -195,6 +196,13 @@
     履歴書はいりません。私服で大丈夫です。公式LINEからそのままご連絡ください。LINEはいつでも送れます（夜や休みの日も大丈夫です）。
   </div>
 
+  <!-- 2026-10-08 SEO部：Googleに載っているこのページから不安ページ3本へ（載っていない3本への内部リンク） -->
+  <div class="note">
+    <strong>あわせて読む</strong><br>
+    <a href="haiso-kitsui.html"><span class="nw">家電配送はきつい？</span><span class="nw">大変な所と、</span><span class="nw">当社のやり方</span></a><br>
+    <a href="haiso-ichinichi.html"><span class="nw">浦安・新座の家電配送、</span><span class="nw">1日の流れ</span></a><br>
+    <a href="haiso-nansai.html"><span class="nw">家電配送は未経験で</span><span class="nw">何歳まで？</span><span class="nw">応募に年齢の制限は</span><span class="nw">なし</span></a>
+  </div>
   <p class="back"><a href="recruit.html">← 採用情報にもどる</a>　／　<a href="shitsumon.html">よくあるご質問</a></p>
 
   <p class="totop"><a href="#main">ページの先頭へ戻る</a></p>
