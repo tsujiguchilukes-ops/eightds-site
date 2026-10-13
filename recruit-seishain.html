@@ -125,6 +125,10 @@
   .nw{ white-space:nowrap; }
   footer{ font-size:14px !important; color:#55524C !important; }
   body:has(.tb-menu[open]) .cta{ display:none; }
+  /* 2026-10-13 最初の画面で条件と応募ボタンが見えるように（固定バーは bar-wait.js のまま） */
+  header .facts{ margin-top:12px; font-weight:700; font-size:14.5px; opacity:1; }
+  header .hcta{ display:flex; margin-top:16px; max-width:360px; }
+  header .hnote{ margin-top:8px; font-size:12.5px; opacity:.9; }
   .totop{ text-align:center; margin:28px 0 0; font-size:15px; }
   .totop a{ display:inline-block; padding:12px 8px; color:var(--ao-d); }
 /* 2026-10-06 動きを減らす設定の端末では、動きを止める */
@@ -144,6 +148,9 @@
     <p class="lab">募集要項</p>
     <h1>正社員｜<wbr><span class="nw">配送ドライバー・</span><wbr><span class="nw">設置スタッフ</span></h1>
     <p style="word-break:auto-phrase">千葉県浦安市の本社と、埼玉県新座市の埼玉営業所で募集しています。<span class="nw">月給34万円〜</span>・週休2日制・残業なし。<span class="nw">2人1組</span>で家電を運び、取り付けます。先輩と一緒に覚えていけます。</p>
+    <p class="facts"><span class="nw">8:30〜17:30（残業なし）</span>／<span class="nw">未経験歓迎</span>／<span class="nw">運転免許がなくても応募できます</span></p>
+    <div class="hcta"><a class="btn line" href="https://lin.ee/pOsuIHw" target="_blank" rel="noopener" aria-label="LINEで応募・質問する（LINEが開きます）">LINEで応募・質問する</a></div>
+    <p class="hnote"><span class="nw">友だち追加のあと、</span><span class="nw">応募フォームが届きます。</span><span class="nw">履歴書はいりません。</span></p>
   </div>
 </header>
 
