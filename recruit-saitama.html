@@ -134,6 +134,12 @@
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 /* 2026-10-06 募集要項の最終更新日（ダッシュボードの改善案・おでん承認） */
 .req-upd{margin:8px 0 0;font-size:13px;color:#5b6470;text-align:right}
+  /* 2026-10-23 仕事の様子（自社の実写3枚）：他社の上位求人は写真5枚、このページは0枚だった */
+  .shots{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0 8px; }
+  .shots figure{ margin:0; }
+  .shots figure:first-child{ grid-column:1 / -1; }
+  .shots img{ display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; background:var(--rule); }
+  .shots figcaption{ margin-top:6px; font-size:14px; line-height:1.7; color:var(--gray); text-wrap:pretty; word-break:auto-phrase; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"JobPosting","identifier":{"@type":"PropertyValue","name":"有限会社エイト流通サービス","value":"eightds-saitama-4t"},"title":"4トントラックのドライバー（家電の配送・設置）","description":"<p>4トントラックを運転して、家電量販店で購入された冷蔵庫・洗濯機・テレビ・エアコンをお客様のご自宅へお届けし、設置します。いつも2人1組で伺います。未経験の方も歓迎です。</p><p>免許：中型・準中型免許をお持ちの方は優遇します。お持ちでない方も応募でき、入社してから取れます。</p><p>給与：月給35万円。20日締め・当月末払い。賞与年3回（7月・12月・3月）。昇給は随時。</p><p>勤務時間：8:00〜17:30（休憩1時間）、残業なし。休日：週休2日制（土日に出られる方は優遇します）。</p><p>勤務地：埼玉営業所（埼玉県新座市野火止2-11-25・新座駅から車で10分）。浦安本社との間の異動はありません。</p><p>待遇：社会保険完備／生命保険／家族手当／交通費支給（規定内）／制服貸与／遠方から引っ越して来る方には、引越し費用を支援します。試用期間なし。</p><p>応募：公式LINEまたは電話（047-381-0142）。履歴書はいりません。話を聞くだけでも大丈夫です。</p>","datePosted":"2026-10-15","validThrough":"2026-12-31T23:59:59+09:00","directApply":false,"employmentType":"FULL_TIME","industry":"家電の配送・設置・電気工事","hiringOrganization":{"@type":"Organization","name":"有限会社エイト流通サービス","sameAs":"https://eight-ds.com/","logo":"https://eight-ds.com/img/og2.jpg"},"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","postalCode":"352-0011","addressRegion":"埼玉県","addressLocality":"新座市","streetAddress":"野火止2-11-25","addressCountry":"JP"}},"baseSalary":{"@type":"MonetaryAmount","currency":"JPY","value":{"@type":"QuantitativeValue","unitText":"MONTH","value":350000}},"workHours":"8:00〜17:30（休憩1時間）／残業なし","url":"https://eight-ds.com/recruit-saitama.html","experienceRequirements":"no requirements"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://eight-ds.com/"},{"@type":"ListItem","position":2,"name":"採用情報","item":"https://eight-ds.com/recruit.html"},{"@type":"ListItem","position":3,"name":"4トントラックのドライバー（埼玉営業所）の募集要項","item":"https://eight-ds.com/recruit-saitama.html"}]}</script>
@@ -183,6 +189,13 @@
   <p><strong>月給35万円の正社員です。</strong>賞与は年3回。トラックを戻して報告したら、その日の仕事は終わりです（残業なし）。</p>
   <p><strong>免許は入社してからでも大丈夫です。</strong>中型・準中型免許をお持ちの方は優遇します。</p>
   <p><strong>土日に出られる方は優遇します。</strong>休日は週休2日制です。</p>
+
+  <h2 id="yousu">仕事の様子</h2>
+  <div class="shots">
+    <figure><img src="img/L4_台車.webp" srcset="img/w800/L4_台車.webp 800w, img/L4_台車.webp 1800w" sizes="(max-width:720px) 100vw, 680px" alt="先輩と2人で、洗濯機をトラックから降ろすところ" loading="lazy" decoding="async" width="1800" height="1200"><figcaption>いつも2人1組です。重い物も2人で運びます。</figcaption></figure>
+    <figure><img src="img/L5_受付_nc.webp" srcset="img/w800/L5_受付_nc.webp 800w, img/L5_受付_nc.webp 1665w" sizes="(max-width:720px) 50vw, 330px" alt="トラックの荷台で話す配送スタッフ2人" loading="lazy" decoding="async" width="1665" height="1110"><figcaption>荷台で話す配送スタッフ。</figcaption></figure>
+    <figure><img src="img/L2_トラック列.webp" srcset="img/w800/L2_トラック列.webp 800w, img/L2_トラック列.webp 1800w" sizes="(max-width:720px) 50vw, 330px" alt="トラックの前に並ぶ配送スタッフ4人" loading="lazy" decoding="async" width="1800" height="1200"><figcaption>配送スタッフ（浦安本社）。</figcaption></figure>
+  </div>
 
   <h2 id="niiza">埼玉営業所<span class="nw">（埼玉県新座市）</span></h2>
   <p>新座市<span class="nw">野火止2-11-25</span>。<span class="nw">新座駅から車で10分です。</span><span class="nw">社員8人が働いています。</span><br>
