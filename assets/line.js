@@ -119,7 +119,7 @@
     var mb = document.createElement('nav');
     mb.className = 'mbar';
     mb.setAttribute('aria-label', 'LINEと電話');
-    var ml = make('mbar-line', 'LINEで質問する');
+    var ml = make('mbar-line', 'LINEで応募・質問'); /* 11/13 レビュー：読み終えた人が押す帯に「応募」を入れる */
     ml.setAttribute('data-ga-place', 'mobile_bar');
     var mt = document.createElement('a');
     mt.className = 'mbar-tel'; mt.href = 'tel:0473810142'; mt.textContent = '電話する';
